@@ -1,0 +1,8 @@
+-if logged_in?
+  |
+  = link_to_current_user :content_method => :login
+  |
+  =link_to "Log out", logout_path
+-else
+  |
+  =link_to "Log in", login_path

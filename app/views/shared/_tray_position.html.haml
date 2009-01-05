@@ -1,0 +1,9 @@
+.asset{:id => "tray_#{tray_position.id}", :rel => tray_position.asset_id}
+  .icon=render_content_partial(tray_position.asset.content, :icon)
+  .type=tray_position.asset.content.media_type.upcase
+  .name=link_to tray_position.asset.name, asset_content_path(tray_position.asset.content)
+  .action
+    =link_to "edit", edit_asset_content_path(tray_position.asset.content)
+    -if tray_position.asset.classifications.size > 0
+      =button_to "Remove", [current_user, tray_position], :method => :delete
+  .clear

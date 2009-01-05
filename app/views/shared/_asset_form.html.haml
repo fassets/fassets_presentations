@@ -1,0 +1,7 @@
+-form_for model, :html => options do |f|  
+  -fields_for "#{model.class.to_s.underscore}[asset_attributes]", asset do |asset|
+    %p
+      %label{:for => 'name'} Name:
+      =asset.text_field :name
+  =render :partial => "form", :object => f
+  =submit_button submit

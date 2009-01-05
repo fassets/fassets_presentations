@@ -1,0 +1,34 @@
+=include_js "catalog_show"
+-content_for :h1 do
+  #type Catalog
+  #name
+    =@catalog.title
+    -if logged_in?
+      %span.action
+        =link_to "edit", edit_catalog_path(@catalog)
+#sidebar
+  %h2
+    Facets
+    -if logged_in?
+      =form_toggle_link "new"
+  -if logged_in?
+    -form_for [@catalog, Facet.new] do |f|
+      =render :partial => "/facets/form", :object => f
+      =submit_button "Create"
+  =render :partial => "facet", :collection => @catalog.facets  
+
+
+#main
+  -if @filter.empty?
+    %h2 Assets
+  -else
+    %h2 Filtered Assets
+    #filter
+      %ul
+        =render :partial => "filter_item", :collection => Label.in(@filter)    
+        %li{:style => "clear:both"}=link_to "clear", catalog_path(@catalog)
+  #assets
+    =render :partial => "shared/asset", :collection => @assets
+
+
+  

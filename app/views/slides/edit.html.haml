@@ -1,0 +1,27 @@
+=include_js "slide_edit.js"
+
+-content_for :h1 do
+  #type
+    %small Presentation
+    Slide
+  #title
+    %small=link_to @presentation.asset.name, edit_presentation_path(@presentation)
+    =@slide.title
+    %span.action
+      =link_to "show", presentation_slide_path(@presentation, @slide)
+  #action
+    =button_to "Delete", [@presentation, @slide], :method => :delete
+      
+#sidebar
+  =render :partial => "/presentations/slides", :locals => {:presentation =>  @presentation}
+  
+#main
+  -form_for  [@presentation,  @slide] do |f|
+    =render :partial => "form", :object => f
+    %h2 Slots
+    %ul#slots
+      =render :partial => "slot", :collection => @slide.slots
+    =submit_button "Save"
+    
+
+  

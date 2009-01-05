@@ -1,0 +1,46 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+
+}
+img {
+	border: 0;
+}
+
+#slide {
+	position:relative;
+}
+
+#header {
+	position:relative;
+	height: 20%;
+	background-color: #222;
+	color: white;
+}
+#header h1 {
+	position: absolute;
+	left: 2%;
+	bottom: 0.1em;
+	font-size: 1.4em;
+}
+#content {
+	width: 96%;
+	height: 70%;
+	margin: auto;
+	position:relative;
+}
+#content ul {
+	padding-left: 2em;
+}
+#content ul li{
+	padding: .3em;
+}
+#footer {
+	position: absolute;
+	background-color: #d2d2d2;
+	width: 100%;
+	bottom: 0;
+}

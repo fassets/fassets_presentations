@@ -1,0 +1,1 @@
+page << %Q{ $("#tray_#{@tray_position.id}").remove(); }

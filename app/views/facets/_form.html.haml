@@ -1,0 +1,9 @@
+%p
+  %label{:for => 'caption'} Caption:
+  =form.text_field :caption
+%p
+  %label{:for => 'order'} Label Order:
+  =select(:facet, :label_order, Facet::LABEL_ORDER)
+%p
+  %label{:for => 'color'} Color:
+  =select(:facet, :color, %w(red orange yellow green blue violet gray))

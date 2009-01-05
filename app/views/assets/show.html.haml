@@ -1,0 +1,7 @@
+-content_for :h1 do
+  #type
+    =@content.media_type.capitalize
+  #name
+    =@content.asset.name
+    
+=render_content_partial(@content, :preview) 

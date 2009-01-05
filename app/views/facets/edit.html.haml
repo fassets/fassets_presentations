@@ -1,0 +1,33 @@
+-if @facet.label_order == 'position'
+  =include_js "facet_edit.js"
+-content_for :h1 do
+  #type
+    %small Catalog
+    Facet
+  #title
+    %small=link_to @catalog.title, catalog_path(@catalog)
+    =@facet.caption
+  #action
+    =button_to "To Tray", [@catalog, @facet], :method => :delete
+    =button_to "Delete", [@catalog, @facet], :method => :delete
+#sidebar
+  %h2
+    Labels
+    =form_toggle_link "new" 
+  -form_for [@catalog, @facet, Label.new] do |f|
+    =render :partial => "/labels/form", :object => f
+    =submit_button "Create"
+
+  %ul.collection{:class => "drawers", :id => "labels"}
+    -@facet.ordered_labels.each do |label|
+      %li{:id => "label_#{label.id}"}
+        .handle
+          =label.caption
+        .content
+          -form_for [@catalog, @facet, label] do |f|
+            =render :partial => "/labels/form", :object => f
+            =submit_button "Save" 
+#main  
+  -form_for [@catalog, @facet] do |f|
+    =render :partial => "form", :object => f
+    =submit_button "Save"

@@ -1,0 +1,4 @@
+2column: 
+    slots: [left, right]
+vertical2:
+    slots: [left, right]

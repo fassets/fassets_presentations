@@ -1,0 +1,10 @@
+
+-content_for :h1 do
+  #type Catalog
+  #name
+    =@catalog.title
+    %span.action
+      =link_to "browse", catalog_path(@catalog)
+-form_for @catalog do |f|
+  =render :partial => "form", :object => f
+  =submit_button "Save", link_to("Cancel", catalog_path(params[:id]))

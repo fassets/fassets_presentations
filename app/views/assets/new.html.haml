@@ -1,0 +1,16 @@
+-content_for :h1 do
+  #type
+    =@content.class.to_s
+  #name
+    New
+  
+-form_for @content, :html => {:multipart => true} do |f|  
+  -fields_for "#{@content.class_underscore}[asset_attributes]" do |asset|
+    %p
+      %label{:for => 'name'} Name:
+      =asset.text_field :name
+    %p
+      %label{:for => 'publish'} Publish:
+      =asset.check_box :publish
+  =render :partial => content_partial(@content, "form"), :object => f
+  =submit_button "Create"

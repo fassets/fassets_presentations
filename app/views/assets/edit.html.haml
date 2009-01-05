@@ -1,0 +1,18 @@
+-content_for :h1 do
+  #type
+    =@content.media_type.capitalize
+  #title
+    =@content.asset.name
+    %span.action
+      =link_to "show", url_for(@content)
+  #action
+    =button_to "Delete", [@content], :method => :delete
+
+    
+#sidebar
+  =render :partial => "shared/classification", :locals => {:asset => @content.asset}
+  =render :partial => content_partial(@content, "sidebar")
+
+#main
+  =render :partial => "assets/form"
+  =render_content_partial(@content, :preview) 

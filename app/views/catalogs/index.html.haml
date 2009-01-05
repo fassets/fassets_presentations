@@ -1,0 +1,7 @@
+-content_for :h1 do
+  Catalogs
+  -if logged_in?
+    %span.action
+      =link_to "new", new_catalog_path
+  
+=render :partial => "catalog", :collection => @catalogs

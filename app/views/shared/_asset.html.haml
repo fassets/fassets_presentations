@@ -1,0 +1,8 @@
+.asset{:id => "asset_#{asset.id}", :class => "in_catalog"}
+  .icon=render_content_partial(asset.content, :icon)
+  .type=asset.content.media_type.upcase
+  .name=link_to asset.name, asset_content_path(asset.content)
+  -if logged_in?
+    .action
+      =link_to "edit", edit_asset_content_path(asset.content)
+  .clear
