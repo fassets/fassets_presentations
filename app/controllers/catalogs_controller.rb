@@ -1,6 +1,6 @@
 class CatalogsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
-  
+
   before_filter :find_catalog, :except => [:index, :new, :create]
   def index
     @catalogs = Catalog.all
@@ -25,9 +25,16 @@ class CatalogsController < ApplicationController
   def edit
     @catalog = Catalog.find(params[:id])
   end
+  def update
+    if @catalog.update_attributes(params[:catalog])
+      redirect_to catalog_path(@catalog)
+    else
+      render :action => 'edit'
+    end
+  end
   def destroy
     @catalog.destroy
-    redirect_to "/"    
+    redirect_to "/"
   end
 protected
   def find_catalog

@@ -1,5 +1,4 @@
-.center_vertically{:style => "position: absolute;  width: 30%" }
-  =render_slot("left")
-  
-.center_vertically{:style => "position: relative;  left: 52%; width: 50%"}
-  =render_slot("right")
+#left.slot{:style => "position: relative; float: left; width: 48%; height: 100%"}
+  =render_slot(slide.slot("left"), "center")
+#right.slot{:style => "position: relative; float: right; width: 48%; height: 100%;"}
+  =render_slot(slide.slot("right"), "center")

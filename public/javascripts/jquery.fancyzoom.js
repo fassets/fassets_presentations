@@ -23,10 +23,11 @@
 	 	var oOverlay = $('<div>').css({
 			height: '100%',
 			width: '100%',
-   			position:'fixed',
+   			position:'absolute',
 			left: 0,
 			top: 0,
-			cursor:"wait"
+			cursor:"wait",
+			zIndex:1
 		});
 		function openZoomBox(imgSrc,o){
 			if(o.showoverlay) {
@@ -44,7 +45,7 @@
 
 			//calculate the end point of the animaton
             var oImgDisplay = $('img', oImgZoomBox);
-			oImgZoomBox.css({'opacity':0,'text-align':'center','border':'0px solid red'}).appendTo('body');
+			oImgZoomBox.css({'opacity':0,'text-align':'center','border':'0px solid red', 'z-index':'2'}).appendTo('body');
 			var iWidth = oImgZoomBox.outerWidth();
 			var iHeight = oImgZoomBox.outerHeight();
 
@@ -103,6 +104,9 @@
    				imgTargetSrc = encodeURI($this.attr('src'));
    				$this.css('cursor','pointer');
    			}
+			if($this.is('li')){
+				imgTargetSrc = encodeURI($this.css('background-image'));
+			}
 			// build main options before element iteration		
 	    	var opts = $.extend({},$.fn.fancyzoom.defaultsOptions, userOptions||{},{dimOri:{},
 	    		oImgZoomBoxProp:{position:'absolute',left:0,top:0}
@@ -231,10 +235,10 @@
     //Default Options
     $.fn.fancyzoom.defaultsOptions = {
     	overlayColor: '#000',
-    	overlay: 0.6,
+    	overlay: 0.9,
     	showoverlay:false,
     	Speed:400,
-    	shadowOpts:{ color: "#000", offset: 4, opacity: 0.2 },
+    	shadowOpts:{ color: "#000", offset: 8, opacity: 0.6 },
     	imgDir:strImgDir
  	 };
  	 

@@ -9,10 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 15) do
+ActiveRecord::Schema.define(:version => 17) do
 
   create_table "assets", :force => true do |t|
     t.string   "name"
+    t.boolean  "public"
     t.integer  "content_id"
     t.string   "content_type"
     t.integer  "user_id"
@@ -44,6 +45,8 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
+    t.integer  "file_width"
+    t.integer  "file_height"
     t.datetime "file_updated_at"
   end
 
@@ -64,6 +67,16 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string "template"
   end
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "slides", :force => true do |t|
     t.integer "presentation_id"
     t.string  "title"
@@ -72,17 +85,12 @@ ActiveRecord::Schema.define(:version => 15) do
     t.text    "content"
   end
 
-  create_table "slots", :force => true do |t|
-    t.integer "slide_id"
-    t.string  "name"
-    t.text    "body"
-    t.integer "asset_id"
-  end
-
   create_table "tray_positions", :force => true do |t|
     t.integer "user_id"
     t.integer "position"
     t.integer "asset_id"
+    t.string  "clipboard_type"
+    t.integer "clipboard_id"
   end
 
   create_table "urls", :force => true do |t|

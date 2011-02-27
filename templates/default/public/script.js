@@ -6,12 +6,12 @@ var Slide = {
 		return $(window).height();
 	},
 	syncSize: function() {
-		var size = Slide.height() / 25;
+		var size = Slide.height() / 30;
 	    $("body").css("font-size", size + 'px');
-	    $("#slide").css("width", Slide.width() + 'px');
-	    $("#slide").css("height", Slide.height() + 'px');
+	    $(".slide").css("width", Slide.width() + 'px');
+	    $(".slide").css("height", Slide.height() + 'px');
 
-		
+		/*
 		$(".fit").each(function() {
 			if (!$(this).data('dimensions')) {
 				!$(this).data('dimensions', {
@@ -51,7 +51,7 @@ var Slide = {
 			$(this).width(new_width);
 			$(this).height(new_height);
 			console.log("" + new_width + "x" + new_height + " parent: " + parent.width() + "x" + parent.height() + " parent_id: " + parent.attr("id"));
-		});
+		});*/
 		
 		//Align vertically centered elements
 		$(".center_vertically").each(function() {
@@ -66,9 +66,17 @@ $(window).ready(function(){
 	Slide.syncSize();
 });
 $(window).resize(function(){
+	console.log("resize event")
+	Slide.syncSize();
+});
+
+/*$(window).ready(function(){
+	Slide.syncSize();
+});
+$(window).resize(function(){
 	Slide.syncSize();
 });
 
 $("#content").click(function(){
 	alert("this.width()");
-})
+})*/

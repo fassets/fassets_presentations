@@ -5,13 +5,9 @@
     =stylesheet_link_tag 'master'
     =javascript_include_tag "jquery.js"
     =javascript_include_tag "jquery-ui.js"
-    =javascript_include_tag "jquery.form.js"
-    =javascript_include_tag "jquery.inspect.js"
     =javascript_include_tag "jquery.fancyzoom.js"
     =javascript_include_tag "flowplayer.js"
-    =javascript_tag "var HOST = '#{request.host}:#{request.port}'; '#{form_authenticity_token}';var AUTH_TOKEN = '#{form_authenticity_token}';"
-    -if current_user 
-      =javascript_tag "var CURRENT_USER = '#{current_user.id}';"
+    =javascript_include_tag "dombuilder.js"
     =javascript_include_tag "application.js"
     =yield :head
     %title
@@ -19,14 +15,32 @@
       =yield :title
   %body
     #header
-      %em
-        =link_to "FASSETS", "/"
-      =catalog_selector
+      -if flash[:notice]
+        #message=flash[:notice]
+      =link_to "FASSETS", "/", :class => "home"
+      %ul.selector
+        -unless @catalog
+          %li=link_to "Catalogs...", "/"
+        -Catalog.all.each do |catalog|
+          %li
+            =link_to catalog.title, catalog_path(catalog), :class => @catalog && @catalog.id == catalog.id ? "active" : nil
       =render :partial => "shared/session"
     %h1=yield :h1
     #container
       =yield :layout
       .clear
-    =render :partial => "shared/tray"
-    #footer
-      Facetted Asset Management System
+    -if logged_in?
+      -form_tag(replace_user_tray_positions_path(current_user), :id => "tray", :method => :put) do
+        %ul
+          /%li=link_to "Create Asset...", "/"
+          %li=link_to "New URL", new_url_path
+          %li=link_to "New File", new_file_asset_path
+          %li=link_to "New Presentation", new_presentation_path
+        %ol.sortable{:id => "users.#{current_user.id}.tray_positions.replace"}
+          -current_user.tray_positions.each do |tp|
+            -if tp.clipboard_type
+              =render :partial => "shared/clipboard", :locals => {:tp => tp}
+            -else
+              =render :partial => "shared/asset", :locals => {:tp => tp, :asset => tp.asset}
+          %li.clear
+        =submit_tag "Drop Selected"

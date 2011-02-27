@@ -5,14 +5,11 @@
     =@catalog.title
     -if logged_in?
       %span.action
-        =link_to "edit", edit_catalog_path(@catalog)
+        =link_to image_tag("edit.png"), edit_catalog_path(@catalog)
 #sidebar
-  %h2
-    Facets
-    -if logged_in?
-      =form_toggle_link "new"
+  %h2 Facets
   -if logged_in?
-    -form_for [@catalog, Facet.new] do |f|
+    -form_for [@catalog, Facet.new], :html => {:class => 'collapsable'} do |f|
       =render :partial => "/facets/form", :object => f
       =submit_button "Create"
   =render :partial => "facet", :collection => @catalog.facets  
@@ -22,12 +19,13 @@
   -if @filter.empty?
     %h2 Assets
   -else
-    %h2 Filtered Assets
+    %h2
+      Filtered Assets
     #filter
       %ul
         =render :partial => "filter_item", :collection => Label.in(@filter)    
-        %li{:style => "clear:both"}=link_to "clear", catalog_path(@catalog)
-  #assets
+        %li{:style => "clear:both"}=link_to "clear filter", catalog_path(@catalog), :class => "icon remove"
+  %ul#assets{:class => 'sortable'}
     =render :partial => "shared/asset", :collection => @assets
 
 

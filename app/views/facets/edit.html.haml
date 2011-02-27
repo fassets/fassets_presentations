@@ -1,5 +1,3 @@
--if @facet.label_order == 'position'
-  =include_js "facet_edit.js"
 -content_for :h1 do
   #type
     %small Catalog
@@ -8,21 +6,17 @@
     %small=link_to @catalog.title, catalog_path(@catalog)
     =@facet.caption
   #action
-    =button_to "To Tray", [@catalog, @facet], :method => :delete
     =button_to "Delete", [@catalog, @facet], :method => :delete
 #sidebar
-  %h2
-    Labels
-    =form_toggle_link "new" 
-  -form_for [@catalog, @facet, Label.new] do |f|
+  %h2 Labels
+  -form_for [@catalog, @facet, Label.new], :html => {:class => "collapsable"} do |f|
     =render :partial => "/labels/form", :object => f
     =submit_button "Create"
 
-  %ul.collection{:class => "drawers", :id => "labels"}
+  %ol.collection{:class => @facet.label_order == 'position' ? "sortable" : nil, :id => "catalogs.#{@catalog.id}.facets.#{@facet.id}.labels.sort"}
     -@facet.ordered_labels.each do |label|
-      %li{:id => "label_#{label.id}"}
-        .handle
-          =label.caption
+      %li{:id => "label_#{label.id}", :class => "collapsable"}
+        =label.caption
         .content
           -form_for [@catalog, @facet, label] do |f|
             =render :partial => "/labels/form", :object => f

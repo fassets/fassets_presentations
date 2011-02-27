@@ -2,12 +2,13 @@ class Slide < ActiveRecord::Base
   belongs_to :presentation
   acts_as_list :scope => :presentation
   alias :previous :higher_item 
-  alias :next :lower_item 
+  alias :next :lower_item
+  has_many :tray_positions, :as => :clipboard, :dependent => :destroy
 
   serialize :content
   
   def slot(name)
-    Slot.new(name, content[name])# if content && content[name]
+    Slot.new(name, content[name]) if content && content[name]
   end
   def slots
     slot_names = []
@@ -24,5 +25,8 @@ class Slide < ActiveRecord::Base
       end
     end
     slots
+  end
+  def path
+    "/presentations/#{presentation.id}/slides/#{id}"
   end
 end

@@ -12,7 +12,8 @@ class FileAsset < ActiveRecord::Base
 
   acts_as_asset
   has_attached_file :file,
-    :url => "/files/:id/:style.:extension",
+    :url => "/uploads/:id/:style.:extension",
+    #:url => "/files/:id/:style.:extension",
     :path => ":rails_root/public/uploads/:id/:style.:extension",
     :styles => {
       :thumb => "48x48#",
@@ -24,5 +25,8 @@ class FileAsset < ActiveRecord::Base
   end    
   def file_updated_at
     Time.now
+  end
+  def icon
+    media_type == 'image' ? file.url(:thumb) : "/images/#{media_type}.png"
   end
 end

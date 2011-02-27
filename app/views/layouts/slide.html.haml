@@ -7,9 +7,9 @@
     =javascript_include_tag "jquery-ui.js"
     =javascript_include_tag "jquery.fancyzoom.js"
     =javascript_include_tag "flowplayer.js"
-    =javascript_include_tag "/templates/#{@presentation.template}/script.js"
-    %title
-      =yield :title
+    =javascript_include_tag "dombuilder.js"
+    =javascript_include_tag "presentation.js"
+    %title=@presentation.title
   %body
     =yield :layout
   

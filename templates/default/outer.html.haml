@@ -1,14 +1,9 @@
-#slide
-  #header
-    %h1=@slide.title
-  #content
-    =@inner_template
-  #footer
-    -count = 0
-    -@presentation.slides.each do |slide|
-      -count = count + 1
-      -if slide.id == @slide.id
-        =count
-      -else
-        =link_to count, presentation_slide_path(@presentation, slide)
-    =@presentation.title
+.header
+  =link_to "edit", edit_presentation_slide_path(slide.presentation, slide)
+  -unless slide.title == "Title"
+    %h1=slide.title
+.content
+  =content
+.footer
+  %span.title=presentation.title
+  %span.position="#{slide.position}/#{presentation.slides.count}"

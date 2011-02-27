@@ -1,12 +1,13 @@
 $(function(){
-	$("#assets .asset").draggable({
-		helper: 'clone', 
-		connectToSortable: "#tray",
+	$("#assets li.asset").draggable({
+		handle: ".handle",
+		helper: "clone",
+		connectToSortable: "#tray ol",
 		start:function(e, ui) {
-			$('#tray').addClass("active");
+			$('#tray ol').addClass("active");
 		}, 
 		stop:function(e, ui) {
-			$('#tray').removeClass("active");
+			$('#tray ol').removeClass("active");
 		}
 	});
 });

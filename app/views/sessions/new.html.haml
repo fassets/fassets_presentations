@@ -1,23 +1,14 @@
 -content_for :h1 do
-  #type
-    Session
-  #title
-    Login
-#content
-  -form_tag session_path do
-    %p
-      %label{:for => 'title'} Login:
-      =text_field_tag :login, @login
-    %p
-      %label{:for => 'password'} Password:
-      =password_field_tag :password, nil
-        
-      =submit_button "Log in"
-#left
+  #type Session
+  #title New
 
+-form_tag session_path do
+  %p
+    %label{:for => 'title'} Login:
+    =text_field_tag :login, @login
+  %p
+    %label{:for => 'password'} Password:
+    =password_field_tag :password, nil
 
-/Uncomment this if you want this functionality
-/<p><%= label_tag 'remember_me', 'Remember me' %>
-/<%= check_box_tag 'remember_me', '1', @remember_me %></p>
-
+    =submit_button "Log in"
 

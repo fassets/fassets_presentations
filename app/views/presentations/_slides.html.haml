@@ -1,14 +1,12 @@
-%h2
-  Slides
-  =form_toggle_link "new"
--form_for [presentation, Slide.new] do |f|
+%h2 Slides
+-form_for [presentation, Slide.new], :html => {:class => "collapsable"} do |f|
   =render :partial => "/slides/form", :object => f, :locals => {:presentation => presentation}
   =submit_button "Create"
-  
-%ul.collection
-  -presentation.slides.each do |slide|
-    %li
-      .handle
+
+%div{:id => "presentations.#{presentation.id}.slides"}
+  %ol.collection{:id => "presentations.#{presentation.id}.slides.sort", :class => 'sortable'}
+    -presentation.slides.each do |slide|
+      %li[slide]
         -if @slide && @slide.id == slide.id
           =slide.title
         -else

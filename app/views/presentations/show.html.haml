@@ -1,0 +1,3 @@
+-@presentation.slides.each do |slide|
+  %div.slide{:id => slide.position, :alt => slide.title}
+    =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => slide, :presentation => @presentation, :content => render_inner_template(slide)}

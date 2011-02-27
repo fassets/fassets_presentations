@@ -6,11 +6,14 @@
     Slide
   #title
     %small=link_to @presentation.asset.name, edit_presentation_path(@presentation)
-    =@slide.title
+    =link_to @slide.title, presentation_slide_path(@presentation, @slide)
     %span.action
-      =link_to "show", presentation_slide_path(@presentation, @slide)
-  #action
-    =button_to "Delete", [@presentation, @slide], :method => :delete
+      =button_to "Delete", [@presentation, @slide], :method => :delete
+      -form_for [current_user, TrayPosition.new(:user_id => current_user.id, :clipboard_type => 'slide', :clipboard_id => @slide.id)], :html => {:class => :inline} do |f|
+        =f.hidden_field :user_id
+        =f.hidden_field :clipboard_id
+        =f.hidden_field :clipboard_type
+        =submit_tag "Put on Tray"
       
 #sidebar
   =render :partial => "/presentations/slides", :locals => {:presentation =>  @presentation}

@@ -12,7 +12,8 @@ class ClassificationsController < ApplicationController
     redirect_to url_for(@classification.asset.content) + "/edit"
   end
   def update
-    @classification.update_attributes(params[:classification])
+    @classification.label_ids = params[:labels]
+    flash[:notice] = "Updated Classification"
     redirect_to url_for(@classification.asset.content) + "/edit"
   end
   

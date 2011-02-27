@@ -1,0 +1,26 @@
+%h2 Classification
+-form_for Classification.new(:asset_id => @content.asset.id), :html=>{:class => 'collapsable'} do |f|
+  %p
+    %label{:for => 'catalog_id'} Catalog:
+    =select("classification", "catalog_id", Catalog.all.inject([]){|m,c| m << [c.title, c.id]})
+  =f.hidden_field :asset_id
+  =submit_tag "Create"    
+    
+%ul.collection
+  -catalogs = []
+  -@content.asset.classifications.each do |classification|
+    -catalogs << classification.catalog_id
+    %li.collapsable
+      =link_to classification.catalog.title, catalog_path(classification.catalog)
+      .content
+        -form_for classification, :method => :put do |f|
+          -classification.catalog.facets.each do |facet|
+            .facet{:class => "#{facet.color}_lite"}
+              .caption{:class => facet.color}
+                =facet.caption
+              %ul
+                -facet.labels.each do |label|
+                  %li.label
+                    =check_box_tag "labels[]", label.id, classification.label_ids.include?(label.id)
+                    =link_to label.caption.gsub(' ', "&nbsp;")
+          =submit_tag "Save"

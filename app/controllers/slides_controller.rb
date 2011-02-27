@@ -1,32 +1,42 @@
 class SlidesController < ApplicationController
   before_filter :login_required, :except => [:show]
   before_filter :find_presentation
-  before_filter :find_slide, :except => [:new, :create]
+  before_filter :find_slide, :except => [:new, :create, :sort]
   def create
-    slide =  @presentation.slides.build(params[:slide])
-    if slide.save
-      redirect_to edit_presentation_slide_path(@presentation, slide) 
+    if params[:id]
+      slide = Slide.find(params[:id]).clone();
+      slide.presentation_id = @presentation.id
     else
-      edit_presentation_path(@presentation)
+      slide =  @presentation.slides.build(params[:slide])
+    end
+    respond_to do |format|
+      if slide.save
+        format.html {redirect_to edit_presentation_slide_path(@presentation, slide)}
+        format.json {render :status => :created, :json => slide.to_json}
+      else
+        format.html {edit_presentation_path(@presentation)}
+        format.json {render :status => :unprocessable_entity, :json => slide.errors.to_json}
+      end
     end
   end
   def update
     @slide.update_attributes(params[:slide])
-    redirect_to edit_presentation_slide_path(@presentation, @slide) 
+    redirect_to edit_presentation_slide_path(@presentation, @slide)
   end
   def show
-    template_path = File.join(TEMPLATE_PATH, @presentation.template).to_s
-    outer_template = File.join(template_path, "outer.html.haml").to_s
-    inner_template = File.join(template_path, "#{@slide.template}.html.haml").to_s
-    
-    @inner_template = render_to_string(:file => inner_template)
-                                        
-    render :file => outer_template,
-           :layout => "slide"
+    redirect_to presentation_path(@presentation) + "##{@slide.position}"
   end
   def destroy
     @slide.destroy
     redirect_to edit_presentation_path(@presentation)
+  end
+
+  def sort
+    params[:slide].each_with_index do |id, position|
+      slide = @presentation.slides.find(id)
+      slide.update_attribute(:position, position+1)
+    end
+    render :text => 'ok'
   end
 protected
   def find_presentation

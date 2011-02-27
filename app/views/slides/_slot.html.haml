@@ -9,8 +9,8 @@
     =hidden_field_tag "slide[content][#{slot.name}][asset_id]", slot['asset_id']
     .slot_asset{:style =>  slot["mode"] == "asset" ? "" : "display:none"}
       -if slot.asset
-        =render :partial => "shared/asset", :locals => {:asset => slot.asset}
+        =render :partial => "shared/asset", :locals => {:asset => slot.asset, :tp => nil}
       -else
         Drop Asset Here!
     .clear
-    =text_area_tag "slide[content][#{slot.name}][markup]", slot["markup"], :rows => 4, :style => slot["mode"] == "asset" ?  "display:none" : ""
+    =text_area_tag "slide[content][#{slot.name}][markup]", slot["markup"], :rows => 10, :style => slot["mode"] == "asset" ?  "display:none" : ""

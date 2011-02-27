@@ -4,6 +4,8 @@ class CreateFileAssets < ActiveRecord::Migration
       t.string :file_file_name
       t.string :file_content_type
       t.integer :file_file_size
+      t.integer :file_width
+      t.integer :file_height
       t.datetime :file_updated_at
     end
   end

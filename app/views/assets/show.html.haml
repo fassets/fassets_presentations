@@ -3,5 +3,8 @@
     =@content.media_type.capitalize
   #name
     =@content.asset.name
-    
+    -if logged_in?
+      %span.action
+        =link_to image_tag("edit.png"), url_for(@content) + "/edit"
+        =render :partial => "assets/put_on_tray"
 =render_content_partial(@content, :preview) 

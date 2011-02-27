@@ -1,10 +1,8 @@
 -if logged_in?
-  #tray_bar
-    =link_to "Upload File", new_file_asset_url
-    |
-    =link_to "New URL", new_url_url
-    |
-    =link_to "New Presentation", new_presentation_url          
+
   #tray
-    =render :partial => "shared/tray_position", :collection => current_user.tray_positions
-  .clear
+    %ul
+      %li=select_tag([["test", 1]])
+      %li
+    %ol
+      =render :partial => "shared/tray_position", :collection => current_user.tray_positions

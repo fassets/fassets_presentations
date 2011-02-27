@@ -8,7 +8,7 @@ class Asset < ActiveRecord::Base
   after_create :put_on_tray
 
   def publish=(test)
-  end  
+  end
   def published=(test)
   end
   def published
@@ -39,7 +39,7 @@ class Asset < ActiveRecord::Base
     end
     count options
   end
-    
+
   def put_on_tray
     tray_positions.create(:user_id => user.id)
   end

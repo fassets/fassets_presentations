@@ -1,8 +1,13 @@
-.asset{:id => "asset_#{asset.id}", :class => "in_catalog"}
-  .icon=render_content_partial(asset.content, :icon)
-  .type=asset.content.media_type.upcase
-  .name=link_to asset.name, asset_content_path(asset.content)
-  -if logged_in?
-    .action
-      =link_to "edit", edit_asset_content_path(asset.content)
-  .clear
+%li.asset{:id => tp ? "tp_#{tp.id}" : "asset_#{asset.id}", :rel => tp ? asset.id : nil}
+  .icon
+    =render_content_partial(asset.content, :icon)
+  =link_to asset.name.gsub(" ", "&nbsp;"), asset_content_path(asset.content), :class => "caption"
+  .type
+    =asset.content.media_type.upcase
+  .action
+    -if logged_in?
+      =link_to image_tag("edit.png", :width => 15,  :height => 15), edit_asset_content_path(asset.content)
+      =image_tag "drag.png", :width => 12, :height => 13, :class => "handle"
+  -if tp
+    =check_box_tag "del[]", tp.id
+

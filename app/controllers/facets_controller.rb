@@ -31,15 +31,6 @@ class FacetsController < ApplicationController
     @catalog.destroy
     redirect_to catalog_path(@catalog)
   end
-  
-  def sort
-    params[:tray].each_with_index do |id, position|
-      Label.update(id, :position => position+1)
-    end
-    respond_to do |format|
-      format.js {render :nothing  => true}
-    end
-  end  
 protected
   def find_catalog
     @catalog = Catalog.find(params[:catalog_id])
