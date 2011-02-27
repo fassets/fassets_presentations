@@ -5,8 +5,8 @@
       =link_to image_tag("edit.png"), edit_catalog_facet_path(@catalog, facet)
   %ul{:class => "#{facet.color}_lite"}
     -facet.labels.each do |label|
-      -if @counts[label.id.to_s] && !@filter.include?(label.id)
+      -if @counts[label.id] && !@filter.include?(label.id)
         %li.label
           =link_to label.caption.gsub(' ', "&nbsp;"), catalog_path(@catalog, :filter => @filter.to_query_include(label.id))
-          -if @counts[label.id.to_s] > 1
-            %span.count="#{@counts[label.id.to_s]}&#215"
+          -if @counts[label.id] > 1
+            %span.count="#{@counts[label.id]}&#215"

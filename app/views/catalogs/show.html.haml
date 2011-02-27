@@ -26,7 +26,5 @@
         =render :partial => "filter_item", :collection => Label.in(@filter)    
         %li{:style => "clear:both"}=link_to "clear filter", catalog_path(@catalog), :class => "icon remove"
   %ul#assets{:class => 'sortable'}
-    =render :partial => "shared/asset", :collection => @assets
+    =render :partial => "shared/asset", :collection => @assets, :locals => {:tp => nil}
 
-
-  
