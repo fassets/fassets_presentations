@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(:version => 17) do
     t.text    "content"
   end
 
+  create_table "slots", :force => true do |t|
+    t.integer "slide_id"
+    t.string  "name"
+    t.text    "body"
+    t.integer "asset_id"
+  end
+
   create_table "tray_positions", :force => true do |t|
     t.integer "user_id"
     t.integer "position"
