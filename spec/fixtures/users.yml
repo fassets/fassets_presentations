@@ -7,4 +7,10 @@ one:
   email: bond@example.com
 
 two: {}
-#  column: value
+
+fred:
+  id: 2
+  login: fred
+  crypted_password: 49325e18e966fb1332399a91210f556036fdb19e # 'vom Jupiter'
+  salt: 78ec66ca2a876cb42db1aca0b991482e96d1d38a
+  email: fred@somewhere.jupiter.pl
