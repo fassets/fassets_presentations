@@ -182,12 +182,8 @@ module Markup
     def parse_list(bullet)
       stack = []
       while true do
-        puts @input[@pos..@input.size + 1]
-        puts "-----------"
         next_item = @input.index(/\n(\*|#)/,  @pos)
         list_end = @input.index(/\n[ \t]*(&|\$|\w|\n)/,  @pos) || @input.size + 1
-        puts "nxt itm:#{next_item}"
-        puts "lst end:#{list_end}"        
         inline_end = [next_item || @input.size + 1, list_end].min
         line = @input[@pos..inline_end]
 
@@ -242,14 +238,10 @@ module Markup
       @pos = prev_pos
       return doc
     end
-  end 
-  
-  
+  end
+
   def Markup.to_html(input)
     BlockParser.new(input.gsub(/\r\n/, "\n")).parse.to_html
   end
 end
 
-
-test = "*a\n&b{\n*c}"
-puts Markup.to_html(test)
