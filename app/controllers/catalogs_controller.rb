@@ -34,7 +34,7 @@ class CatalogsController < ApplicationController
   end
   def destroy
     @catalog.destroy
-    redirect_to "/"
+    redirect_to root_url
   end
 protected
   def find_catalog

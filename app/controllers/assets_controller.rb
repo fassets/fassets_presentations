@@ -35,7 +35,7 @@ class AssetsController < ApplicationController
   def destroy
     flash[:notice] = "Asset has been deleted!"
     @content.destroy
-    redirect_to "/"
+    redirect_to root_url
   end
 
 protected
@@ -45,6 +45,6 @@ protected
   def find_content
     @content = @@content_model.find(params[:id])
   rescue ActiveRecord::RecordNotFound => e
-    redirect_to "/"
+    redirect_to root_url
   end
 end

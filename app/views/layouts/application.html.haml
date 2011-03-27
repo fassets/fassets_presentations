@@ -17,10 +17,10 @@
     #header
       -if flash[:notice]
         #message=flash[:notice]
-      =link_to "FASSETS", "/", :class => "home"
+      =link_to "FASSETS", root_url, :class => "home"
       %ul.selector
         -unless @catalog
-          %li=link_to "Catalogs...", "/"
+          %li=link_to "Catalogs...", root_url
         -Catalog.all.each do |catalog|
           %li
             =link_to catalog.title, catalog_path(catalog), :class => @catalog && @catalog.id == catalog.id ? "active" : nil
@@ -32,7 +32,7 @@
     -if logged_in?
       -form_tag(replace_user_tray_positions_path(current_user), :id => "tray", :method => :put) do
         %ul
-          /%li=link_to "Create Asset...", "/"
+          /%li=link_to "Create Asset...", root_url
           %li=link_to "New URL", new_url_path
           %li=link_to "New File", new_file_asset_path
           %li=link_to "New Presentation", new_presentation_path
