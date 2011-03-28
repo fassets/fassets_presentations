@@ -7,18 +7,11 @@ module ActiveRecord
       module ClassMethods
         def acts_as_asset
           has_one :asset, :as => :content, :dependent => :destroy
-          after_save :save_asset
+          accepts_nested_attributes_for :asset
           include ActiveRecord::Acts::Asset::InstanceMethods
         end
       end
       module InstanceMethods
-        def asset_attributes=(attributes)
-          if asset
-            asset.attributes = attributes
-          else
-            build_asset(attributes)
-          end
-        end
         def name
           asset.name
         end
@@ -32,9 +25,6 @@ module ActiveRecord
           "/images/#{media_type}.png"
         end
         protected
-          def save_asset
-            asset.save(false)
-          end
           def put_on_tray
             tray_positions.create(:user_id => self.user_id)
           end
