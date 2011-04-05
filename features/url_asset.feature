@@ -12,5 +12,9 @@ Feature: Url assets should handle external web references
     And I set the "url" attribute of the last asset to "http://heise.de/open"
     Then my tray should contain a "Url"
 
-  Scenario: The user links to a youtube video
-
+  Scenario: The user links to a YouTube video
+    Given I am logged in as user "fred"
+    When I create a "Url" named "Science 2.0: The Design Science of Collaboration"
+    And I set the "url" attribute of the last asset to "http://www.youtube.com/watch?v=nxBmKkLJCEc"
+    Then my tray should contain a "Url"
+    And the asset should show the "YouTube" icon
