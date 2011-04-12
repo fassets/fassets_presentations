@@ -16,7 +16,7 @@ When /^I add the following items to the tray:$/ do |table|
   end
 end
 
-Then /^I should see these (\d+) items named:$/ do |count, table|
+Then /^I should see these (\d+) items on the tray named:$/ do |count, table|
   # table is a Cucumber::Ast::Table
   @user.tray_positions.size.should == count.to_i
 

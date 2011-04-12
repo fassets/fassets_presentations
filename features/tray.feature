@@ -14,7 +14,7 @@ Feature: The Tray - A tool to manage assets for a short period of time
       | manual.pdf              | FileAsset    |
       | shuttle.png             | FileAsset    |
       | http://www.nasa.gov/    | Url          |
-    Then I should see these 4 items named:
+    Then I should see these 4 items on the tray named:
       | name                    |
       | Assembling space crafts |
       | manual.pdf              |
