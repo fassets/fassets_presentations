@@ -4,7 +4,6 @@ Feature: The Tray - A tool to manage assets for a short period of time
   in a way that they have a fast and easy access to a set of assets they are
   currently working with.
 
-  @wip
   Scenario: A user puts assets onto the tray
     Given I am logged in as user "fred"
     And this user has no assets on the tray

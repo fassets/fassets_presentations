@@ -14,6 +14,7 @@ When /^I add the following items to the tray:$/ do |table|
     a.asset.user = @user
     a.save!
   end
+  @user.tray_positions.reload
 end
 
 Then /^I should see these (\d+) items on the tray named:$/ do |count, table|
@@ -21,6 +22,6 @@ Then /^I should see these (\d+) items on the tray named:$/ do |count, table|
   @user.tray_positions.size.should == count.to_i
 
   table.hashes.each do |hash|
-    @user.tray_positions.should contain(hash[:name])
+    @user.tray_positions.map{|e| e.asset.name}.should contain(hash[:name])
   end
 end
