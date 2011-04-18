@@ -5,5 +5,5 @@
 
 -form_for @catalog do |f|
   =render :partial => "form", :object => f
-  =submit_button "Create", link_to("Cancel", catalogs_path)
+  =submit_tag "Create", link_to("Cancel", catalogs_path)
   

@@ -10,7 +10,9 @@ class AssetsController < ApplicationController
     render :template => 'assets/new'
   end
   def create
+    logger.debug content_params
     @content = @@content_model.new(content_params)
+    @content.asset = Asset.create
     @content.asset.user = current_user
     if @content.save
       flash[:notice] = "Created new asset!"

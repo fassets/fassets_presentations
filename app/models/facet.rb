@@ -5,11 +5,12 @@ class Facet < ActiveRecord::Base
   
   belongs_to :catalog
   has_many :labels, :dependent => :destroy
-  named_scope :exclude, lambda {|ids|
+  scope :exclude, lambda {|ids|
     { :conditions => ["id NOT IN(?)", ids]}
   }
       
   def ordered_labels
-    self.labels.find(:all, :order => self.label_order)
+    #self.labels.find(:all, :order => self.label_order)
+	self.labels.order(self.label_order)
   end
 end

@@ -11,7 +11,7 @@
   %h2 Labels
   -form_for [@catalog, @facet, Label.new], :html => {:class => "collapsable"} do |f|
     =render :partial => "/labels/form", :object => f
-    =submit_button "Create"
+    =submit_tag "Create"
 
   %ol.collection{:class => @facet.label_order == 'position' ? "sortable" : nil, :id => "catalogs.#{@catalog.id}.facets.#{@facet.id}.labels.sort"}
     -@facet.ordered_labels.each do |label|
@@ -20,8 +20,8 @@
         .content
           -form_for [@catalog, @facet, label] do |f|
             =render :partial => "/labels/form", :object => f
-            =submit_button "Save" 
+            =submit_tag "Save" 
 #main  
   -form_for [@catalog, @facet] do |f|
     =render :partial => "form", :object => f
-    =submit_button "Save"
+    =submit_tag "Save"

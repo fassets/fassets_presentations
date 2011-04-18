@@ -1,4 +1,4 @@
-=include_js "catalog_show"
+=javascript_include_tag "catalog_show"
 -content_for :h1 do
   #type Catalog
   #name
@@ -11,7 +11,7 @@
   -if user_signed_in?
     -form_for [@catalog, Facet.new], :html => {:class => 'collapsable'} do |f|
       =render :partial => "/facets/form", :object => f
-      =submit_button "Create"
+      =submit_tag "Create"
   =render :partial => "facet", :collection => @catalog.facets  
 
 

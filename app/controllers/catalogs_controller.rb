@@ -7,8 +7,10 @@ class CatalogsController < ApplicationController
   end
   def show
     @filter = LabelFilter.new(params[:filter])
-    @assets = @catalog.assets.filter(@filter) 
-    @counts = Asset.count_for_labels(@filter)
+    #@assets = @catalog.assets.filter(@filter)
+    @assets = @catalog.assets.where(:label_id => @filter)
+    #@counts = Asset.count_for_labels(@filter)
+    @counts = 0
   end
   def new
     @catalog = Catalog.new

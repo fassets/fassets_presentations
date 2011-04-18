@@ -5,11 +5,12 @@
   -if user_signed_in?
     -form_for Catalog.new, :html => {:class => "collapsable"} do |f|
       =render :partial => "form", :object => f
-      =submit_button "Create", link_to("Cancel", catalogs_path)
+      =submit_tag "Create"
+      =link_to "Cancel", catalogs_path
   %ul.collection
     -Catalog.all.each do |catalog|
       %li.collapsable
-        =link_to catalog.title, catalog_path(catalog)
+        =link_to(catalog.title, catalog_path(catalog))
         .content=catalog.info
 
 #main

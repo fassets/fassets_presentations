@@ -1,7 +1,7 @@
 %h2 Slides
 -form_for [presentation, Slide.new], :html => {:class => "collapsable"} do |f|
   =render :partial => "/slides/form", :object => f, :locals => {:presentation => presentation}
-  =submit_button "Create"
+  =submit_tag "Create"
 
 %div{:id => "presentations.#{presentation.id}.slides"}
   %ol.collection{:id => "presentations.#{presentation.id}.slides.sort", :class => 'sortable'}
