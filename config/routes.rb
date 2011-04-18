@@ -1,22 +1,59 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :users do |users|
-    users.resources :tray_positions, :collection => {:replace => :put}
-  end
-  map.resource :session
+Fassets::Application.routes.draw do
+  devise_for :users
 
-  map.resources :catalogs do |catalog|
-    catalog.resources :facets do |facet|
-      facet.resources :labels, :collection => {:sort => :put}
+  resources :users do
+  
+  
+      resources :tray_positions do
+        collection do
+    put :replace
+    end
+    
+    
     end
   end
-  map.resources :classifications
 
-  map.resources :file_assets, :as => "files", :member => {:thumb => :get, :preview => :get, :original => :get}
-  map.resources :urls
-  map.resources :presentations do |p|
-    p.resources :slides, :collection => {:sort => :put}
+  #resource :session
+  resources :catalogs do
+  
+  
+      resources :facets do
+    
+    
+          resources :labels do
+            collection do
+      put :sort
+      end
+      
+      
+      end
+    end
   end
 
-  map.root :controller => "catalogs"
-end
+  resources :classifications
+  resources :file_assets do
+  
+    member do
+  get :thumb
+  get :preview
+  get :original
+  end
+  
+  end
 
+  resources :urls
+  resources :presentations do
+  
+  
+      resources :slides do
+        collection do
+    put :sort
+    end
+    
+    
+    end
+  end
+
+  match '/' => 'catalogs#index'
+  root :to => "catalogs#index"
+end
