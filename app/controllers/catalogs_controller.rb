@@ -1,5 +1,5 @@
 class CatalogsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show]
 
   before_filter :find_catalog, :except => [:index, :new, :create]
   def index

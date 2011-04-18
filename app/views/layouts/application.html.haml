@@ -29,7 +29,7 @@
     #container
       =yield :layout
       .clear
-    -if logged_in?
+    -if user_signed_in?
       -form_tag(replace_user_tray_positions_path(current_user), :id => "tray", :method => :put) do
         %ul
           /%li=link_to "Create Asset...", root_url

@@ -2,7 +2,7 @@
   Fassets Development
 #sidebar
   %h2 Catalogs
-  -if logged_in?
+  -if user_signed_in?
     -form_for Catalog.new, :html => {:class => "collapsable"} do |f|
       =render :partial => "form", :object => f
       =submit_button "Create", link_to("Cancel", catalogs_path)

@@ -1,5 +1,5 @@
 class FileAssetsController < AssetsController
-  skip_before_filter :login_required, :only => [:thumb, :preview, :original]
+  skip_before_filter :authenticate_user!, :only => [:thumb, :preview, :original]
   content_model FileAsset
   
   def thumb

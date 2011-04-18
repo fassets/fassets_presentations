@@ -1,5 +1,5 @@
 class ClassificationsController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate_user!
   before_filter :find_classification, :only => [:update, :destroy]
 
   def create

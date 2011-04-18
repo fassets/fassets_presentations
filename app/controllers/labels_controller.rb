@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate_user!
   before_filter :find_label, :except => [:create, :sort]
   def create
     @label = Label.new(params[:label])

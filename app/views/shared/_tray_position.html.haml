@@ -3,6 +3,6 @@
     =render_content_partial(asset.content, :icon)
   .type
     =asset.content.media_type.upcase
-    -if logged_in?
+    -if user_signed_in?
       =link_to "edit", edit_asset_content_path(asset.content)
   =link_to asset.name, asset_content_path(asset.content)

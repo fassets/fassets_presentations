@@ -1,5 +1,5 @@
 class SlidesController < ApplicationController
-  before_filter :login_required, :except => [:show]
+  before_filter :authenticate_user!, :except => [:show]
   before_filter :find_presentation
   before_filter :find_slide, :except => [:new, :create, :sort]
   def create

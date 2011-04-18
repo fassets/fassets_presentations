@@ -5,7 +5,7 @@
   .type
     =asset.content.media_type.upcase
   .action
-    -if logged_in?
+    -if user_signed_in?
       =link_to image_tag("edit.png", :width => 15,  :height => 15), edit_asset_content_path(asset.content)
       =image_tag "drag.png", :width => 12, :height => 13, :class => "handle"
   -if tp

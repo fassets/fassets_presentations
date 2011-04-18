@@ -3,12 +3,12 @@
   #type Catalog
   #name
     =@catalog.title
-    -if logged_in?
+    -if user_signed_in?
       %span.action
         =link_to image_tag("edit.png"), edit_catalog_path(@catalog)
 #sidebar
   %h2 Facets
-  -if logged_in?
+  -if user_signed_in?
     -form_for [@catalog, Facet.new], :html => {:class => 'collapsable'} do |f|
       =render :partial => "/facets/form", :object => f
       =submit_button "Create"

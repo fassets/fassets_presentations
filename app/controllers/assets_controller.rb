@@ -1,5 +1,5 @@
 class AssetsController < ApplicationController
-  before_filter :login_required, :except => [:show]
+  before_filter :authenticate_user!, :except => [:show]
   before_filter :find_content, :except => [:new, :create]
 
   def self.content_model(klass)

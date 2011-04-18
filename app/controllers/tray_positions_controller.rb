@@ -1,5 +1,5 @@
 class TrayPositionsController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate_user!
   def create
     tp = TrayPosition.new(params[:tray_position])
     tp.clipboard_type.capitalize! if tp.clipboard_type
