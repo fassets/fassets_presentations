@@ -1,9 +1,7 @@
-db/development.sqlite3
-db/test.sqlite3
-db/production.sqlite3
-log/development.log
-log/test.log
-log/production.log
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
 public/uploads
 *.swp
 *~
