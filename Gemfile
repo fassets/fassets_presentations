@@ -7,9 +7,8 @@ gem "sqlite3"
 gem "devise"
 
 group :test do
-  gem "rspec", :require => "spec"
-  gem "rspec-rails", "~> 1.3.3", :require => "spec"
-  gem "cucumber-rails", "~> 0.3.2"
+  gem "rspec-rails", ">= 2.0.0"
+  gem "cucumber-rails", ">= 0.3.2"
   gem "database_cleaner", ">= 0.5.0"
   gem "webrat"
 end
