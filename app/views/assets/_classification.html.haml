@@ -1,5 +1,5 @@
 %h2 Classification
--form_for Classification.new(:asset_id => @content.asset.id), :html=>{:class => 'collapsable'} do |f|
+=form_for Classification.new(:asset_id => @content.asset.id), :html=>{:class => 'collapsable'} do |f|
   %p
     %label{:for => 'catalog_id'} Catalog:
     =select("classification", "catalog_id", Catalog.all.inject([]){|m,c| m << [c.title, c.id]})

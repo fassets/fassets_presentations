@@ -12,8 +12,7 @@ class AssetsController < ApplicationController
   def create
     logger.debug content_params
     @content = @@content_model.new(content_params)
-    @content.asset = Asset.create
-    @content.asset.user = current_user
+    @content.asset = Asset.create(:user => current_user, :name => params["asset"]["name"])
     if @content.save
       flash[:notice] = "Created new asset!"
       redirect_to url_for(@content) + "/edit"
@@ -28,7 +27,8 @@ class AssetsController < ApplicationController
     render :template => 'assets/edit'
   end
   def update
-    if @content.update_attributes(content_params)
+    if @content.update_attributes(content_params) and @content.asset.update_attributes(params["asset"])
+      flash[:notice] = "Succesfully updated asset!"
       redirect_to url_for(@content) + "/edit"
     else
       render :action => 'edit'

@@ -15,7 +15,7 @@ class Asset < ActiveRecord::Base
     1
   end
   def self.filter(filter)
-    options = {:select => "distinct assets.*", :order => "name"}
+    options = {:select => "assets.*", :order => "name"}
     unless filter.empty?
       options[:joins] = "LEFT OUTER JOIN labelings ON labelings.classification_id=classifications.id"
       options[:conditions] = filter.to_condition

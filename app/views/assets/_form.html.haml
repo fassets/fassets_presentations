@@ -1,12 +1,12 @@
--form_for @content, :html => {:multipart => true} do |f|  
-  -fields_for "#{@content.class_underscore}[asset_attributes]", @content.asset do |asset|
+=form_for @content, :html => {:multipart => true} do |f|  
+  =fields_for "asset", @content.asset do |asset|
     %p
       %label{:for => 'name'} Name:
       =asset.text_field :name
     %p
-      %label{:for => 'published'} Public:
-      =asset.check_box :published
+      %label{:for => 'public'} Public:
+      =asset.check_box :public
   =render :partial => "#{@content.class.to_s.underscore.pluralize}/form", :object => f
-  =render_content_partial(@content, :preview)
+  =render content_partial(@content, :preview)
   =submit_tag(@content.new_record? ? "Create" : "Save")
 

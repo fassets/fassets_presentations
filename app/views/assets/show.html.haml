@@ -6,5 +6,5 @@
     -if user_signed_in?
       %span.action
         =link_to image_tag("edit.png"), url_for(@content) + "/edit"
-        =render :partial => "assets/put_on_tray"
-=render_content_partial(@content, :preview) 
+        =render :partial => "assets/put_on_tray", :locals => {:current_user => current_user}
+=render content_partial(@content, :preview) 

@@ -1,4 +1,4 @@
--content_for :h1 do
+=content_for :h1 do
   #type
     =@content.media_type.capitalize
   #title
@@ -9,6 +9,6 @@
 
 #sidebar
   =render :partial => "assets/classification", :locals => {:asset => @content.asset}
-  =render :partial => content_partial(@content, "sidebar")
+  =render :partial => @content.class.to_s.underscore.pluralize + "/sidebar"
 #main
   =render :partial => "assets/form"
