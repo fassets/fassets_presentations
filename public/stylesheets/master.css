@@ -79,6 +79,11 @@ h3 {
 	color: white;
 	background-color: #469b00;
 }
+#error {
+	padding: 0 1em;
+	font-weight: bold;
+	color: red; 
+}
 #header {
 	position: relative;
 	padding-right: 1em;

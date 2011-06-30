@@ -11,6 +11,13 @@ class AssetsController < ApplicationController
   end
   def create
     logger.debug content_params
+    if content_params.include?("url") # If its a URL-Asset check for valid URL
+      unless content_params["url"] =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+        flash[:error] = "Entered URL was invalid!"
+        redirect_to "/urls/new"
+        return
+      end
+    end
     @content = @@content_model.new(content_params)
     @content.asset = Asset.create(:user => current_user, :name => params["asset"]["name"])
     if @content.save
