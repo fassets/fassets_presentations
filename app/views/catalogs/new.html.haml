@@ -1,9 +1,9 @@
--content_for :h1 do
+=content_for :h1 do
   #type Catalog
   #name
     New
 
--form_for @catalog do |f|
+=form_for @catalog do |f|
   =render :partial => "form", :object => f
   =submit_tag "Create", link_to("Cancel", catalogs_path)
   

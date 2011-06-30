@@ -1,4 +1,4 @@
--content_for :h1 do
+=content_for :h1 do
   #type
     %small Catalog
     Facet
@@ -9,7 +9,7 @@
     =button_to "Delete", [@catalog, @facet], :method => :delete
 #sidebar
   %h2 Labels
-  -form_for [@catalog, @facet, Label.new], :html => {:class => "collapsable"} do |f|
+  =form_for [@catalog, @facet, Label.new], :html => {:class => "collapsable"} do |f|
     =render :partial => "/labels/form", :object => f
     =submit_tag "Create"
 
@@ -22,6 +22,6 @@
             =render :partial => "/labels/form", :object => f
             =submit_tag "Save" 
 #main  
-  -form_for [@catalog, @facet] do |f|
+  =form_for [@catalog, @facet] do |f|
     =render :partial => "form", :object => f
     =submit_tag "Save"

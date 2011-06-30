@@ -1,6 +1,6 @@
--content_for :headline do
+=content_for :headline do
   %h1 New User
   
--form_for [User.new] do |f|
+=form_for [User.new] do |f|
   =render :partial => "form", :object => f
   =submit_tag "Create"

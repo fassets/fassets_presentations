@@ -1,6 +1,6 @@
--content_for :headline do
+=content_for :headline do
   %h1 Edit User
   
--form_for [current_user] do |f|
+=form_for [current_user] do |f|
   =render :partial => "form", :object => f
   =submit_tag "Save"
