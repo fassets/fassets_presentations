@@ -62,24 +62,24 @@ em {
 	text-align: right;
 	color: #666;
 }
-.markup {
+.slot {
 	width: 100%;
 }
-.markup p {
+.slot p {
 	margin: .8em 0;
 }
-.markup ul, .markup ol {
+.slot ul, .slot ol {
 	margin: .3em 0;
 	width: 100%;
 	padding-left: 2em;
 }
-.markup li{
+.slot li{
 	padding: .2em;
 }
-.markup pre{
+.slot pre{
 	margin: .8em 0;
 }
-.markup.cent {
+.slot.cent {
 	text-align: center;
 }
 .slot {
