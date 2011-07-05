@@ -1,3 +1,5 @@
+require "pandoc-ruby"
+
 module PresentationsHelper
   def template_path(template)
     File.join(TEMPLATE_PATH, template).to_s
@@ -14,7 +16,7 @@ module PresentationsHelper
     if slot["mode"] == "asset"
       render_content_partial(slot.asset.content, "preview", css_class) if slot.asset
     else
-      content_tag :div, Markup.to_html(slot["markup"]), :id =>"markup_#{Time.now.to_s[0]}" , :class => "markup #{css_class}"
+      PandocRuby.convert(slot["markup"], :from => :markdown, :to => :html)
     end
   end
 end

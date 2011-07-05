@@ -5,6 +5,7 @@ gem "haml"
 gem "paperclip"
 gem "sqlite3"
 gem "devise"
+gem "pandoc-ruby"
 
 group :test do
   gem "rspec-rails", ">= 2.0.0"
