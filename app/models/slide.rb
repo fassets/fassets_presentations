@@ -6,7 +6,8 @@ class Slide < ActiveRecord::Base
   has_many :tray_positions, :as => :clipboard, :dependent => :destroy
 
   serialize :content
-  
+  validates_presence_of :title
+
   def slot(name)
     Slot.new(name, content[name]) if content && content[name]
   end

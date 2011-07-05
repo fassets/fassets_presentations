@@ -14,8 +14,8 @@ class SlidesController < ApplicationController
         format.html {redirect_to edit_presentation_slide_path(@presentation, slide)}
         format.json {render :status => :created, :json => slide.to_json}
       else
-        format.html {edit_presentation_path(@presentation)}
-        format.json {render :status => :unprocessable_entity, :json => slide.errors.to_json}
+        flash[:error] = "Title cannot be empty"
+        format.html {redirect_to edit_presentation_path(@presentation)}
       end
     end
   end

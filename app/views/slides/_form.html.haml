@@ -1,6 +1,7 @@
 %p
   %label{:for => 'title'} Title:
   =form.text_field :title
+  =render :partial => "shared/error"
 %p
   %label{:for => 'template'} Template:
   =select(:slide, :template, TemplateManager.inner_templates(@presentation ? @presentation.template : presentation.template ))
