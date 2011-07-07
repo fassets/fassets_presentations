@@ -18,8 +18,7 @@
       -if flash[:notice]
         #message=flash[:notice]
       =link_to "FASSETS", root_url, :class => "home"
-      #catalog_select="Catalog:"
-      =select_tag :catalog, options_from_collection_for_select(Catalog.all, :id, :title, "#{@catalog.id.to_s}"), :onchange => "javascript:window.location= '/catalogs/' + this.value"
+      =collection_select :catalog, :id, Catalog.all, :id, :title, options ={:prompt => "Catalogs ..."},  :onchange => "javascript:window.location= '/catalogs/' + this.value" 
       =render :partial => "shared/session"
     %h1=yield :h1
     #container
