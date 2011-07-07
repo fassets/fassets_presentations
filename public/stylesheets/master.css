@@ -96,6 +96,11 @@ h3 {
 	font-weight: bold;
 	font-size: 1.1em;
 }
+#header #catalog_select {
+  display: inline;
+  font-style: normal;
+  color:  #167eff;
+}
 #header em {
 	font-weight: bold;
 	font-style: normal;
@@ -111,13 +116,20 @@ ul#catalogs {
 ul#catalogs li {
 	display:inline;
 }
-
-#session {
-	position: absolute;
-	top: 3px;
-	right: 15px;
-	font-size: 8pt;
+#header ul {
+	display: inline;
 }
+#header ul li {
+	display:inline;
+}
+#header ul li .active {
+  font-weight:  bold;
+}
+
+#header #session {
+  display: inline;
+}
+
 #toolbar {
 	position: absolute;
 	bottom: 2px;

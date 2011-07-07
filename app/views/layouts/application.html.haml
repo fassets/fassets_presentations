@@ -18,12 +18,8 @@
       -if flash[:notice]
         #message=flash[:notice]
       =link_to "FASSETS", root_url, :class => "home"
-      %ul.selector
-        -unless @catalog
-          %li=link_to "Catalogs...", root_url
-        -Catalog.all.each do |catalog|
-          %li
-            =link_to catalog.title, catalog_path(catalog), :class => @catalog && @catalog.id == catalog.id ? "active" : nil
+      #catalog_select="Catalog:"
+      =select_tag :catalog, options_from_collection_for_select(Catalog.all, :id, :title, "#{@catalog.id.to_s}"), :onchange => "javascript:window.location= '/catalogs/' + this.value"
       =render :partial => "shared/session"
     %h1=yield :h1
     #container
