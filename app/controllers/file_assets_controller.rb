@@ -3,12 +3,12 @@ class FileAssetsController < AssetsController
   content_model FileAsset
   
   def thumb
-    redirect_to "/uploads/#{@content.id}/thumb.#{params[:format]}"
+    redirect_to "/public/uploads/#{@content.id}/thumb.#{params[:format]}"
   end
   def preview
-    redirect_to "/uploads/#{@content.id}/small.#{params[:format]}"
+    redirect_to "/public/uploads/#{@content.id}/small.#{params[:format]}"
   end
   def original
-    redirect_to "/uploads/#{@content.id}/original.#{params[:format]}"
+    redirect_to "/public/uploads/#{@content.id}/original.#{params[:format]}"
   end
 end

@@ -1,1 +1,1 @@
-=link_to(image_tag(content.file.url(:original), :alt => content.asset.name, :width => content.file.width(:small) ,:height => content.file.height(:small), :class => "fit #{css_class}"), content.file.url(:original), :class=>"zoom")
+=link_to(image_tag(@content.file.url(:original), :alt => @content.asset.name, :width => Paperclip::Geometry.from_file(@content.file.to_file(:small)).width ,:height => Paperclip::Geometry.from_file(@content.file.to_file(:small)).height, :class => "fit #{@css_class}"), @content.file.url(:original), :class=>"zoom")

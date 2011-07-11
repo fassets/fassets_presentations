@@ -1,6 +1,6 @@
 %li.asset
   .icon
-    =render_content_partial(asset.content, :icon)
+    =render :partial => content_partial(asset.content, :icon), :locals => {:content => asset.content}
   .type
     =asset.content.media_type.upcase
     -if user_signed_in?
