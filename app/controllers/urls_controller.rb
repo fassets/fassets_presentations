@@ -6,7 +6,7 @@ class UrlsController < AssetsController
     render :template => 'assets/new'
   end
   def create
-    unless params["url"["url"] =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+    unless params["url"] =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
       flash[:error] = "Entered URL was invalid!"
       redirect_to "/urls/new"
       return
