@@ -9,4 +9,8 @@ class PresentationsController < AssetsController
     @presentation = @content
     render :layout => "slide"
   end
+  def new
+    @content = Presentation.new
+    render :template => 'assets/new'
+  end
 end

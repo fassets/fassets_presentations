@@ -5,10 +5,6 @@ class AssetsController < ApplicationController
   def self.content_model(klass)
     @@content_model = klass
   end
-  def new
-    @content = @@content_model.new
-    render :template => 'assets/new'
-  end
   def create
     logger.debug content_params
     if content_params.include?("url") # If its a URL-Asset check for valid URL

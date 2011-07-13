@@ -18,7 +18,7 @@ describe PresentationsController do
       get 'new'
       response.should be_success
       response.should render_template("assets/new")
-      assigns(:content).class.should == "Presentation"
+      assigns(:content).class.should == Presentation
     end
   end
 end
