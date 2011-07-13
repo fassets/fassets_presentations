@@ -1,5 +1,4 @@
 class PresentationsController < AssetsController
-  content_model Presentation
 
   def show
     @presentation = @content
@@ -9,8 +8,7 @@ class PresentationsController < AssetsController
     @presentation = @content
     render :layout => "slide"
   end
-  def new
-    @content = Presentation.new
-    render :template => 'assets/new'
+  def content_model
+    return Presentation
   end
 end
