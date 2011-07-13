@@ -47,8 +47,8 @@ Fassets::Application.routes.draw do
   
       resources :slides do
         collection do
-    put :sort
-    end
+          put :sort
+        end
     
     
     end

@@ -2,8 +2,9 @@ class AssetsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
   before_filter :find_content, :except => [:new, :create]
 
-  def self.content_model(klass)
-    @@content_model = klass
+  def new
+    @content = self.content_model.new
+    render :template => 'assets/new'
   end
   def create
     logger.debug content_params
@@ -14,7 +15,7 @@ class AssetsController < ApplicationController
         return
       end
     end
-    @content = @@content_model.new(content_params)
+    @content = self.content_model.new(content_params)
     @content.asset = Asset.create(:user => current_user, :name => params["asset"]["name"])
     if @content.save
       flash[:notice] = "Created new asset!"
@@ -45,10 +46,10 @@ class AssetsController < ApplicationController
 
 protected
   def content_params
-    params[@@content_model.to_s.underscore]
+    params[self.content_model.to_s.underscore]
   end
   def find_content
-    @content = @@content_model.find(params[:id])
+    @content = self.content_model.find(params[:id])
   rescue ActiveRecord::RecordNotFound => e
     redirect_to root_url
   end
