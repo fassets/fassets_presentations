@@ -6,8 +6,8 @@ Fassets::Application.routes.draw do
   
       resources :tray_positions do
         collection do
-    put :replace
-    end
+          put :replace
+        end
     
     
     end

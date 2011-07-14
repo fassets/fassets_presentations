@@ -1,0 +1,12 @@
+#slot_top {
+  position: relative;
+  top: 48%;
+  width: 100%;
+  height: 48%;
+}
+#slot_bottom {
+  position: relative;
+  bottom: 48%;
+  width: 100%;
+  height: 48%;
+}

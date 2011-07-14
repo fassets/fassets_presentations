@@ -15,6 +15,7 @@
       =yield :title
   %body
     #header
+      =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
       -if flash[:notice]
         #message=flash[:notice]
       =link_to "FASSETS", root_url, :class => "home"
@@ -31,7 +32,7 @@
           %li=link_to "New URL", new_url_path
           %li=link_to "New File", new_file_asset_path
           %li=link_to "New Presentation", new_presentation_path
-        %ol.sortable{:id => "users.#{current_user.id}.tray_positions.replace"}
+        %ol.sortable{:id => "users.#{current_user.id}.tray_positions.replace",:class => "sortable_tray"}
           -current_user.tray_positions.each do |tp|
             -if tp.clipboard_type
               =render :partial => "shared/clipboard", :locals => {:tp => tp}

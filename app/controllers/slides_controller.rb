@@ -36,7 +36,7 @@ class SlidesController < ApplicationController
       slide = @presentation.slides.find(id)
       slide.update_attribute(:position, position+1)
     end
-    render :text => 'ok'
+    render :nothing => true
   end
 protected
   def find_presentation

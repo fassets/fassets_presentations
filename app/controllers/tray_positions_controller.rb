@@ -8,16 +8,18 @@ class TrayPositionsController < ApplicationController
   end
   def replace
     respond_to do |format|
-      format.html do
-        current_user.tray_positions.find(params[:del]).each do |tp|
-          if !tp.clipboard_type  && (tp.asset.classifications_count || 0) == 0
-            tp.asset.content.destroy
-          else
-            tp.destroy
+      if params[:del]
+        format.html do
+          current_user.tray_positions.find(params[:del]).each do |tp|
+            if !tp.clipboard_type  && (tp.asset.classifications_count || 0) == 0
+              tp.asset.content.destroy
+            else
+              tp.destroy
+            end
           end
+          flash[:notice] = "Tray has been updated!"
+          redirect_to :back
         end
-        flash[:notice] = "Tray has been updated!"
-        redirect_to :back
       end
       format.json do
         new_tp = nil

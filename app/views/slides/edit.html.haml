@@ -1,4 +1,5 @@
 =javascript_include_tag "slide_edit.js"
+=stylesheet_link_tag "/templates/"+@slide.template.to_s
 
 =content_for :h1 do
   #type
@@ -25,6 +26,3 @@
     %ul#slots
       =render :partial => "slot", :collection => @slide.slots
     =submit_tag "Save"
-    
-
-  

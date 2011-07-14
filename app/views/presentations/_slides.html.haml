@@ -4,7 +4,7 @@
   =submit_tag "Create"
 
 %div{:id => "presentations.#{presentation.id}.slides"}
-  %ol.collection{:id => "presentations.#{presentation.id}.slides.sort", :class => 'sortable'}
+  %ol.collection{:id => "presentations.#{presentation.id}.slides.sort", :class => 'sortable_slides'}
     -presentation.slides.each do |slide|
       %li[slide]
         -if @slide && @slide.id == slide.id
