@@ -249,10 +249,12 @@ $(function(){
 	$(window).keydown(function(event){
 		switch(event.keyCode) {
 		case 37: //Left
+    case 33: //PgUp
 			if (!Selector.isVisible()) Presentation.previousSlide();
 			break;
 		case 39: //Right
 		case 32: //Space
+    case 34: //PgDown
 			if (!Selector.isVisible()) Presentation.nextSlide();
 			break;
 		case 38: //Up
