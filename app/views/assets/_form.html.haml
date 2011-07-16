@@ -1,4 +1,5 @@
-=form_for @content, :html => {:multipart => true} do |f|  
+=form_for @content, :html => {:multipart => true} do |f|
+  =render :partial => "shared/error", :locals => {:target => @content} 
   =fields_for "asset", @content.asset do |asset|
     %p
       %label{:for => 'name'} Name:

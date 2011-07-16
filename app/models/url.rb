@@ -1,6 +1,7 @@
 require "acts_as_asset"
 class Url < ActiveRecord::Base
-  validates_format_of :url, :with => URI::regexp(%w(http https))
+  validates_presence_of :url
+  validates_format_of :url, :with => /^(#{URI::regexp(%w(http https))})$/, :message => "is invalid"
   URL_2_MEDIA = [
     [/http:\/\/xmendel\.imis\.uni-luebeck\.de.*/, "XMendeL"],
     [/http:\/\/(www\.)?youtube\.com\/watch\?.*v=(\w*)(\&.*)*/, "Youtube"],

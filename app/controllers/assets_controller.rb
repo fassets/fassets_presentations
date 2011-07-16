@@ -8,20 +8,13 @@ class AssetsController < ApplicationController
   end
   def create
     logger.debug content_params
-    if content_params.include?("url") # If its a URL-Asset check for valid URL
-      unless content_params["url"] =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
-        flash[:error] = "Entered URL was invalid!"
-        redirect_to "/urls/new"
-        return
-      end
-    end
     @content = self.content_model.new(content_params)
     @content.asset = Asset.create(:user => current_user, :name => params["asset"]["name"])
     if @content.save
       flash[:notice] = "Created new asset!"
       redirect_to url_for(@content) + "/edit"
     else
-      render :action => 'new'
+      render :template => 'assets/new'
     end
   end
   def show
@@ -35,7 +28,8 @@ class AssetsController < ApplicationController
       flash[:notice] = "Succesfully updated asset!"
       redirect_to url_for(@content) + "/edit"
     else
-      render :action => 'edit'
+      flash[:error] = "Could not update asset!"
+      render :template => 'assets/edit'
     end
   end
   def destroy

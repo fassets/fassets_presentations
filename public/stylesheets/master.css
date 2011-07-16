@@ -79,7 +79,17 @@ h3 {
 	color: white;
 	background-color: #469b00;
 }
-#error {
+#error_message {
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	line-height: 2.3em;
+	padding: 0 1em;
+	font-weight: bold;
+	color: white;
+	background-color: red;
+}
+#form_error {
 	padding: 0 1em;
 	font-weight: bold;
 	color: red; 

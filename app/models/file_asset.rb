@@ -10,6 +10,8 @@ class FileAsset < ActiveRecord::Base
     'video/x-flv' => 'video'
   }
 
+  validates_attachment_presence :file
+
   acts_as_asset
   has_attached_file :file,
     :url => "/uploads/:id/:style.:extension",

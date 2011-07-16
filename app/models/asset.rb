@@ -5,6 +5,9 @@ class Asset < ActiveRecord::Base
   has_many :labelings, :through => :classifications
   has_many :tray_positions, :dependent => :destroy
 
+  validates_associated :content
+  validates_presence_of :name,:content_type
+ 
   after_create :put_on_tray
 
   def publish=(test)
