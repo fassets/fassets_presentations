@@ -11,23 +11,32 @@ class SlidesController < ApplicationController
     end
     respond_to do |format|
       if slide.save
+        flash[:notice] = "Slide succesfully created!"
         format.html {redirect_to edit_presentation_slide_path(@presentation, slide)}
         format.json {render :status => :created, :json => slide.to_json}
       else
-        flash[:error] = "Title cannot be empty"
+        flash[:error] = "Title of slide cannot be empty"
         format.html {redirect_to edit_presentation_path(@presentation)}
       end
     end
   end
   def update
-    @slide.update_attributes(params[:slide])
+    if @slide.update_attributes(params[:slide])
+      flash[:notice] = "Slide succesfully updated!"
+    else
+      flash[:error] = "Could not update slide!"
+    end
     redirect_to edit_presentation_slide_path(@presentation, @slide)
   end
   def show
     redirect_to presentation_path(@presentation) + "##{@slide.position}"
   end
   def destroy
-    @slide.destroy
+    if @slide.destroy
+      flash[:notice] = "Slide succesfully deleted!"
+    else
+      flash[:error] = "Could not delete slide!"
+    end
     redirect_to edit_presentation_path(@presentation)
   end
 
