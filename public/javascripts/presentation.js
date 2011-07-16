@@ -16,6 +16,7 @@ Presentation = function() {
 	}
 	var _imageIndex = 0;
 	var _images = [];
+  var _items = [];
 	var _slideIndex = null;
 	var _pollLocationHash = function() {
 		var index = pub.getSlideIndex();
@@ -46,15 +47,21 @@ Presentation = function() {
 	}
 	pub.init = function() {
 		$(".slide").hide();
+		$(".slide").each(function(i, e){
+			var row = TR(TD({"class": "position"}, i + 1), TD($(e).attr("alt")));
+			_items.push(row);
+		});
 		setInterval(_pollLocationHash, 200);
 	}
 	pub.showSlide = function(index) {
 		location.hash = "#" + index;
 	}
 	pub.nextSlide = function() {
+    if (_slideIndex == _items.length) return;
 		pub.showSlide(_slideIndex + 1);
 	}
 	pub.previousSlide = function() {
+    if (_slideIndex == 1) return;
 		pub.showSlide(_slideIndex - 1)
 	}
 	pub.nextImage = function() {
