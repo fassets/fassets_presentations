@@ -19,13 +19,23 @@ class CatalogsController < ApplicationController
       flash[:notice] = "Catalog was successfully created."
       redirect_to catalogs_path
     else
-      render :action => 'new'
+      if params[:catalog][:title].blank?
+        flash[:error] = "Catalog could not be created! Title cannot be empty!"
+      else
+        flash[:error] = "Catalog could not be created!"
+      end
+      render :template => 'catalogs/index'
     end
   end
   def edit
     @catalog = Catalog.find(params[:id])
   end
   def update
+    if params[:catalog][:title].blank?
+      flash[:error] = "Catalog could not be updated! Title cannot be empty!"
+      redirect_to :back
+      return
+    end
     if @catalog.update_attributes(params[:catalog])
       redirect_to catalog_path(@catalog)
     else
@@ -34,6 +44,7 @@ class CatalogsController < ApplicationController
   end
   def destroy
     @catalog.destroy
+    flash[:notce] = "Catalog was successfully destroyed."
     redirect_to root_url
   end
 protected

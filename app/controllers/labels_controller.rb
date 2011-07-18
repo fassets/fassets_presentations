@@ -6,11 +6,24 @@ class LabelsController < ApplicationController
     @label.facet_id = params[:facet_id]
     if @label.save
       flash[:notice] = "Label was successfully created."
+      redirect_to edit_catalog_facet_path(params[:catalog_id], params[:facet_id])
+    else
+      if params[:label][:caption].blank?
+        flash[:error] = "Label could not be created! Caption cannot be empty!"
+      else
+        flash[:error] = "Label could not be created!"
+      end      
+      redirect_to :back
     end
-    redirect_to edit_catalog_facet_path(params[:catalog_id], params[:facet_id])
   end
   def update
+    if params[:label][:caption].blank?
+      flash[:error] = "Label could not be updated! Caption cannot be empty!"
+      redirect_to :back
+      return
+    end            
     @label.update_attributes(params[:label])
+    flash[:notice] = "Label was successfully updated."
     redirect_to edit_catalog_facet_path(params[:catalog_id], params[:facet_id])    
   end
   def sort

@@ -5,6 +5,8 @@ class Facet < ActiveRecord::Base
   
   belongs_to :catalog
   has_many :labels, :dependent => :destroy
+  validates_presence_of :caption
+
   scope :exclude, lambda {|ids|
     { :conditions => ["id NOT IN(?)", ids]}
   }

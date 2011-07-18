@@ -3,7 +3,6 @@
   #name
     New
 
-=form_for @catalog do |f|
+=form_for @catalog, :html => {:multipart => true} do |f|
   =render :partial => "form", :object => f
-  =submit_tag "Create", link_to("Cancel", catalogs_path)
-  
+  =submit_tag "Create"
