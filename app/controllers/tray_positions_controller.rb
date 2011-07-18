@@ -11,11 +11,12 @@ class TrayPositionsController < ApplicationController
       if params[:del]
         format.html do
           current_user.tray_positions.find(params[:del]).each do |tp|
-            if !tp.clipboard_type  && (tp.asset.classifications_count || 0) == 0
-              tp.asset.content.destroy
-            else
-              tp.destroy
-            end
+#            if !tp.clipboard_type  && (tp.asset.classifications_count || 0) == 0
+#              tp.asset.content.destroy
+#            else
+#              tp.destroy
+#            end
+            tp.destroy
           end
           flash[:notice] = "Tray has been updated!"
           redirect_to :back
