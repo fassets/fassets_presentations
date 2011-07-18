@@ -10,5 +10,8 @@
     %p
       %label{:for => 'name'} Name:
       =asset.text_field :name
+  %p
+    %label{:for => 'catalog_id'} Catalog:
+    =select("classification", "catalog_id", Catalog.all.inject([]){|m,c| m << [c.title, c.id]})
   =render :partial => @content.class.to_s.underscore.pluralize + "/form", :object => f
   =submit_tag "Create"
