@@ -21,27 +21,32 @@ class TrayPositionsController < ApplicationController
           redirect_to :back
         end
       end
-      format.json do
-        new_tp = nil
-        params[:tp].each_with_index do |id, position|
-          if id == "0"
-            new_tp = TrayPosition.new(:user_id => current_user.id, :position => position+1)
-            if params[:add_type] == 'asset'
-              new_tp.asset_id = params[:add_id]
+      if params[:tp]
+        format.json do
+          new_tp = nil
+          params[:tp].each_with_index do |id, position|
+            if id == "0"
+              new_tp = TrayPosition.new(:user_id => current_user.id, :position => position+1)
+              if params[:add_type] == 'asset'
+                new_tp.asset_id = params[:add_id]
+              else
+                new_tp.clipboard_id = params[:add_id]
+                new_tp.clipboard_type = params[:add_type].capitalize
+              end
+              new_tp.save
             else
-              new_tp.clipboard_id = params[:add_id]
-              new_tp.clipboard_type = params[:add_type].capitalize
+              TrayPosition.update(id, :position => position+1)
             end
-            new_tp.save
+          end
+          if new_tp
+            render :json => new_tp.to_json(:include => :clipboard)
           else
-            TrayPosition.update(id, :position => position+1)
+            render :json => {}
           end
         end
-        if new_tp
-          render :json => new_tp.to_json(:include => :clipboard)
-        else
-          render :json => {}
-        end
+      end
+      format.html do
+        redirect_to :back
       end
     end
   end
