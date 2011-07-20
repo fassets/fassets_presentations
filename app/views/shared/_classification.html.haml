@@ -1,5 +1,4 @@
-%h2 Classifications
--form_for Classification.new(:asset_id => asset.id) do |f|
+=form_for Classification.new(:asset_id => asset.id),:html => {:class => 'collapsable', :title => "Classifications"}do |f|
   =select("classification", "catalog_id", Catalog.all.map {|c| [ c.title, c.id ] })
   =f.hidden_field :asset_id
   =submit_tag "Add"
@@ -10,7 +9,7 @@
       .handle=classification.catalog.title
       .content
         =button_to "Drop", [classification], :method => :delete, :confirm => "Shure?"
-        -form_for [classification] do
+        =form_for [classification] do
           -facet2label = Hash[*classification.labels.map{|l| [l.facet_id, l.id]}.flatten]
           -classification.catalog.facets.each do |facet|
             %p
