@@ -19,4 +19,31 @@ describe PresentationsController do
       assigns(:content).class.should == Presentation
     end
   end
+
+  describe "GET 'show'" do
+    let(:presentation) { double(Presentation, :id => 1) }
+
+    before(:each) do
+      my_p = presentation
+      controller.stub!(:find_content) {}
+      controller.instance_eval { @content = my_p }
+    end
+
+    it "should be successful and render partials" do
+      get 'show', :id => presentation.id
+      assigns(:presentation).should_not be_nil
+      response.should be_success
+      response.should render_template("layouts/slide")
+      response.should render_template("presentations/show")
+    end
+  end
+
+  describe "GET 'index'" do
+    it "should be successful render all partials" do
+      pending "not sure, what should happen here" #the next steps is, what actually happens, kind of
+      get 'index'
+      response.should redirect_to(root_path)
+      request.flash[:error].should =~ /not found$/
+    end
+  end
 end
