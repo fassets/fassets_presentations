@@ -1,14 +1,13 @@
 -content_for :h1 do
   Fassets Development
 #sidebar
-  %h2 Catalogs
   -if user_signed_in?
-    =form_for Catalog.new, :html => {:class => "collapsable"} do |f|
+    =form_for Catalog.new, :html => {:class => "collapsable",:title => "Catalogs"} do |f|
       =render :partial => "form", :object => f
       =submit_tag "Create"
   %ul.collection
     -Catalog.all.each do |catalog|
-      %li.collapsable
+      %li
         =link_to(catalog.title, catalog_path(catalog))
         .content=catalog.info
 

@@ -33,25 +33,11 @@ $(document).ready(function(){
         data: $('.sortable_tray').sortable('serialize'), 
         dataType: 'script', 
         complete: function(request){
-        $('#tray').effect('highlight',{},2000);
+          window.location.reload();
+          $('#tray').effect('highlight',{},2000);
         },
         url: "/" + $('.sortable_tray').attr('id').replace(/\./g,"/")})
     },
-//    receive: function(event, ui){
-//      $.ajax({
-//        type: 'put', 
-//        data: '&asset_id=' + $(ui.helper).attr("id"), 
-//        dataType: 'script', 
-//        complete: function(request){
-//        $('#tray').effect('highlight',{},2000);
-//        },
-//        url: "/" + $('.sortable_tray').attr('id').replace(/\./g,"/")})
-//    }
   });
-//  $('.slot_asset').draggable();
-//  $('.slot_asset').droppable();
-//  $('.sortable').sortable({
-//    connectWith: 'sortable_tray',
-//    items: 'li'
-//  });
+  $(".collapsable").collapsiblePanel();
 });

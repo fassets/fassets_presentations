@@ -53,7 +53,7 @@ class TrayPositionsController < ApplicationController
         end
       end
       format.html do
-        redirect_to :back
+        redirect_to "catalogs/show"
       end
     end
   end

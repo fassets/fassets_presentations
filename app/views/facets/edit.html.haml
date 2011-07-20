@@ -8,17 +8,15 @@
   #action
     =button_to "Delete", [@catalog, @facet], :method => :delete
 #sidebar
-  %h2 Labels
-  =form_for [@catalog, @facet, Label.new], :html => {:class => "collapsable"} do |f|
+  =form_for [@catalog, @facet, Label.new], :html => {:class => "collapsable",:title => "Labels"} do |f|
     =render :partial => "/labels/form", :object => f
     =submit_tag "Create"
 
   %ol.collection{:class => @facet.label_order == 'position' ? "sortable" : nil, :id => "catalogs.#{@catalog.id}.facets.#{@facet.id}.labels.sort"}
     -@facet.ordered_labels.each do |label|
-      %li{:id => "label_#{label.id}", :class => "collapsable"}
-        =label.caption
+      %li{:id => "label_#{label.id}", :class => "collapsable", :title => "#{label.caption}"}
         .content
-          -form_for [@catalog, @facet, label] do |f|
+          =form_for [@catalog, @facet, label] do |f|
             =render :partial => "/labels/form", :object => f
             =submit_tag "Save" 
 #main  

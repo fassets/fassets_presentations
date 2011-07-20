@@ -8,6 +8,7 @@
     =javascript_include_tag "jquery.fancyzoom.js"
     =javascript_include_tag "flowplayer.js"
     =javascript_include_tag "dombuilder.js"
+    =javascript_include_tag "diQuery-collapsiblePanel.js"
     =javascript_include_tag "application.js"
     =yield :head
     %title
@@ -40,5 +41,5 @@
               =render :partial => "shared/clipboard", :locals => {:tp => tp}
             -else
               =render :partial => "shared/asset", :locals => {:tp => tp, :asset => tp.asset}
-          %li.clear
+          //%li.clear
         =submit_tag "Drop Selected"
