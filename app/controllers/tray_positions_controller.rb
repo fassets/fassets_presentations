@@ -46,6 +46,12 @@ class TrayPositionsController < ApplicationController
           end
         end
       end
+      if params["asset"]
+        unless TrayPosition.where(:user_id => current_user.id, :asset_id => params["asset"][0]).exists?
+          new_tp = TrayPosition.new(:user_id => current_user.id, :asset_id => params["asset"][0],:position => current_user.tray_positions.maximum(:position)+1)
+          new_tp.save
+        end
+      end
       format.html do
         redirect_to :back
       end
