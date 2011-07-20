@@ -1,7 +1,7 @@
 source :rubygems
 
 gem "rails", ">= 3.0.0"
-gem "haml"
+gem "haml", ">= 3.1.2"
 gem "paperclip"
 gem "sqlite3"
 gem "devise"
