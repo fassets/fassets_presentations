@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe PresentationsController do
-  include Devise::TestHelpers
-
   def mock_user(stubs={})
     @mock_user ||= mock_model(User, stubs).as_null_object
   end
