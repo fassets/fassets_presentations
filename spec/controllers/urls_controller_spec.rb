@@ -11,7 +11,6 @@ describe UrlsController do
       end
 
       it "should flash out an error" do
-        pending "implement me!"
         get 'show', :id => url.id
         response.should redirect_to(root_path)
         request.flash[:error].should =~ /not found$/
