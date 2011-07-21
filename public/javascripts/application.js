@@ -40,4 +40,17 @@ $(document).ready(function(){
     },
   });
   $(".collapsable").collapsiblePanel();
+  $("img.fit").scaleImage({
+    parent: ".slot_asset",
+    scale: 'fit',
+    center: false
+  });
+  $(window).resize(function() {
+    $("img.fit").scaleImage({
+      parent: ".slot_asset",
+      scale: 'fit',
+      center: false
+    });
+    console.log("Resize Pictures")
+  });
 });

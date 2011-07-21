@@ -1,12 +1,12 @@
 #slot_left {
   position: relative;
   float: left;
-  width: 48%;
+  width: 47%;
   height: 100%;
 }
 #slot_right {
   position: relative;
   float: right;
-  width: 48%;
+  width: 47%;
   height: 100%;
 }

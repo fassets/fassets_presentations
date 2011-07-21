@@ -233,12 +233,14 @@ ul#catalogs li {
 }
 #sidebar {
 	float: right;
-	width:  30%;
+/*	width:  30%;*/
+  width: 25%;
 }
 #main {
 	position: relative;
 	float: left;
-	width:  65%;
+/*	width:  65%;*/
+  width: 70%;
 }
 #main p {
 	line-height: 1.4em;
@@ -531,7 +533,6 @@ margin: .3em;
 #slots li>.content textarea{
 	width: 99%;
 }
-
 /* @end */
 
 #slots li.active {
@@ -586,4 +587,7 @@ margin: .3em;
 .collapsibleContainerContent
 {
     padding: 10px;
+}
+.slot_asset .content a img {
+  margin-top: 0px;
 }
