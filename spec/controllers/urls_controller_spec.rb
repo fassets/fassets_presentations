@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe UrlsController do
   let(:asset) { double(Url, :id => 1, :url => "http://example.com/") }
+  let(:create_params) do
+    {"url" => {:url => "http://example.com/"}}
+  end
   include_examples "Every AssetsController"
 
   describe "GET 'show'" do

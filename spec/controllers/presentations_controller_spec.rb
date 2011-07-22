@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe PresentationsController do
   let(:asset) { double(Presentation, :id => 1) }
+  let(:create_params) do
+      {"presentation" => {:title => "Test", :template => "test_template"}}
+     end
   include_examples "Every AssetsController"
 
   it "should assign content with Presentation class" do

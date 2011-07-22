@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe FileAssetsController do
   let(:asset) { double(FileAsset, :id => 1, :format => "png") }
+  let(:create_params) do
+    {"file_asset" => {:file_file_name => "test.png"}}
+  end
   include_examples "Every AssetsController"
 
   it "assigns content with FileAsset class" do
