@@ -45,4 +45,34 @@ describe PresentationsController do
       request.flash[:error].should =~ /not found$/
     end
   end
+
+  describe "DELETE asset" do
+    let(:presentation) { double(Presentation, :id => 1) }
+    before(:each) do
+      my_p = presentation
+      my_p.stub!(:destroy) {}
+      controller.stub!(:find_content) {}
+      controller.instance_eval { @content = my_p }
+    end
+
+    it "should delete the asset and show a notice" do
+      delete "destroy", :id => presentation.id
+      response.should redirect_to root_path
+      request.flash[:notice].should =~ /^Asset has been deleted!$/
+    end
+  end
+
+  describe "GET 'edit'" do
+    let(:presentation) { double(Presentation, :id => 1) }
+    before(:each) do
+      my_p = presentation
+      controller.stub!(:find_content) {}
+      controller.instance_eval { @content = my_p }
+    end
+    it "should render the edit template" do
+      get 'edit', :id => presentation.id
+      response.should be_success
+      response.should render_template("assets/edit")
+    end
+  end
 end
