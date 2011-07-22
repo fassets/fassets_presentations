@@ -44,7 +44,7 @@ class CatalogsController < ApplicationController
   end
   def destroy
     @catalog.destroy
-    flash[:notce] = "Catalog was successfully destroyed."
+    flash[:notice] = "Catalog was successfully destroyed."
     redirect_to root_url
   end
 protected
