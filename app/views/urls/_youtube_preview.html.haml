@@ -1,5 +1,5 @@
--content.url =~ content.regexp
-%object{:width => 425, :heigh => 344, :class => "fit #{css_class}"}
+-@content.url =~ @content.regexp
+%object{:width => 425, :heigh => 344, :class => "fit #{@css_class}"}
   %param{:name => "movie", :value => "http://www.youtube.com/v/#{$2}"}
   %param{:name => "allowFullScreen", :value => "true"}
   %param{:name => "allowScriptAccess", :value => "always"}
