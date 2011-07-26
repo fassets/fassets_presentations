@@ -26,3 +26,5 @@
     %ul#slots
       =render :partial => "slot", :collection => @slide.slots
     =submit_tag "Save"
+    #edit_warning{:style => "visibility: hidden"}
+      There are unsaved changes on this slide

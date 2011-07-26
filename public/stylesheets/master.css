@@ -532,6 +532,7 @@ margin: .3em;
 }
 #slots li>.content textarea{
 	width: 99%;
+  height: 100%;
 }
 /* @end */
 

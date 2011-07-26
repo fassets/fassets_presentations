@@ -45,6 +45,9 @@ protected
     params[self.content_model.to_s.underscore]
   end
   def find_content
+    if params[:asset_id]  
+      params[:id] = Asset.find(params[:asset_id]).content_id
+    end
     @content = self.content_model.find(params[:id])
   rescue ActiveRecord::RecordNotFound => e
     redirect_to root_url

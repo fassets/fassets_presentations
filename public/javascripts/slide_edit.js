@@ -4,6 +4,7 @@ $(function(){
 		handle: ".handle",
 		helper: "clone",
 		connectToSortable: "#tray ol",
+    appendTo: "body",  
 		start:function(e, ui) {
 			$('#tray ol').addClass("active");
 		}, 
@@ -25,14 +26,21 @@ $(function(){
 		} else {
 			id = $(ui.draggable).attr("id").split('_')[1];
 		}
-		asset.removeAttr("style");
-		asset.find(".icon a.zoom").fancyzoom();
-		$(asset).draggable(drag_opts);
-		$(this).find(".content .slot_asset").empty().append(asset).show();
 		$(this).find(".content input").val(id);
 		$(this).find(".content textarea").hide();
 		$(this).find(".name select").val("asset");
-		$('#edit_warning').show();
+    $(this).find(".content .slot_asset").load('/file_assets/'+id+'/preview','asset_id=' + id, function(){
+      $("img.fit").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: false
+      });
+      $("img.fit").draggable(drag_opts);
+    });
+    edit_link = '<a href="/file_assets/'+id+'/edit"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit"></a>'
+    $(this).find(".name a").html(edit_link);
+    $(this).find(".content .slot_asset").show();
+		$('#edit_warning').css('visibility','visible');
       },
     });
 	$("button.drop_slot").click(function(){
@@ -48,8 +56,13 @@ $(function(){
 			text.show();
 		} else {
 			asset.show();
+      $("img.fit").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: false
+      });
 			text.hide();
 		}
 	});
-	$("#slots li.asset").draggable(drag_opts);
+  $(".asset").draggable(drag_opts);
 });

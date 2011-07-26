@@ -26,7 +26,7 @@ $(document).ready(function(){
     }
   });
   $('#tray ol').sortable({
-    items: 'li',
+    //items: 'li',
     update: function(){
       $.ajax({
         type: 'put', 
@@ -51,6 +51,5 @@ $(document).ready(function(){
       scale: 'fit',
       center: false
     });
-    console.log("Resize Pictures")
   });
 });
