@@ -65,4 +65,7 @@ $(function(){
 		}
 	});
   $(".asset").draggable(drag_opts);
+  $("select").change(function(){
+    $('#edit_warning').css('visibility','visible');
+  });
 });
