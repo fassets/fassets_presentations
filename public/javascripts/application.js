@@ -27,6 +27,7 @@ $(document).ready(function(){
   });
   $('#tray ol').sortable({
     //items: 'li',
+    //connectWith: "ul",
     update: function(){
       $.ajax({
         type: 'put', 
@@ -38,6 +39,32 @@ $(document).ready(function(){
         },
         url: "/" + $('.sortable_tray').attr('id').replace(/\./g,"/")})
     },
+  });
+  $('ul #assets').draggable({
+    items: 'li',
+    connectToSortable: "#tray ol",
+  });
+  $("#container").droppable({
+    accept:'.asset',
+    activeClass:'active',  
+    hoverClass:'hover',
+    drop:function(ev,ui){
+		  var id;
+		  var asset = $(ui.draggable).clone();
+		  if ($(ui.draggable).is("[id^='tp']")) {
+			  id = $(ui.draggable).attr("rel");
+			  asset.find("input").remove();
+			  asset.attr("id", "asset_" + id);
+		  } else {
+			  id = $(ui.draggable).attr("id").split('_')[1];
+		  }
+    $.ajax({
+      type: 'put',
+      url: window.location.href + "/add_asset",
+      data: "&asset_id="+id,
+    });
+    window.location.reload();
+    }
   });
   $(".collapsable").collapsiblePanel();
   $("img.fit").scaleImage({

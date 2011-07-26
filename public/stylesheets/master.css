@@ -231,6 +231,14 @@ ul#catalogs li {
 	padding: 15px;
 	background-color: white;
 }
+#container.active {
+	background-color: #dce9ff;
+	border: 1px dotted #0060ff;
+}
+#container.hover {
+	border: 1px solid #0060ff;
+	background-color: #dce9ff;
+}
 #sidebar {
 	float: right;
 /*	width:  30%;*/

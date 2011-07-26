@@ -22,12 +22,11 @@ Fassets::Application.routes.draw do
     
           resources :labels do
             collection do
-      put :sort
+              put :sort
+            end            
+          end
       end
-      
-      
-      end
-    end
+      put :add_asset
   end
 
   resources :classifications
