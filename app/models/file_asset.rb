@@ -21,7 +21,8 @@ class FileAsset < ActiveRecord::Base
       :thumb => "48x48#",
       :small => "400x300>"
     }
-    
+  before_post_process :image?
+
   def media_type
     MIME_2_MEDIA[file_content_type] || 'file'
   end    
@@ -30,5 +31,8 @@ class FileAsset < ActiveRecord::Base
   end
   def icon
     media_type == 'image' ? file.url(:thumb) : "/images/#{media_type}.png"
+  end
+  def image?
+    !(file_content_type =~ /^image.*/).nil?
   end
 end
