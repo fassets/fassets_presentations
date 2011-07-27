@@ -44,7 +44,7 @@ $(document).ready(function(){
     items: 'li',
     connectToSortable: "#tray ol",
   });
-  $("#container").droppable({
+  $("#catalog_container").droppable({
     accept:'.asset',
     activeClass:'active',  
     hoverClass:'hover',
