@@ -8,6 +8,7 @@
       =select_tag "slide[content][#{slot.name}][mode]", options_for_select(["markup", "asset"], slot["mode"])
       -if slot.asset and slot["mode"] == "asset"
         =link_to image_tag("edit.png", :width => 15,  :height => 15), url_for(slot.asset.content) + "/edit"
+        =image_tag("delete.png", :width => 15,  :height => 15, :alt => "Drop Asset", :class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'") 
         //=image_tag "drag.png", :width => 12, :height => 13, :class => "handle"
     .content   
       =hidden_field_tag "slide[content][#{slot.name}][asset_id]", slot['asset_id']
@@ -19,4 +20,4 @@
         -else
           Drop Asset Here!
       .clear
-      =text_area_tag "slide[content][#{slot.name}][markup]", slot["markup"], :rows => 10, :style => slot["mode"] == "asset" ?  "display:none" : ""
+      =text_area_tag "slide[content][#{slot.name}][markup]", slot["markup"], :rows => 20, :style => slot["mode"] == "asset" ?  "display:none" : ""

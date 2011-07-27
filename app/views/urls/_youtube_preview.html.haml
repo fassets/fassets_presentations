@@ -1,6 +1,7 @@
--@content.url =~ @content.regexp
-%object{:width => 425, :heigh => 344, :class => "fit #{@css_class}"}
-  %param{:name => "movie", :value => "http://www.youtube.com/v/#{$2}"}
-  %param{:name => "allowFullScreen", :value => "true"}
-  %param{:name => "allowScriptAccess", :value => "always"}
-  %embed{:src => "http://www.youtube.com/v/#{$2}", :type => "application/x-shockwave-flash",  :allowscriptaccess => "always", :allowfullscreen => "true",  :width => 425, :height => 344}
+.asset{:id => "asset_"+@content.asset.id.to_s}
+  -@content.url =~ @content.regexp
+  %object{:width => 425, :heigh => 344, :class => "fit #{@css_class}"}
+    %param{:name => "movie", :value => "http://www.youtube.com/v/#{$2}"}
+    %param{:name => "allowFullScreen", :value => "true"}
+    %param{:name => "allowScriptAccess", :value => "always"}
+    %embed{:src => "http://www.youtube.com/v/#{$2}", :type => "application/x-shockwave-flash",  :allowscriptaccess => "always", :allowfullscreen => "true",  :width => 425, :height => 344}

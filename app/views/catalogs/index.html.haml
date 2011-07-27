@@ -2,7 +2,8 @@
   Fassets Development
 #sidebar
   -if user_signed_in?
-    =form_for Catalog.new, :html => {:class => "collapsable",:title => "Catalogs"} do |f|
+    %h2.catalogtitle New Catalog
+    =form_for Catalog.new, :html => {:class => "collapsable_catalog"} do |f|
       =render :partial => "form", :object => f
       =submit_tag "Create"
   %ul.collection

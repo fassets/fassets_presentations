@@ -1,7 +1,7 @@
 class CatalogsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
 
-  before_filter :find_catalog, :except => [:index, :new, :create]
+  before_filter :find_catalog, :except => [:index, :new, :create, :add_asset]
   def index
     @catalogs = Catalog.all
   end
@@ -9,6 +9,7 @@ class CatalogsController < ApplicationController
     @filter = LabelFilter.new(params[:filter])
     @assets = @catalog.assets.filter(@filter)
     @counts = 0
+    logger.debug "Flash:"+flash.to_s
   end
   def new
     @catalog = Catalog.new
@@ -44,8 +45,23 @@ class CatalogsController < ApplicationController
   end
   def destroy
     @catalog.destroy
-    flash[:notce] = "Catalog was successfully destroyed."
+    flash[:notice] = "Catalog was successfully destroyed."
     redirect_to root_url
+  end
+  def add_asset
+      @catalog = Catalog.find(params[:catalog_id])
+      if Classification.where(:catalog_id => params[:catalog_id], :asset_id => params[:asset_id]).exists?
+        flash[:error] = "Asset already in catalog!"
+        redirect_to :back
+        return
+      end
+      classification = Classification.new(:catalog_id => params[:catalog_id], :asset_id => params[:asset_id]);
+      if classification.save
+        flash[:notice] = "Asset successfully added to catalog"
+      else
+        flash[:error] = "Could not add asset to catalog"
+      end
+      redirect_to catalog_path(@catalog)
   end
 protected
   def find_catalog

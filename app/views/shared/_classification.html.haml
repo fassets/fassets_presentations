@@ -1,10 +1,12 @@
-=form_for Classification.new(:asset_id => asset.id),:html => {:class => 'collapsable', :title => "Classifications"}do |f|
+%h2.classificationtitle Classifications
+=form_for Classification.new(:asset_id => asset.id),:html => {:class => 'collapsable_classification'}do |f|
   =select("classification", "catalog_id", Catalog.all.map {|c| [ c.title, c.id ] })
   =f.hidden_field :asset_id
   =submit_tag "Add"
   
 %ul.collection{:class => "drawers"}
   -asset.classifications.each do |classification|
+    %h2.title=classification.catalog.title
     %li
       .handle=classification.catalog.title
       .content

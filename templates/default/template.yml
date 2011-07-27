@@ -2,8 +2,6 @@
     slots: [left, right]
 2rows:
     slots: [top, bottom]
-vertical2:
-    slots: [left, right]
 one_slot:
     slots: [center]
 top2_bottom1:

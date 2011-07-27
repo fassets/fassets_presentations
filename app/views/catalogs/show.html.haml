@@ -8,13 +8,14 @@
         =link_to image_tag("edit.png"), edit_catalog_path(@catalog)
 #sidebar
   -if user_signed_in?
-    =form_for [@catalog, Facet.new], :html => {:class => 'collapsable', :title => "Facets"} do |f|
+    %h2.facettitle Facets
+    =form_for [@catalog, Facet.new], :html => {:class => 'collapsable_facet'} do |f|
       =render :partial => "/facets/form", :object => f
       =submit_tag "Create"
   =render :partial => "facet", :collection => @catalog.facets  
 
 
-#main
+#catalog_main
   -if @filter.empty?
     %h2 Assets
   -else

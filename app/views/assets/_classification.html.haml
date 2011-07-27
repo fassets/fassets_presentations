@@ -1,15 +1,18 @@
-=form_for Classification.new(:asset_id => @content.asset.id), :html=>{:class => 'collapsable', :title => "Classification"} do |f|
+%h2.classificationtitle New Classification
+=form_for Classification.new(:asset_id => @content.asset.id), :html=>{:class => 'collapsable_classification'} do |f|
   %p
     %label{:for => 'catalog_id'} Catalog:
     =select("classification", "catalog_id", Catalog.all.inject([]){|m,c| m << [c.title, c.id]})
   =f.hidden_field :asset_id
   =submit_tag "Create"    
-    
-%ul.collection
+
+
+%h2.classificationfacettitle Classifications    
+%ul.collection{:class => "collapsable_classificationfacet"}
   -catalogs = []
   -@content.asset.classifications.each do |classification|
     -catalogs << classification.catalog_id
-    %li.collapsable{:title => "#{classification.catalog.title}"}
+    %li
       =link_to classification.catalog.title, catalog_path(classification.catalog)
       .content
         =form_for classification, :method => :put do |f|

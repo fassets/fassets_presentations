@@ -67,6 +67,13 @@ h3 {
 	font-size: 1.1em;
 }
 /* @end */
+.collapsiblePanelTitle {
+  display: inline;
+}
+.collapsiblePanelTitle img {
+  float: left;
+  padding-right: 0.5em;
+}
 
 /* @group Header */
 #message {
@@ -231,17 +238,30 @@ ul#catalogs li {
 	padding: 15px;
 	background-color: white;
 }
+.active {
+	background-color: #dce9ff;
+	border: 1px dotted #0060ff;
+}
+.hover {
+	border: 1px solid #0060ff;
+	background-color: #dce9ff;
+}
 #sidebar {
 	float: right;
-	width:  30%;
+/*	width:  30%;*/
+  width: 25%;
 }
 #main {
 	position: relative;
 	float: left;
-	width:  65%;
+/*	width:  65%;*/
+  width: 70%;
 }
 #main p {
 	line-height: 1.4em;
+}
+#catalog_main {
+  min-height: 25em;
 }
 #edit_warning {
 	position: absolute;
@@ -530,8 +550,11 @@ margin: .3em;
 }
 #slots li>.content textarea{
 	width: 99%;
+  height: 100%;
 }
-
+#drop_asset {
+  cursor: 'pointer';
+}
 /* @end */
 
 #slots li.active {
@@ -586,4 +609,7 @@ margin: .3em;
 .collapsibleContainerContent
 {
     padding: 10px;
+}
+.slot_asset .content a img {
+  margin-top: 0px;
 }

@@ -4,6 +4,7 @@ $(function(){
 		handle: ".handle",
 		helper: "clone",
 		connectToSortable: "#tray ol",
+    appendTo: "body",  
 		start:function(e, ui) {
 			$('#tray ol').addClass("active");
 		}, 
@@ -25,20 +26,48 @@ $(function(){
 		} else {
 			id = $(ui.draggable).attr("id").split('_')[1];
 		}
-		asset.removeAttr("style");
-		asset.find(".icon a.zoom").fancyzoom();
-		$(asset).draggable(drag_opts);
-		$(this).find(".content .slot_asset").empty().append(asset).show();
 		$(this).find(".content input").val(id);
 		$(this).find(".content textarea").hide();
 		$(this).find(".name select").val("asset");
-		$('#edit_warning').show();
+    $(this).find(".content .slot_asset").load('/assets/'+id+'/preview', function(){
+      $("img.fit").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: false
+      });
+      $(".asset").draggable(drag_opts);
+    });
+    edit_link = '<a href="/assets/'+id+'/edit?asset_id='+id+'"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit"></a>'
+    drop_link = '<img width="15" height="15" src="/images/delete.png?1298906686" class="drop_asset">'
+    if ($(this).find(".name a").length){
+      $(this).find(".name a").html(edit_link);
+    } else {
+      $(this).find(".name").append(edit_link);
+    }
+    if (!$(this).find(".name .drop_asset").length){
+      $(this).find(".name").append(drop_link);
+	    $(".drop_asset").click(function(){
+        $(this).parent().parent().find(".content input").remove();
+		    $(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
+        $(this).parent().parent().find(".name a").remove();
+        $(this).parent().parent().find(".name .drop_asset").remove();
+        $('#edit_warning').css('visibility','visible');
+	    });
+    }
+    $(this).find(".content .slot_asset").show();
+		$('#edit_warning').css('visibility','visible');
       },
     });
 	$("button.drop_slot").click(function(){
 		$(this).parent().parent().remove();
 	});
-	
+	$(".drop_asset").click(function(){
+    $(this).parent().parent().find(".content input").remove();
+		$(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
+    $(this).parent().parent().find(".name a").remove();
+    $(this).parent().parent().find(".name .drop_asset").remove();
+    $('#edit_warning').css('visibility','visible');
+	});	
 	$('#slots select').change(function(){
 		var content = $(this).parent().next();
 		var text = content.find("textarea");
@@ -48,8 +77,16 @@ $(function(){
 			text.show();
 		} else {
 			asset.show();
+      $("img.fit").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: false
+      });
 			text.hide();
 		}
 	});
-	$("#slots li.asset").draggable(drag_opts);
+  $(".asset").draggable(drag_opts);
+  $(".edit_slide select").change(function(){
+    $('#edit_warning').css('visibility','visible');
+  });
 });
