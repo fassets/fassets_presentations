@@ -39,12 +39,18 @@ $(function(){
     });
     edit_link = '<a href="/assets/'+id+'/edit?asset_id='+id+'"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit"></a>'
     drop_link = '<img width="15" height="15" src="/images/delete.png?1298906686" class="drop_asset">'
-    $(this).find(".name a").html(edit_link);
-    if (!$(this).find(".name img").length){
-      $(this).find(".name").append(drop_link)
-	    $("#drop_asset").click(function(){
+    if ($(this).find(".name a").length){
+      $(this).find(".name a").html(edit_link);
+    } else {
+      $(this).find(".name").append(edit_link);
+    }
+    if (!$(this).find(".name .drop_asset").length){
+      $(this).find(".name").append(drop_link);
+	    $(".drop_asset").click(function(){
         $(this).parent().parent().find(".content input").remove();
 		    $(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
+        $(this).parent().parent().find(".name a").remove();
+        $(this).parent().parent().find(".name .drop_asset").remove();
         $('#edit_warning').css('visibility','visible');
 	    });
     }
