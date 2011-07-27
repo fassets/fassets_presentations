@@ -13,7 +13,6 @@ Fassets::Application.routes.draw do
     end
   end
 
-  #resource :session
   resources :catalogs do
   
   
@@ -52,6 +51,7 @@ Fassets::Application.routes.draw do
     
     end
   end
+  match 'assets/:id/preview' => 'assets#preview'
 
   match '/' => 'catalogs#index'
   root :to => "catalogs#index"

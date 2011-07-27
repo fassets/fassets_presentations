@@ -29,7 +29,7 @@ $(function(){
 		$(this).find(".content input").val(id);
 		$(this).find(".content textarea").hide();
 		$(this).find(".name select").val("asset");
-    $(this).find(".content .slot_asset").load('/file_assets/'+id+'/preview','asset_id=' + id, function(){
+    $(this).find(".content .slot_asset").load('/assets/'+id+'/preview','asset_id=' + id, function(){
       $("img.fit").scaleImage({
         parent: ".slot_asset",
         scale: 'fit',

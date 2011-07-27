@@ -27,7 +27,7 @@ $(document).ready(function(){
   });
   $('#tray ol').sortable({
     //items: 'li',
-    //connectWith: "ul",
+    connectWith: "ul",
     update: function(){
       $.ajax({
         type: 'put', 
@@ -44,7 +44,7 @@ $(document).ready(function(){
     items: 'li',
     connectToSortable: "#tray ol",
   });
-  $("#catalog_container").droppable({
+  $("#catalog_main").droppable({
     accept:'.asset',
     activeClass:'active',  
     hoverClass:'hover',

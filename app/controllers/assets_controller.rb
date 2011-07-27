@@ -1,6 +1,6 @@
 class AssetsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
-  before_filter :find_content, :except => [:new, :create]
+  before_filter :find_content, :except => [:new, :create,:preview]
 
   def new
     @content = self.content_model.new
@@ -39,15 +39,18 @@ class AssetsController < ApplicationController
     @content.destroy
     redirect_to root_url
   end
+  def preview
+    content_model = Asset.find(params[:asset_id]).content_type.constantize
+    content_id = Asset.find(params[:asset_id]).content_id
+    @content = content_model.find(content_id)
+    render :partial => content_model.to_s.underscore.pluralize + "/" + @content.media_type.to_s.underscore + "_preview"
+  end
 
 protected
   def content_params
     params[self.content_model.to_s.underscore]
   end
   def find_content
-    if params[:asset_id]  
-      params[:id] = Asset.find(params[:asset_id]).content_id
-    end
     @content = self.content_model.find(params[:id])
   rescue ActiveRecord::RecordNotFound => e
     redirect_to root_url

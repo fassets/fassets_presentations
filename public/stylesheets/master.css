@@ -238,11 +238,11 @@ ul#catalogs li {
 	padding: 15px;
 	background-color: white;
 }
-#container.active {
+.active {
 	background-color: #dce9ff;
 	border: 1px dotted #0060ff;
 }
-#container.hover {
+.hover {
 	border: 1px solid #0060ff;
 	background-color: #dce9ff;
 }
@@ -259,6 +259,9 @@ ul#catalogs li {
 }
 #main p {
 	line-height: 1.4em;
+}
+#catalog_main {
+  min-height: 25em;
 }
 #edit_warning {
 	position: absolute;
