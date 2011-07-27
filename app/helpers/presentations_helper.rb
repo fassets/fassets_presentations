@@ -13,7 +13,7 @@ module PresentationsHelper
   end
   def render_slot(slot, css_class="")
     return "" unless slot
-    if slot["mode"] == "asset"
+    if slot["mode"] == "asset" and slot.asset
       @content = slot.asset.content
       render :partial => content_partial(slot.asset.content, "preview") if slot.asset
     else
