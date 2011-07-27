@@ -36,6 +36,7 @@ $(function(){
         center: false
       });
       $("img.fit").draggable(drag_opts);
+      $(".asset").draggable(drag_opts);
     });
     edit_link = '<a href="/file_assets/'+id+'/edit"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit"></a>'
     $(this).find(".name a").html(edit_link);
