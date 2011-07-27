@@ -552,6 +552,9 @@ margin: .3em;
 	width: 99%;
   height: 100%;
 }
+#drop_asset {
+  cursor: 'pointer';
+}
 /* @end */
 
 #slots li.active {

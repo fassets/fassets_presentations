@@ -29,17 +29,25 @@ $(function(){
 		$(this).find(".content input").val(id);
 		$(this).find(".content textarea").hide();
 		$(this).find(".name select").val("asset");
-    $(this).find(".content .slot_asset").load('/assets/'+id+'/preview','asset_id=' + id, function(){
+    $(this).find(".content .slot_asset").load('/assets/'+id+'/preview', function(){
       $("img.fit").scaleImage({
         parent: ".slot_asset",
         scale: 'fit',
         center: false
       });
-      $("img.fit").draggable(drag_opts);
       $(".asset").draggable(drag_opts);
     });
-    edit_link = '<a href="/file_assets/'+id+'/edit"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit"></a>'
+    edit_link = '<a href="/assets/'+id+'/edit?asset_id='+id+'"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit"></a>'
+    drop_link = '<img width="15" height="15" src="/images/delete.png?1298906686" class="drop_asset">'
     $(this).find(".name a").html(edit_link);
+    if (!$(this).find(".name img").length){
+      $(this).find(".name").append(drop_link)
+	    $("#drop_asset").click(function(){
+        $(this).parent().parent().find(".content input").remove();
+		    $(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
+        $('#edit_warning').css('visibility','visible');
+	    });
+    }
     $(this).find(".content .slot_asset").show();
 		$('#edit_warning').css('visibility','visible');
       },
@@ -47,7 +55,13 @@ $(function(){
 	$("button.drop_slot").click(function(){
 		$(this).parent().parent().remove();
 	});
-	
+	$(".drop_asset").click(function(){
+    $(this).parent().parent().find(".content input").remove();
+		$(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
+    $(this).parent().parent().find(".name a").remove();
+    $(this).parent().parent().find(".name .drop_asset").remove();
+    $('#edit_warning').css('visibility','visible');
+	});	
 	$('#slots select').change(function(){
 		var content = $(this).parent().next();
 		var text = content.find("textarea");
