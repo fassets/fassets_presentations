@@ -66,7 +66,48 @@ $(document).ready(function(){
     window.location.reload();
     }
   });
-  $(".collapsable").collapsiblePanel();
+  $(".collapsable_label").collapsiblePanel({
+    collapsedImage: "/images/collapsed.png",
+    expandedImage: "/images/collapse.png",
+    titleQuery: ".labeltitle",
+    startCollapsed: true
+  });
+  $(".collapsable_facetlabels").collapsiblePanel({
+    collapsedImage: "/images/collapsed.png",
+    expandedImage: "/images/collapse.png",
+    titleQuery: ".facetlabelstitle",
+    startCollapsed: true
+  });
+  $(".collapsable_facet").collapsiblePanel({
+    collapsedImage: "/images/collapsed.png",
+    expandedImage: "/images/collapse.png",
+    titleQuery: ".facettitle",
+    startCollapsed: true
+  });
+  $(".collapsable_slide").collapsiblePanel({
+    collapsedImage: "/images/collapsed.png",
+    expandedImage: "/images/collapse.png",
+    titleQuery: ".slidetitle",
+    startCollapsed: true
+  })
+  $(".collapsable_catalog").collapsiblePanel({
+    collapsedImage: "/images/collapsed.png",
+    expandedImage: "/images/collapse.png",
+    titleQuery: ".catalogtitle",
+    startCollapsed: true
+  })
+  $(".collapsable_classification").collapsiblePanel({
+    collapsedImage: "/images/collapsed.png",
+    expandedImage: "/images/collapse.png",
+    titleQuery: ".classificationtitle",
+    startCollapsed: true
+  })
+  $(".collapsable_classificationfacet").collapsiblePanel({
+    collapsedImage: "/images/collapsed.png",
+    expandedImage: "/images/collapse.png",
+    titleQuery: ".classificationfacettitle",
+    startCollapsed: true
+  })
   $("img.fit").scaleImage({
     parent: ".slot_asset",
     scale: 'fit',

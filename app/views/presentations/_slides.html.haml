@@ -1,4 +1,5 @@
-=form_for [presentation, Slide.new], :html => {:class => "collapsable", :title => "Slides"} do |f|
+%h2.slidetitle New Slide
+=form_for [presentation, Slide.new], :html => {:class => "collapsable_slide"} do |f|
   =render :partial => "/slides/form", :object => f, :locals => {:presentation => presentation}
   =submit_tag "Create"
 

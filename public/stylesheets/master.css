@@ -67,6 +67,13 @@ h3 {
 	font-size: 1.1em;
 }
 /* @end */
+.collapsiblePanelTitle {
+  display: inline;
+}
+.collapsiblePanelTitle img {
+  float: left;
+  padding-right: 0.5em;
+}
 
 /* @group Header */
 #message {
