@@ -613,3 +613,18 @@ margin: .3em;
 .slot_asset .content a img {
   margin-top: 0px;
 }
+
+#editorhelp{
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  border: solid 2px black;
+  background-color: white;
+  z-index: 3;
+  visibility: hidden;
+  padding: 2em;
+  border-bottom-right-radius: 1em;
+  border-top-right-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-top-left-radius: 1em;
+}

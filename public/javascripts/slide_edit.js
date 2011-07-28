@@ -89,4 +89,16 @@ $(function(){
   $(".edit_slide select").change(function(){
     $('#edit_warning').css('visibility','visible');
   });
+	$(window).keydown(function(event){
+		switch(event.keyCode) {
+		case 72: // h
+      if ($("#editorhelp").is(":visible")) {
+			  $("#editorhelp").css('visibility','hidden');
+      } else {
+        $("#editorhelp").css('visibility','visible');
+      }
+			break;
+		}
+		console.log(event.keyCode);
+	});
 });

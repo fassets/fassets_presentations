@@ -20,6 +20,7 @@
   =render :partial => "/presentations/slides", :locals => {:presentation =>  @presentation}
   
 #main
+  #editorhelp=render :partial => "shared/editorhelp"
   =form_for  [@presentation,  @slide] do |f|
     =render :partial => "form", :object => f
     %h2 Slots
