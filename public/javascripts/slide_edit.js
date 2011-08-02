@@ -16,6 +16,10 @@ $(function(){
 			$('#tray ol').addClass("active");
 		}, 
 		stop:function(e, ui) {
+      $(this).parent().parent().parent().parent().find(".content input").val("");
+		  $(this).parent().parent().parent().parent().find(".content .slot_asset").html("Drop Asset here!");
+      $(this).parent().parent().parent().parent().find(".name a").remove();
+      $(this).parent().parent().parent().parent().find(".name .drop_asset").remove();
 			$('#tray ol').removeClass("active");
 		}
 	}
@@ -66,7 +70,7 @@ $(function(){
     if (!$(this).find(".name .drop_asset").length){
       $(this).find(".name").append(drop_link);
 	    $(".drop_asset").click(function(){
-        $(this).parent().parent().find(".content input").remove();
+        $(this).parent().parent().find(".content input").val("");
 		    $(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
         $(this).parent().parent().find(".name a").remove();
         $(this).parent().parent().find(".name .drop_asset").remove();
@@ -81,7 +85,7 @@ $(function(){
 		$(this).parent().parent().remove();
 	});
 	$(".drop_asset").click(function(){
-    $(this).parent().parent().find(".content input").remove();
+    $(this).parent().parent().find(".content input").val("");
 		$(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
     $(this).parent().parent().find(".name a").remove();
     $(this).parent().parent().find(".name .drop_asset").remove();
