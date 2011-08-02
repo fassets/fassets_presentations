@@ -616,10 +616,11 @@ margin: .3em;
 
 #editorhelp{
   position: absolute;
-  top: 30%;
+  top: 0%;
   left: 30%;
-  border: solid 2px black;
-  background-color: white;
+  border: solid 2px grey;
+  color: white;
+  background-color: black;
   z-index: 3;
   visibility: hidden;
   padding: 2em;
@@ -627,4 +628,7 @@ margin: .3em;
   border-top-right-radius: 1em;
   border-bottom-left-radius: 1em;
   border-top-left-radius: 1em;
+}
+#MarkupTable td{
+  padding: 5px;
 }

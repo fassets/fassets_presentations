@@ -1,8 +1,10 @@
 %h2 Markup:
-%table{:border => "1"}
+%br
+%table{:border => "1", :rules => "all", :cellpadding => "20", :cellspacing => "10", :id => "MarkupTable"}
   %tr
     %th Typ
     %th Befehl
+    %th Beispiel
   %tr
     %td H1-Überschrift
     %td # Überschrift
@@ -15,3 +17,36 @@
   %tr
     %td Einrückung für neue Ebene
     %td 4 Spaces
+  %tr
+    %td Spiegelstrich
+    %td *,+,-
+    %td * Punkt 1<br>&nbsp;&nbsp;&nbsp;&nbsp;* Unterpunkt von 1<br>* Punkt 2
+  %tr
+    %td Aufzählung
+    %td 1. oder 1) oder (1)
+    %td 1. Punkt 1 <br>&nbsp;&nbsp;&nbsp;&nbsp;(2) Punkt 1.(2)<br>2) Punkt 2
+  %tr
+    %td Hervorhebung
+    %td *Wort*
+    %td Jetzt folgt ein *hervorgehobenes* Wort.
+  %tr
+    %td Starke Hervorhebung
+    %td **Wort**
+    %td Jetzt folgt ein **stark** hervorgehobenes Wort.
+  %tr
+    %td Inline Zitat
+    %td `inline zitat´
+    %td Einstein sagte einmal: ´Das, wobei unsere Berechnungen versagen, nennen wir Zufall.´
+  %tr
+    %td Blockzitat
+    %td > Zitatzeile
+    %td > When I get to the bottom I go back to the top<br>> of the slide where I stop and I turn and I go<br>> for a ride, then I get to the bottom and I see<br>> you again! Helter skelter!"
+  %tr
+    %td Hochschreibung
+    %td Basis^Exponent^
+    %td 2^10^ ist 1024
+  %tr
+    %td Index
+    %td Text~Index~
+    %td H~2~O ist Wasser
+  
