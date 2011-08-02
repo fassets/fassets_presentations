@@ -2,6 +2,25 @@ $(function(){
 	
 	var drag_opts = {
 		handle: ".handle",
+		//helper: "clone",
+    cursorAt: {top: 48,left: 48},
+		connectToSortable: "#tray ol",
+    appendTo: "body",
+    helper: function(){
+      var asset = $(this).clone();
+      asset.css("width",96);
+      asset.css("height",96);
+      return $(asset);
+    },  
+		start:function(e, ui) {
+			$('#tray ol').addClass("active");
+		}, 
+		stop:function(e, ui) {
+			$('#tray ol').removeClass("active");
+		}
+	}
+	var drag_opts_tray = {
+		handle: ".handle",
 		helper: "clone",
 		connectToSortable: "#tray ol",
     appendTo: "body",  
@@ -85,7 +104,8 @@ $(function(){
 			text.hide();
 		}
 	});
-  $(".asset").draggable(drag_opts);
+  $(".sortable_tray .asset").draggable(drag_opts_tray);
+  $(".slot_asset .asset").draggable(drag_opts);
   $(".edit_slide select").change(function(){
     $('#edit_warning').css('visibility','visible');
   });
