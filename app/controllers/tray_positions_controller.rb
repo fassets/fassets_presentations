@@ -1,6 +1,11 @@
 class TrayPositionsController < ApplicationController
   before_filter :authenticate_user!
   def create
+    if current_user.tray_positions.maximum(:position)
+      params[:tray_position][:position] = current_user.tray_positions.maximum(:position)+1
+    else
+      params[:tray_position][:position] = 1
+    end
     tp = TrayPosition.new(params[:tray_position])
     tp.clipboard_type.capitalize! if tp.clipboard_type
     tp.save
@@ -48,7 +53,12 @@ class TrayPositionsController < ApplicationController
       end
       if params["asset"]
         unless TrayPosition.where(:user_id => current_user.id, :asset_id => params["asset"][0]).exists?
-          new_tp = TrayPosition.new(:user_id => current_user.id, :asset_id => params["asset"][0],:position => current_user.tray_positions.maximum(:position)+1)
+          if current_user.tray_positions.maximum(:position)
+            position = current_user.tray_positions.maximum(:position)+1
+          else
+            position = 1
+          end
+          new_tp = TrayPosition.new(:user_id => current_user.id, :asset_id => params["asset"][0],:position => position)
           new_tp.save
         end
       end

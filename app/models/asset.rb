@@ -44,6 +44,6 @@ class Asset < ActiveRecord::Base
   end
 
   def put_on_tray
-    tray_positions.create(:user_id => user.id)
+    tray_positions.create(:user_id => user.id, :asset_id => id)
   end
 end
