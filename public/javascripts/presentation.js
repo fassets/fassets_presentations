@@ -54,6 +54,13 @@ Presentation = function() {
 		setInterval(_pollLocationHash, 200);
 	}
 	pub.showSlide = function(index) {
+    if (index >= _items.length) {
+      alert("Slide number "+index+" doesn't exist")
+      return;
+    }
+    if (index < 1) {
+      alert("Slide numbers begin at 1")
+    }
 		location.hash = "#" + index;
 	}
 	pub.nextSlide = function() {
@@ -282,6 +289,12 @@ $(function(){
 		case 50: //2
 			Presentation.nextImage();
 			break;
+    case 74: // j
+      var index = prompt("Jump to slide number:");
+      if (index == null) break;
+      if (index == "") break;
+      Presentation.showSlide(index);
+      break;
 		}
 		console.log(event.keyCode);
 	});
