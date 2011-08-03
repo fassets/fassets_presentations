@@ -74,6 +74,7 @@ h3 {
   float: left;
   padding-right: 0.5em;
 }
+
 /* @group Header */
 #message {
 	position:absolute;
@@ -584,12 +585,18 @@ margin: .3em;
 	width: 99%;
   height: 100%;
 }
-#slots li>.content li{
+/* group Slot MarkupPreview */
+
+#slots li>.content .preview {
+  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
+  font-size: 1.2em;
+/*  background-color: white;*/
+}
+#slots li>.content .preview li{
   list-style: inherit;
+  list-style-position: inside;
 }
-#drop_asset {
-  cursor: 'pointer';
-}
+
 /* @end */
 
 #slots li.active {
@@ -683,4 +690,7 @@ margin: .3em;
   float: right;
   padding: 5px;
   font-weight: bold;
+}
+#drop_asset {
+  cursor: 'pointer';
 }
