@@ -152,7 +152,9 @@ ul#catalogs li {
 	bottom: 2px;
 	right: 15px;
 }
-
+#title {
+  height: 60px;
+}
 /* @end */
 
 /* @group Tray */
@@ -161,7 +163,12 @@ ul#catalogs li {
 #tray {
 	padding: .5em;
 	border-top: 1px solid #bbb;
-	z-index: 2;
+/*  z-index: 2;*/
+/*  position: relative;*/
+/*  position: absolute;*/
+/*  height: 80px;*/
+/*  bottom: 0%;*/
+  margin-top: 16px;
 }
 #tray ul {
 	padding: .3em;
@@ -229,7 +236,14 @@ ul#catalogs li {
 	bottom: 0px;
 	left:  52px;	
 }
-
+#new_tray_position {
+  float: left;
+  position: relative;
+  margin-bottom: 2px;
+}
+.button_to {
+  float: left;
+}
 /* @end */
 
 /* @group Container */
@@ -237,7 +251,12 @@ ul#catalogs li {
 #container {
 	padding: 15px;
 	background-color: white;
+/*  position: absolute;*/
+/*  height: 90%;*/
+/*  width: 100%;*/
+/*  float:left;*/
 }
+
 .active {
 	background-color: #dce9ff;
 	border: 1px dotted #0060ff;
@@ -248,25 +267,30 @@ ul#catalogs li {
 }
 #sidebar {
 	float: right;
+/*  position: absolute;*/
+  right: 0%;
 /*	width:  30%;*/
   width: 25%;
+  height: 100%;
 }
 #main {
-	position: relative;
+/*	position: relative;*/
 	float: left;
+  height: 100%;
 /*	width:  65%;*/
-  width: 70%;
+  width: 73%;
 }
 #main p {
 	line-height: 1.4em;
 }
 #catalog_main {
   min-height: 25em;
+  width: 75%;
 }
 #edit_warning {
 	position: absolute;
 	top: 0px;
-	right: 0px;
+	right: 90px;
 	color:  red;
 	font-weight: bold;
 	font-size: 10pt;
@@ -297,9 +321,12 @@ h1 small{
 
 
 h1 #action {
-	position: absolute;
-	bottom: 1em;
-	right: 15px;	
+/*	position: absolute;*/
+/*	bottom: 1em;*/
+/*	right: 15px;	*/
+  position: relative;
+  height: 20px;
+  bottom: 2px;
 }
 #parent {
 	color: #6e6e6e;
@@ -533,6 +560,10 @@ span.color {
 /* @end */
 
 /* @group Slot */
+#slots {
+  position: relative;
+  height: 80%;
+}
 #slots li {
 padding: .3em;
 margin: .3em;
@@ -546,15 +577,26 @@ margin: .3em;
 }
 #slots li>.content {
 	padding: .5em;
-	background-color: #f0f0f0;	
+	background-color: #f0f0f0;
+  width: 99%;
+/*  height: 100%;	*/
 }
 #slots li>.content textarea{
 	width: 99%;
   height: 100%;
 }
-#drop_asset {
-  cursor: 'pointer';
+/* group Slot MarkupPreview */
+
+#slots li>.content .preview {
+  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
+  font-size: 1.2em;
+/*  background-color: white;*/
 }
+#slots li>.content .preview li{
+  list-style: inherit;
+  list-style-position: inside;
+}
+
 /* @end */
 
 #slots li.active {
@@ -611,5 +653,44 @@ margin: .3em;
     padding: 10px;
 }
 .slot_asset .content a img {
+  position: relative;
   margin-top: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#editorhelp{
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  border: solid 2px grey;
+  color: white;
+  background-color: black;
+  z-index: 3;
+  visibility: hidden;
+  padding: 2em;
+  border-bottom-right-radius: 1em;
+  border-top-right-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-top-left-radius: 1em;
+}
+#MarkupTable td{
+  padding: 5px;
+}
+.edit_slide{
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#slide_save{
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  margin-right: 20px;
+  float: right;
+  padding: 5px;
+  font-weight: bold;
+}
+#drop_asset {
+  cursor: 'pointer';
 }

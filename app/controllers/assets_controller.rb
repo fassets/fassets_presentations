@@ -1,6 +1,6 @@
 class AssetsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
-  before_filter :find_content, :except => [:new, :create, :preview]
+  before_filter :find_content, :except => [:new, :create, :preview, :markup_preview]
 
   def new
     @content = self.content_model.new
@@ -43,6 +43,9 @@ class AssetsController < ApplicationController
     content_id = Asset.find(params[:id]).content_id
     @content = self.content_model.find(content_id)
     render :partial => content_model.to_s.underscore.pluralize + "/" + @content.media_type.to_s.underscore + "_preview"
+  end
+  def markup_preview
+    render :inline => PandocRuby.convert(params["markup"], :from => :markdown, :to => :html)
   end
   def content_model
     return Asset.find(params[:id]).content_type.constantize

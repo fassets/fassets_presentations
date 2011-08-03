@@ -53,6 +53,7 @@ Fassets::Application.routes.draw do
   end
   match 'assets/:id/preview' => 'assets#preview'
   match 'assets/:id/edit' => 'assets#edit'
+  match 'markup/preview' => 'assets#markup_preview'
 
   match '/' => 'catalogs#index'
   root :to => "catalogs#index"

@@ -3,6 +3,7 @@
     =@content.media_type.capitalize
   #title
     =link_to @content.asset.name, url_for(@content)
+  #action
     %span.action
       =button_to "Delete", [@content], :method => :delete
       =render :partial => "assets/put_on_tray"
