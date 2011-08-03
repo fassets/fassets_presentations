@@ -1,5 +1,8 @@
 -if user_signed_in?
-  =link_to current_user.email, edit_user_registration_path #:content_method => :edit_user_registration
+  -unless current_user.name.blank?
+    =link_to current_user.name, edit_user_registration_path #:content_method => :edit_user_registration
+  -else
+    =link_to current_user.email, edit_user_registration_path #:content_method => :edit_user_registration
   =link_to "Logout", destroy_user_session_path #, :method => :destroy_user_session
 -else
   =link_to "Log in", new_user_session_path
