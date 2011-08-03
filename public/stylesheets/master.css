@@ -652,8 +652,8 @@ margin: .3em;
 
 #editorhelp{
   position: absolute;
-  top: 0%;
-  left: 30%;
+  top: 10%;
+  left: 20%;
   border: solid 2px grey;
   color: white;
   background-color: black;

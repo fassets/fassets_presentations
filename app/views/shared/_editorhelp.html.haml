@@ -2,51 +2,49 @@
 %br
 %table{:border => "1", :rules => "all", :cellpadding => "20", :cellspacing => "10", :id => "MarkupTable"}
   %tr
-    %th Typ
-    %th Befehl
-    %th Beispiel
+    %th Type
+    %th Command
+    %th Example
   %tr
-    %td H1-Überschrift
-    %td # Überschrift
+    %td H1-Header
+    %td # h1-header
   %tr
-    %td H2-Überschrift
-    %td ## Überschrift
+    %td H2-Header
+    %td ## h2-header
   %tr
-    %td H3-Überschrift
-    %td ### Überschrift
+    %td H3-Header
+    %td ### h3-header
   %tr
-    %td Einrückung für neue Ebene
+    %td Indentation for Bullet List and Ordered List
     %td 4 Spaces
   %tr
-    %td Spiegelstrich
+    %td Bullet List
     %td *,+,-
-    %td * Punkt 1<br>&nbsp;&nbsp;&nbsp;&nbsp;* Unterpunkt von 1<br>* Punkt 2
+    %td * one<br>&nbsp;&nbsp;&nbsp;&nbsp;* subone<br>* two
   %tr
-    %td Aufzählung
-    %td 1. oder 1) oder (1)
-    %td 1. Punkt 1 <br>&nbsp;&nbsp;&nbsp;&nbsp;(2) Punkt 1.(2)<br>2) Punkt 2
+    %td Ordered List
+    %td 1. or 1) or (1) or (i)
+    %td 1. one <br>&nbsp;&nbsp;&nbsp;&nbsp;(2) subone<br>2) two
   %tr
-    %td Hervorhebung
-    %td *Wort*
-    %td Jetzt folgt ein *hervorgehobenes* Wort.
+    %td Emphasis
+    %td *emphasized*
   %tr
-    %td Starke Hervorhebung
-    %td **Wort**
-    %td Jetzt folgt ein **stark** hervorgehobenes Wort.
+    %td Strong Emphasis
+    %td **strongly emphasized**
   %tr
-    %td Inline Zitat
-    %td `inline zitat´
-    %td Einstein sagte einmal: ´Das, wobei unsere Berechnungen versagen, nennen wir Zufall.´
+    %td Block quotation
+    %td > block quote line
+    %td > This is a block quote. This<br>> paragraph has two lines.<br>> This is a list inside a block quote.<br>> 2. Second item."
   %tr
-    %td Blockzitat
-    %td > Zitatzeile
-    %td > When I get to the bottom I go back to the top<br>> of the slide where I stop and I turn and I go<br>> for a ride, then I get to the bottom and I see<br>> you again! Helter skelter!"
-  %tr
-    %td Hochschreibung
+    %td Superscript
     %td Basis^Exponent^
-    %td 2^10^ ist 1024
+    %td 2^10^ is 1024
   %tr
-    %td Index
+    %td Subscript
     %td Text~Index~
-    %td H~2~O ist Wasser
+    %td H~2~O is water
+
+%br
+For a complete documentation of all supported commands and their usage visit:
+=link_to 'Pandoc-Markdown', 'http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown'
   
