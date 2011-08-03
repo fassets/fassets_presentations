@@ -74,7 +74,6 @@ h3 {
   float: left;
   padding-right: 0.5em;
 }
-
 /* @group Header */
 #message {
 	position:absolute;
@@ -584,6 +583,9 @@ margin: .3em;
 #slots li>.content textarea{
 	width: 99%;
   height: 100%;
+}
+#slots li>.content li{
+  list-style: inherit;
 }
 #drop_asset {
   cursor: 'pointer';

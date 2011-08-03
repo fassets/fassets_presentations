@@ -60,7 +60,7 @@ $(function(){
       });
       $(".asset").draggable(drag_opts);
     });
-    edit_link = '<a href="/assets/'+id+'/edit?asset_id='+id+'"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit"></a>'
+    edit_link = '<a href="/assets/'+id+'/edit?asset_id='+id+'"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit" title="Edit"></a>'
     drop_link = '<img width="15" height="15" src="/images/delete.png?1298906686" class="drop_asset">'
     if ($(this).find(".name a").length){
       $(this).find(".name a").html(edit_link);
@@ -91,6 +91,17 @@ $(function(){
     $(this).parent().parent().find(".name .drop_asset").remove();
     $('#edit_warning').css('visibility','visible');
 	});	
+	$(".preview_markup").click(function(){
+    if ($(this).parent().parent().find(".content textarea").is(":visible")){
+      $(this).parent().parent().find(".content textarea").hide();
+      var markup = $(this).parent().parent().find(".content textarea").val();
+      $(this).parent().parent().find(".content .preview").load("/markup/preview",{markup: markup});
+      $(this).parent().parent().find(".content .preview").show();
+    } else {
+      $(this).parent().parent().find(".content .preview").hide();
+      $(this).parent().parent().find(".content textarea").show();
+    }
+	});  
 	$('#slots select').change(function(){
 		var content = $(this).parent().next();
 		var text = content.find("textarea");
