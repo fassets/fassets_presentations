@@ -116,6 +116,8 @@ $(function(){
 	$(window).keydown(function(event){
 		switch(event.keyCode) {
 		case 72: // h
+      activeObj = document.activeElement;
+      if (activeObj.type == "textarea") break;
       if ($("#editorhelp").is(":visible")) {
 			  $("#editorhelp").css('visibility','hidden');
       } else {
