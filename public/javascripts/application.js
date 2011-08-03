@@ -118,7 +118,7 @@ $(document).ready(function(){
       parent: ".slot_asset",
       scale: 'fit',
       center: false
-    }),
-    $(".content .preview").css("font-size", $(window).height()/32 + 'px');
+    })
+//    $(".content .preview").css("font-size", $(window).height()/32 + 'px');
   });
 });

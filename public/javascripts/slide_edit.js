@@ -98,7 +98,7 @@ $(function(){
       $(this).parent().parent().find(".content textarea").hide();
       var markup = $(this).parent().parent().find(".content textarea").val();
       $(this).parent().parent().find(".content .preview").load("/markup/preview",{markup: markup});
-      $(this).parent().parent().find(".content .preview").css("font-size", $(window).height()/32 + 'px');
+//      $(this).parent().parent().find(".content .preview").css("font-size", $(window).height()/32 + 'px');
       $(this).parent().parent().find(".content .preview").show();
     } else {
       $(this).parent().parent().find(".content .preview").hide();
