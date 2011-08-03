@@ -8,6 +8,7 @@
   #title
     %small=link_to @presentation.asset.name, edit_presentation_path(@presentation)
     =link_to @slide.title, presentation_slide_path(@presentation, @slide)
+  #action
     %span.action
       =button_to "Delete", [@presentation, @slide], :method => :delete
       =form_for [current_user, TrayPosition.new(:user_id => current_user.id, :clipboard_type => 'slide', :clipboard_id => @slide.id)], :html => {:class => :inline} do |f|
@@ -22,10 +23,10 @@
 #main
   #editorhelp=render :partial => "shared/editorhelp"
   =form_for  [@presentation,  @slide] do |f|
+    =submit_tag "Save", :id => "slide_save"
     =render :partial => "form", :object => f
     %h2 Slots
     %ul#slots
       =render :partial => "slot", :collection => @slide.slots
     #edit_warning{:style => "visibility: hidden"}
       There are unsaved changes on this slide
-    =submit_tag "Save", :id => "slide_save"

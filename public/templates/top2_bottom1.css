@@ -6,13 +6,22 @@
 }
 #slot_topright {
   position: relative;
-  float: right;
+  float: left;
   width: 47%;
   height: 47%;
 }
-#slot_bottom {
+#slot_bottom{
   position: relative;
+/*  bottom: 0%;*/
   width: 100%;
+  float: left;
+  max-height: 47%;
   height: 47%;
+}
+#slot_bottom .content {
+  height: 47%;
+}
+#slot_bottom .content .slot_asset{
+  height: 100%;
 }
 
