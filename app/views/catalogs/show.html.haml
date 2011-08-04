@@ -8,7 +8,7 @@
         =link_to image_tag("edit.png"), edit_catalog_path(@catalog)
 #sidebar
   -if user_signed_in?
-    %h2.facettitle Facets
+    %h2.facettitle Add Facet
     =form_for [@catalog, Facet.new], :html => {:class => 'collapsable_facet'} do |f|
       =render :partial => "/facets/form", :object => f
       =submit_tag "Create"

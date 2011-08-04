@@ -1,4 +1,4 @@
-%h2.classificationtitle Classifications
+%h2.classificationtitle Add Classification
 =form_for Classification.new(:asset_id => asset.id),:html => {:class => 'collapsable_classification'}do |f|
   =select("classification", "catalog_id", Catalog.all.map {|c| [ c.title, c.id ] })
   =f.hidden_field :asset_id
