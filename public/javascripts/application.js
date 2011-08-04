@@ -108,17 +108,6 @@ $(document).ready(function(){
     titleQuery: ".classificationfacettitle",
     startCollapsed: true
   })
-  $("img.fit").scaleImage({
-    parent: ".slot_asset",
-    scale: 'fit',
-    center: false
-  });
-  $(window).resize(function() {
-    $("img.fit").scaleImage({
-      parent: ".slot_asset",
-      scale: 'fit',
-      center: false
-    })
 //    $(".content .preview").css("font-size", $(window).height()/32 + 'px');
-  });
+//  });
 });

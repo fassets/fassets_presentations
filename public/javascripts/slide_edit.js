@@ -55,11 +55,7 @@ $(function(){
 		$(this).find(".name select").val("asset");
     $(this).find(".name .preview_markup").hide();
     $(this).find(".content .slot_asset").load('/assets/'+id+'/preview', function(){
-      $("img.fit").scaleImage({
-        parent: ".slot_asset",
-        scale: 'fit',
-        center: false
-      });
+      resize_slots();
       $(".asset").draggable(drag_opts);
     });
     edit_link = '<a href="/assets/'+id+'/edit?asset_id='+id+'"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit" title="Edit"></a>'
@@ -79,7 +75,7 @@ $(function(){
         $('#edit_warning').css('visibility','visible');
 	    });
     }
-    $(this).find(".content .slot_asset").show();
+    $(this).find(".content .slot_asset").show()
 		$('#edit_warning').css('visibility','visible');
       },
     });
@@ -122,11 +118,6 @@ $(function(){
 		} else {
       preview_button.hide();
 			asset.show();
-      $("img.fit").scaleImage({
-        parent: ".slot_asset",
-        scale: 'fit',
-        center: false
-      });
 			text.hide();
 		}
 	});
@@ -135,7 +126,35 @@ $(function(){
   $(".edit_slide select").change(function(){
     $('#edit_warning').css('visibility','visible');
   });
-  
+  var resize_slots = function(){
+    height = $(window).height();
+    width = $(window).width();
+    $("#slot_top").css("height", height*0.4 + 'px');
+    $("#slot_top").css("width", width*0.7 + 'px');
+    $("#slot_bottom").css("height", height*0.4 + 'px');
+    $("#slot_bottom").css("width", width*0.7 + 'px');
+    $("#slot_topleft").css("height", height*0.4 + 'px');
+    $("#slot_topleft").css("width", width*0.33 + 'px');
+    $("#slot_topright").css("height", height*0.4 + 'px');
+    $("#slot_topright").css("width", width*0.33 + 'px');
+    $("#slot_left").css("height", height*0.8 + 'px');
+    $("#slot_left").css("width", width*0.33 + 'px');
+    $("#slot_right").css("height", height*0.8 + 'px');
+    $("#slot_right").css("width", width*0.33 + 'px');
+    $("#slot_center").css("height", height*0.8 + 'px');
+    $("#slot_center").css("width", width*0.66 + 'px');
+    $("#slot_subtitle").css("height", height*0.4 + 'px');
+    $("#slot_subtitle").css("width", width*0.66 + 'px');
+    $("#slot_centertitle").css("height", height*0.4 + 'px');
+    $("#slot_centertitle").css("width", width*0.66 + 'px');
+    $("img.fit").scaleImage({
+      parent: "li",
+      scale: 'fit',
+      center: true
+    });
+  }
+  resize_slots();
+  $(window).resize(function() {resize_slots()});
 	$(window).keydown(function(event){
 		switch(event.keyCode) {
 		case 72: // h

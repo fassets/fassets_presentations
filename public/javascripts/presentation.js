@@ -54,7 +54,7 @@ Presentation = function() {
 		setInterval(_pollLocationHash, 200);
 	}
 	pub.showSlide = function(index) {
-    if (index >= _items.length) {
+    if (index > _items.length) {
       alert("Slide number "+index+" doesn't exist")
       return;
     }
