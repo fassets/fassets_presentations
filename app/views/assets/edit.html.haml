@@ -5,7 +5,7 @@
     =link_to @content.asset.name, url_for(@content)
   #action
     %span.action
-      =button_to "Delete", [@content], :method => :delete
+      =button_to "Delete", [@content], :method => :delete, :onclick => "return confirm('Are you sure?')"
       =render :partial => "assets/put_on_tray"
 
 #sidebar

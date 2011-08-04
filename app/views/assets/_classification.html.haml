@@ -15,6 +15,7 @@
     %li
       =link_to classification.catalog.title, catalog_path(classification.catalog)
       .content
+        =button_to "Drop", [classification], :method => :delete, :onclick => "return confirm('Are you sure?')"
         =form_for classification, :method => :put do |f|
           -classification.catalog.facets.each do |facet|
             .facet{:class => "#{facet.color}_lite"}
