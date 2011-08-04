@@ -25,4 +25,5 @@
                   %li.label
                     =check_box_tag "labels[]", label.id, classification.label_ids.include?(label.id)
                     =link_to label.caption.gsub(' ', "&nbsp;")
+          =button_to "Drop", [classification], :method => :delete, :onclick => "return confirm('Are you sure?')" , :style => "float: left"
           =submit_tag "Save"

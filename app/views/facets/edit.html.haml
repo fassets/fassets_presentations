@@ -6,7 +6,7 @@
     %small=link_to @catalog.title, catalog_path(@catalog)
     =@facet.caption
   #action
-    =button_to "Delete", [@catalog, @facet], :method => :delete
+    =button_to "Delete", [@catalog, @facet], :method => :delete, :onclick => "return confirm('Are you sure?')"
 #sidebar
   %h2.labeltitle New Label
   =form_for [@catalog, @facet, Label.new], :html => {:class => "collapsable_label"} do |f|

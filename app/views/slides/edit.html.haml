@@ -1,5 +1,5 @@
 =javascript_include_tag "slide_edit.js"
-=stylesheet_link_tag "/templates/"+@slide.template.to_s
+//=stylesheet_link_tag "/templates/"+@slide.template.to_s
 
 =content_for :h1 do
   #type
@@ -10,7 +10,7 @@
     =link_to @slide.title, presentation_slide_path(@presentation, @slide)
   #action
     %span.action
-      =button_to "Delete", [@presentation, @slide], :method => :delete
+      =button_to "Delete", [@presentation, @slide], :method => :delete, :onclick => "return confirm('Are you sure?')"
       =form_for [current_user, TrayPosition.new(:user_id => current_user.id, :clipboard_type => 'slide', :clipboard_id => @slide.id)], :html => {:class => :inline} do |f|
         =f.hidden_field :user_id
         =f.hidden_field :clipboard_id
