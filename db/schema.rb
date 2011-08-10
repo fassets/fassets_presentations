@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 17) do
+ActiveRecord::Schema.define(:version => 18) do
 
   create_table "assets", :force => true do |t|
     t.string   "name"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 17) do
     t.string  "template"
     t.integer "position"
     t.text    "content"
+    t.integer "topic_id"
   end
 
   create_table "slots", :force => true do |t|
@@ -91,6 +92,15 @@ ActiveRecord::Schema.define(:version => 17) do
     t.string  "name"
     t.text    "body"
     t.integer "asset_id"
+  end
+
+  create_table "topics", :force => true do |t|
+    t.integer "presentation_id"
+    t.integer "position"
+    t.string  "title"
+    t.integer "parent_id"
+    t.integer "lft"
+    t.integer "rgt"
   end
 
   create_table "tray_positions", :force => true do |t|

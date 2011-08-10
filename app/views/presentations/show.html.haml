@@ -1,3 +1,6 @@
--@presentation.slides.each do |slide|
-  %div.slide{:id => slide.position, :alt => slide.title}
-    =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => slide, :presentation => @presentation, :content => render_inner_template(slide)}
+-position = 0
+-@presentation.topics.each do |topic|
+  -topic.slides.each do |slide|
+    -position = position + 1
+    %div.slide{:id => position, :alt => slide.title}
+      =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => slide, :presentation => @presentation, :content => render_inner_template(slide)}

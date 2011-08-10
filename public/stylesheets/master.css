@@ -457,6 +457,12 @@ li.asset input {
 #sidebar li.collapsable .content{
 	margin-top: .5em;
 }
+#sidebar li.topic {
+  font-weight: bold;
+}
+#sidebar li.slide {
+  font-weight: normal;
+}
 /* @group Forms */
 
 form {

@@ -46,10 +46,13 @@ Fassets::Application.routes.draw do
       resources :slides do
         collection do
           put :sort
+        end    
+      end
+      resources :topics do
+        collection do
+          put :sort
         end
-    
-    
-    end
+      end
   end
   match 'assets/:id/preview' => 'assets#preview'
   match 'assets/:id/edit' => 'assets#edit'

@@ -4,3 +4,6 @@
 %p
   %label{:for => 'template'} Template:
   =select(:slide, :template, TemplateManager.inner_templates(@presentation ? @presentation.template : presentation.template ))
+%p
+  %label{:for => 'topic'} Topic:
+  =select(:slide, :topic_id, options_for_select(nested_set_options(@presentation ? @presentation.topics.root : presentation.topics) {|i, level| "#{'-' * level} #{i.title}" }, @slide ? @slide.topic_id : ""))

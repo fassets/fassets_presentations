@@ -14,15 +14,31 @@ $(document).ready(function(){
   })
   $('.sortable_slides').sortable({
     items: 'li',
-    update: function(){
+    update: function(ev,ui){
+      console.log($(ui.item).parent().attr("topic_id")),
+      topic_id = $(ui.item).parent().attr("topic_id"),
+      console.log($(ui.item).parent().sortable('serialize')),
       $.ajax({
         type: 'put', 
-        data: $('.sortable_slides').sortable('serialize'), 
+        data: $(ui.item).parent().sortable('serialize'), 
         dataType: 'script', 
         complete: function(request){
         $('.slide').effect('highlight',{},2000);
         },
         url: "/" + $('.sortable_slides').attr('id').replace(/\./g,"/")})
+    }
+  });
+  $('.sortable_topics').sortable({
+    items: 'li',
+    update: function(){
+      $.ajax({
+        type: 'put', 
+        data: $('.sortable_topics').sortable('serialize'), 
+        dataType: 'script', 
+        complete: function(request){
+        $('.slide').effect('highlight',{},2000);
+        },
+        url: "/" + $('.sortable_topics').attr('id').replace(/\./g,"/")})
     }
   });
   $('#tray ol').sortable({
@@ -88,6 +104,12 @@ $(document).ready(function(){
     collapsedImage: "/images/collapsed.png",
     expandedImage: "/images/collapse.png",
     titleQuery: ".slidetitle",
+    startCollapsed: true
+  })
+  $(".collapsable_topic").collapsiblePanel({
+    collapsedImage: "/images/collapsed.png",
+    expandedImage: "/images/collapse.png",
+    titleQuery: ".topictitle",
     startCollapsed: true
   })
   $(".collapsable_catalog").collapsiblePanel({
