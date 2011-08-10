@@ -10,7 +10,7 @@
 %ol.collection{:id => "presentations.#{presentation.id}.topics.sort",:class => 'sortable_topics'}
   -presentation.topics.each do |topic|
     %li[topic]{:style => "padding-left:#{(1*topic.level)}em"}
-      ="-" * topic.level + " " +topic.title
+      =topic.title
       -unless topic.slides.empty?        
         %ol.collection{:id => "presentations.#{presentation.id}.slides.sort", :class => 'sortable_slides', :topic_id => topic.id}
           -topic.slides.each do |slide|
