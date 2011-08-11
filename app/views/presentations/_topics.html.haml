@@ -7,15 +7,6 @@
   =render :partial => "/topics/form", :object => f, :locals => {:presentation => presentation}
   =submit_tag "Create"
 
-%ol.collection{:id => "presentations.#{presentation.id}.topics.sort",:class => 'sortable_topics'}
-  -presentation.topics.each do |topic|
-    %li[topic]{:style => "padding-left:#{(1*topic.level)}em"}
-      =topic.title
-      -unless topic.slides.empty?        
-        %ol.collection{:id => "presentations.#{presentation.id}.slides.sort", :class => 'sortable_slides', :topic_id => topic.id}
-          -topic.slides.each do |slide|
-            %li[slide]{:style => "padding-left:#{(1*topic.level)+1}em"}
-              -if @slide && @slide.id == slide.id
-                =slide.title
-              -else
-                =link_to slide.title, edit_presentation_slide_path(presentation, slide)
+%ol.collection{:id => "topics", :path => "presentations.#{presentation.id}.topics.sort"}
+  =tree_ol(presentation.topics) {|item| link_to h(item.title), "/presentations/#{presentation.id}/slides/#{item.topic_slide}/edit" }
+

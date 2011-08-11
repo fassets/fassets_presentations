@@ -449,7 +449,7 @@ li.asset input {
 }
 #sidebar .collection li {
 	padding: .3em .5em;
-	border-bottom: 1px solid #eee;	
+/*	border-bottom: 1px solid #eee;	*/
 }
 .handle {
 	cursor: pointer;
@@ -700,4 +700,19 @@ margin: .3em;
 }
 #drop_asset {
   cursor: 'pointer';
+}
+ol .topic {
+  font-weight: bold;
+}
+ol .slide {
+  font-weight: normal;
+}
+.placeholder {
+  background-color: #cfcfcf;
+  padding: 4em;
+}
+.sortable li div  {
+	padding: 3px;
+	margin: 0;
+	cursor: move;
 }

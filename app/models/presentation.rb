@@ -2,7 +2,7 @@ require 'acts_as_asset'
 class Presentation < ActiveRecord::Base
   acts_as_asset
   has_many :slides, :order => :position
-  has_many :topics, :order => :lft
+  has_many :topics, :order => :position
 
   validates_presence_of :title,:template
   

@@ -1,7 +1,9 @@
 %p
   %label{:for => 'title'} Title:
   =form.text_field :title
--unless presentation.topics.empty?
-  %p
-    %label{:for => 'parent'} Parent Topic:
-    =select_tag 'parent_id', options_for_select(nested_set_options(presentation.topics.root) {|i| "#{'-' * i.level} #{i.title}" } )
+%p
+  %label{:for => 'template'} Template:
+  =select(:slide, :template, TemplateManager.inner_templates(@presentation ? @presentation.template : presentation.template ))
+%p
+  %label{:for => 'parent'} Parent Topic:
+  =select(:topic, :parent_id, options_from_collection_for_select(presentation.topics,"id","title"), :prompt => "None")

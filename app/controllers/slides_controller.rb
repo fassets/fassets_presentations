@@ -8,6 +8,9 @@ class SlidesController < ApplicationController
       slide.presentation_id = @presentation.id
     else
       slide =  @presentation.slides.build(params[:slide])
+      if params[:topic][:topic_id]
+        slide.topic_id = params[:topic][:topic_id]
+      end
     end
     respond_to do |format|
       if slide.save
@@ -42,9 +45,11 @@ class SlidesController < ApplicationController
   end
 
   def sort
+    topic = @presentation.topics.find(params[:topic_id])
+    topic_position = topic.position
     params[:slide].each_with_index do |id, position|
       slide = @presentation.slides.find(id)
-      slide.update_attribute(:position, position+1)
+      slide.update_attribute(:position, topic_position+position+1)
     end
     render :nothing => true
   end

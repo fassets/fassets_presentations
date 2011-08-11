@@ -14,33 +14,47 @@ $(document).ready(function(){
   })
   $('.sortable_slides').sortable({
     items: 'li',
+    //connectWith: '#topics ol.sortable',
     update: function(ev,ui){
       console.log($(ui.item).parent().attr("topic_id")),
       topic_id = $(ui.item).parent().attr("topic_id"),
       console.log($(ui.item).parent().sortable('serialize')),
       $.ajax({
         type: 'put', 
-        data: $(ui.item).parent().sortable('serialize'), 
+        data: $(ui.item).parent().sortable('serialize')+"&topic_id="+$(ui.item).attr("topic_id"), 
         dataType: 'script', 
         complete: function(request){
         $('.slide').effect('highlight',{},2000);
         },
-        url: "/" + $('.sortable_slides').attr('id').replace(/\./g,"/")})
+        url: "/" + $('.sortable_slides').attr('path').replace(/\./g,"/")})
     }
   });
-  $('.sortable_topics').sortable({
-    items: 'li',
-    update: function(){
+		$('#topics ol.sortable').nestedSortable({
+			disableNesting: 'no-nest',
+			forcePlaceholderSize: true,
+			handle: 'div',
+			helper:	'clone',
+			items: 'li',
+			maxLevels: 3,
+			opacity: .6,
+//			placeholder: 'placeholder',
+			revert: 250,
+			tabSize: 25,
+			tolerance: 'pointer',
+			toleranceElement: '> div',
+    update: function(ev,ui){
+      console.log($(ui.item).parent().attr("class")),
+      console.log($("#topics ol.sortable").nestedSortable('toHierarchy')),
       $.ajax({
         type: 'put', 
-        data: $('.sortable_topics').sortable('serialize'), 
+        data: $("#topics ol.sortable").nestedSortable('serialize')+"&topic_id="+$(ui.item).attr("topic_id"), 
         dataType: 'script', 
         complete: function(request){
         $('.slide').effect('highlight',{},2000);
         },
-        url: "/" + $('.sortable_topics').attr('id').replace(/\./g,"/")})
+        url: "/" + $('#topics').attr('path').replace(/\./g,"/")})
     }
-  });
+		}),
   $('#tray ol').sortable({
     //items: 'li',
     connectWith: "ul",

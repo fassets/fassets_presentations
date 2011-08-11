@@ -96,11 +96,10 @@ ActiveRecord::Schema.define(:version => 18) do
 
   create_table "topics", :force => true do |t|
     t.integer "presentation_id"
-    t.integer "position"
+    t.integer "topic_slide"
     t.string  "title"
+    t.integer "position"
     t.integer "parent_id"
-    t.integer "lft"
-    t.integer "rgt"
   end
 
   create_table "tray_positions", :force => true do |t|

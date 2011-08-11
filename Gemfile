@@ -6,7 +6,7 @@ gem "paperclip"
 gem "sqlite3"
 gem "devise"
 gem "pandoc-ruby"
-gem 'nested_set'
+gem "acts_as_tree_rails3"
 
 group :test do
   gem "rspec-rails", ">= 2.0.0"

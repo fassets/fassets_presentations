@@ -225,6 +225,7 @@ Selector = function() {
 				"height": height}, 200, "swing", function() {
 					selectSlide(Presentation.getSlideIndex() - 1);
 					_list.show();
+          _selector.show();
 				});
 			return true;
 		}

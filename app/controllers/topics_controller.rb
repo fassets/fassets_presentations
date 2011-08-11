@@ -3,19 +3,19 @@ class TopicsController < ApplicationController
   before_filter :find_presentation
   def create
     logger.debug(params)
-    if params[:parent_id]
-      parent = Topic.find(params[:parent_id])
-      topic = Topic.create(:title => params[:topic][:title], :presentation_id => params[:presentation_id])
-      topic.move_to_child_of(parent)
+    topic_slide =  Slide.create(:title => params[:topic][:title],:template => params[:slide][:template],:presentation_id => params[:presentation_id],:position => 1)
+    topic_slide.save
+    unless params[:topic][:parent_id].empty?
+      parent = Topic.find(params[:topic][:parent_id])
+      topic = parent.children.create(:title => params[:topic][:title], :presentation_id => params[:presentation_id])
     else
-      root = Topic.create(:title => @presentation.name, :presentation_id => params[:presentation_id])
-      root.save
-      topic = Topic.create(:title => params[:topic][:title], :presentation_id => params[:presentation_id], :parent_id => root.id)
+      topic = Topic.create(:title => params[:topic][:title], :presentation_id => params[:presentation_id])
     end
+    topic.topic_slide = topic_slide.id
     respond_to do |format|
       if topic.save
         flash[:notice] = "Topic succesfully created!"
-        format.html {redirect_to :back}
+        format.html {redirect_to edit_presentation_slide_path(@presentation, topic_slide)}
         format.json {render :status => :created, :json => topic.to_json}
       else
         flash[:error] = "Title of Topic cannot be empty"
@@ -24,28 +24,28 @@ class TopicsController < ApplicationController
     end
   end
   def sort
-    reorder_children(params[:topic])
-    render :nothing => true
-  end
- def reorder_children(ordered_ids)
-    ordered_ids = ordered_ids.map(&:to_i)
-    logger.debug("ordered_ids:"+ordered_ids.to_s)
-    #current_ids = children.map(&:id)
-    current_ids = @presentation.topics.map(&:id)
-    logger.debug("current_ids:"+current_ids.to_s)
-    unless current_ids - ordered_ids == [] && ordered_ids - current_ids == []
-      raise ArgumentError, "Not ordering the same ids that I have as children. My children: #{current_ids.join(", ")}. Your list: #{ordered_ids.join(", ")}. Difference: #{(current_ids - ordered_ids).join(', ')} / #{(ordered_ids - current_ids).join(', ')}" 
-    end
-    j = 0
-    for new_id in ordered_ids
-      old_id = current_ids[j]
-      if new_id == old_id
-        j += 1
-      else
-        Topic.find(new_id).move_to_left_of(old_id)
-        current_ids.delete(new_id)
+    params[:slide].each_with_index do |item, position|
+      id, parent = item
+      slide = @presentation.slides.find(id)
+      unless parent == "root"
+        new_parent = Topic.find(parent)
+        slide.topic_id = new_parent.id
+        slide.save
       end
     end
+    params[:topic].each_with_index do |item, position|
+      id, parent = item
+      topic = @presentation.topics.find(id)
+      unless parent == "root"
+        new_parent = Topic.find(parent)
+        topic.parent = new_parent
+      else
+        topic.parent = nil
+      end
+      topic.save
+      topic.update_attribute(:position, position+1)
+    end
+    render :nothing => true
   end
 
 protected

@@ -1,6 +1,15 @@
 -position = 0
 -@presentation.topics.each do |topic|
-  -topic.slides.each do |slide|
+  -position = position + 1
+  -topic_slide = Slide.find(topic.topic_slide)
+  %div.slide{:id => position, :alt => topic.title, :topic => topic.title}
+    =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => topic_slide, :presentation => @presentation, :content => render_inner_template(topic_slide)}
+  -topic.descendants.each do |topic|
     -position = position + 1
-    %div.slide{:id => position, :alt => slide.title}
-      =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => slide, :presentation => @presentation, :content => render_inner_template(slide)}
+    -topic_slide = Slide.find(topic.topic_slide)
+    %div.slide{:id => position, :alt => topic.title, :topic => topic.title}
+      =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => topic_slide, :presentation => @presentation, :content => render_inner_template(topic_slide)}
+    -topic.slides.each do |slide|
+      -position = position + 1
+      %div.slide{:id => position, :alt => slide.title, :topic => topic.title}
+        =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => slide, :presentation => @presentation, :content => render_inner_template(slide)}
