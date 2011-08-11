@@ -4,6 +4,7 @@
 %p
   %label{:for => 'template'} Template:
   =select(:slide, :template, TemplateManager.inner_templates(@presentation ? @presentation.template : presentation.template ))
-%p
-  %label{:for => 'topic'} Topic:
-  =select(:slide, :topic_id, options_from_collection_for_select(@presentation.topics,"id","title", @slide.topic_id))
+-if @presentation
+  %p
+    %label{:for => 'topic'} Topic:
+    =select(:slide, :topic_id, options_from_collection_for_select(@presentation.topics,"id","title", @slide.topic_id))

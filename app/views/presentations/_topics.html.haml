@@ -6,7 +6,7 @@
 =form_for [presentation, Topic.new], :html => {:class => "collapsable_topic"} do |f|
   =render :partial => "/topics/form", :object => f, :locals => {:presentation => presentation}
   =submit_tag "Create"
-
-%ol.collection{:id => "topics", :path => "presentations.#{presentation.id}.topics.sort"}
-  =tree_ol(presentation.topics) {|item| link_to h(item.title), "/presentations/#{presentation.id}/slides/#{item.topic_slide}/edit" }
+-unless presentation.topics.empty?
+  %ol.collection{:id => "topics", :path => "presentations.#{presentation.id}.topics.sort"}
+    =tree_ol(presentation.topics) {|item| link_to h(item.title), "/presentations/#{presentation.id}/slides/#{item.topic_slide}/edit" }
 
