@@ -22,7 +22,7 @@
   
 #main
   #editorhelp=render :partial => "shared/editorhelp"
-  =form_for  [@presentation,  @slide] do |f|
+  =form_for  [@presentation,  @slide], :html => {:id => "edit_slide"} do |f|
     =submit_tag "Save", :id => "slide_save"
     =render :partial => "form", :object => f
     %h2 Slots

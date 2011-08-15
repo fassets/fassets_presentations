@@ -126,3 +126,21 @@ em {
 	background-color: white;
 	color: #222;
 }
+#black_dimmer {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:100;
+  display: none;
+  background-color: black;
+}
+#white_dimmer {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:100;
+  display: none;
+  background-color: white;
+}

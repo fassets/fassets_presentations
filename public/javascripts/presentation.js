@@ -51,6 +51,8 @@ Presentation = function() {
 			var row = TR(TD({"class": "position"}, i + 1), TD($(e).attr("alt")));
 			_items.push(row);
 		});
+    $("#black_dimmer").css("height", $(document).height());
+    $("#white_dimmer").css("height", $(document).height());
 		setInterval(_pollLocationHash, 200);
 	}
 	pub.showSlide = function(index) {
@@ -296,11 +298,40 @@ $(function(){
       if (index == "") break;
       Presentation.showSlide(index);
       break;
+    case 69: // e
+      edit_link = document.getElementById(Presentation.getSlideIndex()).getElementsByTagName("a")[0];
+      location.href = edit_link.href;
+    case 66: // b
+      if ($("#white_dimmer").is(":visible")){
+        $("#white_dimmer").hide();
+        $("#black_dimmer").show();
+        break;
+      }
+      if ($("#black_dimmer").is(":visible")){
+        $("#black_dimmer").fadeOut();
+      } else {
+        $("#black_dimmer").fadeIn();
+      }
+      break;
+    case 87: // w
+      if ($("#black_dimmer").is(":visible")){
+        $("#black_dimmer").hide();
+        $("#white_dimmer").show();
+        break;
+      }
+      if ($("#white_dimmer").is(":visible")){
+        $("#white_dimmer").fadeOut();
+      } else {
+        $("#white_dimmer").fadeIn();
+      }
+      break;      
 		}
 		console.log(event.keyCode);
 	});
 
 	$(window).resize(function(event){
+    $("#black_dimmer").css("height", $(window).height());
+    $("#white_dimmer").css("height", $(window).height());
 		Slide.layout();
 		Selector.hide();
 	});

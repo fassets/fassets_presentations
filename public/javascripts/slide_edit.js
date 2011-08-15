@@ -167,6 +167,12 @@ $(function(){
         $("#editorhelp").css('visibility','visible');
       }
 			break;
+    case 83: // s
+      if (event.ctrlKey){
+        event.preventDefault();
+        document.forms["edit_slide"].submit();
+      }
+      break;
 		}
 		console.log(event.keyCode);
 	});
