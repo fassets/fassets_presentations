@@ -2,24 +2,24 @@
 #white_dimmer
 -position = 0
 -@presentation.topics.each do |topic|
-  -logger.debug("Slides:")
-  -logger.debug(topic.slides)
+  -unless topic.root?
+    -next
   -position = position + 1
   -topic_slide = Slide.find(topic.topic_slide)
-  %div.slide{:id => position, :alt => topic.title, :topic => topic.title}
+  %div.slide{:id => position, :alt => topic.title, :topic => topic.title, :level => topic.ancestors.length.to_s}
     =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => topic_slide, :presentation => @presentation, :content => render_inner_template(topic_slide)}
   -topic.slides.each do |slide|
     -position = position + 1
-    %div.slide{:id => position, :alt => slide.title, :topic => topic.title}
+    -level = topic.ancestors.length+1
+    %div.slide{:id => position, :alt => slide.title, :topic => topic.title, :level => level.to_s}
       =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => slide, :presentation => @presentation, :content => render_inner_template(slide)}
   -topic.descendants.each do |topic|
     -position = position + 1
     -topic_slide = Slide.find(topic.topic_slide)
-    %div.slide{:id => position, :alt => topic.title, :topic => topic.title}
+    %div.slide{:id => position, :alt => topic.title, :topic => topic.title, :level => topic.ancestors.length.to_s}
       =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => topic_slide, :presentation => @presentation, :content => render_inner_template(topic_slide)}
-    -logger.debug("Slides:")
-    -logger.debug(topic.slides)
     -topic.slides.each do |slide|
       -position = position + 1
-      %div.slide{:id => position, :alt => slide.title, :topic => topic.title}
+      -level = topic.ancestors.length+1
+      %div.slide{:id => position, :alt => slide.title, :topic => topic.title, :level => level.to_s}
         =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:slide => slide, :presentation => @presentation, :content => render_inner_template(slide)}

@@ -202,7 +202,12 @@ Selector = function() {
 	}
 	pub.init = function() {
 		$(".slide").each(function(i, e){
-			var row = TR(TD({"class": "position"}, i + 1), TD($(e).attr("alt")));
+      if ($(e).attr("alt") == $(e).attr("topic")){
+        var cl = "topic_item"        
+      } else {
+        var cl = "slide_item"
+      }
+			var row = TR(TD({"class": "position"}, i + 1), TD({"class": cl, "style":"padding-left:"+$(e).attr("level")+"em"},$(e).attr("alt")));
 			_list.append(row);
 			_items.push(row);
 		});
@@ -252,10 +257,10 @@ Selector = function() {
 		if (_index == _items.length - 1) return;
 		selectSlide(_index + 1);		
 	}
-	pub.confirm = function() {
-		pub.hide();
-		Presentation.showSlide(_index + 1);
-	}
+  pub.confirm = function() {
+    pub.hide();
+    Presentation.showSlide(_index + 1);
+  }
 	return pub;
 }();
 
