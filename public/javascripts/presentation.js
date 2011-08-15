@@ -301,6 +301,7 @@ $(function(){
     case 69: // e
       edit_link = document.getElementById(Presentation.getSlideIndex()).getElementsByTagName("a")[0];
       location.href = edit_link.href;
+      break;
     case 66: // b
       if ($("#white_dimmer").is(":visible")){
         $("#white_dimmer").hide();
