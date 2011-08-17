@@ -72,12 +72,13 @@ describe LabelsController do
     it "labels are sorted in reverse" do
       order = [3,2,1]
       put 'sort', { :label => order }.merge(context_params)
-      Label.all.map{ |l| l.position }.should == order
+      Label.all.sort_by{ |l| l.position }.map{ |l| l.id }.should == order
     end
-    it "labels are sorted randomly" do
-      order = [1,2,3].shuffle
-      put 'sort', { :label => order }.merge(context_params)
-      Label.all.map{ |l| l.position }.should == order
+    it "labels are sorted correctly for each permutation" do
+      [1,2,3].permutation.each do |p|
+        put 'sort', { :label => p }.merge(context_params)
+        Label.all.sort_by{ |l| l.position }.map{ |l| l.id }.should == p
+      end
     end
   end
 end
