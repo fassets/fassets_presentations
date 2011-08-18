@@ -43,7 +43,7 @@ Fassets::Application.routes.draw do
   resources :presentations do
   
   
-      resources :framess do
+      resources :frames do
         collection do
           put :sort
         end    

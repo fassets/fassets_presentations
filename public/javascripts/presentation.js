@@ -4,12 +4,12 @@ Presentation = function() {
 	var pub = {};
 	var transition = {
 		show: {
-			effect: "slide",
+			effect: "frame",
 			options: {},
 			speed: "normal"
 		},
 		hide: {
-			effect: "slide",
+			effect: "frame",
 			options: {},
 			speed: "normal"
 		}
@@ -17,37 +17,37 @@ Presentation = function() {
 	var _imageIndex = 0;
 	var _images = [];
   var _items = [];
-	var _slideIndex = null;
+	var _frameIndex = null;
 	var _pollLocationHash = function() {
-		var index = pub.getSlideIndex();
-		if (_slideIndex != index) {
-			if (_slideIndex == null) {
-				showSlide(index);
+		var index = pub.getframeIndex();
+		if (_frameIndex != index) {
+			if (_frameIndex == null) {
+				showframe(index);
 			} else {
-				doTransition(_slideIndex, index);      
+				doTransition(_frameIndex, index);      
 			}
-			//console.log("switching from slide #" + _slideIndex + " to #" + index);
-			_slideIndex = index;
+			//console.log("switching from frame #" + _frameIndex + " to #" + index);
+			_frameIndex = index;
 		}
 	}
-	function showSlide(index) {
-		$(".slide[id='" + index + "']").fadeIn("normal");
-		Slide.layout();
-		$(".slide[id='" + index + "'] a.zoom").each(function(e){
+	function showframe(index) {
+		$(".frame[id='" + index + "']").fadeIn("normal");
+		frame.layout();
+		$(".frame[id='" + index + "'] a.zoom").each(function(e){
 			console.log(this);
 			_images.push(this);
 		});
 		_imageIndex = 0;
 	}
 	function doTransition(from, to) {
-		$(".slide[id='" + from + "']").fadeOut("normal", function() {showSlide(to)});        
+		$(".frame[id='" + from + "']").fadeOut("normal", function() {showframe(to)});        
 	}
-	pub.getSlideIndex = function() {
+	pub.getframeIndex = function() {
 		return parseInt(location.hash.substring(1)) || 1;
 	}
 	pub.init = function() {
-		$(".slide").hide();
-		$(".slide").each(function(i, e){
+		$(".frame").hide();
+		$(".frame").each(function(i, e){
 			var row = TR(TD({"class": "position"}, i + 1), TD($(e).attr("alt")));
 			_items.push(row);
 		});
@@ -55,23 +55,23 @@ Presentation = function() {
     $("#white_dimmer").css("height", $(document).height());
 		setInterval(_pollLocationHash, 200);
 	}
-	pub.showSlide = function(index) {
+	pub.showframe = function(index) {
     if (index > _items.length) {
-      alert("Slide number "+index+" doesn't exist")
+      alert("frame number "+index+" doesn't exist")
       return;
     }
     if (index < 1) {
-      alert("Slide numbers begin at 1")
+      alert("frame numbers begin at 1")
     }
 		location.hash = "#" + index;
 	}
-	pub.nextSlide = function() {
-    if (_slideIndex == _items.length) return;
-		pub.showSlide(_slideIndex + 1);
+	pub.nextframe = function() {
+    if (_frameIndex == _items.length) return;
+		pub.showframe(_frameIndex + 1);
 	}
-	pub.previousSlide = function() {
-    if (_slideIndex == 1) return;
-		pub.showSlide(_slideIndex - 1)
+	pub.previousframe = function() {
+    if (_frameIndex == 1) return;
+		pub.showframe(_frameIndex - 1)
 	}
 	pub.nextImage = function() {
 		$(_images[_imageIndex]).trigger("click");
@@ -84,10 +84,10 @@ Presentation = function() {
 	return pub;
 }();
 
-Slide = function() {
+frame = function() {
 	var pub = {};
 	pub.width = function() {
-		//Try using slide-div-dimensions
+		//Try using frame-div-dimensions
 		return $(window).width();
 	}
 	pub.height = function() {
@@ -95,11 +95,11 @@ Slide = function() {
 	}
 	pub.layout = function() {
 		//console.log("layout");
-		var size = Slide.height() / 32;
+		var size = frame.height() / 32;
 	    $("body").css("font-size", size + 'px');
-	    $(".slide").css("width", Slide.width() + 'px');
-	    $(".slide").css("height", Slide.height() + 'px');
-		$("#" + Presentation.getSlideIndex() + " .fit").each(function() {
+	    $(".frame").css("width", frame.width() + 'px');
+	    $(".frame").css("height", frame.height() + 'px');
+		$("#" + Presentation.getframeIndex() + " .fit").each(function() {
 			if (!$(this).data('dimensions')) {
 				$(this).data('dimensions', {
 					width: $(this).width(), 
@@ -191,7 +191,7 @@ Selector = function() {
 	});
 	_list.hide();
 	var _index = 0;
-	function selectSlide(i) {
+	function selectframe(i) {
 		$(_items[_index]).removeClass("selected");		
 		_index = i;
 		$(_items[_index]).addClass("selected");
@@ -201,11 +201,11 @@ Selector = function() {
 		
 	}
 	pub.init = function() {
-		$(".slide").each(function(i, e){
+		$(".frame").each(function(i, e){
       if ($(e).attr("alt") == $(e).attr("topic")){
         var cl = "topic_item"        
       } else {
-        var cl = "slide_item"
+        var cl = "frame_item"
       }
 			var row = TR(TD({"class": "position"}, i + 1), TD({"class": cl, "style":"padding-left:"+$(e).attr("level")+"em"},$(e).attr("alt")));
 			_list.append(row);
@@ -217,20 +217,20 @@ Selector = function() {
 	}
 	pub.show = function() {
 		if (!pub.isVisible()) {
-			var bottom = Slide.height() / 2 - Slide.height() / 4;
-			var right = Slide.width() / 2 -  Slide.width() / 4;
-			var width = Slide.width() / 2;
+			var bottom = frame.height() / 2 - frame.height() / 4;
+			var right = frame.width() / 2 -  frame.width() / 4;
+			var width = frame.width() / 2;
 			console.log(width);
-			var height = Slide.height() / 2;
+			var height = frame.height() / 2;
 			_list.find(".active").removeClass("active");
-			$(_items[Presentation.getSlideIndex() - 1]).addClass("active");
+			$(_items[Presentation.getframeIndex() - 1]).addClass("active");
 			_selector.animate(
 				{"bottom": bottom, 
 				"right": right, 
 				"opacity": 0.98,	
 				"width": width, 
 				"height": height}, 200, "swing", function() {
-					selectSlide(Presentation.getSlideIndex() - 1);
+					selectframe(Presentation.getframeIndex() - 1);
 					_list.show();
           _selector.show();
 				});
@@ -250,16 +250,16 @@ Selector = function() {
 	pub.previous = function() {
 		pub.show();
 		if (_index == 0) return;
-		selectSlide(_index - 1);
+		selectframe(_index - 1);
 	}
 	pub.next = function() {
 		pub.show();
 		if (_index == _items.length - 1) return;
-		selectSlide(_index + 1);		
+		selectframe(_index + 1);		
 	}
   pub.confirm = function() {
     pub.hide();
-    Presentation.showSlide(_index + 1);
+    Presentation.showframe(_index + 1);
   }
 	return pub;
 }();
@@ -272,12 +272,12 @@ $(function(){
 		switch(event.keyCode) {
 		case 37: //Left
     case 33: //PgUp
-			if (!Selector.isVisible()) Presentation.previousSlide();
+			if (!Selector.isVisible()) Presentation.previousframe();
 			break;
 		case 39: //Right
 		case 32: //Space
     case 34: //PgDown
-			if (!Selector.isVisible()) Presentation.nextSlide();
+			if (!Selector.isVisible()) Presentation.nextframe();
 			break;
 		case 38: //Up
 			Selector.previous();
@@ -298,13 +298,13 @@ $(function(){
 			Presentation.nextImage();
 			break;
     case 74: // j
-      var index = prompt("Jump to slide number:");
+      var index = prompt("Jump to frame number:");
       if (index == null) break;
       if (index == "") break;
-      Presentation.showSlide(index);
+      Presentation.showframe(index);
       break;
     case 69: // e
-      edit_link = document.getElementById(Presentation.getSlideIndex()).getElementsByTagName("a")[0];
+      edit_link = document.getElementById(Presentation.getframeIndex()).getElementsByTagName("a")[0];
       location.href = edit_link.href;
       break;
     case 66: // b
@@ -338,7 +338,7 @@ $(function(){
 	$(window).resize(function(event){
     $("#black_dimmer").css("height", $(window).height());
     $("#white_dimmer").css("height", $(window).height());
-		Slide.layout();
+		frame.layout();
 		Selector.hide();
 	});
 	

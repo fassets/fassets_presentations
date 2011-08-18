@@ -12,7 +12,7 @@ $(document).ready(function(){
     settings.data = settings.data || "";
     settings.data += (settings.data ? "&" : "") + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN);
   })
-  $('.sortable_slides').sortable({
+  $('.sortable_frames').sortable({
     items: 'li',
     //connectWith: '#topics ol.sortable',
     update: function(ev,ui){
@@ -24,9 +24,9 @@ $(document).ready(function(){
         data: $(ui.item).parent().sortable('serialize')+"&topic_id="+$(ui.item).attr("topic_id"), 
         dataType: 'script', 
         complete: function(request){
-        $('.slide').effect('highlight',{},2000);
+        $('.frame').effect('highlight',{},2000);
         },
-        url: "/" + $('.sortable_slides').attr('path').replace(/\./g,"/")})
+        url: "/" + $('.sortable_frames').attr('path').replace(/\./g,"/")})
     }
   });
 		$('#topics ol.sortable').nestedSortable({
@@ -50,7 +50,7 @@ $(document).ready(function(){
         data: $("#topics ol.sortable").nestedSortable('serialize')+"&topic_id="+$(ui.item).attr("topic_id"), 
         dataType: 'script', 
         complete: function(request){
-        $('.slide').effect('highlight',{},2000);
+        $('.frame').effect('highlight',{},2000);
         },
         url: "/" + $('#topics').attr('path').replace(/\./g,"/")})
     }
@@ -114,10 +114,10 @@ $(document).ready(function(){
     titleQuery: ".facettitle",
     startCollapsed: true
   });
-  $(".collapsable_slide").collapsiblePanel({
+  $(".collapsable_frame").collapsiblePanel({
     collapsedImage: "/images/collapsed.png",
     expandedImage: "/images/collapse.png",
-    titleQuery: ".slidetitle",
+    titleQuery: ".frametitle",
     startCollapsed: true
   })
   $(".collapsable_topic").collapsiblePanel({

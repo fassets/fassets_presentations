@@ -6,6 +6,7 @@ class CreateFrames < ActiveRecord::Migration
       t.string :template
       t.integer :position
       t.integer :parent_id
+      t.text :content
     end
   end
 

@@ -17,7 +17,7 @@
       .slot_asset{:style =>  slot["mode"] == "asset" ? "" : "display:none"}
         -if slot.asset
           //=render :partial => "shared/asset", :locals => {:asset => slot.asset, :tp => nil}
-          -@content = slot.asset.content 
+          //-@content = slot.asset.content 
           =render :partial => content_partial(slot.asset.content,:preview)
         -else
           Drop Asset Here!

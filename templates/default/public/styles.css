@@ -23,7 +23,7 @@ em {
 .green {
 	color: green;
 }
-.slide {
+.frame {
 	overflow: hidden;
 }
 .header {
@@ -122,7 +122,7 @@ em {
 #selector table tr td.topic_item {
   font-weight: bold;
 }
-#selector table tr td.slide_item {
+#selector table tr td.frame_item {
   font-weight: normal;
 }
 #selector table tr.active {

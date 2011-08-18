@@ -6,10 +6,10 @@ var Slide = {
 		return $(window).height();
 	},
 	syncSize: function() {
-		var size = Slide.height() / 30;
+		var size = Frame.height() / 30;
 	    $("body").css("font-size", size + 'px');
-	    $(".slide").css("width", Slide.width() + 'px');
-	    $(".slide").css("height", Slide.height() + 'px');
+	    $(".frame").css("width", Frame.width() + 'px');
+	    $(".frame").css("height", Frame.height() + 'px');
 
 		/*
 		$(".fit").each(function() {
@@ -63,11 +63,11 @@ var Slide = {
 }
 
 $(window).ready(function(){
-	Slide.syncSize();
+	Frame.syncSize();
 });
 $(window).resize(function(){
 	console.log("resize event")
-	Slide.syncSize();
+	Frame.syncSize();
 });
 
 /*$(window).ready(function(){

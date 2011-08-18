@@ -1,4 +1,4 @@
-class FramessController < ApplicationController
+class FramesController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
   before_filter :find_presentation
   before_filter :find_frame, :except => [:new, :create, :sort]

@@ -1,4 +1,4 @@
-%h1=slide.presentation.title
-.slot=render_slot(slide.slot("subtitle"), "center_h cent").html_safe
+%h1=frame.presentation.title
+.slot=render_slot(frame.slot("subtitle"), "center_h cent").html_safe
 .slot{:style => "position: absolute; top: 50.5%; width: 100%; height: 48.5%;"}
-  =render_slot(slide.slot("center"), "center").html_safe
+  =render_slot(frame.slot("center"), "center").html_safe

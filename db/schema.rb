@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 19) do
     t.string  "template"
     t.integer "position"
     t.integer "parent_id"
+    t.text    "content"
   end
 
   create_table "labelings", :force => true do |t|

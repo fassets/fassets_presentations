@@ -123,7 +123,7 @@ $(function(){
 	});
   $(".sortable_tray .asset").draggable(drag_opts_tray);
   $(".slot_asset .asset").draggable(drag_opts);
-  $(".edit_slide select").change(function(){
+  $(".edit_frame select").change(function(){
     $('#edit_warning').css('visibility','visible');
   });
   var resize_slots = function(){
@@ -170,7 +170,7 @@ $(function(){
     case 83: // s
       if (event.ctrlKey){
         event.preventDefault();
-        document.forms["edit_slide"].submit();
+        document.forms["edit_frame"].submit();
       }
       break;
 		}
