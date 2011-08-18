@@ -18,7 +18,7 @@ describe PresentationsController do
       it "should be successful and render partials" do
         get 'show', :id => asset.id
         assigns(:presentation).should_not be_nil
-        response.should render_template("layouts/slide")
+        response.should render_template("layouts/frame")
         response.should render_template("presentations/show")
       end
     end

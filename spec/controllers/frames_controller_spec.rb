@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe SlidesController do
+describe FramesController do
   include_examples "every authenticated controller"
 
   before(:each) do
     p = Presentation.create!(:title => 'TestPresentation', :template => 'test_template')
-    p.slides << Slide.create!(:title => 'Title Slide', :template => 'default')
+    p.frames << Frame.create!(:title => 'Title Frame', :template => 'default')
   end
 
   describe "GET 'show'" do
