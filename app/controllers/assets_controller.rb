@@ -63,6 +63,7 @@ protected
     end
     @content = self.content_model.find(content_id)
   rescue ActiveRecord::RecordNotFound => e
+    flash[:error] = "#{self.content_model.to_s} with id #{params[:id]} not found"
     redirect_to root_url
   end
 end
