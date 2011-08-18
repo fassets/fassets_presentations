@@ -9,8 +9,7 @@
 
 #sidebar
   =render :partial => "shared/classification", :locals => {:asset => @content.asset}
-  //=render :partial => "slides", :locals => {:presentation =>  @content}
-  =render :partial => "topics", :locals => {:presentation => @content} 
+  =render :partial => "frames", :locals => {:presentation =>  @content}
   
 #main
   =render :partial => "shared/asset_form", :locals => {:model => @content, :asset => @content.asset, :submit => "Save"}

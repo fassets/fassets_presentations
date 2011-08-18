@@ -1,13 +1,13 @@
-%h2.slidetitle New Slide
-=form_for [presentation, Slide.new], :html => {:class => "collapsable_slide"} do |f|
-  =render :partial => "/slides/form", :object => f, :locals => {:presentation => presentation}
+%h2.frametitle New Frame
+=form_for [presentation, Frame.new], :html => {:class => "collapsable_frame"} do |f|
+  =render :partial => "/frames/form", :object => f, :locals => {:presentation => presentation}
   =submit_tag "Create"
 
-%div{:id => "presentations.#{presentation.id}.slides"}
-  %ol.collection{:id => "presentations.#{presentation.id}.slides.sort", :class => 'sortable_slides'}
-    -presentation.slides.each do |slide|
-      %li[slide]
-        -if @slide && @slide.id == slide.id
-          =slide.title
+%div{:id => "presentations.#{presentation.id}.frames"}
+  %ol.collection{:id => "presentations.#{presentation.id}.frames.sort", :class => 'sortable_frames'}
+    -presentation.frames.each do |frame|
+      %li[frame]
+        -if @frame && @frame.id == frame.id
+          =frame.title
         -else
-          =link_to slide.title, edit_presentation_slide_path(presentation, slide)
+          =link_to frame.title, edit_presentation_frame_path(presentation, frame)

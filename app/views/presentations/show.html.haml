@@ -1,25 +1,7 @@
 #black_dimmer
 #white_dimmer
 -position = 0
--@presentation.topics.each do |topic|
-  -unless topic.root?
-    -next
+-@presentation.frames.each do |frame|
   -position = position + 1
-  -topic_frame = frame.find(topic.topic_frame)
-  %div.frame{:id => position, :alt => topic.title, :topic => topic.title, :level => topic.ancestors.length.to_s}
-    =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:frame => topic_frame, :presentation => @presentation, :content => render_inner_template(topic_frame)}
-  -topic.frames.each do |frame|
-    -position = position + 1
-    -level = topic.ancestors.length+1
-    %div.frame{:id => position, :alt => frame.title, :topic => topic.title, :level => level.to_s}
-      =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:frame => frame, :presentation => @presentation, :content => render_inner_template(frame)}
-  -topic.descendants.each do |topic|
-    -position = position + 1
-    -topic_frame = frame.find(topic.topic_frame)
-    %div.frame{:id => position, :alt => topic.title, :topic => topic.title, :level => topic.ancestors.length.to_s}
-      =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:frame => topic_frame, :presentation => @presentation, :content => render_inner_template(topic_frame)}
-    -topic.frames.each do |frame|
-      -position = position + 1
-      -level = topic.ancestors.length+1
-      %div.frame{:id => position, :alt => frame.title, :topic => topic.title, :level => level.to_s}
-        =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:frame => frame, :presentation => @presentation, :content => render_inner_template(frame)}
+  %div.frame{:id => position, :alt => frame.title, :level => frame.ancestors.length.to_s}
+    =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:frame => frame, :presentation => @presentation, :content => render_inner_template(frame)}

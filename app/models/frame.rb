@@ -1,8 +1,8 @@
 class Frame < ActiveRecord::Base
   belongs_to :presentation
   acts_as_tree :order => :position
-  alias :previous :higher_item 
-  alias :next :lower_item
+#  alias :previous :higher_item 
+#  alias :next :lower_item
   has_many :tray_positions, :as => :clipboard, :dependent => :destroy
 
   serialize :content
