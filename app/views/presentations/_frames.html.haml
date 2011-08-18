@@ -5,4 +5,5 @@
 
 %div{:id => "presentations.#{presentation.id}.frames"}
   %ol{:id => "frames", :path => "presentations.#{presentation.id}.frames.sort"}
-    =tree_ol(Frame.where({:title => "root_frame", :presentation_id => presentation.id}).first.children()) {|item| link_to h(item.title), edit_presentation_frame_path(presentation, item) }
+    -unless Frame.where({:title => "root_frame", :presentation_id => presentation.id}).first == nil
+      =tree_ol(Frame.where({:title => "root_frame", :presentation_id => presentation.id}).first.children()) {|item| link_to h(item.title), edit_presentation_frame_path(presentation, item) }
