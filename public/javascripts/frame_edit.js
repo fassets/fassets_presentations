@@ -42,7 +42,7 @@ $(function(){
       drop:function(ev,ui){
 		var id;
 		var asset = $(ui.draggable).clone();
-		if ($(ui.draggable).is("[id^='tp']")) {
+    if ($(ui.draggable).attr("rel") != "undefined") {
 			id = $(ui.draggable).attr("rel");
 			asset.find("input").remove();
 			asset.attr("id", "asset_" + id);
