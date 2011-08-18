@@ -12,49 +12,32 @@ $(document).ready(function(){
     settings.data = settings.data || "";
     settings.data += (settings.data ? "&" : "") + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN);
   })
-  $('.sortable_frames').sortable({
-    items: 'li',
-    //connectWith: '#topics ol.sortable',
-    update: function(ev,ui){
-      console.log($(ui.item).parent().attr("topic_id")),
-      topic_id = $(ui.item).parent().attr("topic_id"),
-      console.log($(ui.item).parent().sortable('serialize')),
-      $.ajax({
-        type: 'put', 
-        data: $(ui.item).parent().sortable('serialize')+"&topic_id="+$(ui.item).attr("topic_id"), 
-        dataType: 'script', 
-        complete: function(request){
-        $('.frame').effect('highlight',{},2000);
-        },
-        url: "/" + $('.sortable_frames').attr('path').replace(/\./g,"/")})
-    }
-  });
-		$('#topics ol.sortable').nestedSortable({
-			disableNesting: 'no-nest',
-			forcePlaceholderSize: true,
-			handle: 'div',
-			helper:	'clone',
-			items: 'li',
-			maxLevels: 3,
-			opacity: .6,
-//			placeholder: 'placeholder',
-			revert: 250,
-			tabSize: 25,
-			tolerance: 'pointer',
-			toleranceElement: '> div',
+	$('.sortable_frames').nestedSortable({
+		disableNesting: 'no-nest',
+		forcePlaceholderSize: true,
+		handle: 'div',
+		helper:	'clone',
+		items: 'li',
+		maxLevels: 5,
+		opacity: .6,
+		placeholder: 'placeholder',
+		revert: 250,
+		tabSize: 35,
+		tolerance: 'pointer',
+		toleranceElement: '> div',
     update: function(ev,ui){
       console.log($(ui.item).parent().attr("class")),
-      console.log($("#topics ol.sortable").nestedSortable('toHierarchy')),
+      console.log($(".sortable_frames").nestedSortable('toArray')),
       $.ajax({
         type: 'put', 
-        data: $("#topics ol.sortable").nestedSortable('serialize')+"&topic_id="+$(ui.item).attr("topic_id"), 
+        data: $(".sortable_frames").nestedSortable('serialize'), 
         dataType: 'script', 
         complete: function(request){
         $('.frame').effect('highlight',{},2000);
         },
-        url: "/" + $('#topics').attr('path').replace(/\./g,"/")})
+        url: "/" + $('#frames').attr('path').replace(/\./g,"/")})
     }
-		}),
+	}),
   $('#tray ol').sortable({
     //items: 'li',
     connectWith: "ul",

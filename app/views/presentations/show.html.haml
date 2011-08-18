@@ -1,7 +1,7 @@
 #black_dimmer
 #white_dimmer
 -position = 0
--@presentation.frames.each do |frame|
+-Frame.where({:title => "root_frame", :presentation_id => @presentation.id}).first.descendants.each do |frame|
   -position = position + 1
   %div.frame{:id => position, :alt => frame.title, :level => frame.ancestors.length.to_s}
     =render :file => File.join(template_path(@presentation.template), "outer.html.haml").to_s, :locals => {:frame => frame, :presentation => @presentation, :content => render_inner_template(frame)}

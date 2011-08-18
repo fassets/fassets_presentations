@@ -11,6 +11,7 @@ class FramesController < ApplicationController
     end
     respond_to do |format|
       if frame.save
+        update_positions()
         flash[:notice] = "Frame succesfully created!"
         format.html {redirect_to edit_presentation_frame_path(@presentation, frame)}
         format.json {render :status => :created, :json => frame.to_json}
@@ -42,9 +43,16 @@ class FramesController < ApplicationController
   end
 
   def sort
-    params[:frame].each_with_index do |id, position|
+    root_frame = Frame.where({:title => "root_frame", :presentation_id => @presentation.id}).first
+    params[:frame].each_with_index do |id , position|
+      id, parent_id = id
+      if parent_id == "root"
+        parent_id = root_frame.id
+      end
+      logger.debug("ID:"+id.to_s+"position:"+position.to_s)
       frame = @presentation.frames.find(id)
-      frame.update_attribute(:position, position)
+      frame.update_attribute(:parent_id, parent_id)
+      frame.update_attribute(:position, position+1)
     end
     render :nothing => true
   end
@@ -54,6 +62,14 @@ protected
   end
   def find_frame
     @frame = @presentation.frames.find(params[:id])
+  end
+  def update_positions
+    root_frame = Frame.where({:title => "root_frame", :presentation_id => @presentation.id}).first
+    position = 1
+    root_frame.descendants.each do |frame|
+      frame.update_attribute(:position, position)
+      position += 1
+    end
   end
   def arrange_slots
     old_template = @frame.template

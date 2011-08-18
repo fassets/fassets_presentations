@@ -4,10 +4,5 @@
   =submit_tag "Create"
 
 %div{:id => "presentations.#{presentation.id}.frames"}
-  %ol.collection{:id => "presentations.#{presentation.id}.frames.sort", :class => 'sortable_frames'}
-    -presentation.frames.each do |frame|
-      %li[frame]
-        -if @frame && @frame.id == frame.id
-          =frame.title
-        -else
-          =link_to frame.title, edit_presentation_frame_path(presentation, frame)
+  %ol{:id => "frames", :path => "presentations.#{presentation.id}.frames.sort"}
+    =tree_ol(Frame.where({:title => "root_frame", :presentation_id => presentation.id}).first.children()) {|item| link_to h(item.title), edit_presentation_frame_path(presentation, item) }
