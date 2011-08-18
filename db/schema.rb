@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 18) do
+ActiveRecord::Schema.define(:version => 19) do
 
   create_table "assets", :force => true do |t|
     t.string   "name"
@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(:version => 18) do
     t.integer  "file_width"
     t.integer  "file_height"
     t.datetime "file_updated_at"
+  end
+
+  create_table "frames", :force => true do |t|
+    t.integer "presentation_id"
+    t.string  "title"
+    t.string  "template"
+    t.integer "position"
+    t.integer "parent_id"
   end
 
   create_table "labelings", :force => true do |t|
