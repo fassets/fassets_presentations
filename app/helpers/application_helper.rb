@@ -16,6 +16,8 @@ module ApplicationHelper
       end
       ret += '</ol>'
     end
-    ret.html_safe
+    unless ret == nil
+      ret.html_safe
+    end
   end
 end
