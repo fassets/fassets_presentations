@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe TrayPositionsController do
+  before(:each) do
+    @mock_user = mock_model(User, {:tray_positions => double(TrayPosition, {:maximum => 1})}).as_null_object
+  end
+
   include_examples "every authenticated controller"
 
   describe "POST 'create'" do
