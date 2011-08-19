@@ -2,7 +2,7 @@ require 'acts_as_asset'
 class Presentation < ActiveRecord::Base
   acts_as_asset
   after_create :create_root_frame
-  has_many :frames, :order => :position
+  has_many :frames, :order => :position, :dependent => :destroy
 
   validates_presence_of :title,:template
   
