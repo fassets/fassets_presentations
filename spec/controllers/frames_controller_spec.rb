@@ -62,5 +62,15 @@ describe FramesController do
         request.flash[:notice].should =~ /succesfully updated/
       end
     end
+
+    describe "update fails" do
+      it "should not update the frame" do
+      pending "can this ever happen?" do
+        put 'update', params.merge({:frame => {:title => "don’t change!"}})
+        assigns(:frame).title.should == "Title Frame"
+        request.flash[:error].should =~ /not update/
+      end
+      end
+    end
   end
 end
