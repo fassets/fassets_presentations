@@ -1,6 +1,8 @@
 #black_dimmer
 #white_dimmer
 -position = 0
+-if @presentation.root_frame.descendants.empty?
+  %a{:href => edit_presentation_path(@presentation)} edit
 -@presentation.root_frame.descendants.each do |frame|
   -position = position + 1
   %div.frame{:id => position, :alt => frame.title, :level => frame.ancestors.length.to_s}
