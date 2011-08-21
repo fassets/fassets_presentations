@@ -45,12 +45,12 @@ class FramesController < ApplicationController
   def sort
     root_frame = @presentation.root_frame
     params[:frame].each_with_index do |id , position|
-      id, parent_id = id
+      frame_id, parent_id = id
       if parent_id == "root"
         parent_id = root_frame.id
       end
-      logger.debug("ID:"+id.to_s+"position:"+position.to_s)
-      frame = @presentation.frames.find(id)
+      logger.debug("ID:"+frame_id.to_s+"position:"+position.to_s)
+      frame = @presentation.frames.find(frame_id)
       frame.update_attribute(:parent_id, parent_id)
       frame.update_attribute(:position, position+1)
     end
