@@ -73,4 +73,36 @@ describe FramesController do
       end
     end
   end
+
+  describe "DELETE a frame" do
+    let(:params) { {:presentation_id => 1, :id => 2} }
+    it "should delete the frame" do
+      frames_count = Presentation.find(1).frames.count
+      delete 'destroy', params
+      Presentation.find(1).frames.count.should == frames_count-1
+      request.flash[:notice].should =~ /succesfully deleted/
+    end
+  end
+
+  describe "change position of frames" do
+    before(:each) do
+      p = Presentation.find(1)
+      p.frames << Frame.create!(:title => 'Test Frame 2', :template => 'default')
+      p.frames << Frame.create!(:title => 'Test Frame 3', :template => 'default')
+      p.frames << Frame.create!(:title => 'Test Frame 4', :template => 'default')
+    end
+
+    let(:params) do
+      {:presentation_id => 1}
+    end
+
+    it "should update the positions of frames within the root level" do
+      [2,3,4,5].permutation.each do |p|
+        frames = {:frame => []}
+        p.each { |f| frames[:frame] << ["#{f}", 'root'] }
+        put 'sort', frames.merge(params)
+        Presentation.find(1).frames.select{ |f| f != Presentation.find(1).root_frame }.map{ |f| f.id }.should == p
+      end
+    end
+  end
 end
