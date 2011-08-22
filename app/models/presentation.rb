@@ -8,7 +8,7 @@ class Presentation < ActiveRecord::Base
   validates_presence_of :title,:template
 
   def root_frame=(value)
-    raise "can’t overwrite root frame"
+    raise "can't overwrite root frame"
   end
 
   def media_type
