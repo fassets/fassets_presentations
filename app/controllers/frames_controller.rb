@@ -43,14 +43,14 @@ class FramesController < ApplicationController
   end
 
   def sort
-    root_frame = Frame.where({:title => "root_frame", :presentation_id => @presentation.id}).first
+    root_frame = @presentation.root_frame
     params[:frame].each_with_index do |id , position|
-      id, parent_id = id
+      frame_id, parent_id = id
       if parent_id == "root"
         parent_id = root_frame.id
       end
-      logger.debug("ID:"+id.to_s+"position:"+position.to_s)
-      frame = @presentation.frames.find(id)
+      logger.debug("ID:"+frame_id.to_s+"position:"+position.to_s)
+      frame = @presentation.frames.find(frame_id)
       frame.update_attribute(:parent_id, parent_id)
       frame.update_attribute(:position, position+1)
     end
@@ -64,7 +64,7 @@ protected
     @frame = @presentation.frames.find(params[:id])
   end
   def update_positions
-    root_frame = Frame.where({:title => "root_frame", :presentation_id => @presentation.id}).first
+    root_frame = @presentation.root_frame
     position = 1
     root_frame.descendants.each do |frame|
       frame.update_attribute(:position, position)
