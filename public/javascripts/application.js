@@ -28,7 +28,7 @@ $(document).ready(function(){
     update: function(ev,ui){
       console.log($(".sortable_frames").nestedSortable('serialize')),
       $.ajax({
-        type: 'put', 
+        type: 'post', 
         data: $(".sortable_frames").nestedSortable('serialize'), 
         dataType: 'script', 
         complete: function(request){

@@ -45,7 +45,7 @@ Fassets::Application.routes.draw do
   
       resources :frames do
         collection do
-          put :sort
+          post :sort
         end    
       end
       resources :topics do
