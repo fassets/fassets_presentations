@@ -43,16 +43,24 @@ class FramesController < ApplicationController
   end
 
   def sort
+    j = ActiveSupport::JSON
     root_frame = @presentation.root_frame
-    params[:frame].each_with_index do |id , position|
-      frame_id, parent_id = id
-      if parent_id == "root"
+    frames = j.decode(params[:frame])
+    position = 0
+    frames.each do |frame|
+      frame_id = frame["item_id"]
+      if frame_id == "root"
+        next
+      end
+      parent_id = frame["parent_id"]
+      if frame["parent_id"] == "root"
         parent_id = root_frame.id
       end
       logger.debug("ID:"+frame_id.to_s+"position:"+position.to_s)
       frame = @presentation.frames.find(frame_id)
       frame.update_attribute(:parent_id, parent_id)
       frame.update_attribute(:position, position+1)
+      position += 1
     end
     render :nothing => true
   end

@@ -26,11 +26,11 @@ $(document).ready(function(){
 		tolerance: 'pointer',
 		toleranceElement: '> div',
     update: function(ev,ui){
-      console.log($(".sortable_frames").nestedSortable('serialize')),
+      console.log($(".sortable_frames").nestedSortable('toArray')),
       $.ajax({
         type: 'post', 
-        data: $(".sortable_frames").nestedSortable('serialize'), 
-        dataType: 'script', 
+        data: "frame="+JSON.stringify($(".sortable_frames").nestedSortable('toArray')),
+        dataType: 'json', 
         complete: function(request){
         $('.frame').effect('highlight',{},2000);
         },
