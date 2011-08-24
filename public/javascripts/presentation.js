@@ -33,6 +33,13 @@ Presentation = function() {
 	function showframe(index) {
 		$(".frame[id='" + index + "']").fadeIn("normal");
     $(".frame_menu").find("#"+index).addClass("selected");
+    $(".frame_menu").children().each(function(i,e) {
+      if ($(e).has(".selected").length == 0 && $(e).attr("class") != "selected"){
+        $(e).children().hide();
+      } else {
+        $(e).children().show();
+      }
+    });  
 		frame.layout();
 		$(".frame[id='" + index + "'] a.zoom").each(function(e){
 			_images.push(this);

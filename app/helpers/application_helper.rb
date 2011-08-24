@@ -27,12 +27,15 @@ module ApplicationHelper
       else
         ret = '<ol>'
       end
+      number = 1
       acts_as_tree_set.collect do |item|
         #next if item.parent_id && init
         ret += '<li id="'+item.position.to_s+'">'
+        ret += number.to_s+". "
         ret += yield item
         ret += menutree_ol(item.children, false, &block) if item.children.size > 0
         ret += '</li>'
+        number += 1
       end
       ret += '</ol>'
     end
