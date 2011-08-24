@@ -20,4 +20,6 @@
         -number += 1
 #menu
   -unless @presentation.root_frame == nil
+    #menu_header
+      =@presentation.title
     =menutree_ol(@presentation.root_frame.children()) {|item| item.title }

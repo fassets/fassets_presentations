@@ -1,3 +1,4 @@
+/*foo*/
 * {
 	margin: 0;
 	padding: 0;
@@ -26,17 +27,17 @@ em {
 	overflow: hidden;
 }
 .header {
-	background-color: #171717;
-	border-bottom: .25em solid #a8a8a8;
+	background-color: white;
+/*	border-bottom: .25em solid #a8a8a8;*/
 	position:relative;
 	height: 10%;
-	color: white;
+	color: black;
 }
 .header a {
-	color: #171717; 
+	color: white; 
 }
 .header a:hover {
-	color: white; 
+	color: black; 
 }
 .header h1 {
 	position: absolute;
@@ -159,15 +160,14 @@ em {
   width: 15%;
   height: 100%;
   float: right;
-  background-color: #F5F5F5;
-  border-left: 1px solid #DDDDDD;
+  background-color: #E5E5E5;
 }
 #menu_header {
   font-size: 0.9em;
   font-weight: bold;
   height: 6.8%;
-  color: white;
-  background-color: #303030;
+  color: black;
+  background-color: #FFD699;
   padding-left: 20px;
   padding-top: 20px;
   padding-bottom: 0.1em;

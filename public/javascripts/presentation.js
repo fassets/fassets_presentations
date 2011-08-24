@@ -101,7 +101,7 @@ frame = function() {
 	pub.width = function() {
 		//Try using frame-div-dimensions
     if ($(".frame_menu").is(":visible")){
-      return $(window).width() * 0.85;
+      return $(window).width() * 0.87;
     } else {
 		  return $(window).width();
     }
@@ -311,6 +311,7 @@ $(function(){
       location.href = edit_link.href;
       break;
     case 66: // b
+    case 83: // s
       if ($("#white_dimmer").is(":visible")){
         $("#white_dimmer").hide();
         $("#black_dimmer").show();
@@ -322,16 +323,13 @@ $(function(){
         $("#black_dimmer").fadeIn();
       }
       break;
-    case 77: // m
+    case 78: // n
       if ($(".frame_menu").is(":visible")){
-        //$("#menu").hide("slide", { direction: "right" }, 2000);
-        $(".frame_menu").hide("slide", { direction: "right" }, 1000, function () {
-          $("#menu").hide();
+        $("#menu").hide("slow", function () {
           frame.layout();
         });
       } else {
-        $("#menu").show();
-        $(".frame_menu").show("slide", { direction: "right" }, 1000, function () {frame.layout();});
+          $("#menu").show("slow", function () {frame.layout();});
       }
       break;
     case 87: // w
