@@ -343,7 +343,14 @@ $(function(){
       } else {
         $("#white_dimmer").fadeIn();
       }
-      break;      
+      break; 
+		case 72: // h
+      if ($("#presentationhelp").attr("style") == "visibility: visible;") {
+			  $("#presentationhelp").css('visibility','hidden');
+      } else {
+        $("#presentationhelp").css('visibility','visible');
+      }
+			break;     
 		}
 		console.log(event.keyCode);
 	});

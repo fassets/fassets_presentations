@@ -201,3 +201,25 @@ em {
 #menu ol li.selected li {
   font-weight: normal;
 }
+#presentationhelp{
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  border: solid 2px grey;
+  color: white;
+  background-color: black;
+  z-index: 3;
+  visibility: hidden;
+  padding: 2em;
+  border-bottom-right-radius: 1em;
+  border-top-right-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-top-left-radius: 1em;
+}
+#ShortcutTable {
+  margin-left: auto;
+  margin-right: auto;
+}
+#ShortcutTable td{
+  padding: 5px;
+}

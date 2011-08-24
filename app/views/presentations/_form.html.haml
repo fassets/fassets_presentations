@@ -3,4 +3,4 @@
   =form.text_field :title
 %p
   %label{:for => 'template'} Template:
-  =select(:presentation, :template, TemplateManager.outer_templates)
+  =select(:presentation, :template, TemplateManager.outer_templates, { :selected => @content.template ? @content.template : "default"})
