@@ -32,15 +32,20 @@ Presentation = function() {
 	}
 	function showframe(index) {
 		$(".frame[id='" + index + "']").fadeIn("normal");
+    $(".frame_menu").find("#"+index).addClass("selected");
 		frame.layout();
 		$(".frame[id='" + index + "'] a.zoom").each(function(e){
-			console.log(this);
 			_images.push(this);
 		});
 		_imageIndex = 0;
 	}
 	function doTransition(from, to) {
-		$(".frame[id='" + from + "']").fadeOut("normal", function() {showframe(to)});        
+		$(".frame[id='" + from + "']").fadeOut("normal", function() {
+      $(".frame_menu").find("#"+from).removeClass("selected");
+      $(".frame_menu").find("#"+to).addClass("selected");
+      showframe(to);
+    }
+    );        
 	}
 	pub.getframeIndex = function() {
 		return parseInt(location.hash.substring(1)) || 1;
@@ -88,13 +93,17 @@ frame = function() {
 	var pub = {};
 	pub.width = function() {
 		//Try using frame-div-dimensions
-		return $(window).width();
+    if ($(".frame_menu").is(":visible")){
+      return $(window).width() * 0.85;
+    } else {
+		  return $(window).width();
+    }
 	}
 	pub.height = function() {
 		return $(window).height();
 	}
 	pub.layout = function() {
-		//console.log("layout");
+//		console.log("layout");
 		var size = frame.height() / 32;
 	    $("body").css("font-size", size + 'px');
 	    $(".frame").css("width", frame.width() + 'px');
@@ -185,80 +194,67 @@ Selector = function() {
 		"height": "0px"
 	}
 	var _selector = $(DIV({"id": "selector"})).css(_original_dim);
+
 	var _items = [];
 	var _list = $(TABLE()).css({
 		"position": "absolute"	
 	});
 	_list.hide();
-	var _index = 0;
+	var _index = 1;
 	function selectframe(i) {
-		$(_items[_index]).removeClass("selected");		
-		_index = i;
-		$(_items[_index]).addClass("selected");
-		
-		var pos = (_list.height() / _items.length) * -(_index + 1) + _selector.outerHeight() / 2;
-		_list.css("top", pos);
-		
+    //console.log("selectframe:"+i);
+    $("#selector .selected").removeClass("selected");
+    $("tr[frame_number="+i+"]").addClass("selected");		
 	}
-	pub.init = function() {
-		$(".frame").each(function(i, e){
-      if ($(e).attr("alt") == $(e).attr("topic")){
-        var cl = "topic_item"        
-      } else {
-        var cl = "frame_item"
-      }
-			var row = TR(TD({"class": "position"}, i + 1), TD({"class": cl, "style":"padding-left:"+$(e).attr("level")+"em"},$(e).attr("alt")));
-			_list.append(row);
-			_items.push(row);
-		});
-		_selector.append(_list);
-		_selector.hide();
-		$("body").append(_selector);
-	}
-	pub.show = function() {
-		if (!pub.isVisible()) {
-			var bottom = frame.height() / 2 - frame.height() / 4;
-			var right = frame.width() / 2 -  frame.width() / 4;
-			var width = frame.width() / 2;
-			console.log(width);
-			var height = frame.height() / 2;
-			_list.find(".active").removeClass("active");
-			$(_items[Presentation.getframeIndex() - 1]).addClass("active");
-			_selector.animate(
+  pub.init = function() {
+    $("[frame_number=0]").addClass("selected");
+    $("#selector").hide();
+  }
+  pub.show = function() {
+    if (!pub.isVisible()) {
+      var bottom = frame.height() / 2 - frame.height() / 4;
+      var right = frame.width() / 2 -  frame.width() / 4;
+      var width = frame.width() / 2;
+      var height = frame.height() / 2;
+      $("#selector").animate(
 				{"bottom": bottom, 
 				"right": right, 
 				"opacity": 0.98,	
 				"width": width, 
 				"height": height}, 200, "swing", function() {
 					selectframe(Presentation.getframeIndex() - 1);
-					_list.show();
-          _selector.show();
+          $("#selector").show();
 				});
-			return true;
-		}
-		return false;
-	}
+    }
+  }
 	pub.hide = function() {
-		_selector.animate(_original_dim, 200, "swing", function() {
-			_list.hide();
-			_selector.hide();
-		});
+    $("#selector").animate(_original_dim, 200, "swing", function() {
+      $("#selector").hide();
+    });
 	}
 	pub.isVisible = function() {
-		return _selector.is(":visible");
+		return $("#selector").is(":visible");
 	}
 	pub.previous = function() {
 		pub.show();
-		if (_index == 0) return;
-		selectframe(_index - 1);
+    _index = parseInt($("#selector .selected").attr("frame_number"));
+    if (_index == 0) return;
+    _prev_index = _index-1;
+    $("#selector .selected").removeClass("selected");
+    $("tr[frame_number="+_prev_index+"]").addClass("selected");
 	}
 	pub.next = function() {
 		pub.show();
-		if (_index == _items.length - 1) return;
-		selectframe(_index + 1);		
+    _index = parseInt($("#selector .selected").attr("frame_number"));
+    frames = parseInt($("#selector table").attr("frames"));
+    if (_index == frames) return;
+    var _next_index = _index + 1;
+    $("#selector .selected").removeClass("selected");
+    $("tr[frame_number="+_next_index+"]").addClass("selected");	
 	}
   pub.confirm = function() {
     pub.hide();
+    _index = parseInt($("#selector .selected").attr("frame_number"));
     Presentation.showframe(_index + 1);
   }
 	return pub;
@@ -317,6 +313,18 @@ $(function(){
         $("#black_dimmer").fadeOut();
       } else {
         $("#black_dimmer").fadeIn();
+      }
+      break;
+    case 77: // m
+      if ($(".frame_menu").is(":visible")){
+        //$("#menu").hide("slide", { direction: "right" }, 2000);
+        $(".frame_menu").hide("slide", { direction: "right" }, 1000, function () {
+          $("#menu").hide();
+          frame.layout();
+        });
+      } else {
+        $("#menu").show();
+        $(".frame_menu").show("slide", { direction: "right" }, 1000, function () {frame.layout();});
       }
       break;
     case 87: // w

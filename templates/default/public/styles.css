@@ -101,10 +101,13 @@ em {
 	font-weight: bold;
 }
 #selector {
+  position: absolute;
 	color: white;
 	background-color: #222;
 	-webkit-border-radius: 10px;
 	-webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 	border: 10px solid #222;
 	overflow: hidden;
 }
@@ -139,7 +142,7 @@ em {
   width:100%;
   z-index:100;
   display: none;
-  background-color: black;
+  background-color: #171717;
 }
 #white_dimmer {
   position:absolute;
@@ -149,4 +152,31 @@ em {
   z-index:100;
   display: none;
   background-color: white;
+}
+#menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15%;
+  height: 100%;
+  float: right;
+  border-left: .25em solid #a8a8a8;
+  background-color: black;
+}
+#menu ol {
+  margin: 0 0 0 25px;
+	padding: 0;
+	list-style-type: none;
+  margin-top: 20%;
+  color: white;
+  font-size: 0.9em;
+}
+#menu ol ol {
+  margin-top: 0.5em;
+}
+#menu ol li.selected {
+  font-weight: bold;
+}
+#menu ol li.selected li {
+  font-weight: normal;
 }
