@@ -44,6 +44,6 @@ class Asset < ActiveRecord::Base
   end
 
   def put_on_tray
-    tray_positions.create(:user_id => user.id, :asset_id => id)
+    tray_positions.create(:user_id => user.id, :asset_id => id, :position => user.tray_positions.maximum(:position)+1)
   end
 end

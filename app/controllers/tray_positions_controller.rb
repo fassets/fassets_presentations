@@ -51,14 +51,14 @@ class TrayPositionsController < ApplicationController
           end
         end
       end
-      if params["asset"]
-        unless TrayPosition.where(:user_id => current_user.id, :asset_id => params["asset"][0]).exists?
+      if params["asset_id"]
+        unless TrayPosition.where(:user_id => current_user.id, :asset_id => params["asset_id"]).exists?
           if current_user.tray_positions.maximum(:position)
             position = current_user.tray_positions.maximum(:position)+1
           else
             position = 1
           end
-          new_tp = TrayPosition.new(:user_id => current_user.id, :asset_id => params["asset"][0],:position => position)
+          new_tp = TrayPosition.new(:user_id => current_user.id, :asset_id => params["asset_id"],:position => position)
           new_tp.save
         end
       end

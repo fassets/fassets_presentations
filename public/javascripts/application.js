@@ -37,12 +37,12 @@ $(document).ready(function(){
     }
 	}),
   $('#tray ol').sortable({
-    //items: 'li',
+    items: 'li',
     connectWith: "ul",
-    update: function(){
+    update: function(ev, ui){
       $.ajax({
         type: 'put', 
-        data: $('.sortable_tray').sortable('serialize'), 
+        data: $('.sortable_tray').sortable('serialize')+"&asset_id="+$(ui.item).attr("asset_id"), 
         dataType: 'script', 
         complete: function(request){
           window.location.reload();
@@ -54,6 +54,7 @@ $(document).ready(function(){
   $('ul #assets').draggable({
     items: 'li',
     connectToSortable: "#tray ol",
+    helper: "clone",
   });
   $("#catalog_main").droppable({
     accept:'.asset',
