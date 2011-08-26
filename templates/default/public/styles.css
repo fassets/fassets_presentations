@@ -212,6 +212,10 @@ em {
 #menu ol li {
   padding-top: 0.5em;
 }
+#menu ol li a {
+  text-decoration: none;
+  color: black;
+}
 #menu ol ol {
   margin-top: 0.15em;
   font-size: 0.95em;
@@ -221,8 +225,16 @@ em {
     color: #0066FF;
 /*  font-weight: bold;*/
 }
+#menu ol li a.selected {
+    color: #0066FF;
+/*  font-weight: bold;*/
+}
 #menu ol li.selected li {
   font-weight: normal;
+}
+#menu ol li.selected li a{
+  font-weight: normal;
+  color: black;
 }
 #presentationhelp{
   position: absolute;

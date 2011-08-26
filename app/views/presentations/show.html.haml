@@ -22,4 +22,4 @@
   -unless @presentation.root_frame == nil
     #menu_header
       =@presentation.title
-    =menutree_ol(@presentation.root_frame.children()) {|item| item.title }
+    =menutree_ol(@presentation.root_frame.children()) {|item| link_to h(item.title), presentation_path(@presentation)+"#"+item.position.to_s }

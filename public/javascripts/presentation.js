@@ -33,11 +33,12 @@ Presentation = function() {
 	function showframe(index) {
 		$(".frame[id='" + index + "']").fadeIn("normal");
     $(".frame_menu").find("#"+index).addClass("selected");
+    $(".frame_menu").find("#"+index+" a").addClass("selected");
     $(".frame_menu").children().each(function(i,e) {
       if ($(e).has(".selected").length == 0 && $(e).attr("class") != "selected"){
-        $(e).children().hide();
+        $(e).children("ol").hide();
       } else {
-        $(e).children().show();
+        $(e).children("ol").show();
       }
     });  
 		frame.layout();
@@ -49,7 +50,9 @@ Presentation = function() {
 	function doTransition(from, to) {
 		$(".frame[id='" + from + "']").fadeOut("normal", function() {
       $(".frame_menu").find("#"+from).removeClass("selected");
+      $(".frame_menu").find("#"+from+" a").removeClass("selected");
       $(".frame_menu").find("#"+to).addClass("selected");
+      $(".frame_menu").find("#"+to+" a").addClass("selected");
       showframe(to);
     }
     );        
