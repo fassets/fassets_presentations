@@ -26,7 +26,6 @@ $(document).ready(function(){
 		tolerance: 'pointer',
 		toleranceElement: '> div',
     update: function(ev,ui){
-      console.log($(".sortable_frames").nestedSortable('toArray')),
       $.ajax({
         type: 'post', 
         data: "frame="+JSON.stringify($(".sortable_frames").nestedSortable('toArray')),
