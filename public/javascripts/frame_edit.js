@@ -131,11 +131,11 @@ $(function(){
     width = $(window).width();
     $("#slot_top").css("height", height*0.4 + 'px');
     $("#slot_top").css("width", width*0.7 + 'px');
-    $("#slot_bottom").css("height", height*0.4 + 'px');
-    $("#slot_bottom").css("width", width*0.7 + 'px');
-    $("#slot_topleft").css("height", height*0.4 + 'px');
+    $("#slot_bottom").css("height", height*0.39 + 'px');
+    $("#slot_bottom").css("width", width*0.67 + 'px');
+    $("#slot_topleft").css("height", height*0.39 + 'px');
     $("#slot_topleft").css("width", width*0.33 + 'px');
-    $("#slot_topright").css("height", height*0.4 + 'px');
+    $("#slot_topright").css("height", height*0.39 + 'px');
     $("#slot_topright").css("width", width*0.33 + 'px');
     $("#slot_left").css("height", height*0.7 + 'px');
     $("#slot_left").css("width", width*0.33 + 'px');
@@ -147,11 +147,24 @@ $(function(){
     $("#slot_subtitle").css("width", width*0.66 + 'px');
     $("#slot_centertitle").css("height", height*0.4 + 'px');
     $("#slot_centertitle").css("width", width*0.66 + 'px');
-    $("textarea").attr("rows",height/28);
+    $("textarea").each(function(i,e) {
+      parent = $(e).parent().parent();
+      $(e).css("height", parent.height()*0.9);
+    });
     $("img.fit").scaleImage({
       parent: "li",
       scale: 'fit',
       center: false
+    });
+    $("#slot_bottom .slot_asset img").scaleImage({
+      parent: "li",
+      scale: 'fit',
+      center: true
+    });
+    $("#slot_center .slot_asset img").scaleImage({
+      parent: "li",
+      scale: 'fit',
+      center: true
     });
   }
   resize_slots();
