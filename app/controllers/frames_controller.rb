@@ -7,7 +7,8 @@ class FramesController < ApplicationController
       frame = Frame.find(params[:id]).clone();
       frame.presentation_id = @presentation.id
     else
-      frame =  Frame.create(params[:frame].merge({:presentation_id => @presentation.id}))
+      position = Frame.where(:presentation_id => @presentation.id).maximum(:position)+1
+      frame =  Frame.create(params[:frame].merge({:presentation_id => @presentation.id, :position => position}))
     end
     respond_to do |format|
       if frame.save
