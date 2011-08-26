@@ -161,7 +161,7 @@ $(function(){
       activeObj = document.activeElement;
       if (activeObj.type == "textarea") break;
       if (activeObj.type == "text") break;
-      if ($("#editorhelp").is(":visible")) {
+      if ($("#editorhelp").attr("style") == "visibility: visible;") {
 			  $("#editorhelp").css('visibility','hidden');
       } else {
         $("#editorhelp").css('visibility','visible');
