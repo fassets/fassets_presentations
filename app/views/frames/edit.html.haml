@@ -25,7 +25,7 @@
   =form_for  [@presentation,  @frame], :html => {:id => "edit_frame"} do |f|
     =submit_tag "Save", :id => "frame_save"
     #edit_warning{:style => "visibility: hidden"}There are unsaved changes on this frame
-    =render :partial => "form", :object => f
+    =render :partial => "form", :object => f, :locals => {:disable_self => true}
     %h2 Slots
     %ul#slots
       =render :partial => "slot", :collection => @frame.slots
