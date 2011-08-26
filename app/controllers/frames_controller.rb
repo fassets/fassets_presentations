@@ -7,7 +7,7 @@ class FramesController < ApplicationController
       frame = Frame.find(params[:id]).clone();
       frame.presentation_id = @presentation.id
     else
-      frame =  @presentation.frames.build(params[:frame])
+      frame =  Frame.create(params[:frame].merge({:presentation_id => @presentation.id}))
     end
     respond_to do |format|
       if frame.save
@@ -57,7 +57,7 @@ class FramesController < ApplicationController
         parent_id = root_frame.id
       end
       logger.debug("ID:"+frame_id.to_s+"position:"+position.to_s)
-      frame = @presentation.frames.find(frame_id)
+      frame = Frame.find(frame_id)
       frame.update_attribute(:parent_id, parent_id)
       frame.update_attribute(:position, position+1)
       position += 1
@@ -69,7 +69,7 @@ protected
     @presentation = Presentation.find(params[:presentation_id])
   end
   def find_frame
-    @frame = @presentation.frames.find(params[:id])
+    @frame = Frame.find(params[:id])
   end
   def update_positions
     root_frame = @presentation.root_frame
