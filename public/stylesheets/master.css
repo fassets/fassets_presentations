@@ -87,7 +87,7 @@ h3 {
 	background-color: #469b00;
 }
 #error_message {
-	position:absolute;
+	position: absolute;
 	top: 0px;
 	left: 0px;
 	line-height: 2.3em;
@@ -163,12 +163,14 @@ ul#catalogs li {
 #tray {
 	padding: .5em;
 	border-top: 1px solid #bbb;
-/*  z-index: 2;*/
-/*  position: relative;*/
-/*  position: absolute;*/
-/*  height: 80px;*/
-/*  bottom: 0%;*/
-  margin-top: 16px;
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+#tray_placeholder {
+  height: 85px;
 }
 #tray ul {
 	padding: .3em;
@@ -198,9 +200,10 @@ ul#catalogs li {
 	background-color: #dce9ff;
 }
 
-
-
-
+#tray input {
+  float: right;
+  margin-right: 2em;
+}
 #tray ol li.clipboard {
 	position: relative;
 	float: left;
@@ -251,10 +254,6 @@ ul#catalogs li {
 #container {
 	padding: 15px;
 	background-color: white;
-/*  position: absolute;*/
-/*  height: 90%;*/
-/*  width: 100%;*/
-/*  float:left;*/
 }
 
 .active {
@@ -267,17 +266,13 @@ ul#catalogs li {
 }
 #sidebar {
 	float: right;
-/*  position: absolute;*/
   right: 0%;
-/*	width:  30%;*/
   width: 25%;
   height: 100%;
 }
 #main {
-/*	position: relative;*/
 	float: left;
   height: 100%;
-/*	width:  65%;*/
   width: 73%;
 }
 #main p {
@@ -288,14 +283,14 @@ ul#catalogs li {
   width: 75%;
 }
 #edit_warning {
-	position: absolute;
-	top: 0px;
-	right: 90px;
+  position: relative;
 	color:  red;
 	font-weight: bold;
 	font-size: 10pt;
 	padding-left: 36px;
-	line-height: 32px;
+	line-height: 32px;  
+  padding-right: 40px;
+  float:right;
 	background: url(/images/warning.png) no-repeat;
 }
 /* @end */
@@ -690,10 +685,13 @@ margin: .3em;
   width: 100%;
 }
 #frame_save{
+  position: relative;
+/*  right: -60px;*/
   margin-top: 4px;
   margin-left: 4px;
   margin-bottom: 4px;
   margin-right: 20px;
+/*  right: 20px;*/
   float: right;
   padding: 5px;
   font-weight: bold;

@@ -137,9 +137,9 @@ $(function(){
     $("#slot_topleft").css("width", width*0.33 + 'px');
     $("#slot_topright").css("height", height*0.4 + 'px');
     $("#slot_topright").css("width", width*0.33 + 'px');
-    $("#slot_left").css("height", height*0.8 + 'px');
+    $("#slot_left").css("height", height*0.7 + 'px');
     $("#slot_left").css("width", width*0.33 + 'px');
-    $("#slot_right").css("height", height*0.8 + 'px');
+    $("#slot_right").css("height", height*0.7 + 'px');
     $("#slot_right").css("width", width*0.33 + 'px');
     $("#slot_center").css("height", height*0.8 + 'px');
     $("#slot_center").css("width", width*0.66 + 'px');
@@ -147,10 +147,11 @@ $(function(){
     $("#slot_subtitle").css("width", width*0.66 + 'px');
     $("#slot_centertitle").css("height", height*0.4 + 'px');
     $("#slot_centertitle").css("width", width*0.66 + 'px');
+    $("textarea").attr("rows",height/28);
     $("img.fit").scaleImage({
       parent: "li",
       scale: 'fit',
-      center: true
+      center: false
     });
   }
   resize_slots();
