@@ -171,6 +171,11 @@ $(function(){
   $(window).resize(function() {resize_slots()});
 	$(window).keydown(function(event){
 		switch(event.keyCode) {
+    case 27: // Esc
+      if ($("#editorhelp").attr("style") == "visibility: visible;") {
+        $("#editorhelp").css('visibility','hidden');
+      }
+      break;
 		case 72: // h
       activeObj = document.activeElement;
       if (activeObj.type == "textarea") break;

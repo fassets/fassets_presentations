@@ -293,6 +293,9 @@ $(function(){
 			break;
 		case 27: //ESC
 			Selector.hide();
+      if ($("#presentationhelp").attr("style") == "visibility: visible;"){
+        $("#presentationhelp").css('visibility','hidden');
+      }
 			break;
 		case 13: //Enter
 			if (Selector.isVisible()) Selector.confirm();
