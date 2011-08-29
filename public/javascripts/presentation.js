@@ -274,6 +274,7 @@ Selector = function() {
 $(function(){
 	Presentation.init();
 	Selector.init();
+  var num = null;
 	$(window).keydown(function(event){
 		switch(event.keyCode) {
 		case 37: //Left
@@ -299,13 +300,31 @@ $(function(){
 			break;
 		case 13: //Enter
 			if (Selector.isVisible()) Selector.confirm();
+      if (num != null) Presentation.showframe(num);
 			break;
-		case 49: //1
-			Presentation.previousImage();
-			break;
-		case 50: //2
-			Presentation.nextImage();
-			break;
+//		case 49: //1
+//			Presentation.previousImage();
+//			break;
+//		case 50: //2
+//			Presentation.nextImage();
+//			break;
+    case 48: // 0
+    case 49: // 1
+    case 50: // 2
+    case 51: // 3
+    case 52: // 4
+    case 53: // 5
+    case 54: // 6
+    case 55: // 7
+    case 56: // 8
+    case 57: // 9
+      if (num == null){  
+        num = event.keyCode - 48;
+      } else {
+        num = 10 * num + event.keyCode - 48;
+      }
+      setTimeout(function() { num = null;},3000);
+      break;
     case 74: // j
       var index = prompt("Jump to frame number:");
       if (index == null) break;
