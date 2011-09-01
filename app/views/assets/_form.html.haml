@@ -4,9 +4,6 @@
     %p
       %label{:for => 'name'} Name:
       =asset.text_field :name
-    %p
-      %label{:for => 'public'} Public:
-      =asset.check_box :public
   =render :partial => "#{@content.class.to_s.underscore.pluralize}/form", :object => f
   =render content_partial(@content, :preview)
   =submit_tag(@content.new_record? ? "Create" : "Save")
