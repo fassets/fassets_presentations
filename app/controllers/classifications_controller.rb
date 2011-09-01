@@ -12,6 +12,10 @@ class ClassificationsController < ApplicationController
     redirect_to url_for(@classification.asset.content) + "/edit"
   end
   def update
+    if params[:commit] == "Drop"
+      destroy()
+      return
+    end
     @classification.label_ids = params[:labels]
     flash[:notice] = "Updated Classification"
     redirect_to url_for(@classification.asset.content) + "/edit"
