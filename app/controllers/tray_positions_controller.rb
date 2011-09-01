@@ -51,7 +51,7 @@ class TrayPositionsController < ApplicationController
           end
         end
       end
-      if params["asset_id"]
+      if params["asset_id"] and params["asset_id"] != "undefined"
         unless TrayPosition.where(:user_id => current_user.id, :asset_id => params["asset_id"]).exists?
           if current_user.tray_positions.maximum(:position)
             position = current_user.tray_positions.maximum(:position)+1
