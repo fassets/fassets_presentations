@@ -53,6 +53,7 @@ Fassets::Application.routes.draw do
           put :sort
         end
       end
+      post :copy
   end
   match 'assets/:id/preview' => 'assets#preview'
   match 'assets/:id/edit' => 'assets#edit'

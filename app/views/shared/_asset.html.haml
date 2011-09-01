@@ -1,7 +1,7 @@
 %li.asset{:id => tp ? "tp_#{tp.id}" : "asset_#{asset.id}", :rel => tp ? asset.id : nil, :asset_id => asset ? asset.id: nil}
   .icon
     =render :partial => content_partial(asset.content, :icon), :locals => {:content => asset.content}
-  =link_to asset.name.gsub(" ", "&nbsp;"), url_for(asset.content), :class => "caption"
+  =link_to asset.name, url_for(asset.content), :class => "caption"
   .type
     =asset.content.media_type.upcase
   .action

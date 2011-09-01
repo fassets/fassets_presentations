@@ -10,13 +10,13 @@
     %li
       .handle=classification.catalog.title
       .content
-        =button_to "Drop", [classification], :method => :delete, :confirm => "Shure?"
+        =button_to "Drop", [classification], :method => :delete, :confirm => "Sure?"
         =form_for [classification] do
+          =submit_tag "Save"
           -facet2label = Hash[*classification.labels.map{|l| [l.facet_id, l.id]}.flatten]
+          .submit
           -classification.catalog.facets.each do |facet|
             %p
               %label=facet.caption
               =label_select(facet, facet2label[facet.id])
-          .submit
-            =submit_tag "Save"
 
