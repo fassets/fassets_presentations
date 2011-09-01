@@ -758,3 +758,19 @@ ol.sortable_frames {
   font-weight: normal;
 }
 
+#name_warning {
+  color: red;
+  font-weight: bold;
+}
+#title_warning {
+  color: red;
+  font-weight: bold;
+}
+#file_warning {
+  color: red;
+  font-weight: bold;
+}
+#url_warning {
+  color: red;
+  font-weight: bold;
+}

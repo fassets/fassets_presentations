@@ -1,3 +1,5 @@
-%p
-  %label{:for => 'file'} File:
-  =form.file_field :file
+-if new
+  %p
+    %label{:for => 'file'} File:
+    =form.file_field :file
+    #file_warning

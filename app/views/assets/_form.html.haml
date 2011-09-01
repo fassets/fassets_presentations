@@ -4,7 +4,8 @@
     %p
       %label{:for => 'name'} Name:
       =asset.text_field :name
-  =render :partial => "#{@content.class.to_s.underscore.pluralize}/form", :object => f
+      #name_warning
+  =render :partial => "#{@content.class.to_s.underscore.pluralize}/form", :locals => {:new => new}, :object => f
   =render content_partial(@content, :preview)
   =submit_tag(@content.new_record? ? "Create" : "Save")
 

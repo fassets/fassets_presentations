@@ -14,4 +14,4 @@
   =render :partial => "assets/classification", :locals => {:asset => @content.asset}
   =render :partial => @content.class.to_s.underscore.pluralize + "/sidebar"
 #main
-  =render :partial => "assets/form"
+  =render :partial => "assets/form", :locals => {:new => false}
