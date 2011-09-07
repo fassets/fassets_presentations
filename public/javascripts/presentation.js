@@ -223,8 +223,8 @@ Selector = function() {
   pub.show = function() {
     if (!pub.isVisible()) {
       var bottom = frame.height() / 2 - frame.height() / 4;
-      var right = frame.width() / 2 -  frame.width() / 4;
       var width = frame.width() / 2;
+      var right = $(window).width() / 2 - width/2;
       var height = frame.height() / 2;
       $("#selector").animate(
 				{"bottom": bottom, 

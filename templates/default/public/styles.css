@@ -132,6 +132,7 @@ em {
   border-radius: 10px;
 	border: 10px solid #222;
 	overflow: hidden;
+  z-index: 3;
 }
 #selector table {
 	border-collapse: collapse;
