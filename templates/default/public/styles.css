@@ -200,24 +200,27 @@ em {
 #menu {
   font-size: 0.8em;
 }
-#menu a.visited {
+#menu a {
   color: black;
+  text-decoration: none;
+}
+#menu a:hover {
+  color: #0066FF;
+}
+#menu li a:visited {
+  text-decoration: none;
 }
 #menu ol {
   display: block;
-  margin: 0.5em 0 0 1.5em;
-	padding: 0.3em;
+  margin: 0.2em 0 0 1.5em;
+	padding: 0.3em 0;
 	list-style-type: none;
   color: black;
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-weight: bold;
 }
 #menu ol li {
   padding-top: 0.5em;
-}
-#menu ol li a {
-  text-decoration: none;
-  color: black;
 }
 #menu ol ol {
   margin-top: 0.15em;
@@ -228,9 +231,8 @@ em {
     color: #0066FF;
 /*  font-weight: bold;*/
 }
-#menu ol li a.selected {
+#menu ol li.selected a{
     color: #0066FF;
-/*  font-weight: bold;*/
 }
 #menu ol li.selected li {
   font-weight: normal;
@@ -238,6 +240,9 @@ em {
 #menu ol li.selected li a{
   font-weight: normal;
   color: black;
+}
+#menu ol li.selected li a:hover{
+  color: #0066FF;
 }
 #presentationhelp{
   position: absolute;
