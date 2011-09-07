@@ -104,7 +104,7 @@ frame = function() {
 	pub.width = function() {
 		//Try using frame-div-dimensions
     if ($(".frame_menu").is(":visible")){
-      return $(window).width() * 0.87;
+      return $(window).width() - 250;
     } else {
 		  return $(window).width();
     }
