@@ -129,24 +129,24 @@ $(function(){
   var resize_slots = function(){
     height = $(window).height();
     width = $(window).width();
-    $("#slot_top").css("height", height*0.4 + 'px');
-    $("#slot_top").css("width", width*0.7 + 'px');
-    $("#slot_bottom").css("height", height*0.39 + 'px');
+    $("#slot_top").css("height", height*0.35 + 'px');
+    $("#slot_top").css("width", width*0.67 + 'px');
+    $("#slot_bottom").css("height", height*0.35 + 'px');
     $("#slot_bottom").css("width", width*0.67 + 'px');
-    $("#slot_topleft").css("height", height*0.39 + 'px');
+    $("#slot_topleft").css("height", height*0.35 + 'px');
     $("#slot_topleft").css("width", width*0.33 + 'px');
-    $("#slot_topright").css("height", height*0.39 + 'px');
+    $("#slot_topright").css("height", height*0.35 + 'px');
     $("#slot_topright").css("width", width*0.33 + 'px');
-    $("#slot_left").css("height", height*0.7 + 'px');
+    $("#slot_left").css("height", height*0.4 + 'px');
     $("#slot_left").css("width", width*0.33 + 'px');
-    $("#slot_right").css("height", height*0.7 + 'px');
+    $("#slot_right").css("height", height*0.4 + 'px');
     $("#slot_right").css("width", width*0.33 + 'px');
-    $("#slot_center").css("height", height*0.8 + 'px');
-    $("#slot_center").css("width", width*0.66 + 'px');
-    $("#slot_subtitle").css("height", height*0.4 + 'px');
-    $("#slot_subtitle").css("width", width*0.66 + 'px');
-    $("#slot_centertitle").css("height", height*0.4 + 'px');
-    $("#slot_centertitle").css("width", width*0.66 + 'px');
+    $("#slot_center").css("height", height*0.7 + 'px');
+    $("#slot_center").css("width", width*0.67 + 'px');
+    $("#slot_subtitle").css("height", height*0.35 + 'px');
+    $("#slot_subtitle").css("width", width*0.67 + 'px');
+    $("#slot_centertitle").css("height", height*0.35 + 'px');
+    $("#slot_centertitle").css("width", width*0.67 + 'px');
     $("textarea").each(function(i,e) {
       parent = $(e).parent().parent();
       $(e).css("height", parent.height()*0.9);
