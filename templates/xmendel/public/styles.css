@@ -66,7 +66,7 @@ em {
 }
 .content strong {
   font-weight: bold;
-  color: red;
+  color: #CC6600;
 }
 .content blockquote {
 	margin: 1em 2em;
