@@ -7,6 +7,7 @@ describe 'presentations/show.html.haml' do
     @root_frame.stub!(:presentation) { @presentation }
     @root_frame.stub!(:slot).with("subtitle") { "" }
     @root_frame.stub!(:slot).with("center") { "" }
+    @root_frame.stub!(:children) { [] }
     assign(:presentation, @presentation)
   end
 
