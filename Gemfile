@@ -1,12 +1,14 @@
 source :rubygems
 
-gem "rails", ">= 3.0.0"
+gem "rails", ">= 3.1"
 gem "haml", ">= 3.1.2"
 gem "paperclip"
 gem "sqlite3"
 gem "devise"
 gem "pandoc-ruby"
 gem "acts_as_tree_rails3"
+
+gem "jquery-rails"
 
 group :development, :test do
   gem "rspec-rails", ">= 2.0.0"
