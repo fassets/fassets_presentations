@@ -18,10 +18,10 @@ describe ClassificationsController do
 
   describe "POST 'create'" do
     before(:each) do
-      params = { :classification => { :asset => url.asset}}
+      params = { :classification => { :asset_id => url.asset.id}}
       post 'create', params
     end
-    it { response.should redirect_to "/classifications/edit" }
+    it { response.should redirect_to edit_url_path(url) }
     it "creates a classification" do
       Classification.all.should have(3).items
     end

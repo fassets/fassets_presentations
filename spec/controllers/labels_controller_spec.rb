@@ -22,7 +22,7 @@ describe LabelsController do
       post 'create', params
     end
 
-    it { assigns(:label).errors.should == {} }
+    it { assigns(:label).errors.messages.should == {} }
     it { response.should redirect_to controller.edit_catalog_facet_path(params[:catalog_id], params[:facet_id]) }
     it { request.flash[:notice].should =~ /^Label was successfully created.$/ }
 

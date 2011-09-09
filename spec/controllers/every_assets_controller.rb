@@ -95,7 +95,7 @@ shared_examples_for "Every AssetsController" do
         controller.current_user.stub!(:tray_positions) { double(TrayPosition, :maximum => nil) }
         get 'create'
         content = assigns(:content)
-        content.errors.should == {}
+        content.errors.messages.should == {}
         request.flash[:notice].should =~ /^Created new asset!$/
         response.should redirect_to controller.url_for(content) + "/edit"
       end
