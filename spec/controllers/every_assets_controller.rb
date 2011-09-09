@@ -92,6 +92,7 @@ shared_examples_for "Every AssetsController" do
            "classification" => {}
            }.merge(create_params)
         end
+        controller.current_user.stub!(:tray_positions) { double(TrayPosition, :maximum => nil) }
         get 'create'
         content = assigns(:content)
         content.errors.should == {}
