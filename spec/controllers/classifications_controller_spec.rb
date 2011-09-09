@@ -11,6 +11,7 @@ describe ClassificationsController do
   end
 
   before(:each) do
+    controller.current_user.stub!(:tray_positions) { double(TrayPosition, :maximum => nil) }
     Classification.create!({:asset => url.asset})
     Classification.create!({:asset => url.asset})
   end
