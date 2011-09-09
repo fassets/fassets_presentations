@@ -10,7 +10,15 @@ gem "acts_as_tree_rails3"
 
 gem "jquery-rails"
 
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'uglifier'
+end
+
 group :development, :test do
+  gem "therubyracer"
   gem "rspec-rails", ">= 2.0.0"
   gem "rcov"
   gem "cucumber-rails", ">= 0.3.2"
