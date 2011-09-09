@@ -24,19 +24,19 @@ a.icon {
 	background-repeat: no-repeat;
 }
 a.icon.remove {
-	background-image: url("/images/remove.png");
+	background-image: image-url("remove.png");
 }
 a.icon.edit {
-	background-image: url("/images/edit.png");
+	background-image: image-url("edit.png");
 }
 a.icon.link {
-	background-image: url("/images/link.png");
+	background-image: image-url("link.png");
 }
 a.icon.presentation {
-	background-image: url("/images/presentation_small.png");
+	background-image: image-url("presentation_small.png");
 }
 a.icon.file {
-	background-image: url("/images/image.png");
+	background-image: image-url("image.png");
 }
 
 li {
@@ -50,11 +50,9 @@ li {
 	text-align: center;
 }
 
-
 .clear {
 	clear: both;
 }
-
 
 h2, h3 {
 	font-weight: normal;
@@ -99,7 +97,7 @@ h3 {
 #form_error {
 	padding: 0 1em;
 	font-weight: bold;
-	color: red; 
+	color: red;
 }
 #header {
 	position: relative;
@@ -237,7 +235,7 @@ ul#catalogs li {
 #tray ol li.clipboard input {
 	position: absolute;
 	bottom: 0px;
-	left:  52px;	
+	left:  52px;
 }
 #new_tray_position {
   float: left;
@@ -288,7 +286,7 @@ ul#catalogs li {
 	font-weight: bold;
 	font-size: 10pt;
 	padding-left: 36px;
-	line-height: 32px;  
+	line-height: 32px;
   padding-right: 40px;
   float:right;
 	background: url(/images/warning.png) no-repeat;
@@ -390,7 +388,7 @@ h1 #action {
 	margin-right: 1em;
 }
 
-#filter ul li.item strong {	
+#filter ul li.item strong {
 	-webkit-border-radius: 3px;
 	padding: .2em .5em;
 	color: white;
@@ -434,7 +432,7 @@ li.asset .action{
 li.asset input {
 	position: absolute;
 	bottom: 0px;
-	left:  52px;	
+	left:  52px;
 }
 
 /* @end */
@@ -497,7 +495,7 @@ textarea {
 	margin-top: 1em;
 }
 form.button-to .delete-button {
-	background-image: url("/images/delete.png");
+	background-image: image-url("delete.png");
 }
 
 
@@ -507,7 +505,7 @@ form.button-to .delete-button {
 /* @group Sidebar */
 
 #sidebar form input[type=text] {
-	width: 90%;	
+	width: 90%;
 }
 
 /* @end */
@@ -739,14 +737,14 @@ ol.sortable_frames {
     font-size: 1.5em;
     background-color: white;
     border: none;
-    padding: 0; 
+    padding: 0;
 }
 .preview h2 {
     font-size: 1.3em;
     background-color: white;
     border: none;
 	  font-weight: bold;
-	  margin-bottom: auto; 
+	  margin-bottom: auto;
 }
 .preview h3 {
     font-size: 1.1em;

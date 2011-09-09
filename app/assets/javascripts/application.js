@@ -27,9 +27,9 @@ $(document).ready(function(){
 		toleranceElement: '> div',
     update: function(ev,ui){
       $.ajax({
-        type: 'post', 
+        type: 'post',
         data: "frame="+JSON.stringify($(".sortable_frames").nestedSortable('toArray')),
-        dataType: 'json', 
+        dataType: 'json',
         complete: function(request){
         $('.frame').effect('highlight',{},2000);
         },
@@ -41,9 +41,9 @@ $(document).ready(function(){
     connectWith: "ul",
     update: function(ev, ui){
       $.ajax({
-        type: 'put', 
-        data: $('.sortable_tray').sortable('serialize')+"&asset_id="+$(ui.item).attr("asset_id"), 
-        dataType: 'script', 
+        type: 'put',
+        data: $('.sortable_tray').sortable('serialize')+"&asset_id="+$(ui.item).attr("asset_id"),
+        dataType: 'script',
         complete: function(request){
           window.location.reload();
           $('#tray').effect('highlight',{},2000);
@@ -58,7 +58,7 @@ $(document).ready(function(){
   });
   $("#catalog_main").droppable({
     accept:'.asset',
-    activeClass:'active',  
+    activeClass:'active',
     hoverClass:'hover',
     drop:function(ev,ui){
 		  var id;
@@ -79,50 +79,50 @@ $(document).ready(function(){
     }
   });
   $(".collapsable_label").collapsiblePanel({
-    collapsedImage: "/images/collapsed.png",
-    expandedImage: "/images/collapse.png",
+    collapsedImage: "/assets/collapsed.png",
+    expandedImage: "/assets/collapse.png",
     titleQuery: ".labeltitle",
     startCollapsed: true
   });
   $(".collapsable_facetlabels").collapsiblePanel({
-    collapsedImage: "/images/collapsed.png",
-    expandedImage: "/images/collapse.png",
+    collapsedImage: "/assets/collapsed.png",
+    expandedImage: "/assets/collapse.png",
     titleQuery: ".facetlabelstitle",
     startCollapsed: true
   });
   $(".collapsable_facet").collapsiblePanel({
-    collapsedImage: "/images/collapsed.png",
-    expandedImage: "/images/collapse.png",
+    collapsedImage: "/assets/collapsed.png",
+    expandedImage: "/assets/collapse.png",
     titleQuery: ".facettitle",
     startCollapsed: true
   });
   $(".collapsable_frame").collapsiblePanel({
-    collapsedImage: "/images/collapsed.png",
-    expandedImage: "/images/collapse.png",
+    collapsedImage: "/assets/collapsed.png",
+    expandedImage: "/assets/collapse.png",
     titleQuery: ".frametitle",
     startCollapsed: true
   })
   $(".collapsable_topic").collapsiblePanel({
-    collapsedImage: "/images/collapsed.png",
-    expandedImage: "/images/collapse.png",
+    collapsedImage: "/assets/collapsed.png",
+    expandedImage: "/assets/collapse.png",
     titleQuery: ".topictitle",
     startCollapsed: true
   })
   $(".collapsable_catalog").collapsiblePanel({
-    collapsedImage: "/images/collapsed.png",
-    expandedImage: "/images/collapse.png",
+    collapsedImage: "/assets/collapsed.png",
+    expandedImage: "/assets/collapse.png",
     titleQuery: ".catalogtitle",
     startCollapsed: true
   })
   $(".collapsable_classification").collapsiblePanel({
-    collapsedImage: "/images/collapsed.png",
-    expandedImage: "/images/collapse.png",
+    collapsedImage: "/assets/collapsed.png",
+    expandedImage: "/assets/collapse.png",
     titleQuery: ".classificationtitle",
     startCollapsed: true
   })
   $(".collapsable_classificationfacet").collapsiblePanel({
-    collapsedImage: "/images/collapsed.png",
-    expandedImage: "/images/collapse.png",
+    collapsedImage: "/assets/collapsed.png",
+    expandedImage: "/assets/collapse.png",
     titleQuery: ".classificationfacettitle",
     startCollapsed: true
   })
