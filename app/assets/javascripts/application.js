@@ -1,5 +1,16 @@
 // Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+//
+//= require jquery
+//= require jquery_ujs
+//= require dombuilder
+//= require jquery-ui
+//= require jquery.ui.nestedSortable
+//= require jquery.collapsiblePanel-0.2.0
+//= require jquery.myimgscale-0.2
+//= require jquery.fancyzoom
+//= require_self
+//= require_tree .
+//
 $(document).ready(function(){
   // UJS authenticity token fix: add the authenticy_token parameter
   // expected by any Rails POST request.
