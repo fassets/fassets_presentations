@@ -271,7 +271,7 @@ Selector = function() {
 }();
 
 
-$(function(){
+function initPresentation(){
 	Presentation.init();
 	Selector.init();
   var num = null;
@@ -391,5 +391,5 @@ $(function(){
 	$.fn.fancyzoom.defaultsOptions.imgDir='/images/fancyzoom/';
 	$.fn.fancyzoom.defaultsOptions.showoverlay=true;
 	$('a.zoom').fancyzoom();
-});
-  
+}
+
