@@ -24,19 +24,19 @@ a.icon {
 	background-repeat: no-repeat;
 }
 a.icon.remove {
-	background-image: image-url("remove.png");
+  background-image: image-url("remove.png");
 }
 a.icon.edit {
-	background-image: image-url("edit.png");
+  background-image: image-url("edit.png");
 }
 a.icon.link {
-	background-image: image-url("link.png");
+  background-image: image-url("link.png");
 }
 a.icon.presentation {
-	background-image: image-url("presentation_small.png");
+  background-image: image-url("presentation_small.png");
 }
 a.icon.file {
-	background-image: image-url("image.png");
+  background-image: image-url("image.png");
 }
 
 li {
@@ -289,7 +289,7 @@ ul#catalogs li {
 	line-height: 32px;
   padding-right: 40px;
   float:right;
-	background: url(/images/warning.png) no-repeat;
+	background: image-url("warning.png") no-repeat;
 }
 /* @end */
 
@@ -495,7 +495,7 @@ textarea {
 	margin-top: 1em;
 }
 form.button-to .delete-button {
-	background-image: image-url("delete.png");
+  background-image: image-url("delete.png");
 }
 
 
