@@ -58,8 +58,8 @@ $(function(){
       resize_slots();
       $(".asset").draggable(drag_opts);
     });
-    edit_link = '<a href="/assets/'+id+'/edit?asset_id='+id+'"><img width="15" height="15" src="/images/edit.png?1298906686" alt="Edit" title="Edit"></a>'
-    drop_link = '<img width="15" height="15" src="/images/delete.png?1298906686" class="drop_asset">'
+    edit_link = '<%= image_tag("edit.png", :alt => "Edit", :title => "Edit", :width => "15", :height => "15") %>'
+    drop_link = '<%= image_tag("delete.png", :width => "15", :height => "15", :class => "drop_asset") %>'
     if ($(this).find(".name a").length){
       $(this).find(".name a").html(edit_link);
     } else {
@@ -100,13 +100,13 @@ $(function(){
       $(this).parent().parent().find(".content .preview").hide();
       $(this).parent().parent().find(".content textarea").show();
     }
-	});  
+	});
 	$('#slots select').change(function(){
 		var content = $(this).parent().next();
 		var text = content.find("textarea");
 		var asset = content.find(".slot_asset");
     var preview_button = $(this).parent().find(".preview_markup");
-    preview_button_link = '<img width="15" height="15" title="Preview" src="/images/markup_preview.png?1312392304" onmouseover="this.style.cursor = pointer" class="preview_markup" alt="Preview" style="cursor: pointer;">'
+    preview_button_link = '<%= image_tag("markup_preview.png", :width => "15", :height => "15",  :title => "Preview", :class => "preview_markup", :alt => "Preview", :style => "cursor: pointer;") %>';
 		if ($(this).val() == "markup") {
 			asset.hide();
       if (preview_button.length){
