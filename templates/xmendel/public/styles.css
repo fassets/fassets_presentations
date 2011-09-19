@@ -241,19 +241,19 @@ em {
   padding: 0.3em 0;
 }
 
-#nav_body ol li.current {
+#nav_body ol li.selected {
   color: #06f;
 }
 
-#nav_body ol li.current a {
+#nav_body ol li.selected a {
   color: #06f;
 }
 
-#nav_body ol li.current ul li a {
+#nav_body ol li.selected ul li a {
   color: #000;
 }
 
-#nav_body ol li.current a:hover,#nav_body ol li a:hover {
+#nav_body ol li.selected a:hover,#nav_body ol li a:hover {
   color: #06f;
 }
 
