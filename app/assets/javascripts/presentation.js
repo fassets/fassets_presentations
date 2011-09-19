@@ -349,13 +349,7 @@ function initPresentation(){
       }
       break;
     case 78: // n
-      if ($(".frame_menu").is(":visible")){
-        $("#menu").hide("slow", function () {
-          frame.layout();
-        });
-      } else {
-          $("#menu").show("slow", function () {frame.layout();});
-      }
+      toggleNavigationMenu();
       break;
     case 87: // w
       if ($("#black_dimmer").is(":visible")){

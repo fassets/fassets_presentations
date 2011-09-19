@@ -70,6 +70,16 @@ $(window).resize(function(){
 	Frame.syncSize();
 });
 
+functian toggleNavigationMenu() {
+  if ($(".frame_menu").is(":visible")){
+    $("#menu").hide("slow", function () {
+      frame.layout();
+    });
+  } else {
+    $("#menu").show("slow", function () {frame.layout();});
+  }
+}
+
 /*$(window).ready(function(){
 	Slide.syncSize();
 });
