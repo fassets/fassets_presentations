@@ -1,4 +1,4 @@
-var Slide = {
+var Frame = {
 	width: function() {
 		return $(window).width();
 	},
@@ -72,11 +72,11 @@ $(window).resize(function(){
 
 function toggleNavigationMenu() {
   if ($(".frame_menu").is(":visible")){
-    $("#menu").hide("slow", function () {
+    $("#nav").hide("slow", function () {
       frame.layout();
     });
   } else {
-    $("#menu").show("slow", function () {frame.layout();});
+    $("#nav").show("slow", function () {frame.layout();});
   }
 }
 
