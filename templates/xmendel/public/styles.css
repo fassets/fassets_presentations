@@ -71,12 +71,6 @@ em {
   font-style: italic;
   font-weight: normal;
 }
-.footer {
-	width: 92%;
-	margin:auto;	
-	text-align: right;
-	color: #666;
-}
 .slot {
 	width: 100%;
 }
@@ -212,7 +206,7 @@ em {
 
 #nav_body {
   background: #e5e5e5;
-  height: 86%;
+  height: 81%;
   width: 250px;
   overflow: auto;
 }
@@ -248,6 +242,14 @@ em {
 
 #nav_body ol li.selected a:hover,#nav_body ol li a:hover {
   color: #06f;
+}
+
+#nav_footer {
+  height: 5%;
+  background: #e5e5e5;
+  padding-right: 20px;
+  text-align: right;
+  color: #666;
 }
 
 #menu {

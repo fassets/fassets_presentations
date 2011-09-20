@@ -12,6 +12,8 @@
           =author.label.caption
     #nav_body
       =menutree_ol(@presentation.root_frame.children().find(:all,:offset => 1)) { |item| link_to h(item.title), presentation_path(@presentation)+"#"+item.position.to_s }
+    #nav_footer
+      %span.position="#{frame.position}/#{presentation.root_frame.descendants.length}"
 
 .content
   =content
