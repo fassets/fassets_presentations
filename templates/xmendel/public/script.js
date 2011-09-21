@@ -71,12 +71,12 @@ $(window).resize(function(){
 });
 
 function toggleNavigationMenu() {
-  if ($(".frame_menu").is(":visible")){
-    $("#nav").hide("slow", function () {
-      frame.layout();
-    });
+  if ($(".nav").is(":visible")){
+    $(".nav").hide("slow");
+    $(".frame").css('padding-right', '0px');
   } else {
-    $("#nav").show("slow", function () {frame.layout();});
+    $(".nav").show("slow");
+    $(".frame").css('padding-right', '250px');
   }
 }
 

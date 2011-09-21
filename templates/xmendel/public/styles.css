@@ -24,6 +24,7 @@ em {
   color: green;
 }
 .frame {
+  padding-right: 250px;
   overflow: hidden;
 }
 .header a {
@@ -167,7 +168,7 @@ em {
 }
 
 /* navigation */
-#nav {
+.nav {
   position: fixed;
   height: 100%;
   width: 250px;
@@ -175,95 +176,95 @@ em {
   right: 0;
 }
 
-#nav_header {
+.nav_header {
   background: #ffd699;
   height: 14%;
   overflow: hidden;
   width: 250px;
 }
 
-#nav_header_inner {
+.nav_header_inner {
 }
 
-#nav_header h3 {
+.nav_header h3 {
   margin: 0;
   font-size: 0.9em;
   padding: 0.75em 0.75em 0 1.1em;
 }
 
-#nav_header h3 a {
+.nav_header h3 a {
   color: #000;
   text-decoration: none;
 }
 
-#nav_header h3 a:hover {
+.nav_header h3 a:hover {
   color: #06F;
 }
 
-#nav_header p {
+.nav_header p {
   padding: 0.75em 0.75em 1em 1.4em;
   font-size: 0.7em;
   margin: 0;
 }
 
-#nav_body {
+.nav_body {
   background: #e5e5e5;
   height: 81%;
   width: 250px;
   overflow: auto;
 }
 
-#nav_body_inner {
+.nav_body_inner {
   padding: 0.63em;
 }
 
-#nav_body ol {
+.nav_body ol {
   margin: 0;
   padding: 0.5em 1em 3em 2.7em;
   font-size: 0.8em;
 }
 
-#nav_body ol a {
+.nav_body ol a {
   text-decoration: none;
   color: #000;
   display: block;
   padding: 0.3em 0;
 }
 
-#nav_body ol li.selected {
+.nav_body ol li.selected {
   color: #06f;
 }
 
-#nav_body ol li.selected a {
+.nav_body ol li.selected a {
   color: #06f;
 }
 
-#nav_body ol li.selected ol li a {
+.nav_body ol li.selected ol li a {
   color: #000;
 }
 
-#nav_body ol li.selected a:hover,#nav_body ol li a:hover {
+.nav_body ol li.selected a:hover,#nav_body ol li a:hover {
   color: #06f;
 }
 
-#nav_body ol li {
+.nav_body ol li {
   font-weight: bold;
   color: #000;
 }
 
-#nav_body ol li ol {
+.nav_body ol li ol {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#nav_body ol li ol li {
+.nav_body ol li ol li {
   font-weight: normal;
   padding: 0;
   margin: 0;
 }
 
-#nav_body ol li ol li ol {
+.nav_body ol li ol li ol {
   color: #000;
   list-style-type: disc;
   font-weight: normal;
@@ -273,17 +274,17 @@ em {
   line-height: 0.7em;
 }
 
-#nav_body ol li ol li ol li {
+.nav_body ol li ol li ol li {
   margin: -0.1em 0 0.3em 0;
   padding: 0;
 }
 
-#nav_body ol li ol li ol li a {
+.nav_body ol li ol li ol li a {
   line-height: 1.4em;
   padding: 0;
 }
 
-#nav_footer {
+.nav_footer {
   height: 5%;
   background: #e5e5e5;
   padding-right: 20px;
