@@ -238,12 +238,49 @@ em {
   color: #06f;
 }
 
-#nav_body ol li.selected ul li a {
+#nav_body ol li.selected ol li a {
   color: #000;
 }
 
 #nav_body ol li.selected a:hover,#nav_body ol li a:hover {
   color: #06f;
+}
+
+#nav_body ol li {
+  font-weight: bold;
+  color: #000;
+}
+
+#nav_body ol li ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#nav_body ol li ol li {
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+#nav_body ol li ol li ol {
+  color: #000;
+  list-style-type: disc;
+  font-weight: normal;
+  padding: 0 0 0.4em 0.4em;
+  margin: 0 0 0 1.4em;
+  font-size: 0.9em;
+  line-height: 0.7em;
+}
+
+#nav_body ol li ol li ol li {
+  margin: -0.1em 0 0.3em 0;
+  padding: 0;
+}
+
+#nav_body ol li ol li ol li a {
+  line-height: 1.4em;
+  padding: 0;
 }
 
 #nav_footer {
