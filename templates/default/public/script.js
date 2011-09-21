@@ -55,10 +55,10 @@ $(window).resize(function(){
 
 function toggleNavigationMenu() {
   if ($(".frame_menu").is(":visible")){
-    $("#menu").hide("slow", function () {
+    $(".menu").hide("slow", function () {
       frame.layout();
     });
   } else {
-    $("#menu").show("slow", function () {frame.layout();});
+    $(".menu").show("slow", function () {frame.layout();});
   }
 }
