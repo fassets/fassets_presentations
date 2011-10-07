@@ -1,8 +1,32 @@
-$(function(){
-	
-	var drag_opts = {
-		handle: ".handle",
-		//helper: "clone",
+$(document).ready(function(){
+  $('.sortable_frames').nestedSortable({
+    disableNesting: 'no-nest',
+    forcePlaceholderSize: true,
+    handle: 'div',
+    helper: 'clone',
+    items: 'li',
+    maxLevels: 5,
+    opacity: .6,
+    placeholder: 'placeholder',
+    revert: 250,
+    tabSize: 35,
+    tolerance: 'pointer',
+    toleranceElement: '> div',
+    update: function(ev,ui){
+      $.ajax({
+              type: 'post',
+              data: "frame="+JSON.stringify($(".sortable_frames").nestedSortable('toArray')),
+              dataType: 'json',
+              complete: function(request){
+                                          $('.frame').effect('highlight',{},2000);
+                                         },
+              url: "/" + $('#frames').attr('path').replace(/\./g,"/")
+             })
+    }
+  });
+  var drag_opts = {
+    handle: ".handle",
+    //helper: "clone",
     cursorAt: {top: 48,left: 48},
 		connectToSortable: "#tray ol",
     appendTo: "body",
