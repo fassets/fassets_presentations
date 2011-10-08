@@ -12,12 +12,6 @@
 //= require_tree .
 //
 $(document).ready(function(){
-  $('ul #assets').draggable({
-    items: 'li',
-    connectToSortable: "#tray ol",
-    helper: "clone",
-  });
-
   $(".collapsable_label").collapsiblePanel({
     collapsedImage: "<%= image_path 'collapsed.png' %>",
     expandedImage: "<%= image_path 'collapse.png' %>",
