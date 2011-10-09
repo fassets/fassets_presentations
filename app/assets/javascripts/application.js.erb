@@ -12,54 +12,6 @@
 //= require_tree .
 //
 $(document).ready(function(){
-  $(".collapsable_label").collapsiblePanel({
-    collapsedImage: "<%= image_path 'collapsed.png' %>",
-    expandedImage: "<%= image_path 'collapse.png' %>",
-    titleQuery: ".labeltitle",
-    startCollapsed: true
-  });
-  $(".collapsable_facetlabels").collapsiblePanel({
-    collapsedImage: "<%= image_path 'collapsed.png' %>",
-    expandedImage: "<%= image_path 'collapse.png' %>",
-    titleQuery: ".facetlabelstitle",
-    startCollapsed: true
-  });
-  $(".collapsable_facet").collapsiblePanel({
-    collapsedImage: "<%= image_path 'collapsed.png' %>",
-    expandedImage: "<%= image_path 'collapse.png' %>",
-    titleQuery: ".facettitle",
-    startCollapsed: true
-  });
-  $(".collapsable_frame").collapsiblePanel({
-    collapsedImage: "<%= image_path 'collapsed.png' %>",
-    expandedImage: "<%= image_path 'collapse.png' %>",
-    titleQuery: ".frametitle",
-    startCollapsed: true
-  })
-  $(".collapsable_topic").collapsiblePanel({
-    collapsedImage: "<%= image_path 'collapsed.png' %>",
-    expandedImage: "<%= image_path 'collapse.png' %>",
-    titleQuery: ".topictitle",
-    startCollapsed: true
-  })
-  $(".collapsable_catalog").collapsiblePanel({
-    collapsedImage: "<%= image_path 'collapsed.png' %>",
-    expandedImage: "<%= image_path 'collapse.png' %>",
-    titleQuery: ".catalogtitle",
-    startCollapsed: true
-  })
-  $(".collapsable_classification").collapsiblePanel({
-    collapsedImage: "<%= image_path 'collapsed.png' %>",
-    expandedImage: "<%= image_path 'collapse.png' %>",
-    titleQuery: ".classificationtitle",
-    startCollapsed: true
-  })
-  $(".collapsable_classificationfacet").collapsiblePanel({
-    collapsedImage: "<%= image_path 'collapsed.png' %>",
-    expandedImage: "<%= image_path 'collapse.png' %>",
-    titleQuery: ".classificationfacettitle",
-    startCollapsed: true
-  })
 //    $(".content .preview").css("font-size", $(window).height()/32 + 'px');
 //  });
   $('form[class$="_asset"] input[name="commit"], form[class$="_presentation"] input[name="commit"], form[class$="_url"] input[name="commit"]').click(function (event){
