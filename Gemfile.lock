@@ -63,6 +63,8 @@ GEM
     erubis (2.7.0)
     execjs (1.2.4)
       multi_json (~> 1.0)
+    fancybox-rails (0.1.4)
+      railties (>= 3.1.0)
     ffi (1.0.9)
     gherkin (2.4.18)
       json (>= 1.4.6)
@@ -177,6 +179,7 @@ DEPENDENCIES
   cucumber-rails (>= 0.3.2)
   database_cleaner (>= 0.5.0)
   devise
+  fancybox-rails (~> 0.1.4)
   haml (>= 3.1.2)
   jquery-rails
   pandoc-ruby
