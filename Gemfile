@@ -9,6 +9,7 @@ gem "pandoc-ruby"
 gem "acts_as_tree_rails3"
 
 gem "jquery-rails"
+gem "fancybox-rails", "~> 0.1.4"
 
 # Gems used only for assets and not required
 # in production environments by default.
