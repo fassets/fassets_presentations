@@ -3,8 +3,10 @@ var Frame = {
     //          console.log("layout");
     var size = frame.height() / 32;
     $("body").css("font-size", size + 'px');
-    $(".frame").css("width", frame.width() + 'px');
+    $(".menu_header").css("height", (frame.height()/10)-40);
+    $(".frame").css("width", frame.width()+20 + 'px');
     $(".frame").css("height", frame.height() + 'px');
+    $(".header").css("width", frame.width()+20 + 'px')
     $("#" + Presentation.getframeIndex() + " .fit").each(function() {
       if (!$(this).data('dimensions')) {
         $(this).data('dimensions', {
@@ -49,16 +51,15 @@ $(window).ready(function(){
   Frame.layout();
 });
 $(window).resize(function(){
-  console.log("resize event")
   Frame.layout();
 });
 
 function toggleNavigationMenu() {
   if ($(".frame_menu").is(":visible")){
     $(".menu").hide("slow", function () {
-      frame.layout();
+      Frame.layout();
     });
   } else {
-    $(".menu").show("slow", function () {frame.layout();});
+    $(".menu").show("slow", function () {Frame.layout();});
   }
 }
