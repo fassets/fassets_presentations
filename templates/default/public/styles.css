@@ -12,7 +12,9 @@ em {
   font-style: normal;
   font-weight: bold;
 }
-
+pre {
+  overflow: hidden;
+}
 .red {
   color: red;
 }
@@ -24,12 +26,14 @@ em {
 }
 .frame {
   overflow: hidden;
+  padding-right: 20px;
 }
 .header {
   background-color: #171717;
-  border-bottom: .25em solid #a8a8a8;
+  border-bottom: 4px solid #a8a8a8;
   position:relative;
   height: 10%;
+  width: 100%;
   color: white;
 }
 .header a {
@@ -197,6 +201,7 @@ em {
   padding-bottom: 20px;
   position:relative;
   margin-bottom: 0;
+  border-bottom: 4px solid #a8a8a8;
 }
 .menu {
   font-size: 0.8em;

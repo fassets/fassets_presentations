@@ -1,3 +1,13 @@
+/*
+//= require jquery
+//= require jquery_ujs
+//= require dombuilder
+//= require jquery-ui
+//= require jquery.ui.nestedSortable
+//= require jquery.collapsiblePanel-0.2.0
+//= require jquery.myimgscale-0.2
+//= require fancybox 
+*/
 $(function(){
   $(".collapsable_frame").collapsiblePanel({
     collapsedImage: "<%= image_path 'collapsed.png' %>",
@@ -118,7 +128,7 @@ var Frame = {
   width: function() {
     //Try using frame-div-dimensions
     if ($(".frame_menu").is(":visible")){
-      return $(window).width() - 250;
+      return $(window).width() - $(".menu").width();
     } else {
       return $(window).width();
     }
