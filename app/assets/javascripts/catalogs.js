@@ -23,7 +23,7 @@ $(function(){
         asset.find("input").remove();
         asset.attr("id", "asset_" + id);
       } else {
-        id = $(ui.draggable).attr("id").split('_')[1];
+        id = $(ui.draggable).attr("asset_id");
       }
       $.ajax({
         type: 'put',
