@@ -1,0 +1,21 @@
+=javascript_tag "$(document).ready(function(){ initPresentation(); });"
+#black_dimmer
+#white_dimmer
+-position = 0
+-if @presentation.root_frame.descendants.empty?
+  %a{:href => edit_presentation_path(@presentation)} edit
+-@presentation.root_frame.descendants.each do |frame|
+  -position = position + 1
+  %div.frame{:id => position, :alt => frame.title, :level => frame.ancestors.length.to_s}
+    =render :template => "fassets-presentations/templates/"+@presentation.template+"/outer", :locals => {:frame => frame, :presentation => @presentation, :content => render_inner_template(frame)}
+#selector
+  %table{:frames => @presentation.root_frame.descendants.length-1}
+    %tbody
+      -number = 0
+      -@presentation.root_frame.descendants.each do |frame|
+        -level = frame.ancestors.length-1
+        %tr{:frame_number => number, :level => level}
+          %td{:class => "position"}=number+1
+          %td{:style => "padding-left:"+level.to_s+"em"}
+            =frame.title
+        -number += 1
