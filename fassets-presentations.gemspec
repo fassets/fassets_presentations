@@ -7,8 +7,8 @@ require "fassets-presentations/version"
 Gem::Specification.new do |s|
   s.name        = "fassets-presentations"
   s.version     = FassetsPresentations::VERSION
-  s.authors     = ["Christopher Sharp, Julian Bäume"]
-  s.email       = ["cdsharp@gmail.com, julian@svg4all.de"]
+  s.authors     = ["Christopher Sharp", "Julian Bäume"]
+  s.email       = ["cdsharp@gmail.com", "julian@svg4all.de"]
   s.homepage    = "TODO"
   s.summary     = "TODO: Summary of FassetsPresentations."
   s.description = "TODO: Description of FassetsPresentations."
