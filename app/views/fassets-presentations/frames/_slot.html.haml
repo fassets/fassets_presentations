@@ -22,5 +22,5 @@
         -else
           Drop Asset Here!
       .clear
-      =text_area_tag "frame[content][#{slot.name}][markup]", slot["markup"], :style => slot["mode"] == "asset" ?  "display:none" : ""
+      =text_area_tag "frame[content][#{slot.name}][markup]", slot["markup"], :class => "slot_textarea", :style => slot["mode"] == "asset" ?  "display:none" : ""
       .preview
