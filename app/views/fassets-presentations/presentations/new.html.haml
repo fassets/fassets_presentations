@@ -3,20 +3,5 @@
     =@content.class.to_s
   #name
     New
-//-content_for :headline do
-//%h1 New Presentation
 
-=form_for @presentation do |f| 
-  =fields_for "asset", @asset do |asset|
-    %p
-      %label{:for => 'name'} Name:
-      =asset.text_field :name
-  %p
-    %label{:for => 'title'} Title:
-    =f.text_field :title
-    #title_warning
-  %p
-    %label{:for => 'template'} Template:
-    =select(:presentation, :template, TemplateManager.outer_templates, { :selected => @content.template ? @content.template : "default"})
-  =submit_tag "submit"
--#=render :partial => "shared/asset_form", :locals => {:model => FassetsPresentations::Presentation.new, :submit => "Create", :options => nil}
+=render :partial => "fassets-presentations/presentations/form", :locals => {:model => @presentation, :submit => "Create", :options => nil}

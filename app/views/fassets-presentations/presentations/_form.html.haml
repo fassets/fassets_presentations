@@ -1,7 +1,13 @@
-%p
-  %label{:for => 'title'} Title:
-  =form.text_field :title
-  #title_warning
-%p
-  %label{:for => 'template'} Template:
-  =select(:presentation, :template, TemplateManager.outer_templates, { :selected => @content.template ? @content.template : "default"})
+=form_for model do |f| 
+  =fields_for "asset", model.asset do |asset|
+    %p
+      %label{:for => 'name'} Name:
+      =asset.text_field :name
+  %p
+    %label{:for => 'title'} Title:
+    =f.text_field :title
+    #title_warning
+  %p
+    %label{:for => 'template'} Template:
+    =select(:presentation, :template, TemplateManager.outer_templates, { :selected => @content.template ? @content.template : "default"})
+  =submit_tag submit
