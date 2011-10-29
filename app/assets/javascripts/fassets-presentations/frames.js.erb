@@ -1,4 +1,18 @@
 $(document).ready(function(){
+  $(function(){
+    $(".collapsable_frame").collapsiblePanel({
+      collapsedImage: "<%= image_path 'collapsed.png' %>",
+      expandedImage: "<%= image_path 'collapse.png' %>",
+      titleQuery: ".frametitle",
+      startCollapsed: true
+    })
+    $(".collapsable_topic").collapsiblePanel({
+      collapsedImage: "<%= image_path 'collapsed.png' %>",
+      expandedImage: "<%= image_path 'collapse.png' %>",
+      titleQuery: ".topictitle",
+      startCollapsed: true
+    })
+  });
   $('.sortable_frames').nestedSortable({
     disableNesting: 'no-nest',
     forcePlaceholderSize: true,

@@ -1,3 +1,4 @@
+=javascript_include_tag "fassets-presentations/frames"
 =content_for :h1 do
   #type
     =@content.media_type.capitalize
@@ -10,7 +11,7 @@
       =button_to "Create Copy", fassets_presentations.presentation_copy_path(@content), :method => :copy, :onclick => "return confirm('Do you really want to create a copy?')"
 
 #sidebar
-  =render :partial => "shared/classification", :locals => {:asset => @content.asset}
+  =render :partial => "assets/classification", :locals => {:asset => @content.asset}
   =render :partial => "fassets-presentations/presentations/frames", :locals => {:presentation =>  @content, :options => nil}
   
 #main
