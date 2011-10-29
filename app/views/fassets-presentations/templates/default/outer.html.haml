@@ -6,8 +6,6 @@
   -unless @presentation.root_frame == nil
     .menu_header
       =@presentation.title
-    -logger.debug("FOOOOOOOOOOOOOOOOOO")
-    -logger.debug(template_path("foo"))
     =menutree_ol(@presentation.root_frame.children()) { |item| link_to h(item.title), presentation_path(@presentation)+"#"+item.position.to_s }
 
 .content
