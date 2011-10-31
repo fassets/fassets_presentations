@@ -40,21 +40,7 @@ Fassets::Application.routes.draw do
   end
 
   resources :urls
-  resources :presentations do
-  
-  
-      resources :frames do
-        collection do
-          post :sort
-        end    
-      end
-      resources :topics do
-        collection do
-          put :sort
-        end
-      end
-      post :copy
-  end
+  mount FassetsPresentations::Engine => '/presentations'
   match 'assets/:id/preview' => 'assets#preview'
   match 'assets/:id/edit' => 'assets#edit'
   match 'markup/preview' => 'assets#markup_preview'
