@@ -1,0 +1,8 @@
+<g>
+  <rect id="frame<%= frame.id %>" x="0" y="0" width="500" height="500" />
+  <foreignObject  x="0" y="0" width="500" height="500">
+    <body xmlns="http://www.w3.org/1999/xhtml">
+      <%= render_slot(frame.slot("title"), "center").html_safe %>
+    </body>
+  </foreignObject>
+</g>

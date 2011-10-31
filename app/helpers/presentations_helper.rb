@@ -9,7 +9,7 @@ module PresentationsHelper
   def render_inner_template(frame)
     template = frame.presentation.template;
     render(
-      :file => File.join(template_path(template), frame.template + ".html.haml").to_s,
+      :file => File.join(template_path(template), frame.template + ".#{params[:format] || 'html'}.haml").to_s,
       :locals => {:frame => frame}
     )
   end

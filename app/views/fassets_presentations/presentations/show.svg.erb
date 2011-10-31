@@ -1,0 +1,24 @@
+<% content_for :title, @presentation.title %>
+<% if @presentation.root_frame.descendants.empty? %>
+<!-- insert edit-link here -->
+<% end %>
+<% position = 0 %>
+<% @presentation.root_frame.descendants.each do |frame| %>
+  <% position = position + 1 %>
+  <%= render :file => File.join(template_path(@presentation.template), "outer.svg.erb").to_s, :locals => {:frame => frame, :presentation => @presentation, :content => render_inner_template(frame)} %>
+<% end %>
+<% position = 0 %>
+<g id="waypoints" style="display:inline" class="waypoints">
+  <% @presentation.root_frame.descendants.each do |frame| %>
+    <% position = position + 1 %>
+    <sozi:frame
+      sozi:transition-profile="linear"
+      sozi:transition-duration-ms="1000"
+      <% #sozi:timeout-ms="1500"
+      #sozi:timeout-enable="true" %>
+      sozi:hide="true"
+      sozi:sequence="<%= position %>"
+      sozi:title="<%= frame.title %>"
+      sozi:refid="frame<%= frame.id %>" />
+  <% end %>
+</g>
