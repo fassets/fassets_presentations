@@ -1,4 +1,4 @@
-=javascript_include_tag "fassets-presentations/frames"
+=javascript_include_tag "fassets_presentations/frames"
 =content_for :h1 do
   #type
     =@content.media_type.capitalize
@@ -12,7 +12,7 @@
 
 #sidebar
   =render :partial => "assets/classification", :locals => {:asset => @content.asset}
-  =render :partial => "fassets-presentations/presentations/frames", :locals => {:presentation =>  @content, :options => nil}
+  =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @content, :options => nil}
   
 #main
-  =render :partial => "fassets-presentations/presentations/form", :locals => {:model => @content, :asset => @content.asset, :submit => "Save",:options => nil}
+  =render :partial => "fassets_presentations/presentations/form", :locals => {:model => @content, :asset => @content.asset, :submit => "Save",:options => nil}

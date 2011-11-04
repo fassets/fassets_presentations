@@ -30,7 +30,7 @@ class Frame < ActiveRecord::Base
     slots
   end
   def path
-    "/fassets-presentations/presentations/#{presentation.id}/frames/#{id}"
+    "/fassets_presentations/presentations/#{presentation.id}/frames/#{id}"
   end
 end
 
