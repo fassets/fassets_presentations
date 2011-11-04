@@ -92,7 +92,7 @@ $(document).ready(function(){
       $(this).find(".content .preview").hide();
       $(this).find(".name select").val("asset");
       $(this).find(".name .preview_markup").hide();
-      $(this).find(".content .slot_asset").load('/assets/'+id+'/preview', function(){
+      $(this).find(".content .slot_asset").load('/asset/'+id+'/preview', function(){
         resize_slots();
         $(".asset").draggable(drag_opts);
       });

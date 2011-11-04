@@ -9,6 +9,5 @@ FassetsPresentations::Engine.routes.draw do
       end
       post :copy
   end
-  match 'assets/:id/preview' => 'assets#preview'
   match 'markup/preview' => 'frames#markup_preview'
 end
