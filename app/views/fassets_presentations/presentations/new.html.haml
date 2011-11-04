@@ -1,0 +1,7 @@
+-content_for :h1 do
+  #type
+    =@content.class.to_s
+  #name
+    New
+
+=render :partial => "fassets_presentations/presentations/form", :locals => {:model => @presentation, :submit => "Create", :options => nil}

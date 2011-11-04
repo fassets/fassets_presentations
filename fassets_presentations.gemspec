@@ -1,11 +1,11 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "fassets-presentations/version"
+require "fassets_presentations/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "fassets-presentations"
+  s.name        = "fassets_presentations"
   s.version     = FassetsPresentations::VERSION
   s.authors     = ["Christopher Sharp", "Julian Bäume"]
   s.email       = ["cdsharp@gmail.com", "julian@svg4all.de"]

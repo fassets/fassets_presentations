@@ -1,8 +1,8 @@
 module FassetsPresentations
   class FramesController < ApplicationController
     before_filter :authenticate_user!, :except => [:show]
-    before_filter :find_presentation
-    before_filter :find_frame, :except => [:new, :create, :sort]
+    before_filter :find_presentation, :except => [:markup_preview]
+    before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview]
     def create
       if params[:id]
         frame = Frame.find(params[:id]).clone();
@@ -24,7 +24,7 @@ module FassetsPresentations
       end
     end
     def edit
-      render :template => "fassets-presentations/frames/edit"
+      render :template => "fassets_presentations/frames/edit", :layout => "application"
     end
     def update
       arrange_slots()
@@ -68,6 +68,14 @@ module FassetsPresentations
         position += 1
       end
       render :nothing => true
+    end
+    def preview
+      content_id = Asset.find(params[:id]).content_id
+      @content = self.content_model.find(content_id)
+      render :partial => content_model.to_s.underscore.pluralize + "/" + @content.media_type.to_s.underscore + "_preview"
+    end
+    def markup_preview
+      render :inline => PandocRuby.convert(params["markup"], :from => :markdown, :to => :html)
     end
   protected
     def find_presentation

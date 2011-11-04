@@ -7,7 +7,7 @@
 -@presentation.root_frame.descendants.each do |frame|
   -position = position + 1
   %div.frame{:id => position, :alt => frame.title, :level => frame.ancestors.length.to_s}
-    =render :template => "fassets-presentations/templates/"+@presentation.template+"/outer", :locals => {:frame => frame, :presentation => @presentation, :content => render_inner_template(frame)}
+    =render :template => "fassets_presentations/templates/"+@presentation.template+"/outer", :locals => {:frame => frame, :presentation => @presentation, :content => render_inner_template(frame)}
 #selector
   %table{:frames => @presentation.root_frame.descendants.length-1}
     %tbody

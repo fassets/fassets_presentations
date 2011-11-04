@@ -5,7 +5,7 @@ module FassetsPresentations
       @asset = Fassets::Application::Asset.new
       @presentation = Presentation.new
       @content = @presentation
-      render :template => "fassets-presentations/presentations/new"
+      render :template => "fassets_presentations/presentations/new"
     end
     def create
       @content = Presentation.new(params[:presentation])
@@ -14,7 +14,7 @@ module FassetsPresentations
         flash[:notice] = "Created new asset!"
         redirect_to fassets_presentations.url_for(@content) + "/edit"
       else
-        render :template => "fassets-presentations/presentations/new"
+        render :template => "fassets_presentations/presentations/new"
       end
     end
     def destroy
@@ -23,11 +23,11 @@ module FassetsPresentations
       redirect_to main_app.root_url
     end
     def edit
-      render :template => "fassets-presentations/presentations/edit"
+      render :template => "fassets_presentations/presentations/edit", :layout => "application"
     end
     def show
       @presentation = @content
-      render :template => "fassets-presentations/presentations/show", :layout => "fassets-presentations/layouts/frame"
+      render :template => "fassets_presentations/presentations/show", :layout => "fassets_presentations/layouts/frame"
     end
     def update
       if @content.update_attributes(params[:presentation]) and @content.asset.update_attributes(params["asset"])
@@ -35,7 +35,7 @@ module FassetsPresentations
         redirect_to fassets_presentations.url_for(@content) + "/edit"
       else
         flash[:error] = "Could not update asset!"
-        render :template => 'fassets-presentations/presentations/edit'
+        render :template => 'fassets_presentations/presentations/edit'
       end
     end
     def content_model

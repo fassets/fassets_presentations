@@ -1,5 +1,3 @@
-require "fassets-presentations/presentations_controller"
-require "fassets-presentations/frames_controller"
 FassetsPresentations::Engine.routes.draw do
   resources :presentations do
   
@@ -11,4 +9,5 @@ FassetsPresentations::Engine.routes.draw do
       end
       post :copy
   end
+  match 'markup/preview' => 'frames#markup_preview'
 end

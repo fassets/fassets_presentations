@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :fassets-presentations do
+# task :fassets_presentations do
 #   # Task goes here
 # end
