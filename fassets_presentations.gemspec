@@ -18,7 +18,9 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 3.1"
   s.add_dependency "pandoc-ruby"
   s.add_dependency "acts_as_tree_rails3"
-  # s.add_dependency "jquery-rails"
+  s.add_dependency "fancybox-rails", "~> 0.1.4"
+  s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "devise"
 end

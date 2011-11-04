@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 19) do
+ActiveRecord::Schema.define(:version => 20) do
 
   create_table "assets", :force => true do |t|
     t.string   "name"
@@ -87,28 +87,11 @@ ActiveRecord::Schema.define(:version => 19) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
-  create_table "slides", :force => true do |t|
-    t.integer "presentation_id"
-    t.string  "title"
-    t.string  "template"
-    t.integer "position"
-    t.text    "content"
-    t.integer "topic_id"
-  end
-
   create_table "slots", :force => true do |t|
     t.integer "slide_id"
     t.string  "name"
     t.text    "body"
     t.integer "asset_id"
-  end
-
-  create_table "topics", :force => true do |t|
-    t.integer "presentation_id"
-    t.integer "topic_slide"
-    t.string  "title"
-    t.integer "position"
-    t.integer "parent_id"
   end
 
   create_table "tray_positions", :force => true do |t|
