@@ -7,11 +7,11 @@
   #action
     %span.action
       =button_to "Delete", fassets_presentations.url_for(@content), :method => :delete, :onclick => "return confirm('Are you sure?')"
-      =render :partial => "assets/put_on_tray"
+      =render :partial => "fassets_core/assets/put_on_tray"
       =button_to "Create Copy", fassets_presentations.presentation_copy_path(@content), :method => :copy, :onclick => "return confirm('Do you really want to create a copy?')"
 
 #sidebar
-  =render :partial => "assets/classification", :locals => {:asset => @content.asset}
+  =render :partial => "fassets_core/assets/classification", :locals => {:asset => @content.asset}
   =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @content, :options => nil}
   
 #main

@@ -70,7 +70,7 @@ module FassetsPresentations
       render :nothing => true
     end
     def preview
-      content_id = Asset.find(params[:id]).content_id
+      content_id = FassetsCore::Asset.find(params[:id]).content_id
       @content = self.content_model.find(content_id)
       render :partial => content_model.to_s.underscore.pluralize + "/" + @content.media_type.to_s.underscore + "_preview"
     end
@@ -80,6 +80,7 @@ module FassetsPresentations
   protected
     def find_presentation
       @presentation = Presentation.find(params[:presentation_id])
+      @content = @presentation
     end
     def find_frame
       @frame = Frame.find(params[:id])

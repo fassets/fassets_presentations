@@ -9,11 +9,7 @@
   #action
     %span.action
       =button_to "Delete", [@presentation, @frame], :method => :delete, :onclick => "return confirm('Are you sure?')"
-      =form_for [main_app,current_user, TrayPosition.new(:user_id => current_user.id, :clipboard_type => 'frame', :clipboard_id => @frame.id)], :html => {:class => :inline} do |f|
-        =f.hidden_field :user_id
-        =f.hidden_field :clipboard_id
-        =f.hidden_field :clipboard_type
-        =submit_tag "Put on Tray"
+      =render :partial => "fassets_core/assets/put_on_tray"
       
 #sidebar
   =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation}
