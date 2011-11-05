@@ -6,4 +6,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery.ui.nestedSortable
+//= require jquery.collapsiblePanel-0.2.0
+//= require jquery.myimgscale-0.2
 //= require_tree .
