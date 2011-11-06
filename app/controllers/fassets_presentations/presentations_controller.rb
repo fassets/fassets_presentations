@@ -27,7 +27,7 @@ module FassetsPresentations
     end
     def show
       @presentation = @content
-      render :template => "fassets_presentations/presentations/show", :layout => "fassets_presentations/layouts/frame"
+      render :template => "fassets_presentations/presentations/show", :layout => "layouts/fassets_presentations/frame"
     end
     def update
       if @content.update_attributes(params[:presentation]) and @content.asset.update_attributes(params["asset"])

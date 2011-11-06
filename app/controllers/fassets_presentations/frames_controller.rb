@@ -24,7 +24,7 @@ module FassetsPresentations
       end
     end
     def edit
-      render :template => "fassets_presentations/frames/edit"
+      #render :template => "fassets_presentations/frames/edit"
     end
     def update
       arrange_slots()
