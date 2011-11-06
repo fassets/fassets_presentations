@@ -1,13 +1,13 @@
-FassetsPresentations::Engine.routes.draw do
-  resources :presentations do
+Rails.application.routes.draw do
+  resources :presentations ,:controller => 'FassetsPresentations::Presentations' do
   
   
-      resources :frames do
+      resources :frames, :controller => 'FassetsPresentations::Frames'  do
         collection do
           post :sort
         end    
       end
       post :copy
   end
-  match 'markup/preview' => 'frames#markup_preview'
+  match 'presentations/markup/preview' => 'FassetsPresentations::frames#markup_preview'
 end
