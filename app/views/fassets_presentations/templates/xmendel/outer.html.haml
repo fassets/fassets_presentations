@@ -4,7 +4,7 @@
 .nav
   -unless @presentation.root_frame == nil
     .nav_header
-      %h3= link_to @presentation.title, presentation_path(@presentation)+'#1'
+      %h3= link_to @presentation.title, main_app.presentation_path(@presentation)+'#1'
       %p.author
         &copy;
         - author = @presentation.asset.labelings.select { |l| l.label.facet.caption == 'Author' }.first
