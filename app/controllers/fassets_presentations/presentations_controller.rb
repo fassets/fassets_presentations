@@ -12,7 +12,7 @@ module FassetsPresentations
       @content.asset = FassetsCore::Asset.create(:user => current_user, :name => params["asset"]["name"])
       if @content.save
         flash[:notice] = "Created new asset!"
-        redirect_to url_for(@content) + "/edit"
+        redirect_to main_app.edit_presentation_path(@content)
       else
         render :template => "fassets_presentations/presentations/new"
       end
@@ -32,7 +32,7 @@ module FassetsPresentations
     def update
       if @content.update_attributes(params[:presentation]) and @content.asset.update_attributes(params["asset"])
         flash[:notice] = "Succesfully updated asset!"
-        redirect_to fassets_presentations.url_for(@content) + "/edit"
+        redirect_to main_app.edit_presentation_path(@content)
       else
         flash[:error] = "Could not update asset!"
         render :template => 'fassets_presentations/presentations/edit'

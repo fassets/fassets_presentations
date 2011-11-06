@@ -71,7 +71,7 @@ Presentation = function() {
   pub.init = function() {
     $(".frame").hide();
     $(".frame").each(function(i, e){
-      var row = TR(TD({"class": "position"}, i + 1), TD($(e).attr("alt")));
+      var row = $('<tr><td class="position"></td><td>$(e).attr("alt")');
       _items.push(row);
     });
     $("#black_dimmer").css("height", $(document).height());
@@ -165,10 +165,10 @@ Selector = function() {
     "width": "0px",
     "height": "0px"
   }
-  var _selector = $(DIV({"id": "selector"})).css(_original_dim);
+  var _selector = $("#selector table").css(_original_dim);
 
   var _items = [];
-  var _list = $(TABLE()).css({
+  var _list = $("#selector").css({
     "position": "absolute"
   });
   _list.hide();
