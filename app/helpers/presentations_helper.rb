@@ -1,13 +1,7 @@
 require "pandoc-ruby"
 
 module PresentationsHelper
-  def content_partial(content, partial)
-    if content.class.to_s.underscore.pluralize == "presentations"
-      "fassets_presentations/" + content.class.to_s.underscore.pluralize + "/" + content.media_type.to_s.underscore + "_" + partial.to_s
-    else
-      content.class.to_s.underscore.pluralize + "/" + content.media_type.to_s.underscore + "_" + partial.to_s 
-    end
-  end
+  include FassetsCore::AssetsHelper
   def template_path(template)
     logger.debug("Bar")
     File.join(TEMPLATE_PATH, template).to_s

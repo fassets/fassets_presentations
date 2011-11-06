@@ -255,13 +255,13 @@ $(document).ready(function(){
         $("#editorhelp").css('visibility','visible');
       }
       break;
-    case 67: // c
-      if ($("#fancybox-wrap").is(":visible")) {
-        $.fancybox.close();
-      } else {
-        show_catalog();
-      }      
-      break;
+//    case 67: // c
+//      if ($("#fancybox-wrap").is(":visible")) {
+//        $.fancybox.close();
+//      } else {
+//        show_catalog();
+//      }      
+//      break;
     case 83: // s
       if (event.ctrlKey){
         event.preventDefault();
@@ -272,25 +272,25 @@ $(document).ready(function(){
     console.log(event.keyCode);
   });
 });
-$(document).ajaxStop(function() {
-  var fancybox_links = function(){
-    $("#fancybox-content .facet_link, .icon.remove, .catalog_list_item").click(function(event){
-      event.preventDefault();
-      $.fancybox.showActivity();
-      $.ajax({
-		    type		: "GET",
-		    cache	: false,
-		    url		: event.target.href,
-		    success: function(data) {
-          $("#fancybox-content").html(data);
-          $("#fancybox-wrap").css("width", "80%");
-          $("#fancybox-content").css("width", "100%");
-          $.fancybox.hideActivity();
-          $.fancybox.resize();
-		    }
-	    });
-    });
-  }; 
-  fancybox_links();
-  $.fancybox.resize();
-});
+//$(document).ajaxStop(function() {
+//  var fancybox_links = function(){
+//    $("#fancybox-content .facet_link, .icon.remove, .catalog_list_item").click(function(event){
+//      event.preventDefault();
+//      $.fancybox.showActivity();
+//      $.ajax({
+//		    type		: "GET",
+//		    cache	: false,
+//		    url		: event.target.href,
+//		    success: function(data) {
+//          $("#fancybox-content").html(data);
+//          $("#fancybox-wrap").css("width", "80%");
+//          $("#fancybox-content").css("width", "100%");
+//          $.fancybox.hideActivity();
+//          $.fancybox.resize();
+//		    }
+//	    });
+//    });
+//  }; 
+//  fancybox_links();
+//  $.fancybox.resize();
+//});
