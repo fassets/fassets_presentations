@@ -10,14 +10,14 @@
 $(document).ready(function(){
   $(function(){
     $(".collapsable_frame").collapsiblePanel({
-      collapsedImage: "<%= image_path 'collapsed.png' %>",
-      expandedImage: "<%= image_path 'collapse.png' %>",
+      collapsedImage: "<%= image_path 'fassets_core/collapsed.png' %>",
+      expandedImage: "<%= image_path 'fassets_core/collapse.png' %>",
       titleQuery: ".frametitle",
       startCollapsed: true
     })
     $(".collapsable_topic").collapsiblePanel({
-      collapsedImage: "<%= image_path 'collapsed.png' %>",
-      expandedImage: "<%= image_path 'collapse.png' %>",
+      collapsedImage: "<%= image_path 'fassets_core/collapsed.png' %>",
+      expandedImage: "<%= image_path 'fassets_core/collapse.png' %>",
       titleQuery: ".topictitle",
       startCollapsed: true
     })
@@ -105,8 +105,8 @@ $(document).ready(function(){
         resize_slots();
         $(".asset").draggable(drag_opts);
       });
-      edit_link = '<%= image_tag("edit.png", :alt => "Edit", :title => "Edit", :width => "15", :height => "15") %>'
-      drop_link = '<%= image_tag("delete.png", :width => "15", :height => "15", :class => "drop_asset") %>'
+      edit_link = '<%= image_tag("fassets_core/edit.png", :alt => "Edit", :title => "Edit", :width => "15", :height => "15") %>'
+      drop_link = '<%= image_tag("fassets_core/delete.png", :width => "15", :height => "15", :class => "drop_asset") %>'
       if ($(this).find(".name a").length){
         $(this).find(".name a").html(edit_link);
       } else {
@@ -153,7 +153,7 @@ $(document).ready(function(){
     var text = content.find("textarea");
     var asset = content.find(".slot_asset");
     var preview_button = $(this).parent().find(".preview_markup");
-    preview_button_link = '<%= image_tag("markup_preview.png", :width => "15", :height => "15",  :title => "Preview", :class => "preview_markup", :alt => "Preview", :style => "cursor: pointer;") %>';
+    preview_button_link = '<%= image_tag("fassets_core/markup_preview.png", :width => "15", :height => "15",  :title => "Preview", :class => "preview_markup", :alt => "Preview", :style => "cursor: pointer;") %>';
     if ($(this).val() == "markup") {
       asset.hide();
       if (preview_button.length){
