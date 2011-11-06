@@ -8,10 +8,10 @@
       =select_tag "frame[content][#{slot.name}][mode]", options_for_select(["markup", "asset"], slot["mode"])
       -if slot.asset and slot["mode"] == "asset"
         =link_to image_tag("edit.png", :width => 15,  :height => 15, :title => "Edit"), main_app.url_for(slot.asset.content) + "/edit"
-        =image_tag("delete.png", :width => 15,  :height => 15, :alt => "Drop Asset", :title => "Drop asset",:class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'") 
+        =image_tag("fassets_core/delete.png", :width => 15,  :height => 15, :alt => "Drop Asset", :title => "Drop asset",:class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'") 
         //=image_tag "drag.png", :width => 12, :height => 13, :class => "handle"
       -if slot["mode"] == "markup"
-        =image_tag("markup_preview.png", :width => 15,  :height => 15, :alt => "Preview", :title => "Preview",:class => "preview_markup", :onmouseover => "this.style.cursor = 'pointer'") 
+        =image_tag("fassets_presentations/markup_preview.png", :width => 15,  :height => 15, :alt => "Preview", :title => "Preview",:class => "preview_markup", :onmouseover => "this.style.cursor = 'pointer'") 
     .content   
       =hidden_field_tag "frame[content][#{slot.name}][asset_id]", slot['asset_id']
       .slot_asset{:style =>  slot["mode"] == "asset" ? "" : "display:none"}
