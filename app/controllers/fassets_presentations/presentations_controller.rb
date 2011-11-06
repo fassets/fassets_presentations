@@ -38,9 +38,6 @@ module FassetsPresentations
         render :template => 'fassets_presentations/presentations/edit'
       end
     end
-    def content_model
-      return Presentation
-    end
     def copy
       old_presentation = Presentation.find(params[:presentation_id])
       new_presentation = Presentation.create(:title => old_presentation.title, :template => old_presentation.template)

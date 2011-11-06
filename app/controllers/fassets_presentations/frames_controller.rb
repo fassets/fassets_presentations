@@ -1,5 +1,6 @@
 module FassetsPresentations
   class FramesController < ApplicationController
+    include FassetsCore::AssetsHelper
     before_filter :authenticate_user!, :except => [:show]
     before_filter :find_presentation, :except => [:markup_preview]
     before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview]

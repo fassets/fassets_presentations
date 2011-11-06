@@ -7,8 +7,8 @@
         %button.drop_slot Drop
       =select_tag "frame[content][#{slot.name}][mode]", options_for_select(["markup", "asset"], slot["mode"])
       -if slot.asset and slot["mode"] == "asset"
-        =link_to image_tag("edit.png", :width => 15,  :height => 15, :title => "Edit"), main_app.url_for(slot.asset.content) + "/edit"
-        =image_tag("fassets_core/delete.png", :width => 15,  :height => 15, :alt => "Drop Asset", :title => "Drop asset",:class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'") 
+        =link_to image_tag("fassets_core/edit.png", :width => 15,  :height => 15, :title => "Edit"), asset_content_path(slot.asset.content) + "/edit"
+        =image_tag("fassets_core/delete.png", :width => 15, :height => 15, :alt => "Drop Asset", :title => "Drop asset",:class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'")
         //=image_tag "drag.png", :width => 12, :height => 13, :class => "handle"
       -if slot["mode"] == "markup"
         =image_tag("fassets_presentations/markup_preview.png", :width => 15,  :height => 15, :alt => "Preview", :title => "Preview",:class => "preview_markup", :onmouseover => "this.style.cursor = 'pointer'") 

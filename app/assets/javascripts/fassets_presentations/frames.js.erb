@@ -115,7 +115,7 @@ $(document).ready(function(){
       if (!$(this).find(".name .drop_asset").length){
         $(this).find(".name").append(drop_link);
         $(".drop_asset").click(function(){
-          $(this).parent().parent().find(".content input").val("");
+          //$(this).parent().parent().find(".content input").val("");
           $(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
           $(this).parent().parent().find(".name a").remove();
           $(this).parent().parent().find(".name .drop_asset").remove();
