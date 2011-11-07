@@ -1,4 +1,4 @@
-=form_for @content, :url => main_app.presentation_path do |f|
+=form_for @content, :url => main_app.presentations_path do |f|
   =fields_for "asset", model.asset do |asset|
     %p
       %label{:for => 'name'} Name:

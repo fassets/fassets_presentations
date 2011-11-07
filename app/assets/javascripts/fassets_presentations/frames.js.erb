@@ -43,7 +43,7 @@ $(document).ready(function(){
               complete: function(request){
                                           $('.frame').effect('highlight',{},2000);
                                          },
-              url: "/fp/" + $('#frames').attr('path').replace(/\./g,"/")
+              url: "/"+$('#frames').attr('path').replace(/\./g,"/")
              })
     }
   });
@@ -140,7 +140,7 @@ $(document).ready(function(){
     if ($(this).parent().parent().find(".content textarea").is(":visible")){
       $(this).parent().parent().find(".content textarea").hide();
       var markup = $(this).parent().parent().find(".content textarea").val();
-      $(this).parent().parent().find(".content .preview").load("/fp/markup/preview",{markup: markup});
+      $(this).parent().parent().find(".content .preview").load("presentations/markup/preview",{markup: markup});
 //      $(this).parent().parent().find(".content .preview").css("font-size", $(window).height()/32 + 'px');
       $(this).parent().parent().find(".content .preview").show();
     } else {
