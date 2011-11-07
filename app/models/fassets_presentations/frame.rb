@@ -5,7 +5,7 @@ module FassetsPresentations
     acts_as_tree :order => :position
     #  alias :previous :higher_item 
     #  alias :next :lower_item
-    has_many :tray_positions, :as => :clipboard, :dependent => :destroy
+    #has_many :tray_positions, :as => :clipboard, :dependent => :destroy
 
     serialize :content
     validates_presence_of :title, :template
