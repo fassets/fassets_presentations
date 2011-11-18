@@ -1,13 +1,17 @@
-Rails.application.routes.draw do
-  resources :presentations ,:controller => 'FassetsPresentations::Presentations' do
-  
-  
-      resources :frames, :controller => 'FassetsPresentations::Frames'  do
-        collection do
-          post :sort
-        end    
+FassetsPresentations::Engine.routes.draw do
+  get '/:id' => 'Presentations#show', :as => 'presentation'
+  get '/:id/edit' => 'Presentations#edit', :as => 'edit_presentation'
+  get '/new' => 'Presentations#new', :as => 'new_presentation'
+  put '/:id' => 'Presentations#update', :as => 'update_presentation'
+
+  resources :presentations do
+    resources :frames do
+     collection do
+        post :sort
       end
-      post :copy
+    end
   end
-  match 'presentations/markup/preview' => 'FassetsPresentations::frames#markup_preview'
+
+  post :copy, :as => 'presentation_copy'
+  match 'markup/preview' => 'frames#markup_preview'
 end

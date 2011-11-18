@@ -3,6 +3,6 @@
   =javascript_include_tag 'fassets_presentations/application'
 
 -content_for :create_asset_link do
-  %li=link_to "New Presentation", main_app.new_presentation_path
+  %li=link_to "New Presentation", new_presentation_path
 
 =render :template => 'layouts/fassets_core/application'

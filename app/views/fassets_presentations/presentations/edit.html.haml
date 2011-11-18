@@ -3,12 +3,12 @@
   #type
     =@content.media_type.capitalize
   #title
-    =link_to @content.asset.name, main_app.presentation_path(@content)
+    =link_to @content.asset.name, presentation_path(@content)
   #action
     %span.action
-      =button_to "Delete", main_app.presentation_path(@content), :method => :delete, :onclick => "return confirm('Are you sure?')"
+      =button_to "Delete", presentation_path(@content), :method => :delete, :onclick => "return confirm('Are you sure?')"
       =render :partial => "fassets_core/assets/put_on_tray"
-      =button_to "Create Copy", main_app.presentation_copy_path(@content), :method => :copy, :onclick => "return confirm('Do you really want to create a copy?')"
+      =button_to "Create Copy", presentation_copy_path(@content), :method => :copy, :onclick => "return confirm('Do you really want to create a copy?')"
 
 #sidebar
   =render :partial => "fassets_core/assets/classification", :locals => {:asset => @content.asset}

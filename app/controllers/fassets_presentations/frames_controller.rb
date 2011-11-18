@@ -16,11 +16,11 @@ module FassetsPresentations
         if frame.save
           update_positions()
           flash[:notice] = "Frame succesfully created!"
-          format.html {redirect_to main_app.edit_presentation_frame_path(@presentation, frame)}
+          format.html {redirect_to edit_presentation_frame_path(@presentation, frame)}
           format.json {render :status => :created, :json => frame.to_json}
         else
           flash[:error] = "Title of frame cannot be empty"
-          format.html {redirect_to main_app.edit_presentation_path(@presentation)}
+          format.html {redirect_to edit_presentation_path(@presentation)}
         end
       end
     end
@@ -34,10 +34,10 @@ module FassetsPresentations
       else
         flash[:error] = "Could not update frame!"
       end
-      redirect_to main_app.edit_presentation_frame_path(@presentation, @frame)
+      redirect_to edit_presentation_frame_path(@presentation, @frame)
     end
     def show
-      redirect_to main_app.presentation_path(@presentation) + "##{@frame.position}"
+      redirect_to presentation_path(@presentation) + "##{@frame.position}"
     end
     def destroy
       if @frame.destroy
@@ -45,7 +45,7 @@ module FassetsPresentations
       else
         flash[:error] = "Could not delete frame!"
       end
-      redirect_to main_app.edit_presentation_path(@presentation)
+      redirect_to edit_presentation_path(@presentation)
     end
 
     def sort
@@ -105,7 +105,7 @@ module FassetsPresentations
           params[:frame][:content][:topleft] = params[:frame][:content][:top]
           params[:frame][:content][:bottom] = params[:frame][:content][:bottom]
         else
-          return         
+          return
         end
         params[:frame][:content].delete(:top)
         params[:frame][:content].delete(:bottom)
@@ -134,7 +134,7 @@ module FassetsPresentations
           params[:frame][:content].delete(:topright)
         else
           return
-        end      
+        end
       end
     end
   end

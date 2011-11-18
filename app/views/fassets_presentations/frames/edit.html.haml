@@ -4,11 +4,11 @@
     %small Presentation
     Frame
   #title
-    %small=link_to @presentation.asset.name, main_app.edit_presentation_path(@presentation)
-    =link_to @frame.title, main_app.presentation_frame_path(@presentation, @frame)
+    %small=link_to @presentation.asset.name, edit_presentation_path(@presentation)
+    =link_to @frame.title, presentation_frame_path(@presentation, @frame)
   #action
     %span.action
-      =button_to "Delete", main_app.presentation_frame_path(@presentation, @frame), :method => :delete, :onclick => "return confirm('Are you sure?')"
+      =button_to "Delete", presentation_frame_path(@presentation, @frame), :method => :delete, :onclick => "return confirm('Are you sure?')"
       =render :partial => "fassets_core/assets/put_on_tray"
       
 #sidebar
@@ -16,7 +16,7 @@
   
 #main
   #editorhelp=render :partial => "fassets_presentations/shared/editorhelp"
-  =form_for  [@presentation,  @frame], :url => main_app.presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame"} do |f|
+  =form_for  [@presentation,  @frame], :url => presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame"} do |f|
     =submit_tag "Save", :id => "frame_save"
     #edit_warning{:style => "visibility: hidden"}There are unsaved changes on this frame
     =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:disable_self => true}
