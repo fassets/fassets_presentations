@@ -1,0 +1,14 @@
+.header
+  #edit=link_to "edit", edit_presentation_frame_path(frame.presentation, frame)
+  #logo
+    = image_tag 'fassets_presentations/templates/uzl_corporate/unilogo300dpi_white.png', :alt => "Universität zu Lübeck"
+.menu
+  -unless @presentation.root_frame == nil
+    .menu_header
+      =@presentation.title
+    =menutree_ol(@presentation.root_frame.children()) { |item| link_to h(item.title), presentation_path(@presentation)+"#"+item.position.to_s }
+
+.content
+  =content
+.footer
+  %span.position="#{frame.position}/#{presentation.root_frame.descendants.length}"

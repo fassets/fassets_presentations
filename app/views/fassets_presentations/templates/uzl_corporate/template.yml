@@ -1,0 +1,6 @@
+2column:
+  slots: [left, right]
+one_slot:
+  slots: [center]
+title:
+  slots: [title, subtitle, misc]
