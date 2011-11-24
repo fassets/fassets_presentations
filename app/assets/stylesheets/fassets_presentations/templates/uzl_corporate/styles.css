@@ -113,6 +113,7 @@ em {
 }
 .slot {
   width: 100%;
+  margin-top: 1em;
 }
 .slot p {
   margin: .8em 0;
@@ -131,8 +132,7 @@ em {
 .slot.cent {
   text-align: center;
 }
-.slot {
-}
+
 .container {
   -webkit-border-radius: 5px;
   -webkit-border-radius: 5px;
