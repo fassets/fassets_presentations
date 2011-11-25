@@ -129,6 +129,10 @@ em {
 .slot pre{
   margin: .8em 0;
 }
+.slot pre code {
+  font-family: monospace;
+  font-style: normal;
+}
 .slot.cent {
   text-align: center;
 }
