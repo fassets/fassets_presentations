@@ -2,14 +2,14 @@ module FassetsPresentations
   class PresentationsController < ApplicationController
     before_filter :find_content, :except => [:new, :create, :preview, :markup_preview,:copy]
     def new
-      @asset = FassetsCore::Asset.new
+      @asset = Asset.new
       @presentation = Presentation.new
       @content = @presentation
       render :template => "fassets_presentations/presentations/new"
     end
     def create
       @content = Presentation.new(params[:presentation])
-      @content.asset = FassetsCore::Asset.create(:user => current_user, :name => params["asset"]["name"])
+      @content.asset = Asset.create(:user => current_user, :name => params["asset"]["name"])
       if @content.save
         flash[:notice] = "Created new asset!"
         redirect_to edit_presentation_path(@content)
@@ -64,7 +64,7 @@ module FassetsPresentations
 protected
     def find_content
       if params[:asset_id]
-        content_id = FassetsCore::Asset.find(params[:id]).content_id
+        content_id = Asset.find(params[:id]).content_id
       else
         content_id = params[:id]
       end

@@ -1,6 +1,6 @@
 module FassetsPresentations
   class FramesController < ApplicationController
-    include FassetsCore::AssetsHelper
+    include AssetsHelper
     before_filter :authenticate_user!, :except => [:show]
     before_filter :find_presentation, :except => [:markup_preview]
     before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview]
@@ -71,7 +71,7 @@ module FassetsPresentations
       render :nothing => true
     end
     def preview
-      content_id = FassetsCore::Asset.find(params[:id]).content_id
+      content_id = Asset.find(params[:id]).content_id
       @content = self.content_model.find(content_id)
       render :partial => content_model.to_s.underscore.pluralize + "/" + @content.media_type.to_s.underscore + "_preview"
     end

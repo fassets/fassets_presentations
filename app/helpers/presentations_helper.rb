@@ -1,7 +1,7 @@
 require "pandoc-ruby"
 
 module PresentationsHelper
-  include FassetsCore::AssetsHelper
+  include AssetsHelper
   def template_path(template)
     logger.debug("Bar")
     File.join(TEMPLATE_PATH, template).to_s

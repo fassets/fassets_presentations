@@ -9,7 +9,7 @@
   #action
     %span.action
       =button_to "Delete", presentation_frame_path(@presentation, @frame), :method => :delete, :onclick => "return confirm('Are you sure?')"
-      =render :partial => "fassets_core/assets/put_on_tray"
+      =render :partial => "assets/put_on_tray"
       
 #sidebar
   =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation}

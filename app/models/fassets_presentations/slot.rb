@@ -17,7 +17,7 @@ module FassetsPresentations
     def asset
       return nil if self['asset_id'].blank?
       begin
-        FassetsCore::Asset.find(self['asset_id'])    
+        Asset.find(self['asset_id'])    
       rescue Exception => e
         nil
       end
