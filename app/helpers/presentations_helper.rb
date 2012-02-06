@@ -1,4 +1,4 @@
-require "pandoc-ruby"
+require "kramdown"
 
 module PresentationsHelper
   include AssetsHelper
@@ -19,7 +19,7 @@ module PresentationsHelper
       @content = slot.asset.content
       render :partial => content_partial(slot.asset.content, "preview") if slot.asset
     else
-      PandocRuby.convert(slot["markup"], :from => :markdown, :to => :html)
+      Kramdown::Document.new(slot["markup"]).to_html
     end
   end
   def tree_ol(acts_as_tree_set, init=true, &block)
