@@ -1,11 +1,11 @@
 /*
-//= require jquery
-//= require jquery_ujs
-//= require jquery-ui
+// require jquery
+// require jquery_ujs
+// require jquery-ui
 //= require fassets_presentations/jquery.ui.nestedSortable
 //= require jquery.collapsiblePanel-0.2.0
 //= require fassets_presentations/jquery.myimgscale-0.2
-//= require fancybox
+// require fancybox
 */
 $(document).ready(function(){
   $(function(){
@@ -63,7 +63,6 @@ $(document).ready(function(){
       $('#tray ol').addClass("active");
     },
     stop:function(e, ui) {
-      $(this).parent().parent().parent().parent().find(".content input").val("");
       $(this).parent().parent().parent().parent().find(".content .slot_asset").html("Drop Asset here!");
       $(this).parent().parent().parent().parent().find(".name a").remove();
       $(this).parent().parent().parent().parent().find(".name .drop_asset").remove();
@@ -96,7 +95,7 @@ $(document).ready(function(){
       } else {
         id = $(ui.draggable).attr("id").split('_')[1];
       }
-      $(this).find(".content input").val(id);
+      $(this).find(".content input").attr("value",id);
       $(this).find(".content textarea").hide();
       $(this).find(".content .preview").hide();
       $(this).find(".name select").val("asset");

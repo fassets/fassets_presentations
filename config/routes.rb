@@ -1,7 +1,8 @@
 FassetsPresentations::Engine.routes.draw do
+  get '/new' => 'Presentations#new', :as => 'new_presentation'
+  post '/new' => 'Presentations#create'
   get '/:id' => 'Presentations#show', :as => 'presentation'
   get '/:id/edit' => 'Presentations#edit', :as => 'edit_presentation'
-  get '/new' => 'Presentations#new', :as => 'new_presentation'
   put '/:id' => 'Presentations#update', :as => 'update_presentation'
 
   get '/:presentation_id/frames' => 'Frames#index', :as => 'presentation_frames'
