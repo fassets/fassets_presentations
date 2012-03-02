@@ -50,7 +50,7 @@ module FassetsPresentations
       else
         flash[:error] = "Could not delete frame!"
       end
-      redirect_to edit_presentation_path(@presentation)
+      redirect_to edit_presentation_frame_path(@presentation, @presentation.root_frame)
     end
 
     def sort

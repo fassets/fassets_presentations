@@ -9,8 +9,6 @@
     %p
       %label{:for => 'template'} Template:
       =select(:presentation, :template, TemplateManager.outer_templates, { :selected => @content.template ? @content.template : "default"})
-    -if new
-      =submit_tag "Create", :class => "create_presentation"
 -else
   %p
     %label{:for => 'title'} Title:

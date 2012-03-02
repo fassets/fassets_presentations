@@ -2,15 +2,14 @@
 =content_for :h1 do
   -unless is_root_frame
     #type
-      %small Presentation
       Frame
     #title
-      %small=link_to @presentation.asset.name, edit_presentation_path(@presentation)
       =link_to @frame.title, presentation_frame_path(@presentation, @frame)
     #action
       %span.action
-        =button_to "Delete", presentation_frame_path(@presentation, @frame), :method => :delete, :onclick => "return confirm('Are you sure?')"
+        =button_to "Edit Presentation", "", :method => :get ,:class => "edit_button", :asset_id => @presentation.asset.id, :content_id => @presentation.asset.content_id
         =render :partial => "assets/put_on_tray"
+        =button_to "Delete Frame", presentation_frame_path(@presentation, @frame), :method => :delete, :onclick => "return confirm('Are you sure?')"
   -else
     #type
       =@content.media_type.capitalize
@@ -18,8 +17,9 @@
       =link_to @content.asset.name, presentation_path(@content)
     #action
       %span.action
-        =button_to "Delete", delete_presentation_path(@content), :method => :delete, :onclick => "return confirm('Are you sure?')"
+        =button_to "Edit Presentation", "", :method => :get ,:class => "edit_button", :asset_id => @presentation.asset.id, :content_id => @presentation.asset.content_id
         =render :partial => "assets/put_on_tray"
+        =button_to "Delete Frame", delete_presentation_path(@content), :method => :delete, :onclick => "return confirm('Are you sure?')"
     
       
 #sidebar
