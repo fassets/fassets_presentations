@@ -1,0 +1,2 @@
+=button_to "Create Copy", fassets_presentations.presentation_copy_path(@content), :method => :copy, :onclick => "return confirm('Do you really want to create a copy?')", :class => "presentation_copy_button", :content_id => @content.id
+=button_to "Editor", fassets_presentations.edit_presentation_frame_path(@content, @content.root_frame), :method => :get, :class => "editor_button"

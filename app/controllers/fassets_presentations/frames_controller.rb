@@ -25,7 +25,12 @@ module FassetsPresentations
       end
     end
     def edit
-      #render :template => "fassets_presentations/frames/edit"
+      if @frame.parent == nil
+        is_root_frame = true
+      else
+        is_root_frame = false
+      end
+      render :template => "fassets_presentations/frames/edit", :locals => {:is_root_frame => is_root_frame}
     end
     def update
       arrange_slots()

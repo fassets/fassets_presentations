@@ -10,11 +10,15 @@ module FassetsPresentations
     def create
       @content = Presentation.new(params[:presentation])
       @content.asset = Asset.create(:user => current_user, :name => params["asset"]["name"])
-      if @content.save
-        flash[:notice] = "Created new asset!"
-        redirect_to edit_presentation_path(@content)
-      else
-        render :template => "fassets_presentations/presentations/new"
+      respond_to do |format|
+        if @content.save
+          classification = Classification.new(:catalog_id => params["classification"]["catalog_id"],:asset_id => @content.asset.id)
+          classification.save
+          flash[:notice] = "Created new asset!"
+          format.json { render :json => [ @content.to_jq_upload ].to_json }
+        else
+          render :template => 'assets/new'
+        end
       end
     end
     def destroy
@@ -23,7 +27,7 @@ module FassetsPresentations
       redirect_to main_app.root_url
     end
     def edit
-      render :template => "fassets_presentations/presentations/edit"
+      render :template => "fassets_presentations/presentations/edit", :locals => {:new => false}
     end
     def show
       @presentation = @content
@@ -32,23 +36,22 @@ module FassetsPresentations
     def update
       if @content.update_attributes(params[:presentation]) and @content.asset.update_attributes(params["asset"])
         flash[:notice] = "Succesfully updated asset!"
-        redirect_to edit_presentation_path(@content)
+        render :nothing => true
       else
         flash[:error] = "Could not update asset!"
-        redirect_to edit_presentation_path(@content)
+        render :nothing => true
       end
     end
     def copy
-      old_presentation = Presentation.find(params[:presentation_id])
+      old_presentation = Presentation.find(params[:id])
       new_presentation = Presentation.create(:title => old_presentation.title, :template => old_presentation.template)
-      new_presentation.asset = old_presentation.asset.clone
-      new_presentation.asset.name = old_presentation.asset.name + " - Copy"
+      new_presentation.asset = Asset.create(:user => current_user, :name => old_presentation.asset.name + "- Copy")
       new_presentation.asset.classifications = old_presentation.asset.classifications
       new_presentation.save
       copy_frames(new_presentation.root_frame, old_presentation.root_frame.children)
       @presentation = new_presentation
       @content = new_presentation
-      redirect_to edit_presentation_path(@content)
+      render :template => "/assets/edit", :layout => false
     end
     def copy_frames(new_parent,frames)
       unless frames.length == 0
@@ -60,6 +63,9 @@ module FassetsPresentations
           copy_frames(copy_frame, frame.children)
         end
       end
+    end
+    def content_model
+      FassetsPresentations::Presentation
     end
 protected
     def find_content

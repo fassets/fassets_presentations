@@ -14,6 +14,12 @@ module FassetsPresentations
       "Presentation"
     end
 
+    def to_jq_upload
+      {
+        "edit_box_url" => "/edit_box/"+id.to_s,
+        "content_type" => "Presentation" 
+      }
+    end
     protected
     def create_root_frame
       Frame.create!(:title => root_frame_title, :template => "title", :presentation_id => id, :position => 1)

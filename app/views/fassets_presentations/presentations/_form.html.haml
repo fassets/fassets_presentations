@@ -1,13 +1,21 @@
-=form_for :presentation do |f|
-  =fields_for "asset", model.asset do |asset|
+=javascript_include_tag 'fassets_presentations/pres_edit_box'
+=stylesheet_link_tag 'fassets_presentations/pres_edit_box'
+-if new
+  =form_for @content, :url => asset_content_path(@content),:html => {:multipart => true} do |f|
     %p
-      %label{:for => 'name'} Name:
-      =asset.text_field :name
+      %label{:for => 'title'} Title:
+      =text_field :presentation, :title, :value => @content.title
+      #title_warning
+    %p
+      %label{:for => 'template'} Template:
+      =select(:presentation, :template, TemplateManager.outer_templates, { :selected => @content.template ? @content.template : "default"})
+    -if new
+      =submit_tag "Create", :class => "create_presentation"
+-else
   %p
     %label{:for => 'title'} Title:
-    =f.text_field :title
+    =text_field :presentation, :title, :value => @content.title
     #title_warning
   %p
     %label{:for => 'template'} Template:
     =select(:presentation, :template, TemplateManager.outer_templates, { :selected => @content.template ? @content.template : "default"})
-  =submit_tag submit
