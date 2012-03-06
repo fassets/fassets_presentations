@@ -9,8 +9,11 @@ FassetsPresentations::Engine.routes.draw do
   get '/:presentation_id/frames' => 'Frames#index', :as => 'presentation_frames'
   post '/:presentation_id/frames' => 'Frames#create', :as => 'presentation_frames'
   get '/:presentation_id/frame/:id/edit' => 'Frames#edit', :as => 'edit_presentation_frame'
+  get '/:presentation_id/frame/:id/edit_wysiwyg' => 'Frames#edit_wysiwyg', :as => 'edit_wysiwyg_presentation_frame'
   get '/:presentation_id/frame/:id' => 'Frames#show', :as => 'presentation_frame'
   put '/:presentation_id/frame/:id' => 'Frames#update', :as => 'update_presentation_frame'
+  put '/:presentation_id/frame/:id/wysiwyg' => 'Frames#update_wysiwyg', :as => 'update_wysiwyg_presentation_frame'
+  
   delete '/:presentation_id/frame/:id' => 'Frames#destroy', :as => 'delete_presentation_frame'
   post '/:presentation_id/frames/sort' => 'Frames#sort', :as => 'sort_presentation_frames'
 

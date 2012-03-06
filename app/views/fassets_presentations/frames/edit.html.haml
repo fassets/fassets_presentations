@@ -1,4 +1,3 @@
-=#javascript_include_tag "fassets_presentations/frames"
 =content_for :h1 do
   -unless is_root_frame
     #type
@@ -10,6 +9,7 @@
         =button_to "Edit Presentation", "", :method => :get ,:class => "edit_button", :asset_id => @presentation.asset.id, :content_id => @presentation.asset.content_id
         =render :partial => "assets/put_on_tray"
         =button_to "Delete Frame", presentation_frame_path(@presentation, @frame), :method => :delete, :onclick => "return confirm('Are you sure?')"
+        =button_to "WYSIWYG-Editor", edit_wysiwyg_presentation_frame_path(@presentation, @frame), :method => :get
   -else
     #type
       =@content.media_type.capitalize
@@ -31,7 +31,7 @@
     =form_for  [@presentation,  @frame], :url => presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame"} do |f|
       =submit_tag "Save", :id => "frame_save"
       #edit_warning{:style => "visibility: hidden"}There are unsaved changes on this frame
-      =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:disable_self => true}
-      %h2 Slots
+      #frame_form
+        =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:disable_self => true}
       %ul#slots
         =render :partial => "fassets_presentations/frames/slot", :collection => @frame.slots

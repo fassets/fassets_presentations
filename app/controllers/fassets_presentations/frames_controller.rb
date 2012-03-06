@@ -32,6 +32,14 @@ module FassetsPresentations
       end
       render :template => "fassets_presentations/frames/edit", :locals => {:is_root_frame => is_root_frame}
     end
+    def edit_wysiwyg
+      if @frame.parent == nil
+        is_root_frame = true
+      else
+        is_root_frame = false
+      end
+      render :template => "fassets_presentations/frames/edit_wysiwyg", :locals => {:is_root_frame => is_root_frame}      
+    end
     def update
       arrange_slots()
       if @frame.update_attributes(params[:frame])
@@ -40,6 +48,19 @@ module FassetsPresentations
         flash[:error] = "Could not update frame!"
       end
       redirect_to edit_presentation_frame_path(@presentation, @frame)
+    end
+    def update_wysiwyg
+      params[:frame][:content].each do |slot_name, value|
+        logger.debug(slot_name)
+        params[:frame][:content][slot_name][:markup] = Kramdown::Document.new(params[:frame][:content][slot_name][:markup], :input => 'html').to_kramdown
+        logger.debug("Markdown"+params[:frame][:content][slot_name][:markup])
+      end
+      if @frame.update_attributes(params[:frame])
+        flash[:notice] = "frame succesfully updated!"
+      else
+        flash[:error] = "Could not update frame!"
+      end
+      redirect_to edit_wysiwyg_presentation_frame_path(@presentation, @frame)
     end
     def show
       redirect_to presentation_path(@presentation) + "##{@frame.position}"
