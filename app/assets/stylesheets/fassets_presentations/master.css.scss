@@ -16,6 +16,9 @@ a.icon.presentation {
 .slot {
   float: left;
 }
+#slot_left {
+  clear: both;
+}
 #slots {
   position: relative;
   height: 80%;
@@ -56,6 +59,9 @@ a.icon.presentation {
 #slots li.hover {
 	border: 1px solid #0060ff;
 	background-color: #dce9ff;
+}
+.slot .name {
+  margin-bottom: 3px;
 }
 #editorhelp{
   position: absolute;

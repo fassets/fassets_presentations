@@ -1,9 +1,7 @@
 =content_for :h1 do
   #type
-    %small Presentation
     Frame
   #title
-    %small=link_to @presentation.asset.name, edit_presentation_path(@presentation)
     =link_to @frame.title, presentation_frame_path(@presentation, @frame)
   #action
     %span.action
@@ -17,10 +15,10 @@
 
 #main
   -unless is_root_frame
-    =form_for  [@presentation,  @frame], :url => update_wysiwyg_presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame"} do |f|
+    =form_for  [@presentation,  @frame], :url => update_wysiwyg_presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame",:template => @presentation.template} do |f|
       =submit_tag "Save", :id => "frame_save"
       #edit_warning{:style => "visibility: hidden"}There are unsaved changes on this frame
       #frame_form
         =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:disable_self => true}
-      %ul#slots
+      %ul#slots_wysiwyg
         =render :partial => "fassets_presentations/frames/slot_wysiwyg", :collection => @frame.slots

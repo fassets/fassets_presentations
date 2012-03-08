@@ -1,2 +1,18 @@
 %li.slot{:id => "slot_#{slot_wysiwyg.name}", :class => "wysiwyg"}
+  .name
+    =slot_wysiwyg.name
+    -unless slot_wysiwyg.in_template?
+      (not in template)
+      %button.drop_slot Drop
+    =select_tag "frame[content][#{slot_wysiwyg.name}][mode]", options_for_select(["markup", "asset"], slot_wysiwyg["mode"])
+    -if slot_wysiwyg.asset and slot_wysiwyg["mode"] == "asset"
+      =image_tag("fassets_core/delete.png", :width => 15, :height => 15, :alt => "Drop Asset", :title => "Drop asset",:class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'") 
+  =hidden_field_tag "frame[content][#{slot_wysiwyg.name}][asset_id]", slot_wysiwyg['asset_id']
+  .slot_asset{:style =>  slot_wysiwyg["mode"] == "asset" ? "" : "display:none"}
+    -if slot_wysiwyg.asset
+      -@content = slot_wysiwyg.asset.content 
+      =render :partial => content_partial(slot_wysiwyg.asset.content,:preview)
+    -else
+      Drop Asset Here!
+  .clear
   =text_area_tag "frame[content][#{slot_wysiwyg.name}][markup]", slot_wysiwyg["markup"] ? Kramdown::Document.new(slot_wysiwyg["markup"], :input => 'kramdown').to_html.html_safe : "", :class => "slot_textarea", :style => slot_wysiwyg["mode"] == "asset" ? "display:none" : ""

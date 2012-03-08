@@ -1,0 +1,26 @@
+h1 {
+  font-size: 1.5em;
+}
+h2 {
+  font-size: 1.3em;
+}
+h3 {
+  font-size: 1.1em;
+}
+em {
+  font-weight: bold;
+}
+strong {
+  font-weight: bold;
+  color: #CC6600;
+}
+blockquote {
+  margin: 1em 2em;
+  color: #666;
+  border-left: 2px solid #999;
+  padding-left: 1em
+}
+code {
+  font-style: italic;
+  font-weight: normal;
+}

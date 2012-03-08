@@ -55,6 +55,7 @@ module FassetsPresentations
         params[:frame][:content][slot_name][:markup] = Kramdown::Document.new(params[:frame][:content][slot_name][:markup], :input => 'html').to_kramdown
         logger.debug("Markdown"+params[:frame][:content][slot_name][:markup])
       end
+      arrange_slots()
       if @frame.update_attributes(params[:frame])
         flash[:notice] = "frame succesfully updated!"
       else

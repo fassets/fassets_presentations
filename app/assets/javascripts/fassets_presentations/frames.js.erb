@@ -104,13 +104,7 @@ $(document).ready(function(){
         resize_slots();
         $(".asset").draggable(drag_opts);
       });
-      edit_link = '<%= image_tag("fassets_core/edit.png", :alt => "Edit", :title => "Edit", :width => "15", :height => "15") %>'
       drop_link = '<%= image_tag("fassets_core/delete.png", :width => "15", :height => "15", :class => "drop_asset") %>'
-      if ($(this).find(".name a").length){
-        $(this).find(".name a").html(edit_link);
-      } else {
-        $(this).find(".name").append(edit_link);
-      }
       if (!$(this).find(".name .drop_asset").length){
         $(this).find(".name").append(drop_link);
         $(".drop_asset").click(function(){
