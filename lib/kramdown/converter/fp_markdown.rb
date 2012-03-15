@@ -4,13 +4,13 @@ class Kramdown::Converter::FP_Markdown < Kramdown::Converter::Kramdown
   def convert_html_element(el, indent)
     if el.attr['class'] == 'definition'
       el.attr.delete('class')
-      "\\definition"+inner(el, indent).sub(/\n+\Z/, "\n")
+      "\\definition"+inner(el, indent).sub(/\n+\Z/, "\n")+"\n"
     elsif el.attr['class'] == 'example'
       el.attr.delete('class')
-      "\\example"+inner(el, indent).sub(/\n+\Z/, "\n")
+      "\\example"+inner(el, indent).sub(/\n+\Z/, "\n")+"\n"
     elsif el.attr['class'] == 'box'
       el.attr.delete('class')
-      "\\box"+inner(el, indent).sub(/\n+\Z/, "\n")
+      "\\box"+inner(el, indent).sub(/\n+\Z/, "\n")+"\n"
     elsif el.attr['class'] == 'foreign'
       el.attr.delete('class')
       "\\foreign"+inner(el, indent).sub(/\n+\Z/, "\n")
