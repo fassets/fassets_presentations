@@ -293,8 +293,8 @@ function initPresentation(){
         Presentation.showframe(index);
         break;
       case 69: // e
-        edit_link = document.getElementById(Presentation.getframeIndex()).getElementsByTagName("a")[0];
-        location.href = edit_link.href;
+        edit_link = $("div[id="+Presentation.getframeIndex()+"] a").attr("href");
+        window.location.href = edit_link;
         break;
       case 66: // b
       case 83: // s
