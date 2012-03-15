@@ -1,7 +1,8 @@
-%h2.frametitle New Frame
-=form_for [presentation, FassetsPresentations::Frame.new], :url => fassets_presentations.presentation_frames_path(presentation),:html => {:class => "collapsable_frame"} do |f|
-  =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:presentation => presentation, :disable_self => false}
-  =submit_tag "Create"
+.collapsible
+  %h2.title New Frame
+  =form_for [presentation, FassetsPresentations::Frame.new], :url => fassets_presentations.presentation_frames_path(presentation) do |f|
+    =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:presentation => presentation, :disable_self => false}
+    =submit_tag "Create"
 
 %div{:id => "presentations.#{presentation.id}.frames"}
   %ol{:id => "frames", :path => "presentations.#{presentation.id}.frames.sort"}
