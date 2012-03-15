@@ -218,15 +218,15 @@ $(function(){
 
   $("li.definition").live("click",function(event){
     var editor = $(event.target).parent().parent().parent().find("textarea");
-    editor.wysiwyg('insertHtml','<div class="definition"><div class="type">Definition:</div><div class="title"></div><div class="content"></div></div><br class="filler">');
+    editor.wysiwyg('insertHtml','<div class="definition"><div class="type">Definition:</div><div class="title"> </div><div class="content"> </div></div><br class="filler">');
   });
   $("li.example").live("click",function(event){
     var editor = $(event.target).parent().parent().parent().find("textarea");
-    editor.wysiwyg('insertHtml','<div class="example"><div class="type">Example:</div><div class="title"></div><div class="content"></div></div><br class="filler">');
+    editor.wysiwyg('insertHtml','<div class="example"><div class="type">Example:</div><div class="title"> </div><div class="content"> </div></div><br class="filler">');
   });
   $("li.box").live("click",function(event){
     var editor = $(event.target).parent().parent().parent().find("textarea");
-    editor.wysiwyg('insertHtml','<div class="box"><div class="title"></div><div class="content"></div></div><br class="filler">');
+    editor.wysiwyg('insertHtml','<div class="box"><div class="title"> </div><div class="content"> </div></div><br class="filler">');
   });
   $("li.foreign").live("click",function(event){
     var editor = $(event.target).parent().parent().parent().find("textarea");
