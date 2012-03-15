@@ -273,3 +273,119 @@ pre {
 #ShortcutTable td{
   padding: 5px;
 }
+.example {
+  margin-left: 2em;
+}
+.example .type {
+  font-size: 1.1em;
+  color: white;
+  border: 2px solid #1BB51B;
+  background-color: #1BB51B;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 5em;
+  float: left;
+  padding: .3em;
+}
+.example .title{
+  font-size: 1.1em;
+  color: black;
+  border: 2px solid #1BB51B;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;;
+}
+.example .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  min-height: 1.5em;
+  clear: left
+}
+.definition {
+  margin-left: 2em;
+}
+.definition .type {
+  font-size: 1.1em;
+  color: white;
+  border: 2px solid #1B84E0;
+  background-color: #1B84E0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 5em;
+  float: left;
+  padding: .3em;
+}
+.definition .title{
+  font-size: 1.1em;
+  color: black;
+  border: 2px solid #1B84E0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
+}
+.definition .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  min-height: 1.5em;
+  clear: left;
+}
+.box {
+  margin-left: 2em;
+}
+.box .title{
+  color: black;
+  border: 2px solid #C9C9C9;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
+}
+.box .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  min-height: 1.5em;
+  clear: left;
+}
+.foreign {
+  display: inline-block;
+}
+.foreign .title{
+  color: orange;
+  display: inline-block;
+  min-height: 1em;
+  min-width: 2em;
+}
+.foreign .translation{
+  font-style: bold;
+  display: inline-block;
+  min-height: 1em;
+}

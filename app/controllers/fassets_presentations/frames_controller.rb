@@ -1,6 +1,7 @@
 module FassetsPresentations
   class FramesController < ApplicationController
     include AssetsHelper
+    include FramesHelper
     before_filter :authenticate_user!, :except => [:show]
     before_filter :find_presentation, :except => [:markup_preview]
     before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview]
@@ -51,8 +52,7 @@ module FassetsPresentations
     end
     def update_wysiwyg
       params[:frame][:content].each do |slot_name, value|
-        logger.debug(slot_name)
-        params[:frame][:content][slot_name][:markup] = Kramdown::Document.new(params[:frame][:content][slot_name][:markup], :input => 'html').to_kramdown
+        params[:frame][:content][slot_name][:markup] = html_to_markdown(params[:frame][:content][slot_name][:markup])
         logger.debug("Markdown"+params[:frame][:content][slot_name][:markup])
       end
       arrange_slots()

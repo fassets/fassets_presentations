@@ -23,7 +23,7 @@
     
       
 #sidebar
-  =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation}
+  =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation, :wysiwyg => false}
   
 #main
   #editorhelp=render :partial => "fassets_presentations/shared/editorhelp"

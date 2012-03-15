@@ -1,9 +1,10 @@
 require "kramdown"
+require "kramdown/parser/fp_markdown"
 
 module PresentationsHelper
   include AssetsHelper
+  include FramesHelper
   def template_path(template)
-    logger.debug("Bar")
     File.join(TEMPLATE_PATH, template).to_s
   end
   def render_inner_template(frame)
@@ -19,7 +20,9 @@ module PresentationsHelper
       @content = slot.asset.content
       render :partial => content_partial(slot.asset.content, "preview") if slot.asset
     else
-      Kramdown::Document.new(slot["markup"]).to_html
+      #logger.debug(Kramdown::Document.new(slot["markup"], :input => "FP_Markdown").to_html)
+      logger.debug(to_fp_html(slot["markup"]))
+      to_fp_html(slot["markup"])
     end
   end
   def tree_ol(acts_as_tree_set, init=true, &block)

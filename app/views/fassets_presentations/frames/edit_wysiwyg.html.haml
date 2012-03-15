@@ -11,7 +11,7 @@
       =button_to "Markup-Editor", edit_presentation_frame_path(@presentation, @frame), :method => :get
       
 #sidebar
-  =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation}
+  =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation, :wysiwyg => true}
 
 #main
   -unless is_root_frame

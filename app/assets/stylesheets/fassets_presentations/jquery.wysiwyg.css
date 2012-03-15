@@ -67,6 +67,10 @@ div.wysiwyg ul.toolbar li.empty { background-position: -64px -80px; }
 
 div.wysiwyg ul.toolbar li.code { background-position: -64px -96px; }
 div.wysiwyg ul.toolbar li.cssWrap { background-position: -80px -96px; }
+div.wysiwyg ul.toolbar li.definition { background: url("def_icon.png"); margin-right: 3px;}
+div.wysiwyg ul.toolbar li.example { background: url("exp_icon.png"); margin-right: 3px;}
+div.wysiwyg ul.toolbar li.box { background: url("box_icon.png"); margin-right: 3px;}
+div.wysiwyg ul.toolbar li.foreign { background: url("foreign_icon.png"); margin-right: 3px;}
 
 div.wysiwyg-dialogRow { float:left; width:100%; font-size: 16px; }
 

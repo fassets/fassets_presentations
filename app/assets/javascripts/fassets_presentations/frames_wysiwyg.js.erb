@@ -77,13 +77,16 @@ $(function(){
     if ($(this).val() == "markup") {
       asset.hide();
       text.show();
-      text.wysiwyg(wysiwyg_options);
+      if ($(this).parent().parent().find(".wysiwyg").length != 0){
+        text.wysiwyg(wysiwyg_options);
+      }
       resize_slots();
     } else {
       resize_slots();
       asset.show();
-      text.wysiwyg("destroy");
-      text.hide();
+      if ($(this).parent().parent().find(".wysiwyg").length != 0){
+        text.destroy();
+      }
     }
   });
   $(".drop_asset").click(function(){
@@ -114,16 +117,26 @@ $(function(){
     $("#slot_subtitle").css("width", width*0.67 + 'px');
     $("#slot_centertitle").css("height", height*0.35 + 'px');
     $("#slot_centertitle").css("width", width*0.67 + 'px');
-    $("textarea").each(function(i,e) {
+    $(".slot .content").each(function(i,e) {
       parent = $(e).parent();
-      $(e).css("height", parent.height()*0.9);
-      $(e).css("width", parent.width()*0.9);
-    });
-    $(".slot .editor_content").each(function(i,e) {
-      parent = $(e).parent().parent();
       $(e).css("height", parent.height()*0.80);
       $(e).css("width", parent.width()*0.985);
-    });    
+    });
+    $(".content textarea").each(function(i,e) {
+      parent = $(e).parent();
+      $(e).css("height", parent.height());
+      $(e).css("width", parent.width());
+    });
+    $(".slot .wysiwyg").each(function(i,e) {
+      parent = $(e).parent();
+      $(e).css("height", parent.height()*0.92);
+      $(e).css("width", parent.width()*0.92);
+    });
+    $(".slot .wysiwyg iframe").each(function(i,e) {
+      parent = $(e).parent();
+      $(e).css("height", parent.height()*0.955);
+      $(e).css("width", parent.width());
+    });   
     $("img.fit").scaleImage({
       parent: "li",
       scale: 'fit',
@@ -149,24 +162,51 @@ $(function(){
     controls: {
         strikeThrough: { visible: true },
         underline: { visible: true },
-        subscript: { visible: true },
+        subscript: { visible: false },
+        superscript: { visible: false },
+        justifyLeft: { visible: false },
+        justifyCenter: { visible: false },
+        justifyRight: { visible: false },
+        justifyFull: { visible: false },
+        subscript: { visible: true},
         superscript: { visible: true },
-        justifyLeft: { visible: false},
-        justifyCenter: { visible: false},
-        justifyRight: { visible: false},
-        justifyFull: { visible: false},
-        subscript: { visible: false},
-        superscript: { visible: false},
-        createLink: { visible: false},
-        insertImage: { visible: false},
-        insertHorizontalRule: { visible: false},
+        createLink: { visible: false },
+        insertImage: { visible: false },
+        insertHorizontalRule: { visible: false },
+        removeFormat: { visible: true },
+        code: { visible: false },
+        definition: {
+          visible: true,
+          icon: "/assets/fassets_presentations/def_icon.png",
+          exec: function() {},
+          className: 'definition',
+        },
+        example: {
+          visible: true,
+          icon: "/assets/fassets_presentations/exp_icon.png",
+          exec: function() {},
+          className: 'example'
+        },
+        box: {
+          visible: true,
+          icon: "/assets/fassets_presentations/box_icon.png",
+          exec: function() {},
+          className: 'box'
+        },
+        foreign: {
+          visible: true,
+          icon: "/assets/fassets_presentations/foreign_icon.png",
+          exec: function() {},
+          className: 'foreign'
+        }
     },
     events: {
       click: function(e){
         resize_slots();
-      }     
+      }    
     },
     autoSave: true,
+    initialContent: "",
     iFrameClass: "editor_content",
     css:  '/assets/fassets_presentations/templates/'+$("#edit_frame").attr("template")+'/editor.css'
   }
@@ -175,7 +215,24 @@ $(function(){
       $(e).wysiwyg(wysiwyg_options);
     }
   });
+
+  $("li.definition").live("click",function(event){
+    var editor = $(event.target).parent().parent().parent().find("textarea");
+    editor.wysiwyg('insertHtml','<div class="definition"><div class="type">Definition:</div><div class="title"></div><div class="content"></div></div><br class="filler">');
+  });
+  $("li.example").live("click",function(event){
+    var editor = $(event.target).parent().parent().parent().find("textarea");
+    editor.wysiwyg('insertHtml','<div class="example"><div class="type">Example:</div><div class="title"></div><div class="content"></div></div><br class="filler">');
+  });
+  $("li.box").live("click",function(event){
+    var editor = $(event.target).parent().parent().parent().find("textarea");
+    editor.wysiwyg('insertHtml','<div class="box"><div class="title"></div><div class="content"></div></div><br class="filler">');
+  });
+  $("li.foreign").live("click",function(event){
+    var editor = $(event.target).parent().parent().parent().find("textarea");
+    editor.wysiwyg('insertHtml','<div class="foreign"><div class="title"> </div><div class="translation">( )</div></div>');
+  });
   resize_slots();
-  $(window).resize(function(){resize_slots();});
+  $(window).resize(function(){resize_slots();});            
 });
 

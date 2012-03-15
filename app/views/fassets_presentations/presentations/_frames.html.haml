@@ -6,4 +6,7 @@
 %div{:id => "presentations.#{presentation.id}.frames"}
   %ol{:id => "frames", :path => "presentations.#{presentation.id}.frames.sort"}
     -unless presentation.root_frame == nil
-      =tree_ol(presentation.root_frame.children()) {|item| link_to h(item.title), edit_presentation_frame_path(presentation, item) }
+      -if wysiwyg == true
+        =tree_ol(presentation.root_frame.children()) {|item| link_to h(item.title), edit_wysiwyg_presentation_frame_path(presentation, item) }
+      -else
+        =tree_ol(presentation.root_frame.children()) {|item| link_to h(item.title), edit_presentation_frame_path(presentation, item) }
