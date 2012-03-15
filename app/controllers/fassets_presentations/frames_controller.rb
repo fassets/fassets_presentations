@@ -28,6 +28,11 @@ module FassetsPresentations
     def edit
       if @frame.parent == nil
         is_root_frame = true
+        if @frame.children.first
+          @frame = @frame.children.first
+          redirect_to edit_presentation_frame_path(@presentation, @frame)
+          return
+        end
       else
         is_root_frame = false
       end
@@ -36,6 +41,11 @@ module FassetsPresentations
     def edit_wysiwyg
       if @frame.parent == nil
         is_root_frame = true
+        if @frame.children.first
+          @frame = @frame.children.first
+          redirect_to edit_wysiwyg_presentation_frame_path(@presentation, @frame)
+          return
+        end
       else
         is_root_frame = false
       end
