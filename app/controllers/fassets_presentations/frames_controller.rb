@@ -113,7 +113,7 @@ module FassetsPresentations
       render :partial => content_model.to_s.underscore.pluralize + "/" + @content.media_type.to_s.underscore + "_preview"
     end
     def markup_preview
-      render :inline => Kramdown::Document.new(params["markup"]).to_html
+      render :inline => to_fp_html(params["markup"])
     end
   protected
     def find_presentation
