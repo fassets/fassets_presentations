@@ -53,12 +53,14 @@ module FassetsPresentations
     end
     def update
       arrange_slots()
-      begin
-        to_fp_html(params[:frame][:content][slot_name][:markup])
-      rescue
-        flash[:error] = "Could not update frame - Invalid markup!"
-        redirect_to edit_presentation_frame_path(@presentation, @frame)
-        return
+      params[:frame][:content].each do |slot_name, value|
+        begin
+          to_fp_html(params[:frame][:content][slot_name][:markup])
+        rescue
+          flash[:error] = "Could not update frame - Invalid markup!"
+          redirect_to edit_presentation_frame_path(@presentation, @frame)
+          return
+        end
       end
       if @frame.update_attributes(params[:frame])
         flash[:notice] = "frame succesfully updated!"
