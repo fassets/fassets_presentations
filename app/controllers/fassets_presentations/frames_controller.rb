@@ -53,6 +53,13 @@ module FassetsPresentations
     end
     def update
       arrange_slots()
+      begin
+        to_fp_html(params[:frame][:content][slot_name][:markup])
+      rescue
+        flash[:error] = "Could not update frame - Invalid markup!"
+        redirect_to edit_presentation_frame_path(@presentation, @frame)
+        return
+      end
       if @frame.update_attributes(params[:frame])
         flash[:notice] = "frame succesfully updated!"
       else
@@ -62,7 +69,13 @@ module FassetsPresentations
     end
     def update_wysiwyg
       params[:frame][:content].each do |slot_name, value|
-        params[:frame][:content][slot_name][:markup] = html_to_markdown(params[:frame][:content][slot_name][:markup])
+        begin
+          params[:frame][:content][slot_name][:markup] = html_to_markdown(params[:frame][:content][slot_name][:markup])
+        rescue
+          flash[:error] = "Could not update frame - Conversion to markup failed!"
+          redirect_to edit_wysiwyg_presentation_frame_path(@presentation, @frame)
+          return
+        end
         logger.debug("Markdown"+params[:frame][:content][slot_name][:markup])
       end
       arrange_slots()
@@ -113,7 +126,13 @@ module FassetsPresentations
       render :partial => content_model.to_s.underscore.pluralize + "/" + @content.media_type.to_s.underscore + "_preview"
     end
     def markup_preview
-      render :inline => to_fp_html(params["markup"])
+      begin
+        html = to_fp_html(params["markup"])
+      rescue
+        render :inline => "Error generating preview - please check the markup"
+        return
+      end
+      render :inline => html
     end
   protected
     def find_presentation
