@@ -39,19 +39,21 @@ class Kramdown::Converter::FP_Html < Kramdown::Converter::Html
     quote = el.value.scan(/\{[^\}]+\}/)[0]
     key = key.gsub(/[\[\]"]/, "")
     quote = quote.gsub(/[{}"]/, "")
-    puts "quote:"+quote
     quote = Kramdown::Converter::FP_Html.convert(Kramdown::Document.new(quote, :input => "FP_Markdown").root)[0]
-    puts "quote_after:"+quote
     citation = "BibTeX-Key not found!"
-    Dir.foreach(FassetsPresentations::Engine.root.to_s+'/app/bibtex/') do |file|
-      begin
-        unless file == "." or file == ".."
-          b = BibTeX.open(FassetsPresentations::Engine.root.to_s+'/app/bibtex/'+file)
-          citation = b[key].author.to_s+" ("+b[key].year.to_s+")"
+    begin
+      Dir.foreach(FassetsPresentations::Engine.root.to_s+'/app/bibtex/') do |file|
+        begin
+          unless file == "." or file == ".."
+            b = BibTeX.open(FassetsPresentations::Engine.root.to_s+'/app/bibtex/'+file)
+            citation = b[key].author.to_s+" ("+b[key].year.to_s+")"
+          end
+        rescue Exception => ex
+          puts ex
         end
-      rescue Exception => ex
-        puts ex
       end
+    rescue Exception => ex
+      puts ex
     end
     '<div class="cite"><div class="quote">'+quote+'</div><div class="citation" id="'+key+'">'+citation+'</div></div>'
   end
