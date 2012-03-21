@@ -14,14 +14,24 @@ class Kramdown::Converter::FP_Markdown < Kramdown::Converter::Kramdown
     elsif el.attr['class'] == 'foreign'
       el.attr.delete('class')
       "\\foreign"+inner(el, indent).sub(/\n+\Z/, "\n")
+    elsif el.attr['class'] == 'cite'
+      el.attr.delete('class')
+      content = inner(el, indent).sub(/\n+\Z/, "\n")
+      key = content.scan(/\[.+\]/)[0]
+      quote = content.scan(/\{[^\}]+\}/)[0]
+      "\\cite"+key+quote
+    elsif el.attr['class'] == 'citation'
+      '["'+el.attr['id']+'"]'
+    elsif el.attr['class'] == 'quote'
+      '{"'+inner(el, indent).chomp+'"}'
     elsif el.attr['class'] == 'type'
       ''
     elsif el.attr['class'] == 'title'
-      '["'+inner(el, indent).chomp+'"]'
+      '["'+Kramdown::Converter::FP_Markdown.convert(Kramdown::Document.new(inner(el, indent).chomp, :input => "FP_Html").root)[0]+'"]'
     elsif el.attr['class'] == 'content'
-      '{"'+inner(el, indent).chomp.chop+'"}'
+      '{"'+Kramdown::Converter::FP_Markdown.convert(Kramdown::Document.new(inner(el, indent).chomp, :input => "FP_Markdown").root)[0]+'"}'
     elsif el.attr['class'] == 'translation'
-      '{"'+inner(el, indent).chomp.chop[1..-1]+'"}'
+      '{"'+Kramdown::Converter::FP_Markdown.convert(Kramdown::Document.new(inner(el, indent).chomp.chop[1..-1], :input => "FP_Markdown").root)[0]+'"}'
     else
       super
     end

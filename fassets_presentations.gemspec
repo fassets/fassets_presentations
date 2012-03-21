@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency "acts_as_tree_rails3"
   s.add_dependency "fancybox-rails", "~> 0.1.4"
   s.add_dependency "jquery-rails"
+  s.add_dependency "bibtex-ruby"
+  s.add_dependency "citeproc-ruby"
   #s.add_dependency "fassets_core", :git => "git://github.com/fassets/fassets_core.git"
 
   s.add_development_dependency "sqlite3"

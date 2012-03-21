@@ -2,7 +2,6 @@ require "kramdown"
 
 module FramesHelper
   def to_fp_html(str)
-    logger.debug(Kramdown::Document.new(str, :input => "FP_Markdown").root.children)
     Kramdown::Converter::FP_Html.convert(Kramdown::Document.new(str, :input => "FP_Markdown").root)[0].html_safe
   end
   def to_fp_markdown(str)

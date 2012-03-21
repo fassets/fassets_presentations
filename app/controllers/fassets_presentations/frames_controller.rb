@@ -73,12 +73,12 @@ module FassetsPresentations
       params[:frame][:content].each do |slot_name, value|
         begin
           params[:frame][:content][slot_name][:markup] = html_to_markdown(params[:frame][:content][slot_name][:markup])
-        rescue
+        rescue Exception => ex
+          logger.debug("Error:"+ex)
           flash[:error] = "Could not update frame - Conversion to markup failed!"
           redirect_to edit_wysiwyg_presentation_frame_path(@presentation, @frame)
           return
         end
-        logger.debug("Markdown"+params[:frame][:content][slot_name][:markup])
       end
       arrange_slots()
       if @frame.update_attributes(params[:frame])
