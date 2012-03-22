@@ -3,8 +3,8 @@ module FassetsPresentations
     include AssetsHelper
     include FramesHelper
     before_filter :authenticate_user!, :except => [:show]
-    before_filter :find_presentation, :except => [:markup_preview]
-    before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview]
+    before_filter :find_presentation, :except => [:markup_preview, :to_markdown, :to_html]
+    before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview, :to_markdown, :to_html]
     def create
       if params[:id]
         frame = Frame.find(params[:id]).clone();
@@ -136,6 +136,19 @@ module FassetsPresentations
       end
       render :inline => html
     end
+    def to_markdown
+      logger.debug("HTML:"+params[:content])
+      logger.debug("HTML:"+html_to_markdown(params[:content]))
+      render :inline => html_to_markdown(params[:content])
+    end
+    def to_html
+      logger.debug("HTML:"+params[:value])
+      if params[:value] == ""
+        render :inline => ""
+      else
+        render :inline => to_fp_html(params[:value])
+      end
+    end   
   protected
     def find_presentation
       @presentation = Presentation.find(params[:presentation_id])

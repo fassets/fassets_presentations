@@ -21,7 +21,7 @@ $(function(){
       $('#tray ol').removeClass("active");
     }
   }
-  $('.wysiwyg').droppable({
+  $('.slot').droppable({
     accept:'.asset',
     activeClass:'active',
     hoverClass:'hover',
@@ -36,9 +36,6 @@ $(function(){
         id = $(ui.draggable).attr("id").split('_')[1];
       }
       $(this).find("input").attr("value",id);
-      $(this).find("textarea").wysiwyg("destroy");
-      $(this).find("textarea").hide();
-      $(this).find(".preview").hide();
       $(this).find(".name select").val("asset");
       $(this).find(".slot_asset").load('/asset/'+id+'/preview', function(){
         resize_slots();
@@ -61,32 +58,28 @@ $(function(){
           $('#edit_warning').css('visibility','visible');
         });
       }
-      $(this).find(".slot_asset").show()
+      $(this).find(".slot_asset").show();
+      $(this).find(".slot_content").hide();
       $('#edit_warning').css('visibility','visible');
     },
   });
   $('.slot .name select').change(function(){
-    if ($(this).parent().parent().find(".wysiwyg").length != 0){
-      var content = $(this).parent().parent().find(".wysiwyg");
-      var text = content.parent().find("textarea");
+    if ($(this).parent().parent().find(".slot").length != 0){
+      var content = $(this).parent().parent().find(".slot");
+      var text = content.parent().find(".slot_content");
       var asset = content.parent().find(".slot_asset");
     }else{
-      var text = $(this).parent().parent().find("textarea");
+      var text = $(this).parent().parent().find(".slot_content");
       var asset = $(this).parent().parent().find(".slot_asset"); 
     }
     if ($(this).val() == "markup") {
       asset.hide();
       text.show();
-      if ($(this).parent().parent().find(".wysiwyg").length != 0){
-        text.wysiwyg(wysiwyg_options);
-      }
       resize_slots();
+      make_editable()
     } else {
       resize_slots();
       asset.show();
-      if ($(this).parent().parent().find(".wysiwyg").length != 0){
-        text.destroy();
-      }
     }
   });
   $(".drop_asset").click(function(){
@@ -117,16 +110,6 @@ $(function(){
     $("#slot_subtitle").css("width", width*0.67 + 'px');
     $("#slot_centertitle").css("height", height*0.35 + 'px');
     $("#slot_centertitle").css("width", width*0.67 + 'px');
-    $(".slot .content").each(function(i,e) {
-      parent = $(e).parent();
-      $(e).css("height", parent.height()*0.80);
-      $(e).css("width", parent.width()*0.985);
-    });
-    $(".content textarea").each(function(i,e) {
-      parent = $(e).parent();
-      $(e).css("height", parent.height());
-      $(e).css("width", parent.width());
-    });
     $(".slot .wysiwyg").each(function(i,e) {
       parent = $(e).parent();
       $(e).css("height", parent.height()*0.92);
@@ -158,81 +141,216 @@ $(function(){
       center: true
     });
   }
-  var wysiwyg_options = {
-    controls: {
-        strikeThrough: { visible: true },
-        underline: { visible: true },
-        subscript: { visible: false },
-        superscript: { visible: false },
-        justifyLeft: { visible: false },
-        justifyCenter: { visible: false },
-        justifyRight: { visible: false },
-        justifyFull: { visible: false },
-        subscript: { visible: true},
-        superscript: { visible: true },
-        createLink: { visible: false },
-        insertImage: { visible: false },
-        insertHorizontalRule: { visible: false },
-        removeFormat: { visible: true },
-        code: { visible: false },
-        definition: {
-          visible: true,
-          icon: "/assets/fassets_presentations/def_icon.png",
-          exec: function() {},
-          className: 'definition',
-        },
-        example: {
-          visible: true,
-          icon: "/assets/fassets_presentations/exp_icon.png",
-          exec: function() {},
-          className: 'example'
-        },
-        box: {
-          visible: true,
-          icon: "/assets/fassets_presentations/box_icon.png",
-          exec: function() {},
-          className: 'box'
-        },
-        foreign: {
-          visible: true,
-          icon: "/assets/fassets_presentations/foreign_icon.png",
-          exec: function() {},
-          className: 'foreign'
-        }
-    },
-    events: {
-      click: function(e){
-        resize_slots();
-      }    
-    },
-    autoSave: true,
-    initialContent: "",
-    iFrameClass: "editor_content",
-    css:  '/assets/fassets_presentations/templates/'+$("#edit_frame").attr("template")+'/editor.css'
-  }
-  $('.wysiwyg .slot_textarea').each(function(i,e){
-    if($(e).parent().find("select").val() == "markup"){
-      $(e).wysiwyg(wysiwyg_options);
-    }
-  });
-
-  $("li.definition").live("click",function(event){
-    var editor = $(event.target).parent().parent().parent().find("textarea");
-    editor.wysiwyg('insertHtml','<div class="definition"><div class="type">Definition:</div><div class="title"> </div><div class="content"> </div></div><br class="filler">');
-  });
-  $("li.example").live("click",function(event){
-    var editor = $(event.target).parent().parent().parent().find("textarea");
-    editor.wysiwyg('insertHtml','<div class="example"><div class="type">Example:</div><div class="title"> </div><div class="content"> </div></div><br class="filler">');
-  });
-  $("li.box").live("click",function(event){
-    var editor = $(event.target).parent().parent().parent().find("textarea");
-    editor.wysiwyg('insertHtml','<div class="box"><div class="title"> </div><div class="content"> </div></div><br class="filler">');
-  });
-  $("li.foreign").live("click",function(event){
-    var editor = $(event.target).parent().parent().parent().find("textarea");
-    editor.wysiwyg('insertHtml','<div class="foreign"><div class="title"> </div><div class="translation">( )</div></div>');
-  });
   resize_slots();
-  $(window).resize(function(){resize_slots();});            
+  $(window).resize(function(){resize_slots();});
+  $.editable.addInputType('autogrow', {
+      element : function(settings, original) {
+          var textarea = $('<textarea>');
+          if (settings.rows) {
+              textarea.attr('rows', settings.rows);
+          } else {
+              textarea.height(settings.height);
+          }
+          if (settings.cols) {
+              textarea.attr('cols', settings.cols);
+          } else {
+              textarea.width(settings.width);
+          }
+          $(this).append(textarea);
+          return(textarea);
+      },
+      plugin : function(settings, original) {
+          $('textarea', this).autoGrow(settings.autogrow);
+      }
+  });
+  var make_editable = function(){           
+    $(".definition .title").editable("/presentations/to_html",{
+      onblur : 'submit',
+      cssclass : 'definition_title'
+    });
+    $(".definition .content").editable("/presentations/to_html", {
+      type     : 'autogrow',
+      loadurl  : '/presentations/to_markdown',
+      id: "definition_content",
+      onblur : 'submit',
+      width : "95%",
+      loaddata: function(value,settings){
+        return {content: value};
+      },
+      submitdata : function(value, settings) {
+        return {content: value};
+      }
+    });
+    $(".example .title").editable("/presentations/to_html",{
+      onblur : 'submit',
+      cssclass : 'example_title',
+    });
+    $(".example .content").editable("/presentations/to_html", {
+      type     : 'autogrow',
+      loadurl  : '/presentations/to_markdown',
+      id: "example_content",
+      onblur : 'submit',
+      cssclass : 'example_content',
+      width : "95%",
+      loaddata: function(value,settings){
+        return {content: value};
+      },
+      submitdata : function(value, settings) {
+        return {content: value};
+      }
+    });
+    $(".box .title").editable("/presentations/to_html", {
+      onblur : 'submit',
+      cssclass : 'box_title',
+    });
+    $(".box .content").editable("/presentations/to_html", {
+      type     : 'autogrow',
+      loadurl  : '/presentations/to_markdown',
+      id: "box_content",
+      onblur : 'submit',
+      cssclass : 'box_content',
+      width : "95%",
+      loaddata: function(value,settings){
+        return {content: value};
+      },
+      submitdata : function(value, settings) {
+        return {content: value};
+      }
+    });
+    $(".foreign .title").editable("/presentations/to_html", {
+      onblur : 'submit',
+      cssclass : 'foreign_title'
+    });
+    $(".foreign .translation").editable("/presentations/to_html", {
+      type     : 'textarea',
+      loadurl  : '/presentations/to_markdown',
+      id: "foreign_translation",
+      onblur : 'submit',
+      cssclass : 'foreign_translation',
+      width : "95%",
+      loaddata: function(value,settings){
+        return {content: value};
+      },
+      submitdata : function(value, settings) {
+        return {content: value};
+      }
+    });
+    $(".slot_content > p").editable("/presentations/to_html", {
+      type     : 'autogrow',
+      loadurl  : '/presentations/to_markdown',
+      id: "definition_content",
+      onblur : 'submit',
+      width : "95%",
+      cssclass : 'para',
+      removeEmpty: true,
+      loaddata: function(value,settings){
+        return {content: value};
+      },
+      submitdata : function(value, settings) {
+        return {content: value};
+      }
+    });
+    $(".slot_content").click(function(e){
+      if ($(this).attr("class") != "slot_content selected"){
+        $(".slot_content").attr("class","slot_content");
+        $(this).attr("class","slot_content selected");
+        $('#editor_buttons input').attr("disabled", false);
+        return;
+      }
+      if ($(this).find("textarea").length > 0){
+        return;
+      }
+      var x = e.pageX - this.offsetLeft;
+      var y = e.pageY;
+      var rel = "under";
+      var inserted = false;
+      var prev_el = "";
+      var para = $('<p class="sortable"></p');
+      $(this).children().each(function(index, el){
+        var offset = $(el).position();
+        var el_class = $(el).attr("class");
+        var margin_top = parseInt($(el).css("margin-top").replace("px",""));
+        var title_height = $(el).find(".title").height();
+        pos_y_top = offset.top+margin_top+title_height+20;
+        pos_y_bottom = offset.top + $(el).height();
+        if (y <= pos_y_top && rel == "under"){
+          rel = "over";
+          if (!$(prev_el).is("p") && !$(el).is("p") ){
+            $(el).before(para);
+            make_editable();
+            para.click();
+            inserted = true;
+          }
+        }
+        if (y >= pos_y_bottom){
+          rel = "under";
+        }
+        prev_el = el;
+      });
+      if (inserted == false && !$(prev_el).is("p") && rel == "under"){
+        $(this).append(para);
+        make_editable();
+        para.click();
+      }
+      if (inserted == false && $(prev_el).is("p") && rel == "under"){
+        $(prev_el).click();
+      }
+      if (inserted == false && prev_el == ""){
+        $(this).html(para);
+        make_editable();
+        para.click();
+      }
+    });
+  };
+  $("#frame_save_wysiwyg").click(function(e){
+    e.preventDefault();
+    var title = $("#edit_frame #frame_title").val();
+    var template = $("#frame_template").val();
+    var p_id = $("#frame_parent_id").val();
+    var data = {frame: {parent_id: p_id, title: title, template: template, content: {}}};
+    $(".slot .slot_content").each(function(index, el){
+      var slot_id = $(el).parent().attr("id").replace("slot_","");
+      var asset_id = $(el).parent().find('#frame_content_'+slot_id+'_asset_id').val();
+      var mode = $(el).parent().find('#frame_content_'+slot_id+'_mode').val();
+      var markup = $(el).html();
+      data['frame']['content'][slot_id] = {asset_id: asset_id, mode: mode, markup: markup};
+    });
+    $.post($("#edit_frame").attr("action"), data, function(retdata){});
+  });
+  make_editable();
+  $('.slot_content').sortable({
+    items: '.sortable',
+    axis: "y"
+  });
+  $('#editor_buttons input').attr("disabled", true);
+  // Button events
+  $('#def_button').click(function (e){
+    e.preventDefault();
+    var def = $('<div class="definition sortable"><div class="type">Definition:</div><div class="title"></div><div class="content"></div></div>');
+    $(".slot_content.selected").append(def);
+    make_editable();
+    def.find(".title").click();
+  });
+  $('#exm_button').click(function (e){
+    e.preventDefault();
+    var exm = $('<div class="example sortable"><div class="type">Example:</div><div class="title"></div><div class="content"></div></div>');
+    $(".slot_content.selected").append(exm);
+    make_editable();
+    exm.find(".title").click();
+  });
+  $('#box_button').click(function (e){
+    e.preventDefault();
+    var box = $('<div class="box sortable"><div class="title"></div><div class="content"></div></div>');
+    $(".slot_content.selected").append(box);
+    make_editable();
+    box.find(".title").click();
+  });
+  $('#for_button').click(function (e){
+    e.preventDefault();
+    var foreign = $('<div class="foreign sortable"><div class="title"></div>(<div class="translation"></div>)</div>');
+    $(".slot_content.selected").append(foreign);
+    make_editable();
+    foreign.find(".title").click();
+  });
 });
 

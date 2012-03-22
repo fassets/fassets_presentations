@@ -1,3 +1,6 @@
+=content_for :core_head do
+  =stylesheet_link_tag 'fassets_presentations/templates/'+@presentation.template+'/editor.css'
+  
 =content_for :h1 do
   #type
     Frame
@@ -16,9 +19,14 @@
 #main
   -unless is_root_frame
     =form_for  [@presentation,  @frame], :url => update_wysiwyg_presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame",:template => @presentation.template} do |f|
-      =submit_tag "Save", :id => "frame_save"
+      =submit_tag "Save", :id => "frame_save_wysiwyg"
       #edit_warning{:style => "visibility: hidden"}There are unsaved changes on this frame
       #frame_form
         =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:disable_self => true}
+      #editor_buttons
+        =button_to "Definition", "", :id => "def_button"
+        =button_to "Example", "", :id => "exm_button"
+        =button_to "Box", "", :id => "box_button"
+        =button_to "Foreign", "", :id => "for_button"
       %ul#slots_wysiwyg
         =render :partial => "fassets_presentations/frames/slot_wysiwyg", :collection => @frame.slots

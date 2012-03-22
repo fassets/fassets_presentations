@@ -7,6 +7,8 @@
     =select_tag "frame[content][#{slot_wysiwyg.name}][mode]", options_for_select(["markup", "asset"], slot_wysiwyg["mode"])
     -if slot_wysiwyg.asset and slot_wysiwyg["mode"] == "asset"
       =image_tag("fassets_core/delete.png", :width => 15, :height => 15, :alt => "Drop Asset", :title => "Drop asset",:class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'") 
+  .clear
+
   =hidden_field_tag "frame[content][#{slot_wysiwyg.name}][asset_id]", slot_wysiwyg['asset_id']
   .slot_asset{:style =>  slot_wysiwyg["mode"] == "asset" ? "" : "display:none"}
     -if slot_wysiwyg.asset
@@ -14,5 +16,9 @@
       =render :partial => content_partial(slot_wysiwyg.asset.content,:preview)
     -else
       Drop Asset Here!
-  .clear
-  =text_area_tag "frame[content][#{slot_wysiwyg.name}][markup]", slot_wysiwyg["markup"] ? to_fp_html(slot_wysiwyg["markup"]) : "", :class => "slot_textarea", :style => slot_wysiwyg["mode"] == "asset" ? "display:none" : ""
+  .slot_content{:style =>  slot_wysiwyg["mode"] == "markup" ? "" : "display:none"}
+    -html = to_fp_html(slot_wysiwyg["markup"])
+    -if html.length > 1
+      =slot_wysiwyg["markup"] ? to_fp_html(slot_wysiwyg["markup"]) : ""
+    -else
+      ='<p class="sortable"></p>'.html_safe

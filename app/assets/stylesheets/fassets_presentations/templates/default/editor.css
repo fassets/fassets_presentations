@@ -27,8 +27,25 @@ code {
   font-style: italic;
   font-weight: normal;
 }
+ol {
+  list-style: decimal;
+  list-style-position: inside;
+}
+ul {
+  list-style: disc;
+}
+.frame_content p.sortable {
+  margin-top: 1em;
+  width: 100%;
+}
+.para textarea{
+  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
+  font-size: inherit;
+  border: none;
+}
 .example {
   margin-left: 2em;
+  margin-top: 1.5em;
 }
 .example .type {
   font-size: 1.1em;
@@ -41,6 +58,7 @@ code {
   float: left;
   padding: .3em;
 }
+
 .example .title{
   font-size: 1.1em;
   color: black;
@@ -55,6 +73,15 @@ code {
   margin-right: 3em;
   margin-bottom: 0.5em;;
 }
+.example .title p {
+  margin-top: 0px;
+}
+.example_title textarea{
+  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+}
 .example .content{
   font-style: italic;
   border: 2px solid #C9C9C9;
@@ -67,6 +94,8 @@ code {
 }
 .definition {
   margin-left: 2em;
+  margin-top: 1.5em;
+  height: auto;
 }
 .definition .type {
   font-size: 1.1em;
@@ -93,6 +122,15 @@ code {
   margin-right: 3em;
   margin-bottom: 0.5em;
 }
+.definition .title p {
+  margin-top: 0px;
+}
+.definition_title textarea{
+  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+}
 .definition .content{
   font-style: italic;
   border: 2px solid #C9C9C9;
@@ -105,6 +143,7 @@ code {
 }
 .box {
   margin-left: 2em;
+  margin-top: 1.5em;
 }
 .box .title{
   color: black;
@@ -118,6 +157,16 @@ code {
   min-height: 1.2em;
   margin-right: 3em;
   margin-bottom: 0.5em;
+  font-weight: bold;
+}
+.box .title p {
+  margin-top: 0px;
+}
+.box_title textarea{
+  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
 }
 .box .content{
   font-style: italic;
@@ -128,6 +177,12 @@ code {
   min-width: 50%;
   min-height: 1.5em;
   clear: left;
+}
+.box_content textarea{
+  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
+  font-style: italic;
+  font-size: 1.1em;
+  border: none;
 }
 .foreign {
   display: inline-block;
@@ -145,6 +200,7 @@ code {
 }
 .cite {
   margin-left: 2em;
+  margin-top: 1.5em;
 }
 .cite .quote{
   color: black;
@@ -169,4 +225,12 @@ code {
   min-height: 1.5em;
   clear: left;
   float: right;
+}
+.slot_content {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  height: 100%;
+}
+.slot_content.selected {
+  border: 2px solid green;
 }

@@ -103,6 +103,18 @@ a.icon.presentation {
   padding: 5px;
   font-weight: bold;
 }
+#frame_save_wysiwyg{
+  position: relative;
+/*  right: -60px;*/
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  margin-right: 20px;
+/*  right: 20px;*/
+  float: right;
+  padding: 5px;
+  font-weight: bold;
+}
 #drop_asset {
   cursor: 'pointer';
 }
@@ -181,4 +193,16 @@ ol.sortable_frames {
 #frame_form p {
   float: left;
   margin-right: 2em;
+}
+#editor_buttons {
+  position: relative;
+  top: 5px;
+  clear: both;
+  height: 2em;
+  margin-bottom: 1em;
+  width: 50%;
+}
+#editor_buttons input {
+  float: left;
+  margin-right: 0.5em;
 }
