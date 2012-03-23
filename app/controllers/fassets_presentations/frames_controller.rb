@@ -150,10 +150,10 @@ module FassetsPresentations
       key = params["bibkey"]
       citation = "BibTeX-Key not found!"
       begin
-        Dir.foreach(FassetsPresentations::Engine.root.to_s+'/app/bibtex/') do |file|
+        Dir.foreach(Rails.root.to_s+'/app/bibtex/') do |file|
           begin
             unless file == "." or file == ".."
-              b = BibTeX.open(FassetsPresentations::Engine.root.to_s+'/app/bibtex/'+file)
+              b = BibTeX.open(Rails.root.to_s+'/app/bibtex/'+file)
               citation = b[key].author.to_s+" ("+b[key].year.to_s+")"
             end
           rescue Exception => ex
