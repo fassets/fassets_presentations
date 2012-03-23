@@ -16,9 +16,12 @@
       =render :partial => content_partial(slot_wysiwyg.asset.content,:preview)
     -else
       Drop Asset Here!
-  .slot_content{:style =>  slot_wysiwyg["mode"] == "markup" ? "" : "display:none"}
-    -html = to_fp_html(slot_wysiwyg["markup"])
-    -if html.length > 1
-      =slot_wysiwyg["markup"] ? to_fp_html(slot_wysiwyg["markup"]) : ""
+  .slot_content
+    -if slot_wysiwyg["markup"]
+      -html = to_fp_html(slot_wysiwyg["markup"])
+      -if html.length > 1
+        =slot_wysiwyg["markup"] ? to_fp_html(slot_wysiwyg["markup"]) : ""
+      -else
+        ='<p class="sortable"></p>'.html_safe
     -else
       ='<p class="sortable"></p>'.html_safe

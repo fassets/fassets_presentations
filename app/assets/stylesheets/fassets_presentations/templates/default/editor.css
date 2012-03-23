@@ -46,6 +46,7 @@ ul {
 .example {
   margin-left: 2em;
   margin-top: 1.5em;
+  height: auto;
 }
 .example .type {
   font-size: 1.1em;
@@ -144,6 +145,7 @@ ul {
 .box {
   margin-left: 2em;
   margin-top: 1.5em;
+  height: auto;
 }
 .box .title{
   color: black;
@@ -201,6 +203,8 @@ ul {
 .cite {
   margin-left: 2em;
   margin-top: 1.5em;
+  min-height: 2em;
+  height: auto;
 }
 .cite .quote{
   color: black;
