@@ -4,7 +4,6 @@ require 'citeproc'
 
 class Kramdown::Converter::FP_Html < Kramdown::Converter::Html
   def convert_p(el, indent)
-    el.attr["class"] = "sortable"
     super
   end
   def convert_definition(el, indent)

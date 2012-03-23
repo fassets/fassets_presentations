@@ -264,6 +264,7 @@ $(function(){
         return {content: value};
       }
     });
+    $(".slot_content > p").attr("class","sortable");
     $('.cite .citation').click(function(e){
       var cite = $(e.target);
       key = prompt("Please enter a BibTeX key", cite.attr("id"));
