@@ -217,6 +217,20 @@ $(function(){
         return {content: value};
       }
     });
+    $(".cite .quote").editable("/presentations/to_html", {
+      type     : 'autogrow',
+      loadurl  : '/presentations/to_markdown',
+      id: "box_content",
+      onblur : 'submit',
+      cssclass : 'cite_quote',
+      width : "95%",
+      loaddata: function(value,settings){
+        return {content: value};
+      },
+      submitdata : function(value, settings) {
+        return {content: value};
+      }
+    });
     $(".foreign .title").editable("/presentations/to_html", {
       onblur : 'submit',
       cssclass : 'foreign_title'

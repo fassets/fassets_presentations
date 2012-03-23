@@ -215,6 +215,12 @@ ul {
   margin-right: 3em;
   margin-bottom: 0.5em;
 }
+.cite_quote textarea{
+  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
+  font-style: italic;
+  font-size: 1.1em;
+  border: none;
+}
 .cite .citation{
   display: inline-block;
   border: 2px solid #C9C9C9;
