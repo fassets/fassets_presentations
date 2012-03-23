@@ -76,17 +76,23 @@ module FassetsPresentations
         rescue Exception => ex
           logger.debug("Error:"+ex)
           flash[:error] = "Could not update frame - Conversion to markup failed!"
-          redirect_to edit_wysiwyg_presentation_frame_path(@presentation, @frame)
-          return
+          render :inline => "Error"
         end
       end
       arrange_slots()
+      if params[:frame][:template] != @frame.template
+        template_change = true
+      end
       if @frame.update_attributes(params[:frame])
         flash[:notice] = "frame succesfully updated!"
       else
         flash[:error] = "Could not update frame!"
       end
-      redirect_to edit_wysiwyg_presentation_frame_path(@presentation, @frame)
+      if template_change
+        render :inline => "reload"
+      else
+        render :inline => "OK"
+      end
     end
     def show
       redirect_to presentation_path(@presentation) + "##{@frame.position}"

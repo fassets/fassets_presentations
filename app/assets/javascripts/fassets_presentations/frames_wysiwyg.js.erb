@@ -326,8 +326,8 @@ $(function(){
   $("#frame_save_wysiwyg").click(function(e){
     e.preventDefault();
     var title = $("#edit_frame #frame_title").val();
-    var template = $("#frame_template").val();
-    var p_id = $("#frame_parent_id").val();
+    var template = $("#edit_frame #frame_template :selected").val();
+    var p_id = $("#edit_frame #frame_parent_id").val();
     var data = {frame: {parent_id: p_id, title: title, template: template, content: {}}};
     $(".slot .slot_content").each(function(index, el){
       var slot_id = $(el).parent().attr("id").replace("slot_","");
@@ -336,7 +336,15 @@ $(function(){
       var markup = $(el).html();
       data['frame']['content'][slot_id] = {asset_id: asset_id, mode: mode, markup: markup};
     });
-    $.post($("#edit_frame").attr("action"), data, function(retdata){});
+    $.post($("#edit_frame").attr("action"), data, function(retdata){
+      if (retdata == "reload"){
+        location.reload();
+      } else if (retdata == "Error"){
+        alert("Error saving");
+      } else {
+        alert("Successfully saved!");
+      }
+    });
   });
   make_editable();
   $('.slot_content').sortable({
