@@ -1,6 +1,7 @@
 FassetsPresentations::Engine.routes.draw do
   match '/to_markdown' => 'frames#to_markdown'
   match '/to_html' => 'frames#to_html'
+  match '/citation' => 'frames#citation'
   get '/new' => 'Presentations#new', :as => 'new_presentation'
   post '/' => 'Presentations#create'
   get '/:id' => 'Presentations#show', :as => 'presentation'

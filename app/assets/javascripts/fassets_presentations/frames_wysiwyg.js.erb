@@ -264,6 +264,13 @@ $(function(){
         return {content: value};
       }
     });
+    $('.cite .citation').click(function(e){
+      var cite = $(e.target);
+      key = prompt("Please enter a BibTeX key", cite.attr("id"));
+      cite.load('/presentations/citation?bibkey='+key, function(){
+        cite.attr('id',key);
+      });
+    })
     $(".slot_content").click(function(e){
       if ($(this).attr("class") != "slot_content selected"){
         $(".slot_content").attr("class","slot_content");
@@ -358,6 +365,16 @@ $(function(){
     $(".slot_content.selected").append(box);
     make_editable();
     box.find(".title").click();
+  });
+  $('#cite_button').click(function (e){
+    e.preventDefault();
+    key = prompt("Please enter a BibTeX key","");
+    var cite = $('<div class="cite sortable"><div class="quote"></div><div class="citation" id="'+key+'"></div></div>');
+    $(".slot_content.selected").append(cite);
+    cite.find(".citation").load('/presentations/citation?bibkey='+key, function(){
+      make_editable();
+      cite.find(".quote").click();
+    });
   });
   $('#for_button').click(function (e){
     e.preventDefault();
