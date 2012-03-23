@@ -17,11 +17,12 @@
     -else
       Drop Asset Here!
   .slot_content
-    -if slot_wysiwyg["markup"]
-      -html = to_fp_html(slot_wysiwyg["markup"])
-      -if html.length > 1
-        =slot_wysiwyg["markup"] ? to_fp_html(slot_wysiwyg["markup"]) : ""
+    -unless slot_wysiwyg["mode"] == "asset"
+      -if slot_wysiwyg["markup"]
+        -html = to_fp_html(slot_wysiwyg["markup"])
+        -if html.length > 1
+          =slot_wysiwyg["markup"] ? to_fp_html(slot_wysiwyg["markup"]) : ""
+        -else
+          ='<p class="sortable"></p>'.html_safe
       -else
         ='<p class="sortable"></p>'.html_safe
-    -else
-      ='<p class="sortable"></p>'.html_safe
