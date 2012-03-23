@@ -286,7 +286,7 @@ $(function(){
       var rel = "under";
       var inserted = false;
       var prev_el = "";
-      var para = $('<p class="sortable"></p');
+      var para = $('<p class="sortable"></p>');
       $(this).children().each(function(index, el){
         var offset = $(el).position();
         var el_class = $(el).attr("class");
@@ -323,6 +323,10 @@ $(function(){
       }
     });
   };
+  $('#edit_frame').click(function(e){
+    $(".slot_content").attr("class","slot_content");
+    $('#editor_buttons input').attr("disabled", true);
+  });
   $("#frame_save_wysiwyg").click(function(e){
     e.preventDefault();
     var title = $("#edit_frame #frame_title").val();

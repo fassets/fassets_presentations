@@ -242,5 +242,5 @@ ul {
   height: 100%;
 }
 .slot_content.selected {
-  border: 2px solid green;
+  border: 1px solid green;
 }
