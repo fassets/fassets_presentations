@@ -34,7 +34,7 @@ ol {
 ul {
   list-style: disc;
 }
-.frame_content p.sortable {
+.slot_content p.sortable {
   margin-top: 1em;
   width: 100%;
 }
@@ -44,8 +44,8 @@ ul {
   border: none;
 }
 .example {
-  margin-left: 2em;
-  margin-top: 1.5em;
+  margin-top: 1em;
+  margin-left: 0.5em;
   height: auto;
 }
 .example .type {
@@ -61,7 +61,7 @@ ul {
 }
 
 .example .title{
-  font-size: 1.1em;
+  font-size: 1.05em;
   color: black;
   border: 2px solid #1BB51B;
   border-top-right-radius: 5px;
@@ -94,8 +94,8 @@ ul {
   clear: left
 }
 .definition {
-  margin-left: 2em;
-  margin-top: 1.5em;
+  margin-top: 1em;
+  margin-left: 0.5em;
   height: auto;
 }
 .definition .type {
@@ -110,7 +110,7 @@ ul {
   padding: .3em;
 }
 .definition .title{
-  font-size: 1.1em;
+  font-size: 1.06em;
   color: black;
   border: 2px solid #1B84E0;
   border-top-right-radius: 5px;
@@ -143,12 +143,13 @@ ul {
   clear: left;
 }
 .box {
-  margin-left: 2em;
-  margin-top: 1.5em;
+  margin-top: 1em;
+  margin-left: 0.5em;
   height: auto;
 }
 .box .title{
   color: black;
+  font-size: 1.06em;
   border: 2px solid #C9C9C9;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;

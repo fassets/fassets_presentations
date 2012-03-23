@@ -140,6 +140,8 @@ $(function(){
       scale: 'fit',
       center: true
     });
+    var size = $(window).height() / 50;
+    $(".slot_content").css("font-size", size + 'px');
   }
   resize_slots();
   $(window).resize(function(){resize_slots();});
