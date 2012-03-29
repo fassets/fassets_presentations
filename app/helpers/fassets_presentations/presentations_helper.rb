@@ -1,6 +1,3 @@
-require "kramdown"
-require "kramdown/parser/fp_markdown"
-
 module FassetsPresentations
   module PresentationsHelper
     include AssetsHelper

@@ -1,5 +1,3 @@
-require "kramdown"
-
 module FassetsPresentations
   module FramesHelper
     def to_fp_html(str)
