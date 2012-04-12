@@ -14,6 +14,7 @@
         =image_tag("fassets_presentations/markup_preview.png", :width => 15,  :height => 15, :alt => "Preview", :title => "Preview",:class => "preview_markup", :onmouseover => "this.style.cursor = 'pointer'") 
     .content   
       =hidden_field_tag "frame[content][#{slot.name}][asset_id]", slot['asset_id']
+      =slot["mode"]
       .slot_asset{:style =>  slot["mode"] == "asset" ? "" : "display:none"}
         -if slot.asset
           //=render :partial => "shared/asset", :locals => {:asset => slot.asset, :tp => nil}

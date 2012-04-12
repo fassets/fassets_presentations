@@ -19,6 +19,15 @@ $(document).ready(function(){
         $.fancybox.resize();
         $.fancybox.hideActivity();
   });
+  $("#fancybox-content .markup_button").live("click",function(event){
+    if ($("#markup_button").length > 0){
+      event.preventDefault();
+      $("#markup_button").click();
+    }
+  });
+  if ($("#slots_wysiwyg").length > 0){
+    $(".wysiwyg_button").hide();
+  }
   $("#fancybox-content .asset_submit_button").live("click",function(event){
     event.preventDefault();
     $.fancybox.showActivity();

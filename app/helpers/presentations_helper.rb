@@ -25,7 +25,7 @@ module PresentationsHelper
       to_fp_html(slot["markup"])
     end
   end
-  def tree_ol(acts_as_tree_set, init=true, &block)
+  def tree_ol(acts_as_tree_set,  active_frame=nil, init=true,&block)
     if acts_as_tree_set.size > 0
       if init
         ret = '<ol class="sortable_frames">'
@@ -34,10 +34,14 @@ module PresentationsHelper
       end
       acts_as_tree_set.collect do |item|
         #next if item.parent_id && init
-        ret += '<li id="frame_'+item.id.to_s+'" class="frame"><div>'
+        if item.id == active_frame
+          ret += '<li id="frame_'+item.id.to_s+'" class="frame selected"><div>'
+        else
+          ret += '<li id="frame_'+item.id.to_s+'" class="frame"><div>'
+        end
         ret += yield item
         ret += '</div>'
-        ret += tree_ol(item.children, false, &block) if item.children.size > 0
+        ret += tree_ol(item.children, active_frame, false, &block) if item.children.size > 0
         ret += '</li>'
       end
       ret += '</ol>'
@@ -67,5 +71,26 @@ module PresentationsHelper
     unless ret == nil
       ret.html_safe
     end
+  end
+  def video_player(content)
+    javascript_tag %Q<
+      flowplayer('player_#{content.id}', '/swf/flowplayer.swf', {
+        clip: {
+          autoPlay: false
+        },
+        plugins: { 
+            controls: { 
+                url: 'flowplayer.controls.swf', 
+                bottom:0, 
+                height:24, 
+                backgroundColor: '#bbbbbb', 
+                backgroundGradient: 'none',
+                timeColor: '#ffffff',
+                buttonColor: '#222222'
+            }
+        }
+
+      });
+    >
   end
 end

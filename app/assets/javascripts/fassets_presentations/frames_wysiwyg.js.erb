@@ -1,4 +1,10 @@
+//= require fassets_presentations/jquery.ui.nestedSortable
+//= require jquery.collapsiblePanel-0.2.0
+//= require fassets_presentations/jquery.myimgscale-0.2
 $(function(){
+  $("button.drop_slot").click(function(){
+    $(this).parent().parent().remove();
+  });
   var drag_opts = {
     handle: ".handle",
     //helper: "clone",
@@ -21,6 +27,31 @@ $(function(){
       $('#tray ol').removeClass("active");
     }
   }
+  $('.sortable_frames').nestedSortable({
+    disableNesting: 'no-nest',
+    forcePlaceholderSize: true,
+    handle: 'div',
+    helper: 'clone',
+    items: 'li',
+    maxLevels: 5,
+    opacity: .6,
+    placeholder: 'placeholder',
+    revert: 250,
+    tabSize: 35,
+    tolerance: 'pointer',
+    toleranceElement: '> div',
+    update: function(ev,ui){
+      $.ajax({
+              type: 'post',
+              data: "frame="+JSON.stringify($(".sortable_frames").nestedSortable('toArray')),
+              dataType: 'json',
+              complete: function(request){
+                                          $('.frame').effect('highlight',{},2000);
+                                         },
+              url: "/"+$('#frames').attr('path').replace(/\./g,"/")
+             })
+    }
+  });
   $('.slot').droppable({
     accept:'.asset',
     activeClass:'active',
@@ -41,46 +72,192 @@ $(function(){
         resize_slots();
         $(".asset").draggable(drag_opts);
       });
-      edit_link = '<%= image_tag("fassets_core/edit.png", :alt => "Edit", :title => "Edit", :width => "15", :height => "15") %>'
-      drop_link = '<%= image_tag("fassets_core/delete.png", :width => "15", :height => "15", :class => "drop_asset") %>'
-      if ($(this).find(".name a").length){
-        $(this).find(".name a").html(edit_link);
-      } else {
-        $(this).find(".name").append(edit_link);
-      }
-      if (!$(this).find(".name .drop_asset").length){
-        $(this).find(".name").append(drop_link);
-        $(".drop_asset").click(function(){
-          //$(this).parent().parent().find("input").val("");
-          $(this).parent().parent().find(".slot_asset").html("Drop Asset here!");
-          $(this).parent().parent().find(".name a").remove();
-          $(this).parent().parent().find(".name .drop_asset").remove();
-          $('#edit_warning').css('visibility','visible');
-        });
-      }
       $(this).find(".slot_asset").show();
       $(this).find(".slot_content").hide();
       $('#edit_warning').css('visibility','visible');
     },
   });
-  $('.slot .name select').change(function(){
-    if ($(this).parent().parent().find(".slot").length != 0){
-      var content = $(this).parent().parent().find(".slot");
-      var text = content.parent().find(".slot_content");
-      var asset = content.parent().find(".slot_asset");
-    }else{
-      var text = $(this).parent().parent().find(".slot_content");
-      var asset = $(this).parent().parent().find(".slot_asset"); 
+  $('#left, #slot_left .slot_asset').resizable({
+    handles: 'e',
+    resize: function (event,ui){
+      var height = $(window).height()-180;
+      var width = $('#main').width();
+      $('#slot_right').css('position', 'absolute');
+      $('#slot_right').css("left",ui.size.width+45+"px");
+      $('#slot_right').css("width",width-ui.size.width-55+"px");
+      $('#right').css("width",width-ui.size.width-55+"px");
+      $('#slot_left').css("height", height);
+      $('#left').css("height", height);
+      $('#slot_right').css("height", height);
+      $('#right').css("height", height);
+      $('#slot_right .slot_asset').css('position', 'absolute');
+      $('#slot_right .slot_asset').css("left", 10+"px");
+      $('#slot_right .slot_asset').css("width",width-ui.size.width-30+"px");
+      $("#slot_left .switch_left_right").css("position","absolute");
+      $("#slot_left .switch_left_right").css("left",ui.size.width+15+"px");
+      $("#slot_left.switch_left_right").css("top",height/2+"px");
+      $("#slot_left .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_right .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
     }
+  });
+  $('#top, #slot_top .slot_asset').resizable({
+    handles: 's',
+    resize: function (event,ui){
+      var height = $(window).height()-200;
+      $('#main').css("height", height+60+"px");
+      var width = $('#main').width();
+      $('#slot_bottom').css('position', 'absolute');
+      $('#slot_bottom').css("top",ui.size.height+40+"px");
+      $('#slot_bottom').css("width",width+"px");
+      $('#slot_top').css("width", width+"px");
+      $('#slot_bottom').css("width", width+"px");
+      $('#top').css("height", ui.size.height+"px");
+      $('#top').css("width", width+"px");
+      $('#slot_top .slot_asset').css("width", width+"px");
+      $('#slot_bottom').css("height", height-ui.size.height-20+"px");
+      $('#bottom').css("width", width+"px");
+      $('#bottom').css("height", height-ui.size.height-20+"px");
+      $('#slot_bottom .slot_asset').css('position', 'absolute');
+      $('#slot_bottom .slot_asset').css("width", width+"px");
+      $('#slot_bottom .slot_asset').css("height",height-ui.size.height-10+"px");
+      $("#slot_top .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#topleft, #slot_topleft .slot_asset').resizable({
+    handles: 's',
+    resize: function (event,ui){
+      var height = $(window).height()-130;
+      $('#main').css("height", height+"px");
+      var width = $('#main').width();
+      $('#slot_bottom').css('position', 'absolute');
+      $('#slot_bottom').css("top",ui.size.height+40+"px");
+      $('#slot_topleft').css("height", ui.size.height+"px");
+      $('#topleft').css("height", ui.size.height+"px");
+      $('#slot_topright').css('position', 'absolute');
+      $('#topright').css("left", "0px");
+      $('#topright').css("height", "100%");
+      $('#slot_topright .slot_asset').css("height", ui.size.height+"px")
+      $('#slot_topright').css("height", ui.size.height+"px");
+      $('#topright').css("height", ui.size.height+"px");
+      $('#slot_bottom').css("height", height-ui.size.height+"px");
+      $('#slot_bottom').css('position', 'absolute');
+      $('#slot_bottom').css("top",ui.size.height+40+"px");
+      $('#slot_bottom').css("width",width+"px");
+      $('#bottom').css("width", width+"px");
+      $('#bottom').css("height", height-ui.size.height-90+"px");
+      $('#slot_bottom .slot_asset').css('position', 'absolute');
+      $('#slot_bottom .slot_asset').css("height",height-ui.size.height-90+"px");
+      $('#slot_bottom .slot_asset').css("width", width+"px");
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#topright, #slot_topright .slot_asset').resizable({
+    handles: 's,w',
+    resize: function (event,ui){
+      var height = $(window).height()-130;
+      $('#main').css("height", height+"px");
+      var width = $('#main').width();
+      $('#slot_topleft').css('position', 'absolute');
+      $('#slot_topleft').css("width", width-ui.size.width+"px");
+      $('#slot_topleft').css("height", ui.size.height+35+"px")
+      $('#slot_topleft .slot_asset').css('position', 'absolute');
+      $('#slot_topleft .slot_asset').css("top", "30px");
+      $('#slot_topleft .slot_asset').css("left", "10px");
+      $('#slot_topleft .slot_asset').css("width", width-ui.size.width+"px");
+      $('#slot_topleft .slot_asset').css("height", ui.size.height+"px")
+      $('#topleft').css('position', 'absolute');
+      $('#topleft').css("top", "30px");
+      $('#topleft').css("height", ui.size.height+"px");
+      $('#topleft').css("width", width-ui.size.width+"px");
+      $(".switch_bottom_topleft").css("position","absolute");
+      $(".switch_bottom_topleft").css("left",(width-ui.size.width)/2+"px");
+      $(".switch_bottom_topright").css("position","absolute");
+      $(".switch_bottom_topright").css("left",$('#slot_topleft').width()+(ui.size.width/2)+"px");
+      $(".switch_topleft_topright").css("position","absolute");
+      $(".switch_topleft_topright").css("left",width-ui.size.width+15+"px");
+      $(".switch_topleft_topright").css("top",ui.size.height/2+"px"); 
+      $('#slot_topright').css('position', 'absolute');
+      $('#slot_topright').css("left", $('#slot_topleft').width()+55+"px");
+      $('#slot_topright').css("height", ui.size.height+35+"px");
+      $('#slot_topright').css("width", ui.size.width-55);
+      $('#topright').css("top", 30+"px");
+      $('#topright').css("left", 0+"px");
+      $('#topright').css("width", ui.size.width-45);
+      $('#slot_topright .slot_asset').css('position', 'absolute');
+      $('#slot_topright .slot_asset').css("left", "0px");
+      $('#slot_topright .slot_asset').css("top", "30px");
+      $('#slot_topright .slot_asset').css("width", ui.size.width-45+"px");
+      $('#slot_topright .slot_asset').css("height", ui.size.height+"px")
+      $('#slot_bottom').css("height", height-ui.size.height+"px");
+      $('#slot_bottom').css('position', 'absolute');
+      $('#slot_bottom').css("top",ui.size.height+40+"px");
+      $('#slot_bottom').css("width",width+"px");
+      $('#bottom').css("width", width+"px");
+      $('#bottom').css("height", height-ui.size.height-90+"px");
+      $('#slot_bottom .slot_asset').css('position', 'absolute');
+      $('#slot_bottom .slot_asset').css("height",height-ui.size.height-90+"px");
+      $('#slot_bottom .slot_asset').css("width", width+"px");
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('.slot .name select').change(function(){
+    var text = $(this).parent().parent().find(".slot_content");
+    var asset = $(this).parent().parent().find(".slot_asset");
     if ($(this).val() == "markup") {
       asset.hide();
       text.show();
       resize_slots();
-      make_editable()
     } else {
       resize_slots();
       asset.show();
+      text.hide();
     }
+    resize_slots();
   });
   $(".drop_asset").click(function(){
     $(this).parent().parent().find(".content input").val("");
@@ -89,314 +266,379 @@ $(function(){
     $(this).parent().parent().find(".name .drop_asset").remove();
     $('#edit_warning').css('visibility','visible');
   });
+  $('.switch_bottom_top').click(function(e){
+    e.preventDefault();
+    var bottom_mode = $("#slot_bottom .slot_mode").val();
+    var bottom_asset = $("#slot_bottom .slot_asset .container").html();
+    var bottom_asset_id = $("#slot_bottom #bottom_asset_id").val();
+    var bottom = $("#slot_bottom #bottom .container").html();
+    var top_asset = $("#slot_top .slot_asset .container").html();
+    var top_asset_id = $("#slot_top #top_asset_id").val();
+    var top = $("#slot_top #top .container").html();
+    var top_mode = $("#slot_top .slot_mode").val();
+    $("#slot_bottom .slot_mode").val(top_mode);
+    $("#slot_bottom .slot_asset .container").html(top_asset);
+    $("#slot_bottom #bottom_asset_id").val(top_asset_id);
+    $("#slot_bottom #bottom .container").html(top);   
+    $("#slot_bottom .slot_mode").trigger("change");
+    $("#slot_top .slot_mode").val(bottom_mode);
+    $("#slot_top .slot_asset .container").html(bottom_asset);
+    $("#slot_top #top_asset_id").val(bottom_asset_id);
+    $("#slot_top #top .container").html(bottom);
+    $("#slot_top .slot_mode").trigger("change");
+  });
+  $('.switch_bottom_topleft').click(function(e){
+    e.preventDefault();
+    var bottom_mode = $("#slot_bottom .slot_mode").val();
+    var bottom_asset = $("#slot_bottom .slot_asset .container").html();
+    var bottom_asset_id = $("#slot_bottom #bottom_asset_id").val();
+    var bottom = $("#slot_bottom #bottom .container").html();
+    var top_asset = $("#slot_topleft .slot_asset").html();
+    var top_asset_id = $("#slot_topleft #topleft_asset_id").val();
+    var top = $("#slot_topleft #topleft .container").html();
+    var top_mode = $("#slot_topleft .slot_mode").val();
+    $("#slot_bottom .slot_mode").val(top_mode);
+    $("#slot_bottom .slot_asset .container").html(top_asset);
+    $("#slot_bottom #bottom_asset_id").val(top_asset_id);
+    $("#slot_bottom #bottom .container").html(top);   
+    $("#slot_bottom .slot_mode").trigger("change");
+    $("#slot_topleft .slot_mode").val(bottom_mode);
+    $("#slot_topleft .slot_asset .container").html(bottom_asset);
+    $("#slot_topleft #topleft_asset_id").val(bottom_asset_id);
+    $("#slot_topleft #topleft .container").html(bottom);
+    $("#slot_topleft .slot_mode").trigger("change");
+    resize_slots();
+  });
+  $('.switch_bottom_topright').click(function(e){
+    e.preventDefault();
+    var bottom_mode = $("#slot_bottom .slot_mode").val();
+    var bottom_asset = $("#slot_bottom .slot_asset .container").html();
+    var bottom_asset_id = $("#slot_bottom #bottom_asset_id").val();
+    var bottom = $("#slot_bottom #bottom .container").html();
+    var top_asset = $("#slot_topright .slot_asset").html();
+    var top_asset = $("#slot_topright .slot_asset .container").html();
+    var top_asset_id = $("#slot_topright #topright_asset_id").val();
+    var top = $("#slot_topright #topright .container").html();
+    var top_mode = $("#slot_topright .slot_mode").val();
+    $("#slot_bottom .slot_mode").val(top_mode);
+    $("#slot_bottom .slot_asset .container").html(top_asset);
+    $("#slot_bottom #bottom_asset_id").val(top_asset_id);
+    $("#slot_bottom #bottom .container").html(top);   
+    $("#slot_bottom .slot_mode").trigger("change");
+    $("#slot_topright .slot_mode").val(bottom_mode);
+    $("#slot_topright .slot_asset .container").html(bottom_asset);
+    $("#slot_topright #topright_asset_id").val(bottom_asset_id);
+    $("#slot_topright #topright .container").html(bottom);
+    $("#slot_topright .slot_mode").trigger("change");
+    resize_slots();
+  });
+  $('.switch_left_right').click(function(e){
+    e.preventDefault();
+    var left_mode = $("#slot_left .slot_mode").val();
+    var left_asset = $("#slot_left .slot_asset .container").html();
+    var left_asset_id = $("#slot_left #left_asset_id").val();
+    var left = $("#slot_left #left .container").html();
+    var right_asset = $("#slot_right .slot_asset").html();
+    var right_asset_id = $("#slot_right #right_asset_id").val();
+    var right = $("#slot_right #right .container").html();
+    var right_mode = $("#slot_right .slot_mode").val();
+    $("#slot_left .slot_mode").val(right_mode);
+    $("#slot_left .slot_asset .container").html(right_asset);
+    $("#slot_left #left_asset_id").val(right_asset_id);
+    $("#slot_left #left .container").html(right);   
+    $("#slot_left .slot_mode").trigger("change");
+    $("#slot_right .slot_mode").val(left_mode);
+    $("#slot_right .slot_asset .container").html(left_asset);
+    $("#slot_right #right_asset_id").val(left_asset_id);
+    $("#slot_right #right .container").html(left);
+    $("#slot_right .slot_mode").trigger("change");
+  });
+  $('.switch_topleft_topright').click(function(e){
+    e.preventDefault();
+    var left_mode = $("#slot_topleft .slot_mode").val();
+    var left_asset = $("#slot_topleft .slot_asset .container").html();
+    var left_asset_id = $("#slot_topleft #topleft_asset_id").val();
+    var left = $("#slot_topleft #topleft .container").html();
+    var right_asset = $("#slot_topright .slot_asset .container").html();
+    var right_asset_id = $("#slot_topright #topright_asset_id").val();
+    var right = $("#slot_topright #topright .container").html();
+    var right_mode = $("#slot_topright .slot_mode").val();
+    $("#slot_topleft .slot_mode").val(right_mode);
+    $("#slot_topleft .slot_asset .container").html(right_asset);    
+    $("#slot_topleft .slot_asset a").html(right_asset);
+    $("#slot_topleft #topleft_asset_id").val(right_asset_id);
+    $("#slot_topleft #topleft .container").html(right);   
+    $("#slot_topleft .slot_mode").trigger("change");
+    $("#slot_topright .slot_mode").val(left_mode);
+    $("#slot_topright .slot_asset .container").html(left_asset);
+    $("#slot_topright #topright_asset_id").val(left_asset_id);
+    $("#slot_topright #topright .container").html(left);
+    $("#slot_topright .slot_mode").trigger("change");
+    resize_slots();
+  });
   var resize_slots = function(){
-    height = $(window).height();
-    width = $(window).width();
-    $("#slot_top").css("height", height*0.35 + 'px');
-    $("#slot_top").css("width", width*0.67 + 'px');
-    $("#slot_bottom").css("height", height*0.35 + 'px');
-    $("#slot_bottom").css("width", width*0.67 + 'px');
-    $("#slot_topleft").css("height", height*0.35 + 'px');
-    $("#slot_topleft").css("width", width*0.33 + 'px');
-    $("#slot_topright").css("height", height*0.35 + 'px');
-    $("#slot_topright").css("width", width*0.33 + 'px');
-    $("#slot_left").css("height", height*0.7 + 'px');
-    $("#slot_left").css("width", width*0.33 + 'px');
-    $("#slot_right").css("height", height*0.7 + 'px');
-    $("#slot_right").css("width", width*0.33 + 'px');
-    $("#slot_center").css("height", height*0.7 + 'px');
-    $("#slot_center").css("width", width*0.67 + 'px');
-    $("#slot_subtitle").css("height", height*0.35 + 'px');
-    $("#slot_subtitle").css("width", width*0.67 + 'px');
-    $("#slot_centertitle").css("height", height*0.35 + 'px');
-    $("#slot_centertitle").css("width", width*0.67 + 'px');
-    $(".slot .wysiwyg").each(function(i,e) {
-      parent = $(e).parent();
-      $(e).css("height", parent.height()*0.92);
-      $(e).css("width", parent.width()*0.92);
+    console.log("resize_slots()");
+    height = $(window).height()-200;
+    $('#main').css("height", height+"px"); 
+    $('#main').css("width", $(window).width()*0.78+"px");
+    width = $('#main').width();
+    $('.slot_content, .slot_asset').each(function(idx, el){
+      console.log($(el).parent().attr("width"));
+      if ($(el).parent().attr("width") != ""){
+        var perc_w = parseInt($(el).parent().attr("width"))/100;
+        var perc_h = parseInt($(el).parent().attr("height"))/100;
+      } else {
+        var perc_w = 0.5;
+        var perc_h = 0.5;
+      }
+      if ($(el).parent().attr("id") == "slot_top"){
+        $(el).parent().css("width",width+"px");
+        $(el).parent().css("height",height*perc_h+20+"px");      
+        $(el).css("width",width-10+"px");
+        $(el).css("height",height*perc_h+"px");
+      }else if ($(el).parent().attr("id") == "slot_bottom"){
+        $(el).parent().css("position","absolute");
+        if ($('#slot_topleft').length > 0){
+          $(el).parent().css("top", $('#slot_topleft').height()+35);         
+        } else if ($('#slot_top').length > 0){
+          $(el).parent().css("top", $('#slot_top').height()+20);
+        }
+        $(el).parent().css("width",width+"px");
+        $(el).parent().css("height",height*perc_h-10+"px");      
+        $(el).css("width",width-10+"px");
+        $(el).css("height",height*perc_h-10+"px");
+      }else if ($(el).parent().attr("id") == "slot_left"){
+        $(el).parent().css("width",width*perc_w+"px");
+        $(el).parent().css("height",height+20+"px");
+        $(el).parent().find(".switch_left_right").css("position","absolute");
+        $(el).parent().find(".switch_left_right").css("left",width*perc_w+20+"px");
+        $(el).parent().find(".switch_left_right").css("top",height/2+"px");      
+        $(el).css("width",width*perc_w+"px");
+        $(el).css("height",height+20+"px");
+      }else if ($(el).parent().attr("id") == "slot_right"){
+        $(el).parent().css("position","absolute");
+        $(el).parent().css("left", $('#slot_left').width()+55);
+        $(el).parent().css("width",width*perc_w-55+"px");
+        $(el).parent().css("height",height+20+"px");      
+        $(el).css("width",width*perc_w-55+"px");
+        $(el).css("height",height+20+"px");      
+      }else if ($(el).parent().attr("id") == "slot_center"){
+        $(el).parent().css("width",width+"px");
+        $(el).parent().css("height",height+30+"px");      
+        $(el).css("width",width+"px");
+        $(el).css("height",height+30+"px");        
+      }else if ($(el).parent().attr("id") == "slot_topleft"){
+        $(el).parent().css("position","absolute");
+        //$(el).parent().css("left", "0px");
+        $(el).parent().css("width",width*perc_w+"px");
+        $(el).parent().css("height",height*perc_h+"px");      
+        $(el).css("width",width*perc_w+"px");
+        $(el).css("height",height*perc_h+"px");
+        $(".switch_bottom_topleft").css("position","absolute");
+        $(".switch_bottom_topleft").css("left",(width*perc_w)/2+"px");
+        $(".switch_topleft_topright").css("position","absolute");
+        $(".switch_topleft_topright").css("left",width*perc_w+15+"px");
+        $(".switch_topleft_topright").css("top",(height*perc_h)/2+"px");             
+      }else if ($(el).parent().attr("id") == "slot_topright"){
+        $(el).parent().css("position","absolute");
+        $(el).parent().css("left", $('#slot_topleft').width()+45);
+        $(el).parent().css("width",width*perc_w-45+"px");
+        $(el).parent().css("height",height*perc_h+"px");
+        $(el).css("position","absolute");
+        $(el).css("left", "10px");
+        $(el).css("width",width*perc_w-45+"px");
+        $(el).css("height",height*perc_h+"px");
+        $(".switch_bottom_topright").css("position","absolute");
+        $(".switch_bottom_topright").css("left",width*perc_w+($('#slot_topleft').width()/2)+"px");        
+      }else if ($(el).parent().attr("id") == "slot_center"){
+        $(el).parent().css("width",width+"px");
+        $(el).parent().css("height",height+"px");      
+        $(el).css("width",width+"px");
+        $(el).css("height",height+"px");        
+      }else if ($(el).parent().attr("id") == "slot_centertitle"){
+        $(el).parent().css("width",width+"px");
+        $(el).parent().css("height",height*0.6+"px");      
+        $(el).css("width",width+"px");
+        $(el).css("height",height*0.6+"px");        
+      }else if ($(el).parent().attr("id") == "slot_subtitle"){
+        $(el).parent().css("position","absolute");
+        $(el).parent().css("top",height*0.75);
+        $(el).parent().css("width",width+"px");
+        $(el).parent().css("height",height*0.3+"px");      
+        $(el).css("width",width+"px");
+        $(el).css("height",height*0.3+"px");        
+      }
+      //alert(perc_w+"x"+perc_h);
+      $("#slot_center .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_top .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_left .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_right .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
     });
-    $(".slot .wysiwyg iframe").each(function(i,e) {
-      parent = $(e).parent();
-      $(e).css("height", parent.height()*0.955);
-      $(e).css("width", parent.width());
-    });   
-    $("img.fit").scaleImage({
-      parent: "li",
-      scale: 'fit',
-      center: false
+    $(".collapsible").collapsiblePanel({
+      collapsedImage: "<%= image_path 'fassets_core/collapsed.png' %>",
+      expandedImage: "<%= image_path 'fassets_core/collapse.png' %>",
+      titleQuery: "h2.title",
+      startCollapsed: true
     });
-    $("#slot_bottom .slot_asset img").scaleImage({
-      parent: "li",
-      scale: 'fit',
-      center: true
-    });
-    $("#slot_top .slot_asset img").scaleImage({
-      parent: "li",
-      scale: 'fit',
-      center: true
-    });
-    $("#slot_center .slot_asset img").scaleImage({
-      parent: "li",
-      scale: 'fit',
-      center: true
-    });
-    var size = $(window).height() / 50;
-    $(".slot_content").css("font-size", size + 'px');
+    //$(".slot_content").css("font-size", size + 'px');
   }
   resize_slots();
-  $(window).resize(function(){resize_slots();});
-  $.editable.addInputType('autogrow', {
-      element : function(settings, original) {
-          var textarea = $('<textarea>');
-          if (settings.rows) {
-              textarea.attr('rows', settings.rows);
-          } else {
-              textarea.height(settings.height);
-          }
-          if (settings.cols) {
-              textarea.attr('cols', settings.cols);
-          } else {
-              textarea.width(settings.width);
-          }
-          $(this).append(textarea);
-          return(textarea);
-      },
-      plugin : function(settings, original) {
-          $('textarea', this).autoGrow(settings.autogrow);
-      }
-  });
-  var make_editable = function(){           
-    $(".definition .title").editable("/presentations/to_html",{
-      onblur : 'submit',
-      cssclass : 'definition_title'
-    });
-    $(".definition .content").editable("/presentations/to_html", {
-      type     : 'autogrow',
-      loadurl  : '/presentations/to_markdown',
-      id: "definition_content",
-      onblur : 'submit',
-      width : "95%",
-      loaddata: function(value,settings){
-        return {content: value};
-      },
-      submitdata : function(value, settings) {
-        return {content: value};
-      }
-    });
-    $(".example .title").editable("/presentations/to_html",{
-      onblur : 'submit',
-      cssclass : 'example_title',
-    });
-    $(".example .content").editable("/presentations/to_html", {
-      type     : 'autogrow',
-      loadurl  : '/presentations/to_markdown',
-      id: "example_content",
-      onblur : 'submit',
-      cssclass : 'example_content',
-      width : "95%",
-      loaddata: function(value,settings){
-        return {content: value};
-      },
-      submitdata : function(value, settings) {
-        return {content: value};
-      }
-    });
-    $(".box .title").editable("/presentations/to_html", {
-      onblur : 'submit',
-      cssclass : 'box_title',
-    });
-    $(".box .content").editable("/presentations/to_html", {
-      type     : 'autogrow',
-      loadurl  : '/presentations/to_markdown',
-      id: "box_content",
-      onblur : 'submit',
-      cssclass : 'box_content',
-      width : "95%",
-      loaddata: function(value,settings){
-        return {content: value};
-      },
-      submitdata : function(value, settings) {
-        return {content: value};
-      }
-    });
-    $(".cite .quote").editable("/presentations/to_html", {
-      type     : 'autogrow',
-      loadurl  : '/presentations/to_markdown',
-      id: "box_content",
-      onblur : 'submit',
-      cssclass : 'cite_quote',
-      width : "95%",
-      loaddata: function(value,settings){
-        return {content: value};
-      },
-      submitdata : function(value, settings) {
-        return {content: value};
-      }
-    });
-    $(".foreign .title").editable("/presentations/to_html", {
-      onblur : 'submit',
-      cssclass : 'foreign_title'
-    });
-    $(".foreign .translation").editable("/presentations/to_html", {
-      type     : 'textarea',
-      loadurl  : '/presentations/to_markdown',
-      id: "foreign_translation",
-      onblur : 'submit',
-      cssclass : 'foreign_translation',
-      width : "95%",
-      loaddata: function(value,settings){
-        return {content: value};
-      },
-      submitdata : function(value, settings) {
-        return {content: value};
-      }
-    });
-    $(".slot_content > p").editable("/presentations/to_html", {
-      type     : 'autogrow',
-      loadurl  : '/presentations/to_markdown',
-      id: "definition_content",
-      onblur : 'submit',
-      width : "95%",
-      cssclass : 'para',
-      removeEmpty: true,
-      loaddata: function(value,settings){
-        return {content: value};
-      },
-      submitdata : function(value, settings) {
-        return {content: value};
-      }
-    });
-    $(".slot_content > p").attr("class","sortable");
-    $('.cite .citation').click(function(e){
-      var cite = $(e.target);
-      key = prompt("Please enter a BibTeX key", cite.attr("id"));
-      cite.load('/presentations/citation?bibkey='+key, function(){
-        cite.attr('id',key);
-      });
-    })
-    $(".slot_content").click(function(e){
-      if ($(this).attr("class") != "slot_content selected"){
-        $(".slot_content").attr("class","slot_content");
-        $(this).attr("class","slot_content selected");
-        $('#editor_buttons input').attr("disabled", false);
-        return;
-      }
-      if ($(this).find("textarea").length > 0){
-        return;
-      }
-      var x = e.pageX - this.offsetLeft;
-      var y = e.pageY;
-      var rel = "under";
-      var inserted = false;
-      var prev_el = "";
-      var para = $('<p class="sortable"></p>');
-      $(this).children().each(function(index, el){
-        var offset = $(el).position();
-        var el_class = $(el).attr("class");
-        var margin_top = parseInt($(el).css("margin-top").replace("px",""));
-        var title_height = $(el).find(".title").height();
-        pos_y_top = offset.top+margin_top+title_height+20;
-        pos_y_bottom = offset.top + $(el).height();
-        if (y <= pos_y_top && rel == "under"){
-          rel = "over";
-          if (!$(prev_el).is("p") && !$(el).is("p") ){
-            $(el).before(para);
-            make_editable();
-            para.click();
-            inserted = true;
-          }
-        }
-        if (y >= pos_y_bottom){
-          rel = "under";
-        }
-        prev_el = el;
-      });
-      if (inserted == false && !$(prev_el).is("p") && rel == "under"){
-        $(this).append(para);
-        make_editable();
-        para.click();
-      }
-      if (inserted == false && $(prev_el).is("p") && rel == "under"){
-        $(prev_el).click();
-      }
-      if (inserted == false && prev_el == ""){
-        $(this).html(para);
-        make_editable();
-        para.click();
-      }
-    });
-  };
-  $('#edit_frame').click(function(e){
-    $(".slot_content").attr("class","slot_content");
-    $('#editor_buttons input').attr("disabled", true);
-  });
-  $("#frame_save_wysiwyg").click(function(e){
+  $('#rename_frame_button').click(function(e){
     e.preventDefault();
-    var title = $("#edit_frame #frame_title").val();
-    var template = $("#edit_frame #frame_template :selected").val();
-    var p_id = $("#edit_frame #frame_parent_id").val();
-    var data = {frame: {parent_id: p_id, title: title, template: template, content: {}}};
-    $(".slot .slot_content").each(function(index, el){
-      var slot_id = $(el).parent().attr("id").replace("slot_","");
-      var asset_id = $(el).parent().find('#frame_content_'+slot_id+'_asset_id').val();
-      var mode = $(el).parent().find('#frame_content_'+slot_id+'_mode').val();
-      var markup = $(el).html();
-      data['frame']['content'][slot_id] = {asset_id: asset_id, mode: mode, markup: markup};
+    var title = prompt("Please enter the new name for the frame:", $(this).attr("frame_title"));
+    var presentation_id = $(this).attr("presentation_id");
+    var frame_id = $(this).attr("frame_id");
+    var data = {title: title};
+    $.post("/presentations/"+presentation_id+"/frame/"+frame_id+"/rename", data, function(retdata){
+      $(".sortable_frames #frame_"+frame_id+" #"+frame_id).text(title);
+      $("body h1 #title a").text(title);
+      $('#rename_frame_button').attr("frame_title", title);
+    });    
+  });
+  $('.slot_content .delete').live('click', function(e){
+    if (confirm("Do you want to remove this ?")){
+      $(e.target).parent().remove();
+    }
+  });
+  $("li.frame a").live("click", function(e){
+    e.preventDefault();
+    var presentation_id = $("#main").attr("presentation_id");
+    var old_frame_id = $("#main").attr("frame_id");
+    var frame_id = $(e.target).attr("id");
+    $("#container").load("/presentations/"+presentation_id+"/frame/"+frame_id+"/reload_slots", function(){
+      console.log("/frame/"+old_frame_id+":"+"/frame/"+frame_id);
+      if (Mercury.previewWindow != ""){
+        Mercury.previewWindow.location.pathname = ('/presentations/'+presentation_id+'/frame/'+frame_id);
+      }
+      resize_slots();
+      Mercury.trigger('reinitialize');
     });
-    $.post($("#edit_frame").attr("action"), data, function(retdata){
-      if (retdata == "reload"){
-        location.reload();
-      } else if (retdata == "Error"){
-        alert("Error saving");
+  });
+  $(window).keydown(function(event){
+    switch(event.keyCode) {
+    case 70: // Ctrl + Shift + F
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'bold'});
+        break;
+      }
+    case 75: // Ctrl + Shift + K
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'italic'});
+        break;
+      }
+    case 85: // Ctrl + Shift + U
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'underline'});
+        break;
+      }
+    case 65: // Ctrl + Shift + A
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'insertUnorderedList'});
+        break;
+      }
+    case 78: // Ctrl + Shift + N
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'insertOrderedList'});
+        break;
+      }
+    case 49: // Ctrl + Shift + 1
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'header1'});
+        break;
+      }
+    case 50: // Ctrl + Shift + 2
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'header2'});
+        break;
+      }
+    case 51: // Ctrl + Shift + 3
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'header3'});
+        break;
+      }
+    case 68: // Ctrl + Shift + D
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'definition'});
+        break;
+      }  
+    case 65: // Ctrl + Shift + B
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'example'});
+        break;
+      }
+    case 90: // Ctrl + Shift + Z
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'cite'});
+        break;
+      }      
+    case 27: // Esc
+      if ($("#editorhelp").attr("style") == "visibility: visible;") {
+        $("#editorhelp").css('visibility','hidden');
+      }
+      break;
+    case 72: // h
+      activeObj = document.activeElement;
+      if (activeObj.type == "textarea") break;
+      if (activeObj.type == "text") break;
+      if ($("#editorhelp").attr("style") == "visibility: visible;") {
+        $("#editorhelp").css('visibility','hidden');
       } else {
-        alert("Successfully saved!");
+        $("#editorhelp").css('visibility','visible');
       }
-    });
-  });
-  make_editable();
-  $('.slot_content').sortable({
-    items: '.sortable',
-    axis: "y"
-  });
-  $('#editor_buttons input').attr("disabled", true);
-  // Button events
-  $('#def_button').click(function (e){
-    e.preventDefault();
-    var def = $('<div class="definition sortable"><div class="type">Definition:</div><div class="title"></div><div class="content"></div></div>');
-    $(".slot_content.selected").append(def);
-    make_editable();
-    def.find(".title").click();
-  });
-  $('#exm_button').click(function (e){
-    e.preventDefault();
-    var exm = $('<div class="example sortable"><div class="type">Example:</div><div class="title"></div><div class="content"></div></div>');
-    $(".slot_content.selected").append(exm);
-    make_editable();
-    exm.find(".title").click();
-  });
-  $('#box_button').click(function (e){
-    e.preventDefault();
-    var box = $('<div class="box sortable"><div class="title"></div><div class="content"></div></div>');
-    $(".slot_content.selected").append(box);
-    make_editable();
-    box.find(".title").click();
-  });
-  $('#cite_button').click(function (e){
-    e.preventDefault();
-    key = prompt("Please enter a BibTeX key","");
-    var cite = $('<div class="cite sortable"><div class="quote"></div><div class="citation" id="'+key+'"></div></div>');
-    $(".slot_content.selected").append(cite);
-    cite.find(".citation").load('/presentations/citation?bibkey='+key, function(){
-      make_editable();
-      cite.find(".quote").click();
-    });
-  });
-  $('#for_button').click(function (e){
-    e.preventDefault();
-    var foreign = $('<div class="foreign sortable"><div class="title"></div>(<div class="translation"></div>)</div>');
-    $(".slot_content.selected").append(foreign);
-    make_editable();
-    foreign.find(".title").click();
+      break;
+    case 82: // r
+      resize_slots();
+      break;
+    case 83: // s
+      if (event.ctrlKey){
+        event.preventDefault();
+        document.forms["edit_frame"].submit();
+      }
+      break;
+    }
+    console.log("WYSIWYG:"+event.keyCode);
   });
 });
 

@@ -1,3 +1,3 @@
 =button_to "Create Copy", fassets_presentations.presentation_copy_path(@content), :method => :copy, :onclick => "return confirm('Do you really want to create a copy?')", :class => "presentation_copy_button", :content_id => @content.id
-=button_to "Markup", fassets_presentations.edit_presentation_frame_path(@content, @content.root_frame), :method => :get, :class => "editor_button"
-=button_to "WYSIWYG", fassets_presentations.edit_wysiwyg_presentation_frame_path(@content, @content.root_frame), :method => :get, :class => "editor_button"
+=button_to "Markup", fassets_presentations.edit_presentation_frame_path(@content, @content.root_frame), :method => :get, :class => "editor_button markup_button"
+=button_to "WYSIWYG", "/editor"+fassets_presentations.edit_wysiwyg_presentation_frame_path(@content, @content.root_frame), :method => :get, :class => "editor_button wysiwyg_button"

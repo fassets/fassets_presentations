@@ -14,6 +14,18 @@ module FassetsPresentations
     def [](key)
       @content[key]
     end
+    def rename(name)
+      puts "renaming to"+name
+      @name = name
+    end
+    def has_content
+      if not self['asset_id'].blank? && self['mode'] == "asset"
+        return true
+      elsif self['markup'] != "" && self['mode'] == "markup"
+        return true
+      end
+      return false
+    end
     def asset
       return nil if self['asset_id'].blank?
       begin

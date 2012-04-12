@@ -3,8 +3,8 @@ module FassetsPresentations
     include AssetsHelper
     include FramesHelper
     before_filter :authenticate_user!, :except => [:show]
-    before_filter :find_presentation, :except => [:markup_preview, :to_markdown, :to_html, :citation]
-    before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview, :to_markdown, :to_html, :citation]
+    before_filter :find_presentation, :except => [:markup_preview, :to_markdown, :to_html, :citation, :editor, :templates, :rename]
+    before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview, :to_markdown, :to_html, :citation, :frames, :editor, :templates, :rename]
     def create
       if params[:id]
         frame = Frame.find(params[:id]).clone();
@@ -36,7 +36,14 @@ module FassetsPresentations
       else
         is_root_frame = false
       end
-      render :template => "fassets_presentations/frames/edit", :locals => {:is_root_frame => is_root_frame}
+      render :template => "fassets_presentations/frames/edit", :layout => "fassets_presentations/application", :locals => {:is_root_frame => is_root_frame}
+    end
+    def showFrame
+      logger.debug("Entered Frames#show")
+      render :template => "fassets_presentations/frames/show", :layout => "layouts/fassets_presentations/frame"
+    end
+    def editor
+      render :text => '', :layout => 'fassets_presentations/mercury'
     end
     def edit_wysiwyg
       if @frame.parent == nil
@@ -48,8 +55,45 @@ module FassetsPresentations
         end
       else
         is_root_frame = false
+      end 
+      render :template => "fassets_presentations/frames/edit_wysiwyg", :layout => "fassets_presentations/editor", :locals => {:is_root_frame => is_root_frame}      
+    end
+    def edit_wysiwyg_save
+      if params[:commit] == "Rename"
+        @frame.update_attributes(:title => params[:title])
+        render :inline => "" 
       end
-      render :template => "fassets_presentations/frames/edit_wysiwyg", :locals => {:is_root_frame => is_root_frame}      
+      begin
+        @frame.slots.each do |slot|
+          logger.debug("Slot:"+slot.name)
+          begin
+            logger.debug(html_to_markdown(params[:frame][:content][slot.name][:value]))
+            params[:frame][:content][slot.name][:markup] = html_to_markdown(params[:frame][:content][slot.name][:value])
+            params[:frame][:content][slot.name].delete(:value)
+          rescue
+            params[:frame][:content][slot.name][:markup] = ""
+            params[:frame][:content][slot.name].delete(:value)      
+          end
+        end
+      rescue
+      end
+      arrange_slots()
+      if params[:frame][:template] != @frame.template
+        template_change = true
+      end
+      @frame.update_attributes(params[:frame])
+      if template_change
+        render :inline => "reload"
+      else
+        render :inline => "OK"
+      end
+    end
+    def rename_frame
+      @frame.update_attributes(:title => params[:title])
+      render :inline => ""
+    end
+    def frames
+      render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation => @presentation, :wysiwyg => true}
     end
     def update
       arrange_slots()
@@ -160,7 +204,19 @@ module FassetsPresentations
           begin
             unless file == "." or file == ".."
               b = BibTeX.open(Rails.root.to_s+'/app/bibtex/'+file)
-              citation = b[key].author.to_s+" ("+b[key].year.to_s+")"
+              logger.debug(b[key].author)
+              if b[key].author.length == 1
+                authors = b[key].author[1].last
+              elif b[key].author.length == 2
+                authors = b[key].author[1].last + " and "+ b[key].author[2].last
+              elif b[key].author.length == 3
+                authors = b[key].author[1].last + ", "+ b[key].author[2].last + " and "+ b[key].author[2].last
+              elif b[key].author.length == 4
+                authors = b[key].author[1].last + ", "+ b[key].author[2].last + ", "+ b[key].author[3].last + " and " + b[key].author[4].last
+              else
+                authors = b[key].author[1].last + ", et al."
+              end
+              citation = authors+", "+b[key].year.to_s
             end
           rescue Exception => ex
             puts ex
@@ -170,7 +226,21 @@ module FassetsPresentations
         puts ex
       end
       render :inline => citation
-    end 
+    end
+    def templates
+      render :partial => "fassets_presentations/frames/template"
+    end
+    def change_template
+      old_template = @frame.template
+      rearrange_slots(old_template, params[:template])
+      params[:frame][:template] = params[:template]
+      #@frame.update_attributes(params[:frame])
+      render :inline => ""
+    end
+    def reload_slots
+      render :template => "fassets_presentations/frames/edit_wysiwyg", :layout => false, :locals => {:is_root_frame => false}
+      #render :partial => "fassets_presentations/frames/slot_wysiwyg", :collection => @frame.slots
+    end
   protected
     def find_presentation
       @presentation = Presentation.find(params[:presentation_id])
@@ -190,25 +260,58 @@ module FassetsPresentations
     def arrange_slots
       old_template = @frame.template
       new_template = params[:frame][:template]
+      logger.debug("Converting from "+old_template+" to "+new_template)
       if old_template == "2rows"
         if new_template == "2column"
           params[:frame][:content][:left] = params[:frame][:content][:top]
+          params[:frame][:content][:left][:width] = params[:frame][:content][:top][:height]
+          params[:frame][:content][:left][:height] = params[:frame][:content][:top][:width]
           params[:frame][:content][:right] = params[:frame][:content][:bottom]
+          params[:frame][:content][:right][:width] = params[:frame][:content][:bottom][:height]
+          params[:frame][:content][:right][:height] = params[:frame][:content][:bottom][:width]
+          params[:frame][:content].delete(:top)
+          params[:frame][:content].delete(:bottom)
         elsif new_template == "top2_bottom1"
           params[:frame][:content][:topleft] = params[:frame][:content][:top]
           params[:frame][:content][:bottom] = params[:frame][:content][:bottom]
+          params[:frame][:content].delete(:top)
+          params[:frame][:content].delete(:bottom)
+        elsif new_template == "one_slot"
+          if params[:frame][:content][:top][:mode] == "markup" && params[:frame][:content][:top][:markup] != ""
+            params[:frame][:content][:center] = params[:frame][:content][:top]
+            params[:frame][:content].delete(:top)
+          elsif params[:frame][:content][:top][:mode] == "asset" && params[:frame][:content][:top][:asset_id] != ""
+            params[:frame][:content][:center] = params[:frame][:content][:top]
+            params[:frame][:content].delete(:top)
+          else
+            params[:frame][:content][:center] = params[:frame][:content][:bottom]
+            params[:frame][:content].delete(:bottom)                       
+          end
         else
           return
         end
-        params[:frame][:content].delete(:top)
-        params[:frame][:content].delete(:bottom)
       elsif old_template == "2column"
         if new_template == "2rows"
           params[:frame][:content][:top] = params[:frame][:content][:left]
+          params[:frame][:content][:top][:width] = params[:frame][:content][:left][:height]
+          params[:frame][:content][:top][:height] = params[:frame][:content][:left][:width]
           params[:frame][:content][:bottom] = params[:frame][:content][:right]
+          params[:frame][:content][:bottom][:width] = params[:frame][:content][:right][:height]
+          params[:frame][:content][:bottom][:height] = params[:frame][:content][:right][:width]
         elsif new_template == "top2_bottom1"
           params[:frame][:content][:topleft] = params[:frame][:content][:left]
           params[:frame][:content][:topright] = params[:frame][:content][:right]
+        elsif new_template == "one_slot"
+          if params[:frame][:content][:left][:mode] == "markup" && params[:frame][:content][:left][:markup] != ""
+            params[:frame][:content][:center] = params[:frame][:content][:left]
+            params[:frame][:content].delete(:left)
+          elsif params[:frame][:content][:left][:mode] == "asset" && params[:frame][:content][:left][:asset_id] != ""
+            params[:frame][:content][:center] = params[:frame][:content][:left]
+            params[:frame][:content].delete(:left)
+          else
+            params[:frame][:content][:center] = params[:frame][:content][:right]
+            params[:frame][:content].delete(:right)                       
+          end
         else
           return
         end
@@ -227,6 +330,17 @@ module FassetsPresentations
           params[:frame][:content].delete(:topright)
         else
           return
+        end
+      elsif old_template == "one_slot"
+        if new_template == "2rows"
+          params[:frame][:content][:top] = params[:frame][:content][:center]
+          params[:frame][:content].delete(:center)
+        elsif new_template == "2column"
+          params[:frame][:content][:left] = params[:frame][:content][:center]
+          params[:frame][:content].delete(:center)
+        elsif new_template == "top2_bottom1"
+          params[:frame][:content][:topleft] = params[:frame][:content][:center]
+          params[:frame][:content].delete(:center)          
         end
       end
     end

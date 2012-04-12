@@ -8,6 +8,6 @@
   %ol{:id => "frames", :path => "presentations.#{presentation.id}.frames.sort"}
     -unless presentation.root_frame == nil
       -if wysiwyg == true
-        =tree_ol(presentation.root_frame.children()) {|item| link_to h(item.title), edit_wysiwyg_presentation_frame_path(presentation, item) }
+        =tree_ol(presentation.root_frame.children(),frame.id) {|item| link_to h(item.title), "/editor"+edit_wysiwyg_presentation_frame_path(presentation, item), :id => item.id }
       -else
-        =tree_ol(presentation.root_frame.children()) {|item| link_to h(item.title), edit_presentation_frame_path(presentation, item) }
+        =tree_ol(presentation.root_frame.children()) {|item| link_to h(item.title), edit_presentation_frame_path(presentation, item), :id => item.id }

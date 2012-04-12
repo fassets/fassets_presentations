@@ -1,53 +1,90 @@
+#container {
+padding-left: 0;
+padding-top: 0;
+}
+#sidebar {
+  width: 18%;
+  margin-left: 1em;
+}
+#main {
+  width: 80%;
+}
 .wysiwyg {
-  padding-left: 0.5em;
+  padding-left: 10px;
 }
-h1 {
-  font-size: 1.5em;
+#title {
+  height: 30px;
 }
-h2 {
-  font-size: 1.3em;
-}
-h3 {
-  font-size: 1.1em;
-}
-em {
+.slot_content h1 {
+  font-size: 2em;
+  margin-bottom: 0.8em;
+  padding: 0;
+  padding-left: 5px;
+  border: none;
+  background-color: white;
   font-weight: bold;
+  width: 90%;
 }
-strong {
+.slot_content h2 {
+  font-size: 1.8em;
+  margin-bottom: 0.8em;
+  padding-left: 5px;
+  border: none;
+  background-color: white;
+  font-weight: bold;
+  width: 90%;
+}
+.slot_content h3 {
+  font-size: 1.6em;
+  margin-bottom: 0.8em;
+  padding-left: 5px;
+  border: none;
+  background-color: white;
+  font-weight: bold;
+  width: 90%;
+}
+.slot_content em {
+  font-weight: bold;
+  width: 90%;
+}
+.slot_content strong {
   font-weight: bold;
   color: red;
 }
-blockquote {
-  margin: 1em 2em;
-  color: #666;
-  border-left: 2px solid #999;
+.slot_content blockquote {
+  width: 70%;
+  margin-left: 1em;
   padding-left: 1em
 }
-code {
+.slot_content code {
   font-style: italic;
   font-weight: normal;
+  width: 90%;
 }
-ol {
+.slot_content ol {
   list-style: decimal;
   list-style-position: inside;
+  margin: .3em 0;
+  width: 90%;
+  padding-left: 2em;
 }
-ul {
+.slot_content ul {
   list-style: disc;
+  margin: .3em 0;
+  width: 90%;
+  padding-left: 2em;
 }
-.slot_content p.sortable {
-  margin-top: 1em;
+.slot_content p {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
   margin-left: 0.5em;
-  width: 100%;
-}
-.para textarea{
-  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
-  font-size: inherit;
-  border: none;
+  width: 90%;
+  display: inline-block;
 }
 .example {
-  margin-top: 1em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
   margin-left: 0.5em;
-  height: auto;
 }
 .example .type {
   font-size: 1.1em;
@@ -62,7 +99,7 @@ ul {
 }
 
 .example .title{
-  font-size: 1.05em;
+  font-size: 1.1em;
   color: black;
   border: 2px solid #1BB51B;
   border-top-right-radius: 5px;
@@ -77,12 +114,6 @@ ul {
 }
 .example .title p {
   margin-top: 0px;
-}
-.example_title textarea{
-  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
-  font-size: 1.1em;
-  font-weight: bold;
-  border: none;
 }
 .example .content{
   font-style: italic;
@@ -111,7 +142,7 @@ ul {
   padding: .3em;
 }
 .definition .title{
-  font-size: 1.06em;
+  font-size: 1.1em;
   color: black;
   border: 2px solid #1B84E0;
   border-top-right-radius: 5px;
@@ -124,15 +155,7 @@ ul {
   margin-right: 3em;
   margin-bottom: 0.5em;
 }
-.definition .title p {
-  margin-top: 0px;
-}
-.definition_title textarea{
-  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
-  font-size: 1.1em;
-  font-weight: bold;
-  border: none;
-}
+
 .definition .content{
   font-style: italic;
   border: 2px solid #C9C9C9;
@@ -150,7 +173,7 @@ ul {
 }
 .box .title{
   color: black;
-  font-size: 1.06em;
+  font-size: 1.1em;
   border: 2px solid #C9C9C9;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -165,12 +188,6 @@ ul {
 }
 .box .title p {
   margin-top: 0px;
-}
-.box_title textarea{
-  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
-  font-size: 1.1em;
-  font-weight: bold;
-  border: none;
 }
 .box .content{
   font-style: italic;
@@ -190,6 +207,10 @@ ul {
 }
 .foreign {
   display: inline-block;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 .foreign .title{
   color: orange;
@@ -207,6 +228,9 @@ ul {
   margin-top: 1.5em;
   min-height: 2em;
   height: auto;
+  width: auto;
+  position: relative;
+  display: inline-block;
 }
 .cite .quote{
   color: black;
@@ -215,34 +239,82 @@ ul {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: .3em;
-  float: left;
   clear: right;
   min-height: 1.2em;
-  margin-right: 3em;
   margin-bottom: 0.5em;
 }
-.cite_quote textarea{
-  font-family: "Lucida Grande",Lucida,Verdana,sans-serif;
-  font-style: italic;
-  font-size: 1.1em;
-  border: none;
-}
 .cite .citation{
-  display: inline-block;
   border: 2px solid #C9C9C9;
   margin-top: 1em;
-  margin-right: 3em;
   padding: 0.5em;
   min-width: 2em;
   min-height: 1.5em;
   clear: left;
-  float: right;
+  position: absolute;
+  right: 0px;
 }
-.slot_content {
-  padding-top: 2em;
-  padding-bottom: 2em;
+.delete {
+  float: right;
+  margin-right: 2.6em;
+  margin-top: 0.6em;
+  cursor: pointer;
+  font-size: 1.2em;
+  border: 2px solid #C9C9C9;
+  padding: 0.05em;
+}
+.delete:hover {
+  color: red;
+  border: 2px solid red;
+}
+#slots_wysiwyg {
+  margin-right: 0;
+  padding-left: 0;
+  width: 100%;
   height: 100%;
 }
-.slot_content.selected {
-  border: 1px solid green;
+.slot_content {
+  overflow: hidden;
+  outline: 1px dotted #09F;
+}
+li.slot {
+  list-style: none;
+}
+.name input {
+  font-size: 6px;
+}
+#slot_top {
+  padding: 0;
+  padding-left: 10px;
+}
+#top {
+  padding: 0;
+}
+#slot_right {
+  margin-left: 0em;
+}
+.ui-resizable-s {
+  bottom: 0px;
+}
+.ui-resizable-e {
+  right: 0px;
+}
+.rename_frame .mercury-display-pane-container {
+  height: 200px;
+}
+.slot_asset{
+  min-height: 10px;
+  outline: 1px dotted #09F; 
+}
+.slot_asset:focus, .slot_asset.focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 10px #09F, 0 0 1px #045;
+  box-shadow: 0 0 10px #09F, 0 0 1px #045;
+}
+.switch_bottom_top {
+  text-align: center;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+li.selected > div > a{
+  font-weight: bold;
 }

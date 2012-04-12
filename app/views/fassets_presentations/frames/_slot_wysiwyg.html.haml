@@ -1,28 +1,39 @@
-%li.slot{:id => "slot_#{slot_wysiwyg.name}", :class => "wysiwyg"}
+%li.slot{:id => "slot_#{slot_wysiwyg.name}", :width => "#{slot_wysiwyg['width']}", :height => "#{slot_wysiwyg['height']}", :class => "wysiwyg"}
   .name
     =slot_wysiwyg.name
     -unless slot_wysiwyg.in_template?
       (not in template)
       %button.drop_slot Drop
-    =select_tag "frame[content][#{slot_wysiwyg.name}][mode]", options_for_select(["markup", "asset"], slot_wysiwyg["mode"])
-    -if slot_wysiwyg.asset and slot_wysiwyg["mode"] == "asset"
-      =image_tag("fassets_core/delete.png", :width => 15, :height => 15, :alt => "Drop Asset", :title => "Drop asset",:class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'") 
+    =select_tag "#{slot_wysiwyg.name}_select", options_for_select(["markup", "asset"], slot_wysiwyg["mode"]), :class => "slot_mode"
+    -if slot_wysiwyg.name == "bottom"
+      -if @frame.template == "2rows"
+        %button.switch_bottom_top &uarr;&darr;
+      -if @frame.template == "top2_bottom1"
+        %button.switch_bottom_topleft &uarr;&darr;
+        %button.switch_bottom_topright &uarr;&darr;
+    -elsif slot_wysiwyg.name == "topleft"
+      %button.switch_topleft_topright &larr;&rarr;
+    -elsif slot_wysiwyg.name == "left"
+      %button.switch_left_right &larr;&rarr;
   .clear
 
-  =hidden_field_tag "frame[content][#{slot_wysiwyg.name}][asset_id]", slot_wysiwyg['asset_id']
+  =hidden_field_tag "#{slot_wysiwyg.name}_asset_id", slot_wysiwyg['asset_id'] ? slot_wysiwyg['asset_id'] : "", :class => "slot_asset_id"
   .slot_asset{:style =>  slot_wysiwyg["mode"] == "asset" ? "" : "display:none"}
-    -if slot_wysiwyg.asset
-      -@content = slot_wysiwyg.asset.content 
-      =render :partial => content_partial(slot_wysiwyg.asset.content,:preview)
-    -else
-      Drop Asset Here!
-  .slot_content
-    -unless slot_wysiwyg["mode"] == "asset"
-      -if slot_wysiwyg["markup"]
-        -html = to_fp_html(slot_wysiwyg["markup"])
-        -if html.length > 1
-          =slot_wysiwyg["markup"] ? to_fp_html(slot_wysiwyg["markup"]) : ""
-        -else
-          ='<p class="sortable"></p>'.html_safe
+    .container
+      -if slot_wysiwyg.asset
+        -@content = slot_wysiwyg.asset.content 
+        =render :partial => content_partial(slot_wysiwyg.asset.content,:preview)
       -else
-        ='<p class="sortable"></p>'.html_safe
+        Drop Asset Here!
+  .slot_content{:id => slot_wysiwyg.name, :class=>"mercury-region", "data-type" => "editable", :style =>  slot_wysiwyg["mode"] != "asset" ? "" : "display:none"}
+    .container
+      .clear
+        %br
+        -unless slot_wysiwyg["mode"] == "asset"
+          -if slot_wysiwyg["markup"]
+            -html = to_fp_html(slot_wysiwyg["markup"])
+            -if html.length > 1
+              =slot_wysiwyg["markup"] ? to_fp_html(slot_wysiwyg["markup"]) : ""
+        %br
+      .clear
+        %br

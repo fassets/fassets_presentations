@@ -1,11 +1,12 @@
 var Frame = {
   layout: function() {
     //          console.log("layout");
-    var size = frame.height() / 50;
+    var size = frame.height() / 60;
     $("body").css("font-size", size + 'px');
     $(".menu_header").css("height", (frame.height()/10)-40);
-    $(".frame").css("width", frame.width()+20 + 'px');
-    $(".frame").css("height", frame.height() + 'px');
+    $("div.frame").css("width", frame.width()+20 + 'px');
+    $("div.frame").css("height", frame.height() + 'px');
+    $(".header").css("height", '40px')
     $(".header").css("width", frame.width()+20 + 'px')
     $("#" + Presentation.getframeIndex() + " .fit").each(function() {
       if (!$(this).data('dimensions')) {
@@ -34,6 +35,11 @@ var Frame = {
       $(this).height(new_height);
     });
 
+    $("img.fit").scaleImage({
+      parent: ".slot",
+      scale: 'fit',
+      //center: true
+    });
     //Align centered elements
     $(".center").each(function() {
       Slot.center($(this));

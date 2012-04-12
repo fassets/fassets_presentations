@@ -1,0 +1,17 @@
+!!! XML
+!!! 1.1
+%html
+  %head
+    =stylesheet_link_tag 'application'
+    =javascript_include_tag "application"
+    =stylesheet_link_tag 'fassets_core/application'
+    =javascript_include_tag 'fassets_core/application'
+    =stylesheet_link_tag 'fassets_presentations/application'
+    =javascript_include_tag 'fassets_presentations/application'
+  %body
+    #container
+      =yield :layout
+      .clear
+    -if user_signed_in?
+      =render :partial => "shared/tray"
+    #tray_placeholder

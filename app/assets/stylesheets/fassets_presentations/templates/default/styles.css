@@ -6,6 +6,7 @@ body {
   font-family: Verdana,Arial,Helvetica,sans-serif;
 }
 img {
+  margin-top: 0;
   border: 0;
 }
 em {
@@ -32,7 +33,7 @@ pre {
   background-color: #171717;
   border-bottom: 4px solid #a8a8a8;
   position:relative;
-  height: 10%;
+  height: 40px;
   width: 100%;
   color: white;
 }
@@ -57,13 +58,16 @@ pre {
   margin:auto;
 }
 .content h1 {
-  font-size: 1.5em;
+  font-size: 2em;
+  margin-bottom: 0.8em;
 }
 .content h2 {
-  font-size: 1.3em;
+  font-size: 1.8em;
+  margin-bottom: 0.8em;
 }
 .content h3 {
-  font-size: 1.1em;
+  font-size: 1.6em;
+  margin-bottom: 0.8em;
 }
 .content em {
   font-weight: bold;
@@ -394,6 +398,12 @@ pre {
 }
 .cite {
   margin-left: 2em;
+  margin-top: 1.5em;
+  min-height: 2em;
+  height: auto;
+  width: auto;
+  position: relative;
+  display: inline-block;
 }
 .cite .quote{
   color: black;
@@ -402,11 +412,11 @@ pre {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: .3em;
-  float: left;
   clear: right;
   min-height: 1.2em;
   margin-right: 3em;
   margin-bottom: 0.5em;
+  display: inline-block;
 }
 .cite .citation{
   display: inline-block;
@@ -417,5 +427,9 @@ pre {
   min-width: 2em;
   min-height: 1.5em;
   clear: left;
-  float: right;
+  position: absolute;
+  right: 0px;
+}
+.delete {
+  display: none;
 }

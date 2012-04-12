@@ -6,7 +6,7 @@ class Kramdown::Parser::FP_Markdown < Kramdown::Parser::Kramdown
     @block_parsers.unshift(:definition)
     @block_parsers.unshift(:example)
     @block_parsers.unshift(:box)
-    @block_parsers.unshift(:foreign)
+    @span_parsers.unshift(:foreign)
     @block_parsers.unshift(:cite)
   end
   DEFINITION_START = /\\definition/
