@@ -333,7 +333,8 @@ window.Mercury = {
         $('#mercury_iframe').contents().find("#delete_frame_button").click();
       },
       markupEditor: function() {
-        $('#mercury_iframe').contents().find("#markup_button").click();
+        edit_url = $('#mercury_iframe').contents().find("#markup_button").parent().parent().attr("action");
+        window.location.href = edit_url;
       },
       header1: function(selection) {
         var text = selection.textContent();
