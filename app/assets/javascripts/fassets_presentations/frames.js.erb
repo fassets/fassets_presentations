@@ -523,7 +523,6 @@ $(document).ready(function(){
       var height = $(el).height();
       var perc_w = ((width/t_width)*100);
       var perc_h = ((height/t_height)*100);
-      alert(perc_w+" x "+perc_h);
       var name = $(el).parent().attr("id").replace("slot_","");
       $(el).append('<input id="frame_content_'+name+'_width" type="hidden" value="'+perc_w+'" name="frame[content]['+name+'][width]">')
       $(el).append('<input id="frame_content_'+name+'_height" type="hidden" value="'+perc_h+'" name="frame[content]['+name+'][height]">')
