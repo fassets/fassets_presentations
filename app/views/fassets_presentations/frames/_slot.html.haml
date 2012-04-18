@@ -1,5 +1,5 @@
 -if slot.in_template? or (!slot.asset.nil? or !slot["markup"].blank?)
-  %li.slot{:id => "slot_#{slot.name}"}
+  %li.slot{:id => "slot_#{slot.name}", :width => "#{slot['width']}", :height => "#{slot['height']}"}
     .name
       =slot.name
       -unless slot.in_template?
