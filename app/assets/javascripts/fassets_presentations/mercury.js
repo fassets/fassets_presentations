@@ -339,7 +339,11 @@ window.Mercury = {
       header1: function(selection) {
         var text = selection.textContent();
         if (selection.commonAncestor().attr("class") != "clear"){
-          selection.commonAncestor().replaceWith('<h1>'+text+'</h1>')
+          if (selection.commonAncestor().get(0).tagName == "H1"){
+            selection.commonAncestor().replaceWith(text);
+          }else{
+            selection.commonAncestor().replaceWith('<h1>'+text+'</h1>');
+          }
         }else{
           selection.replace('<h1>'+text+'</h1>')
         } 
@@ -347,7 +351,11 @@ window.Mercury = {
       header2: function(selection) {
         var text = selection.textContent();
         if (selection.commonAncestor().attr("class") != "clear"){
-          selection.commonAncestor().replaceWith('<h2>'+text+'</h2>')
+          if (selection.commonAncestor().get(0).tagName == "H2"){
+            selection.commonAncestor().replaceWith(text);
+          }else{
+            selection.commonAncestor().replaceWith('<h2>'+text+'</h2>');
+          }
         }else{
           selection.replace('<h2>'+text+'</h2>')
         } 
@@ -355,7 +363,11 @@ window.Mercury = {
       header3: function(selection) {
         var text = selection.textContent();
         if (selection.commonAncestor().attr("class") != "clear"){
-          selection.commonAncestor().replaceWith('<h3>'+text+'</h3>')
+          if (selection.commonAncestor().get(0).tagName == "H3"){
+            selection.commonAncestor().replaceWith(text);
+          }else{
+            selection.commonAncestor().replaceWith('<h3>'+text+'</h3>');
+          }
         }else{
           selection.replace('<h3>'+text+'</h3>')
         } 
@@ -569,7 +581,7 @@ window.Mercury = {
       '.{{regionClass}} { min-height: 10px; outline: 1px dotted #09F } ' +
       '.{{regionClass}}:focus, .{{regionClass}}.focus { outline: none; -webkit-box-shadow: 0 0 10px #09F, 0 0 1px #045; box-shadow: 0 0 10px #09F, 0 0 1px #045 }' +
       '.{{regionClass}}:after { content: "."; display: block; visibility: hidden; clear: both; height: 0; overflow: hidden; }' +
-      '.{{regionClass}} table, .{{regionClass}} td, .{{regionClass}} th { border: 1px dotted red; min-width: 6px; }' +
+      '.{{regionClass}} table, .{{regionClass}} td, .{{regionClass}} th { border: 1px dotted black; min-width: 6px; }' +
       '.mercury-textarea { border: 0; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; resize: none; }' +
       '.mercury-textarea:focus { outline: none; }'
   },
