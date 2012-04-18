@@ -282,16 +282,6 @@ li.slot {
 .name input {
   font-size: 6px;
 }
-#slot_top {
-  padding: 0;
-  padding-left: 10px;
-}
-#top {
-  padding: 0;
-}
-#slot_right {
-  margin-left: 0em;
-}
 .ui-resizable-s {
   bottom: 0px;
 }

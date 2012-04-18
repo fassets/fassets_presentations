@@ -77,25 +77,35 @@ $(function(){
       $('#edit_warning').css('visibility','visible');
     },
   });
+  var setSlotSize = function(name, width, height){
+    $('#slot_'+name).css("width",width+"px");
+    $('#slot_'+name).css("height",height+"px");
+    $('#'+name).css("width",width-10+"px");
+    $('#'+name).css("height",height-30+"px");
+    $('#slot_'+name+' .slot_asset').css("width",width-10+"px");
+    $('#slot_'+name+' .slot_asset').css("height",height-30+"px");
+  };
+  var positionSlot = function(name, top, left){
+    $('#slot_'+name).css('position', 'absolute');
+    $('#slot_'+name).css('top', top+'px');
+    $('#slot_'+name).css('left', left+'px');
+    $('#'+name).css('left', 0+'px');
+    $('#'+name).css('top', 0+'px');
+    $('#slot_'+name+' .slot_asset').css('left', 0+'px');
+    $('#slot_'+name+' .slot_asset').css('top', 0+'px');
+  };
   $('#left, #slot_left .slot_asset').resizable({
     handles: 'e',
     resize: function (event,ui){
-      var height = $(window).height()-180;
+      var height = $('#main').height();
       var width = $('#main').width();
-      $('#slot_right').css('position', 'absolute');
-      $('#slot_right').css("left",ui.size.width+45+"px");
-      $('#slot_right').css("width",width-ui.size.width-55+"px");
-      $('#right').css("width",width-ui.size.width-55+"px");
-      $('#slot_left').css("height", height);
-      $('#left').css("height", height);
-      $('#slot_right').css("height", height);
-      $('#right').css("height", height);
-      $('#slot_right .slot_asset').css('position', 'absolute');
-      $('#slot_right .slot_asset').css("left", 10+"px");
-      $('#slot_right .slot_asset').css("width",width-ui.size.width-30+"px");
+      setSlotSize("left", ui.size.width, height);
+      setSlotSize("right", width-ui.size.width-45, height);
+      positionSlot("left", 0, 0);
+      positionSlot("right", 0, ui.size.width+45);
       $("#slot_left .switch_left_right").css("position","absolute");
-      $("#slot_left .switch_left_right").css("left",ui.size.width+15+"px");
-      $("#slot_left.switch_left_right").css("top",height/2+"px");
+      $("#slot_left .switch_left_right").css("left",ui.size.width+10+"px");
+      $("#slot_left .switch_left_right").css("top",height/2+"px");
       $("#slot_left .slot_asset img").scaleImage({
         parent: ".slot_asset",
         scale: 'fit',
@@ -111,23 +121,12 @@ $(function(){
   $('#top, #slot_top .slot_asset').resizable({
     handles: 's',
     resize: function (event,ui){
-      var height = $(window).height()-200;
-      $('#main').css("height", height+60+"px");
+      var height = $('#main').height();
       var width = $('#main').width();
-      $('#slot_bottom').css('position', 'absolute');
-      $('#slot_bottom').css("top",ui.size.height+40+"px");
-      $('#slot_bottom').css("width",width+"px");
-      $('#slot_top').css("width", width+"px");
-      $('#slot_bottom').css("width", width+"px");
-      $('#top').css("height", ui.size.height+"px");
-      $('#top').css("width", width+"px");
-      $('#slot_top .slot_asset').css("width", width+"px");
-      $('#slot_bottom').css("height", height-ui.size.height-20+"px");
-      $('#bottom').css("width", width+"px");
-      $('#bottom').css("height", height-ui.size.height-20+"px");
-      $('#slot_bottom .slot_asset').css('position', 'absolute');
-      $('#slot_bottom .slot_asset').css("width", width+"px");
-      $('#slot_bottom .slot_asset').css("height",height-ui.size.height-10+"px");
+      setSlotSize("top", width, ui.size.height);
+      setSlotSize("bottom", width, height-ui.size.height-5);
+      positionSlot("top", 0, 0);
+      positionSlot("bottom", ui.size.height+5, 0);
       $("#slot_top .slot_asset img").scaleImage({
         parent: ".slot_asset",
         scale: 'fit',
@@ -141,30 +140,23 @@ $(function(){
     }
   });
   $('#topleft, #slot_topleft .slot_asset').resizable({
-    handles: 's',
+    handles: 's, e',
     resize: function (event,ui){
-      var height = $(window).height()-130;
-      $('#main').css("height", height+"px");
+      var height = $('#main').height();
       var width = $('#main').width();
-      $('#slot_bottom').css('position', 'absolute');
-      $('#slot_bottom').css("top",ui.size.height+40+"px");
-      $('#slot_topleft').css("height", ui.size.height+"px");
-      $('#topleft').css("height", ui.size.height+"px");
-      $('#slot_topright').css('position', 'absolute');
-      $('#topright').css("left", "0px");
-      $('#topright').css("height", "100%");
-      $('#slot_topright .slot_asset').css("height", ui.size.height+"px")
-      $('#slot_topright').css("height", ui.size.height+"px");
-      $('#topright').css("height", ui.size.height+"px");
-      $('#slot_bottom').css("height", height-ui.size.height+"px");
-      $('#slot_bottom').css('position', 'absolute');
-      $('#slot_bottom').css("top",ui.size.height+40+"px");
-      $('#slot_bottom').css("width",width+"px");
-      $('#bottom').css("width", width+"px");
-      $('#bottom').css("height", height-ui.size.height-90+"px");
-      $('#slot_bottom .slot_asset').css('position', 'absolute');
-      $('#slot_bottom .slot_asset').css("height",height-ui.size.height-90+"px");
-      $('#slot_bottom .slot_asset').css("width", width+"px");
+      setSlotSize("topleft", ui.size.width, ui.size.height+30);
+      setSlotSize("topright", width-ui.size.width-45, ui.size.height+30);
+      setSlotSize("bottom", width, height-ui.size.height-45);
+      positionSlot("topleft", 0, 0);
+      positionSlot("topright", 0, ui.size.width+45);
+      positionSlot("bottom", ui.size.height+35, 0);
+      $(".switch_topleft_topright").css("position","absolute");
+      $(".switch_topleft_topright").css("left",ui.size.width+10+"px");
+      $(".switch_topleft_topright").css("top",ui.size.height/2+"px");
+      $(".switch_bottom_topleft").css("position","absolute");
+      $(".switch_bottom_topleft").css("left",ui.size.width/2+"px");
+      $(".switch_bottom_topright").css("position","absolute");
+      $(".switch_bottom_topright").css("left",ui.size.width+($('#slot_topright').width()/2)+"px");
       $("#slot_topleft .slot_asset img").scaleImage({
         parent: ".slot_asset",
         scale: 'fit',
@@ -185,49 +177,21 @@ $(function(){
   $('#topright, #slot_topright .slot_asset').resizable({
     handles: 's,w',
     resize: function (event,ui){
-      var height = $(window).height()-130;
-      $('#main').css("height", height+"px");
+      var height = $('#main').height();
       var width = $('#main').width();
-      $('#slot_topleft').css('position', 'absolute');
-      $('#slot_topleft').css("width", width-ui.size.width+"px");
-      $('#slot_topleft').css("height", ui.size.height+35+"px")
-      $('#slot_topleft .slot_asset').css('position', 'absolute');
-      $('#slot_topleft .slot_asset').css("top", "30px");
-      $('#slot_topleft .slot_asset').css("left", "10px");
-      $('#slot_topleft .slot_asset').css("width", width-ui.size.width+"px");
-      $('#slot_topleft .slot_asset').css("height", ui.size.height+"px")
-      $('#topleft').css('position', 'absolute');
-      $('#topleft').css("top", "30px");
-      $('#topleft').css("height", ui.size.height+"px");
-      $('#topleft').css("width", width-ui.size.width+"px");
+      setSlotSize("topleft", width-ui.size.width-45, ui.size.height+30);
+      setSlotSize("topright", ui.size.width, ui.size.height+30);
+      setSlotSize("bottom", width, height-ui.size.height-45);
+      positionSlot("topleft", 0, 0);
+      positionSlot("topright", 0, width-ui.size.width);
+      positionSlot("bottom", ui.size.height+35, 0);
       $(".switch_bottom_topleft").css("position","absolute");
       $(".switch_bottom_topleft").css("left",(width-ui.size.width)/2+"px");
       $(".switch_bottom_topright").css("position","absolute");
       $(".switch_bottom_topright").css("left",$('#slot_topleft').width()+(ui.size.width/2)+"px");
       $(".switch_topleft_topright").css("position","absolute");
-      $(".switch_topleft_topright").css("left",width-ui.size.width+15+"px");
+      $(".switch_topleft_topright").css("left",width-ui.size.width-35+"px");
       $(".switch_topleft_topright").css("top",ui.size.height/2+"px"); 
-      $('#slot_topright').css('position', 'absolute');
-      $('#slot_topright').css("left", $('#slot_topleft').width()+55+"px");
-      $('#slot_topright').css("height", ui.size.height+35+"px");
-      $('#slot_topright').css("width", ui.size.width-55);
-      $('#topright').css("top", 30+"px");
-      $('#topright').css("left", 0+"px");
-      $('#topright').css("width", ui.size.width-45);
-      $('#slot_topright .slot_asset').css('position', 'absolute');
-      $('#slot_topright .slot_asset').css("left", "0px");
-      $('#slot_topright .slot_asset').css("top", "30px");
-      $('#slot_topright .slot_asset').css("width", ui.size.width-45+"px");
-      $('#slot_topright .slot_asset').css("height", ui.size.height+"px")
-      $('#slot_bottom').css("height", height-ui.size.height+"px");
-      $('#slot_bottom').css('position', 'absolute');
-      $('#slot_bottom').css("top",ui.size.height+40+"px");
-      $('#slot_bottom').css("width",width+"px");
-      $('#bottom').css("width", width+"px");
-      $('#bottom').css("height", height-ui.size.height-90+"px");
-      $('#slot_bottom .slot_asset').css('position', 'absolute');
-      $('#slot_bottom .slot_asset').css("height",height-ui.size.height-90+"px");
-      $('#slot_bottom .slot_asset').css("width", width+"px");
       $("#slot_topright .slot_asset img").scaleImage({
         parent: ".slot_asset",
         scale: 'fit',
@@ -266,121 +230,55 @@ $(function(){
     $(this).parent().parent().find(".name .drop_asset").remove();
     $('#edit_warning').css('visibility','visible');
   });
+  var switchSlots = function(slot1, slot2){
+    console.log("Switching "+slot1+" and "+slot2);
+    var slot1_mode = $("#slot_"+slot1+" .slot_mode").val();
+    var slot1_asset = $("#slot_"+slot1+" .slot_asset .container").html();
+    var slot1_asset_id = $("#slot_"+slot1+" #"+slot1+"_asset_id").val();
+    var slot1_text = $("#slot_"+slot1+" #"+slot1+" .container").html();
+    var slot2_mode = $("#slot_"+slot2+" .slot_mode").val();
+    var slot2_asset = $("#slot_"+slot2+" .slot_asset .container").html();
+    var slot2_asset_id = $("#slot_"+slot2+" #"+slot2+"_asset_id").val();
+    var slot2_text = $("#slot_"+slot2+" #"+slot2+" .container").html();
+    $("#slot_"+slot1+" .slot_mode").val(slot2_mode);
+    $("#slot_"+slot1+" .slot_asset .container").html(slot2_asset);
+    $("#slot_"+slot1+" #"+slot1+"_asset_id").val(slot2_asset_id);
+    $("#slot_"+slot1+" #"+slot1+" .container").html(slot2_text);   
+    $("#slot_"+slot1+" .slot_mode").trigger("change");
+    $("#slot_"+slot2+" .slot_mode").val(slot1_mode);
+    $("#slot_"+slot2+" .slot_asset .container").html(slot1_asset);
+    $("#slot_"+slot2+" #"+slot2+"_asset_id").val(slot1_asset_id);
+    $("#slot_"+slot2+" #"+slot2+" .container").html(slot1_text);   
+    $("#slot_"+slot2+" .slot_mode").trigger("change");
+    resize_slots();
+    Mercury.trigger('reinitialize');       
+  };
   $('.switch_bottom_top').click(function(e){
     e.preventDefault();
-    var bottom_mode = $("#slot_bottom .slot_mode").val();
-    var bottom_asset = $("#slot_bottom .slot_asset .container").html();
-    var bottom_asset_id = $("#slot_bottom #bottom_asset_id").val();
-    var bottom = $("#slot_bottom #bottom .container").html();
-    var top_asset = $("#slot_top .slot_asset .container").html();
-    var top_asset_id = $("#slot_top #top_asset_id").val();
-    var top = $("#slot_top #top .container").html();
-    var top_mode = $("#slot_top .slot_mode").val();
-    $("#slot_bottom .slot_mode").val(top_mode);
-    $("#slot_bottom .slot_asset .container").html(top_asset);
-    $("#slot_bottom #bottom_asset_id").val(top_asset_id);
-    $("#slot_bottom #bottom .container").html(top);   
-    $("#slot_bottom .slot_mode").trigger("change");
-    $("#slot_top .slot_mode").val(bottom_mode);
-    $("#slot_top .slot_asset .container").html(bottom_asset);
-    $("#slot_top #top_asset_id").val(bottom_asset_id);
-    $("#slot_top #top .container").html(bottom);
-    $("#slot_top .slot_mode").trigger("change");
+    switchSlots("bottom","top");
   });
   $('.switch_bottom_topleft').click(function(e){
     e.preventDefault();
-    var bottom_mode = $("#slot_bottom .slot_mode").val();
-    var bottom_asset = $("#slot_bottom .slot_asset .container").html();
-    var bottom_asset_id = $("#slot_bottom #bottom_asset_id").val();
-    var bottom = $("#slot_bottom #bottom .container").html();
-    var top_asset = $("#slot_topleft .slot_asset").html();
-    var top_asset_id = $("#slot_topleft #topleft_asset_id").val();
-    var top = $("#slot_topleft #topleft .container").html();
-    var top_mode = $("#slot_topleft .slot_mode").val();
-    $("#slot_bottom .slot_mode").val(top_mode);
-    $("#slot_bottom .slot_asset .container").html(top_asset);
-    $("#slot_bottom #bottom_asset_id").val(top_asset_id);
-    $("#slot_bottom #bottom .container").html(top);   
-    $("#slot_bottom .slot_mode").trigger("change");
-    $("#slot_topleft .slot_mode").val(bottom_mode);
-    $("#slot_topleft .slot_asset .container").html(bottom_asset);
-    $("#slot_topleft #topleft_asset_id").val(bottom_asset_id);
-    $("#slot_topleft #topleft .container").html(bottom);
-    $("#slot_topleft .slot_mode").trigger("change");
-    resize_slots();
+    switchSlots("bottom","topleft");
   });
   $('.switch_bottom_topright').click(function(e){
     e.preventDefault();
-    var bottom_mode = $("#slot_bottom .slot_mode").val();
-    var bottom_asset = $("#slot_bottom .slot_asset .container").html();
-    var bottom_asset_id = $("#slot_bottom #bottom_asset_id").val();
-    var bottom = $("#slot_bottom #bottom .container").html();
-    var top_asset = $("#slot_topright .slot_asset").html();
-    var top_asset = $("#slot_topright .slot_asset .container").html();
-    var top_asset_id = $("#slot_topright #topright_asset_id").val();
-    var top = $("#slot_topright #topright .container").html();
-    var top_mode = $("#slot_topright .slot_mode").val();
-    $("#slot_bottom .slot_mode").val(top_mode);
-    $("#slot_bottom .slot_asset .container").html(top_asset);
-    $("#slot_bottom #bottom_asset_id").val(top_asset_id);
-    $("#slot_bottom #bottom .container").html(top);   
-    $("#slot_bottom .slot_mode").trigger("change");
-    $("#slot_topright .slot_mode").val(bottom_mode);
-    $("#slot_topright .slot_asset .container").html(bottom_asset);
-    $("#slot_topright #topright_asset_id").val(bottom_asset_id);
-    $("#slot_topright #topright .container").html(bottom);
-    $("#slot_topright .slot_mode").trigger("change");
-    resize_slots();
+    switchSlots("bottom","topright");
   });
   $('.switch_left_right').click(function(e){
     e.preventDefault();
-    var left_mode = $("#slot_left .slot_mode").val();
-    var left_asset = $("#slot_left .slot_asset .container").html();
-    var left_asset_id = $("#slot_left #left_asset_id").val();
-    var left = $("#slot_left #left .container").html();
-    var right_asset = $("#slot_right .slot_asset").html();
-    var right_asset_id = $("#slot_right #right_asset_id").val();
-    var right = $("#slot_right #right .container").html();
-    var right_mode = $("#slot_right .slot_mode").val();
-    $("#slot_left .slot_mode").val(right_mode);
-    $("#slot_left .slot_asset .container").html(right_asset);
-    $("#slot_left #left_asset_id").val(right_asset_id);
-    $("#slot_left #left .container").html(right);   
-    $("#slot_left .slot_mode").trigger("change");
-    $("#slot_right .slot_mode").val(left_mode);
-    $("#slot_right .slot_asset .container").html(left_asset);
-    $("#slot_right #right_asset_id").val(left_asset_id);
-    $("#slot_right #right .container").html(left);
-    $("#slot_right .slot_mode").trigger("change");
+    switchSlots("left","right");
   });
   $('.switch_topleft_topright').click(function(e){
     e.preventDefault();
-    var left_mode = $("#slot_topleft .slot_mode").val();
-    var left_asset = $("#slot_topleft .slot_asset .container").html();
-    var left_asset_id = $("#slot_topleft #topleft_asset_id").val();
-    var left = $("#slot_topleft #topleft .container").html();
-    var right_asset = $("#slot_topright .slot_asset .container").html();
-    var right_asset_id = $("#slot_topright #topright_asset_id").val();
-    var right = $("#slot_topright #topright .container").html();
-    var right_mode = $("#slot_topright .slot_mode").val();
-    $("#slot_topleft .slot_mode").val(right_mode);
-    $("#slot_topleft .slot_asset .container").html(right_asset);    
-    $("#slot_topleft .slot_asset a").html(right_asset);
-    $("#slot_topleft #topleft_asset_id").val(right_asset_id);
-    $("#slot_topleft #topleft .container").html(right);   
-    $("#slot_topleft .slot_mode").trigger("change");
-    $("#slot_topright .slot_mode").val(left_mode);
-    $("#slot_topright .slot_asset .container").html(left_asset);
-    $("#slot_topright #topright_asset_id").val(left_asset_id);
-    $("#slot_topright #topright .container").html(left);
-    $("#slot_topright .slot_mode").trigger("change");
-    resize_slots();
+    switchSlots("topleft","topright");
   });
   var resize_slots = function(){
     console.log("resize_slots()");
-    height = $(window).height()-200;
+    height = $(window).height()-140;
     $('#main').css("height", height+"px"); 
     $('#main').css("width", $(window).width()*0.78+"px");
+    var offset_top = 0;
     width = $('#main').width();
     $('.slot_content, .slot_asset').each(function(idx, el){
       console.log($(el).parent().attr("width"));
@@ -392,81 +290,47 @@ $(function(){
         var perc_h = 0.5;
       }
       if ($(el).parent().attr("id") == "slot_top"){
-        $(el).parent().css("width",width+"px");
-        $(el).parent().css("height",height*perc_h+20+"px");      
-        $(el).css("width",width-10+"px");
-        $(el).css("height",height*perc_h+"px");
+        setSlotSize("top", width, height*perc_h);
+        positionSlot("top", offset_top, 0);
       }else if ($(el).parent().attr("id") == "slot_bottom"){
-        $(el).parent().css("position","absolute");
         if ($('#slot_topleft').length > 0){
-          $(el).parent().css("top", $('#slot_topleft').height()+35);         
+          var top_height = $('#slot_topleft').height();       
         } else if ($('#slot_top').length > 0){
-          $(el).parent().css("top", $('#slot_top').height()+20);
+          var top_height = $('#slot_top').height();  
         }
-        $(el).parent().css("width",width+"px");
-        $(el).parent().css("height",height*perc_h-10+"px");      
-        $(el).css("width",width-10+"px");
-        $(el).css("height",height*perc_h-10+"px");
+        setSlotSize("bottom", width, height-top_height-5);
+        positionSlot("bottom", offset_top+top_height+5, 0);
       }else if ($(el).parent().attr("id") == "slot_left"){
-        $(el).parent().css("width",width*perc_w+"px");
-        $(el).parent().css("height",height+20+"px");
-        $(el).parent().find(".switch_left_right").css("position","absolute");
-        $(el).parent().find(".switch_left_right").css("left",width*perc_w+20+"px");
-        $(el).parent().find(".switch_left_right").css("top",height/2+"px");      
-        $(el).css("width",width*perc_w+"px");
-        $(el).css("height",height+20+"px");
+        setSlotSize("left", width*perc_w, height);
+        positionSlot("left", offset_top, 0);
+        $("#slot_left .switch_left_right").css("position","absolute");
+        $("#slot_left .switch_left_right").css("left",width*perc_w+10+"px");
+        $("#slot_left .switch_left_right").css("top", height/2+"px");
       }else if ($(el).parent().attr("id") == "slot_right"){
-        $(el).parent().css("position","absolute");
-        $(el).parent().css("left", $('#slot_left').width()+55);
-        $(el).parent().css("width",width*perc_w-55+"px");
-        $(el).parent().css("height",height+20+"px");      
-        $(el).css("width",width*perc_w-55+"px");
-        $(el).css("height",height+20+"px");      
+        setSlotSize("right", width-$('#slot_left').width()-45, height)
+        positionSlot("right", offset_top, $('#slot_left').width()+45);      
       }else if ($(el).parent().attr("id") == "slot_center"){
-        $(el).parent().css("width",width+"px");
-        $(el).parent().css("height",height+30+"px");      
-        $(el).css("width",width+"px");
-        $(el).css("height",height+30+"px");        
+        setSlotSize("center", width, height);
+        positionSlot("center", offset_top, 0);        
       }else if ($(el).parent().attr("id") == "slot_topleft"){
-        $(el).parent().css("position","absolute");
-        //$(el).parent().css("left", "0px");
-        $(el).parent().css("width",width*perc_w+"px");
-        $(el).parent().css("height",height*perc_h+"px");      
-        $(el).css("width",width*perc_w+"px");
-        $(el).css("height",height*perc_h+"px");
+        setSlotSize("topleft", width*perc_w, height*perc_h);
+        positionSlot("topleft", offset_top, 0);
         $(".switch_bottom_topleft").css("position","absolute");
         $(".switch_bottom_topleft").css("left",(width*perc_w)/2+"px");
         $(".switch_topleft_topright").css("position","absolute");
-        $(".switch_topleft_topright").css("left",width*perc_w+15+"px");
-        $(".switch_topleft_topright").css("top",(height*perc_h)/2+"px");             
+        $(".switch_topleft_topright").css("left",width*perc_w+10+"px");
+        $(".switch_topleft_topright").css("top",(height*perc_h)/2-15+"px");             
       }else if ($(el).parent().attr("id") == "slot_topright"){
-        $(el).parent().css("position","absolute");
-        $(el).parent().css("left", $('#slot_topleft').width()+45);
-        $(el).parent().css("width",width*perc_w-45+"px");
-        $(el).parent().css("height",height*perc_h+"px");
-        $(el).css("position","absolute");
-        $(el).css("left", "10px");
-        $(el).css("width",width*perc_w-45+"px");
-        $(el).css("height",height*perc_h+"px");
+        setSlotSize("topright", width-$('#slot_topleft').width()-45, height*perc_h);
+        positionSlot("topright", offset_top, $('#slot_topleft').width()+45);
         $(".switch_bottom_topright").css("position","absolute");
-        $(".switch_bottom_topright").css("left",width*perc_w+($('#slot_topleft').width()/2)+"px");        
-      }else if ($(el).parent().attr("id") == "slot_center"){
-        $(el).parent().css("width",width+"px");
-        $(el).parent().css("height",height+"px");      
-        $(el).css("width",width+"px");
-        $(el).css("height",height+"px");        
+        $(".switch_bottom_topright").css("left",width*perc_w+($('#slot_topleft').width()/2)+"px");                
       }else if ($(el).parent().attr("id") == "slot_centertitle"){
-        $(el).parent().css("width",width+"px");
-        $(el).parent().css("height",height*0.6+"px");      
-        $(el).css("width",width+"px");
-        $(el).css("height",height*0.6+"px");        
+        setSlotSize("centertitle", width, height*0.5);
+        positionSlot("centertitle", offset_top, 0);        
       }else if ($(el).parent().attr("id") == "slot_subtitle"){
-        $(el).parent().css("position","absolute");
-        $(el).parent().css("top",height*0.75);
-        $(el).parent().css("width",width+"px");
-        $(el).parent().css("height",height*0.3+"px");      
-        $(el).css("width",width+"px");
-        $(el).css("height",height*0.3+"px");        
+        setSlotSize("subtitle", width, height*0.5);
+        positionSlot("subtitle", offset_top+height*0.50, 0);        
       }
       //alert(perc_w+"x"+perc_h);
       $("#slot_center .slot_asset img").scaleImage({
