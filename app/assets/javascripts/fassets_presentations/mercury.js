@@ -617,6 +617,11 @@ window.Mercury = {
       $('.mercury-panel-close').click();
       Mercury.trigger('action', {action: 'save'});
     });
+    $('.mercury-panel-pane .template_panel #top2_bottom1').live("click",function(e){
+      $('#mercury_iframe').contents().find(".frame_template").val("top2_bottom1");
+      $('.mercury-panel-close').click();
+      Mercury.trigger('action', {action: 'save'});
+    });
     Mercury.Toolbar.Button.contexts.header1 = function(node, region){
       if (node.closest('h1', region).length > 0){
         return true
