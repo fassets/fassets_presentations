@@ -1,5 +1,5 @@
-#top.slot{:style => "width: 100%;"}
+.slot{:style => "position: absolute; top: 1%; width: 100%; height: "+frame.slot("top")["height"].to_s+"%;"}
   =render_slot(frame.slot("top"), "center").html_safe
-#bottom.slot{:style => "width: 100%;"}
+.slot{:style => "position: absolute; top:"+frame.slot("top")["height"].to_s+"%; width: 100%; height:"+frame.slot("bottom")["height"].to_s+"%;"}
   =render_slot(frame.slot("bottom"), "center").html_safe
 

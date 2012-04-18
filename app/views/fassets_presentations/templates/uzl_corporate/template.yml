@@ -4,5 +4,7 @@
   slots: [top, bottom]
 one_slot:
   slots: [center]
+top2_bottom1:
+  slots: [topleft, topright, bottom]
 title:
   slots: [title, subtitle, misc]
