@@ -395,20 +395,6 @@ $(function(){
       $(e.target).parent().remove();
     }
   });
-  $("li.frame a").live("click", function(e){
-    e.preventDefault();
-    var presentation_id = $("#main").attr("presentation_id");
-    var old_frame_id = $("#main").attr("frame_id");
-    var frame_id = $(e.target).attr("id");
-    $("#container").load("/presentations/"+presentation_id+"/frame/"+frame_id+"/reload_slots", function(){
-      console.log("/frame/"+old_frame_id+":"+"/frame/"+frame_id);
-      if (Mercury.previewWindow != ""){
-        Mercury.previewWindow.location.pathname = ('/presentations/'+presentation_id+'/frame/'+frame_id);
-      }
-      resize_slots();
-      Mercury.trigger('reinitialize');
-    });
-  });
   $(window).keydown(function(event){
     switch(event.keyCode) {
     case 70: // Ctrl + Shift + F
