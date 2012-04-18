@@ -175,45 +175,315 @@ $(document).ready(function(){
   $(".edit_frame select").change(function(){
     $('#edit_warning').css('visibility','visible');
   });
+  var setSlotSize = function(name, width, height){
+    $('#slot_'+name).css("width",width+"px");
+    $('#slot_'+name).css("height",height+"px");
+    $('#slot_'+name+' .content').css("width",width+"px");
+    $('#slot_'+name+' .content').css("height",height-30+"px");
+    $('#slot_'+name+' .content .slot_textarea').css("width",width+"px");
+    $('#slot_'+name+' .content .slot_textarea').css("height",height-30+"px");
+    $('#slot_'+name+' .content .slot_asset').css("width",width+"px");
+    $('#slot_'+name+' .content .slot_asset').css("height",height-30+"px");
+  };
+  var positionSlot = function(name, top, left){
+    $('#slot_'+name).css('position', 'absolute');
+    $('#slot_'+name).css('top', top+'px');
+    $('#slot_'+name).css('left', left+'px');
+    $('#slot_'+name+' .content').css('left', 0+'px');
+    $('#slot_'+name+' .content').css('top', 0+'px');
+  };
+  $('#slot_left .content, #slot_left .slot_asset').resizable({
+    handles: 'e',
+    resize: function (event,ui){
+      var height = $('#main').height();
+      var width = $('#main').width();
+      var offset_top = 50;
+      setSlotSize("left", ui.size.width, height);
+      setSlotSize("right", width-ui.size.width-55,height);
+      positionSlot("left", offset_top, 0);
+      positionSlot("right", offset_top, ui.size.width+55);
+      $("#slot_left .switch_left_right").css("position","absolute");
+      $("#slot_left .switch_left_right").css("left",ui.size.width+20+"px");
+      $("#slot_left .switch_left_right").css("top",ui.size.height/2-10+"px");
+      $("#slot_left .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_right .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#slot_right .content, #slot_right .slot_asset').resizable({
+    handles: 'w',
+    resize: function (event,ui){
+      var height = $('#main').height();
+      var width = $('#main').width();
+      var offset_top = 50;
+      setSlotSize("left", width-ui.size.width, ui.size.height);
+      setSlotSize("right", ui.size.width-55,ui.size.height);
+      positionSlot("left", offset_top, 0);
+      positionSlot("right", offset_top, width-ui.size.width+55);
+      $("#slot_left .switch_left_right").css("position","absolute");
+      $("#slot_left .switch_left_right").css("left",width-ui.size.width+20+"px");
+      $("#slot_left .switch_left_right").css("top",ui.size.height/2-10+"px");
+      $("#slot_left .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_right .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#slot_top .content, #slot_top .slot_asset').resizable({
+    handles: 's',
+    resize: function (event,ui){
+      var height = $(window).height()-250;
+      $('#main').css("height", height+"px");
+      var width = $('#main').width();
+      var offset_top = 50;
+      setSlotSize("top", ui.size.width, ui.size.height);
+      setSlotSize("bottom", ui.size.width, height-ui.size.height-offset_top-20);
+      positionSlot("top", offset_top, 0);
+      positionSlot("bottom", offset_top+ui.size.height+10);
+      $("#slot_top .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#slot_topleft .content').resizable({
+    handles: 's, e',
+    resize: function (event,ui){
+      var height = $(window).height()-250;
+      $('#main').css("height", height+"px");
+      var width = $('#main').width();
+      var offset_top = 50;
+      console.log(ui.size.height);
+      setSlotSize("topleft", ui.size.width, ui.size.height+30);
+      setSlotSize("topright", width-ui.size.width-55, ui.size.height+30);
+      setSlotSize("bottom", width, height-ui.size.height-offset_top-50);
+      positionSlot("topleft", offset_top, 0);
+      positionSlot("topright", offset_top, ui.size.width+55);
+      positionSlot("bottom", offset_top+ui.size.height+40);
+      $(".switch_bottom_topleft").css("position","absolute");
+      $(".switch_bottom_topleft").css("left",(ui.size.width)/2+"px");
+      $(".switch_bottom_topright").css("position","absolute");
+      $(".switch_bottom_topright").css("left",ui.size.width+($('#slot_topright').width()/2)+"px");
+      $(".switch_topleft_topright").css("position","absolute");
+      $(".switch_topleft_topright").css("left",ui.size.width+20+"px");
+      $(".switch_topleft_topright").css("top",ui.size.height/2+"px");
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#slot_topright .content').resizable({
+    handles: 's, w',
+    resize: function (event,ui){
+      var height = $(window).height()-240;
+      $('#main').css("height", height+"px");
+      var width = $('#main').width();
+      var offset_top = 50;
+      setSlotSize("topleft", width-ui.size.width, ui.size.height);
+      setSlotSize("topright", ui.size.width-55, ui.size.height);
+      setSlotSize("bottom", width, height-ui.size.height-offset_top-30);
+      positionSlot("topleft", offset_top, 0);
+      positionSlot("topright", offset_top, width-ui.size.width+55);
+      positionSlot("bottom", offset_top+ui.size.height+10);
+      $(".switch_bottom_topleft").css("position","absolute");
+      $(".switch_bottom_topleft").css("left",(width-ui.size.width)/2+"px");
+      $(".switch_bottom_topright").css("position","absolute");
+      $(".switch_bottom_topright").css("left",width-ui.size.width+($('#slot_topright').width()/2)+"px");
+      $(".switch_topleft_topright").css("position","absolute");
+      $(".switch_topleft_topright").css("left",width-ui.size.width+20+"px");
+      $(".switch_topleft_topright").css("top",ui.size.height/2+"px");
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  var switchSlots = function(slot1, slot2){
+    console.log("Switching "+slot1+" and "+slot2);
+    var mode1 = $("#slot_"+slot1+" #frame_content_"+slot1+"_mode").val();
+    var asset_id1 = $("#slot_"+slot1+" #frame_content_"+slot1+"_asset_id").val();
+    var asset1 = $("#slot_"+slot1+" .slot_asset").html();
+    var markup1 = $("#slot_"+slot1+" #frame_content_"+slot1+"_markup").val();
+    var mode2 = $("#slot_"+slot2+" #frame_content_"+slot2+"_mode").val();
+    var asset_id2 = $("#slot_"+slot2+" #frame_content_"+slot2+"_asset_id").val();
+    var asset2 = $("#slot_"+slot2+" .slot_asset").html();
+    var markup2 = $("#slot_"+slot2+" #frame_content_"+slot2+"_markup").val();
+    $("#slot_"+slot1+" #frame_content_"+slot1+"_mode").val(mode2);
+    $("#slot_"+slot1+" #frame_content_"+slot1+"_asset_id").val(asset_id2);
+    $("#slot_"+slot1+" .slot_asset").html(asset2);
+    $("#slot_"+slot1+" #frame_content_"+slot1+"_markup").val(markup2);
+    $("#slot_"+slot1+" #frame_content_"+slot1+"_mode").trigger("change");
+    $("#slot_"+slot2+" #frame_content_"+slot2+"_mode").val(mode1);
+    $("#slot_"+slot2+" #frame_content_"+slot2+"_asset_id").val(asset_id1);
+    $("#slot_"+slot2+" .slot_asset").html(asset1);
+    $("#slot_"+slot2+" #frame_content_"+slot2+"_markup").val(markup1);
+    $("#slot_"+slot2+" #frame_content_"+slot2+"_mode").trigger("change");
+    resize_slots();
+  };
+  $('.switch_bottom_top').click(function(e){
+   e.preventDefault();
+   switchSlots("bottom","top");
+  });
+  $('.switch_bottom_topleft').click(function(e){
+    e.preventDefault();
+    switchSlots("bottom","topleft");
+  });
+  $('.switch_bottom_topright').click(function(e){
+    e.preventDefault();
+    switchSlots("bottom","topright");
+  });
+  $('.switch_left_right').click(function(e){
+    e.preventDefault();
+    switchSlots("left","right");
+  });
+  $('.switch_topleft_topright').click(function(e){
+    e.preventDefault();
+    switchSlots("topleft","topright");
+  });
   var resize_slots = function(){
-    height = $(window).height();
-    width = $(window).width();
-    $("#slot_top").css("height", height*0.35 + 'px');
-    $("#slot_top").css("width", width*0.67 + 'px');
-    $("#slot_bottom").css("height", height*0.35 + 'px');
-    $("#slot_bottom").css("width", width*0.67 + 'px');
-    $("#slot_topleft").css("height", height*0.35 + 'px');
-    $("#slot_topleft").css("width", width*0.33 + 'px');
-    $("#slot_topright").css("height", height*0.35 + 'px');
-    $("#slot_topright").css("width", width*0.33 + 'px');
-    $("#slot_left").css("height", height*0.4 + 'px');
-    $("#slot_left").css("width", width*0.33 + 'px');
-    $("#slot_right").css("height", height*0.4 + 'px');
-    $("#slot_right").css("width", width*0.33 + 'px');
-    $("#slot_center").css("height", height*0.7 + 'px');
-    $("#slot_center").css("width", width*0.67 + 'px');
-    $("#slot_subtitle").css("height", height*0.35 + 'px');
-    $("#slot_subtitle").css("width", width*0.67 + 'px');
-    $("#slot_centertitle").css("height", height*0.35 + 'px');
-    $("#slot_centertitle").css("width", width*0.67 + 'px');
-    $("textarea").each(function(i,e) {
-      parent = $(e).parent().parent();
-      $(e).css("height", parent.height()*0.9);
+    console.log("resize_slots()");
+    var height = $(window).height()-310;
+    $('#main').css("height", height+"px");
+    $('#main').css("width", $(window).width()*0.78+"px");
+    width = $('#main').width();
+    var offset_top = 50;
+    $('.content').each(function(idx, el){
+      console.log($(el).parent().attr("width"));
+      if ($(el).parent().attr("width") != ""){
+        var perc_w = parseInt($(el).parent().attr("width"))/100;
+        var perc_h = parseInt($(el).parent().attr("height"))/100;
+      } else {
+        var perc_w = 0.5;
+        var perc_h = 0.5;
+      }
+      if ($(el).parent().attr("id") == "slot_top"){
+        setSlotSize("top", width, height*perc_h);
+        positionSlot("top", offset_top, 0);
+      }else if ($(el).parent().attr("id") == "slot_bottom"){
+        if ($('#slot_topleft').length > 0){
+          var top_height = $('#slot_topleft').height();
+        } else if ($('#slot_top').length > 0){
+          var top_height = $('#slot_top').height();
+        }
+        setSlotSize("bottom", width, height-top_height-10);
+        positionSlot("bottom", offset_top+top_height+10, 0);
+      }else if ($(el).parent().attr("id") == "slot_left"){
+        setSlotSize("left", width*perc_w, height);
+        positionSlot("left", offset_top, 0);
+        $("#slot_left .switch_left_right").css("position","absolute");
+        $("#slot_left .switch_left_right").css("left",width*perc_w+20+"px");
+        $("#slot_left .switch_left_right").css("top", height/2+"px");
+      }else if ($(el).parent().attr("id") == "slot_right"){
+        setSlotSize("right", width-$('#slot_left').width()-55, height)
+        positionSlot("right", offset_top, $('#slot_left').width()+55);
+      }else if ($(el).parent().attr("id") == "slot_center"){
+        setSlotSize("center", width, height);
+        positionSlot("center", offset_top, 0);
+      }else if ($(el).parent().attr("id") == "slot_topleft"){
+        setSlotSize("topleft", width*perc_w, height*perc_h);
+        positionSlot("topleft", offset_top, 0);
+        $(".switch_bottom_topleft").css("position","absolute");
+        $(".switch_bottom_topleft").css("left",(width*perc_w)/2+"px");
+        $(".switch_topleft_topright").css("position","absolute");
+        $(".switch_topleft_topright").css("left",width*perc_w+20+"px");
+        $(".switch_topleft_topright").css("top",(height*perc_h)/2+"px");
+      }else if ($(el).parent().attr("id") == "slot_topright"){
+        setSlotSize("topright", width-$('#slot_topleft').width()-55, height*perc_h);
+        positionSlot("topright", offset_top, $('#slot_topleft').width()+55);
+        $(".switch_bottom_topright").css("position","absolute");
+        $(".switch_bottom_topright").css("left",width*perc_w+($('#slot_topleft').width()/2)+"px");
+      }else if ($(el).parent().attr("id") == "slot_centertitle"){
+        setSlotSize("centertitle", width, height*0.5);
+        positionSlot("centertitle", offset_top, 0);
+      }else if ($(el).parent().attr("id") == "slot_subtitle"){
+        setSlotSize("subtitle", width, height*0.45);
+        positionSlot("subtitle", offset_top+height*0.55, 0);
+      }
+      $("#slot_center .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_top .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_left .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_right .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
     });
-    $("img.fit").scaleImage({
-      parent: "li",
-      scale: 'fit',
-      center: false
-    });
-    $("#slot_bottom .slot_asset img").scaleImage({
-      parent: "li",
-      scale: 'fit',
-      center: true
-    });
-    $("#slot_center .slot_asset img").scaleImage({
-      parent: "li",
-      scale: 'fit',
-      center: true
+    height = $(window).height()-310;
+    $('#main').css("height", height+"px");
+    $(".collapsible").collapsiblePanel({
+      collapsedImage: "<%= image_path 'fassets_core/collapsed.png' %>",
+      expandedImage: "<%= image_path 'fassets_core/collapse.png' %>",
+      titleQuery: "h2.title",
+      startCollapsed: true
     });
   }
   var show_catalog = function() {
@@ -230,7 +500,35 @@ $(document).ready(function(){
 	  });
   };
   resize_slots();
-  $(window).resize(function() {resize_slots()});
+  $("#frame_save").click(function(e){
+    //e.preventDefault();
+    $(".content").each(function(idx, el){
+      if ($(el).parent().attr("id") == "slot_left" || $(el).parent().attr("id") == "slot_right"){
+        var t_width = $('#main').width()-65;
+        var t_height = $('#main').height();
+      }else if ($(el).parent().attr("id") == "slot_top" || $(el).parent().attr("id") == "slot_bottom"){
+        var t_width = $('#main').width()-20;
+        var t_height = $('#main').height()-125;
+      }else if ($(el).parent().attr("id") == "slot_topleft" || $(el).parent().attr("id") == "slot_topright") {
+        var t_width = $('#main').width()-45;
+        var t_height = $('#main').height()-130;
+      }else if ($(el).parent().attr("id") == "slot_center") {
+        var t_width = $('#main').width();
+        var t_height = $('#main').height();
+      }else if ($(el).parent().attr("id") == "slot_centertitle" || $(el).parent().attr("id") == "slot_subtitle") {
+        var t_width = $('#main').width();
+        var t_height = $('#main').height();
+      }
+      var width = $(el).width();
+      var height = $(el).height();
+      var perc_w = ((width/t_width)*100);
+      var perc_h = ((height/t_height)*100);
+      alert(perc_w+" x "+perc_h);
+      var name = $(el).parent().attr("id").replace("slot_","");
+      $(el).append('<input id="frame_content_'+name+'_width" type="hidden" value="'+perc_w+'" name="frame[content]['+name+'][width]">')
+      $(el).append('<input id="frame_content_'+name+'_height" type="hidden" value="'+perc_h+'" name="frame[content]['+name+'][height]">')
+    });
+  });
   $(window).keydown(function(event){
     switch(event.keyCode) {
     case 27: // Esc
@@ -253,7 +551,7 @@ $(document).ready(function(){
 //        $.fancybox.close();
 //      } else {
 //        show_catalog();
-//      }      
+//      }
 //      break;
     case 83: // s
       if (event.ctrlKey){

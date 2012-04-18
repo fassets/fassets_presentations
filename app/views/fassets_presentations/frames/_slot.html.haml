@@ -11,17 +11,30 @@
         =image_tag("fassets_core/delete.png", :width => 15, :height => 15, :alt => "Drop Asset", :title => "Drop asset",:class => "drop_asset", :onmouseover => "this.style.cursor = 'pointer'")
         //=image_tag "drag.png", :width => 12, :height => 13, :class => "handle"
       -if slot["mode"] == "markup"
-        =image_tag("fassets_presentations/markup_preview.png", :width => 15,  :height => 15, :alt => "Preview", :title => "Preview",:class => "preview_markup", :onmouseover => "this.style.cursor = 'pointer'") 
-    .content   
-      =hidden_field_tag "frame[content][#{slot.name}][asset_id]", slot['asset_id']
-      =slot["mode"]
-      .slot_asset{:style =>  slot["mode"] == "asset" ? "" : "display:none"}
-        -if slot.asset
-          //=render :partial => "shared/asset", :locals => {:asset => slot.asset, :tp => nil}
-          -@content = slot.asset.content 
-          =render :partial => content_partial(slot.asset.content,:preview)
-        -else
-          Drop Asset Here!
-      .clear
-      =text_area_tag "frame[content][#{slot.name}][markup]", slot["markup"], :class => "slot_textarea", :style => slot["mode"] == "asset" ?  "display:none" : ""
-      .preview
+        =image_tag("fassets_presentations/markup_preview.png", :width => 15,  :height => 15, :alt => "Preview", :title => "Preview",:class => "preview_markup", :onmouseover => "this.style.cursor = 'pointer'")
+      -if slot.name == "bottom"
+        -if @frame.template == "2rows"
+          %button.switch_bottom_top &uarr;&darr;
+        -if @frame.template == "top2_bottom1"
+          %button.switch_bottom_topleft &uarr;&darr;
+          %button.switch_bottom_topright &uarr;&darr;
+      -elsif slot.name == "topleft"
+        %button.switch_topleft_topright &larr;&rarr;
+      -elsif slot.name == "left"
+        %button.switch_left_right &larr;&rarr;
+
+    .content
+      .container
+        =hidden_field_tag "foo", "foo" # unless a hidden field of any kind is present the following value is sometimes not set
+        =hidden_field_tag "frame[content][#{slot.name}][asset_id]", slot['asset_id']
+        =#slot['asset_id']
+        .slot_asset{:style =>  slot["mode"] == "asset" ? "" : "display:none"}
+          -if slot.asset
+            //=render :partial => "shared/asset", :locals => {:asset => slot.asset, :tp => nil}
+            -@content = slot.asset.content
+            =render :partial => content_partial(slot.asset.content,:preview)
+          -else
+            Drop Asset Here!
+        .clear
+        =text_area_tag "frame[content][#{slot.name}][markup]", slot["markup"], :class => "slot_textarea", :style => slot["mode"] == "asset" ?  "display:none" : ""
+        .preview
