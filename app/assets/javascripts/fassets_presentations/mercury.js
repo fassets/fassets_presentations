@@ -363,7 +363,8 @@ window.Mercury = {
       definition: function(selection) {
         if (selection.textContent() != ""){
           var title = prompt('Enter the definition title:');
-          var text = text = $("<div></div>").append(content).html();
+          content = selection.content();
+          var text = $("<div></div>").append(content).html();
           selection.replace('<div class="definition"><div class="type">Definition:</div><div class="title">'+title+'</div><div class="delete">X</div><div class="content">'+text+'</div></div>');
         }else{
           var title = prompt('Enter the definition title:');
@@ -391,7 +392,8 @@ window.Mercury = {
       box: function(selection) {
         if (selection.textContent() != ""){
           var title = prompt('Enter the box title:');
-          vtext = $("<div></div>").append(content).html();
+          content = selection.content();
+          text = $("<div></div>").append(content).html();
           selection.replace('<div class="box"><div class="title">'+title+'</div><div class="delete">X</div><div class="content">'+text+'</div></div>');
         }else{
           var title = prompt('Enter the box title:');
@@ -415,14 +417,27 @@ window.Mercury = {
         }
       },
       cite: function(selection) {
-        var quote = prompt('Enter the quote:');
-        var key = prompt('Enter the BibTeX-key for the citation:');
-        if (quote != "" && key != ""){
-          var citation = "";
-          $.get('/presentations/citation?bibkey='+key, function(retdata){
-            citation = retdata;
-            selection.replace('<div class="cite"><div class="quote">'+quote+'</div><div class="citation" id="'+key+'">'+citation+'</div></div>');
-          });
+        if (selection.textContent() != ""){
+          var key = prompt('Enter the BibTeX-key for the citation:');
+          content = selection.content();
+          quote = $("<div></div>").append(content).html();
+          if (quote != "" && key != ""){
+            var citation = "";
+            $.get('/presentations/citation?bibkey='+key, function(retdata){
+              citation = retdata;
+              selection.replace('<div class="cite"><div class="quote">'+quote+'</div><div class="citation" id="'+key+'">'+citation+'</div></div>');
+            });
+          }
+        }else{
+          var quote = prompt('Enter the quote:');
+          var key = prompt('Enter the BibTeX-key for the citation:');
+          if (quote != "" && key != ""){
+            var citation = "";
+            $.get('/presentations/citation?bibkey='+key, function(retdata){
+              citation = retdata;
+              selection.replace('<div class="cite"><div class="quote">'+quote+'</div><div class="citation" id="'+key+'">'+citation+'</div></div>');
+            });
+          }
         }
       },
       renamePanel: function(){
