@@ -1,7 +1,7 @@
 var Frame = {
   layout: function() {
     //          console.log("layout");
-    var size = frame.height() / 60;
+    var size = frame.height() / 40;
     $("body").css("font-size", size + 'px');
     $(".menu_header").css("height", (frame.height()/10)-40);
     $("div.frame").css("width", frame.width()+20 + 'px');

@@ -53,7 +53,7 @@ pre {
 .content {
   font-size: 1.2em;
   position:relative;
-  height: 80%;
+  height: 90%;
   width: 92%;
   margin:auto;
 }
@@ -78,8 +78,6 @@ pre {
 }
 .content blockquote {
   margin: 1em 2em;
-  color: #666;
-  border-left: 2px solid #999;
   padding-left: 1em
 }
 .content code {
@@ -109,7 +107,7 @@ pre {
 .slot pre{
   margin: .8em 0;
 }
-.slot.cent {
+.slot.center {
   text-align: center;
 }
 .slot {

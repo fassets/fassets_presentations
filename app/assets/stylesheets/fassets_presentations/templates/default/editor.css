@@ -348,3 +348,12 @@ table {
 td {
   padding: 0.5em;
 }
+#centertitle {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+}
+#subtitle {
+  font-size: large;
+  text-align: center;
+}

@@ -72,8 +72,6 @@ em {
 }
 .content blockquote {
   margin: 1em 2em;
-  color: #666;
-  border-left: 2px solid #999;
   padding-left: 1em
 }
 .content code {
