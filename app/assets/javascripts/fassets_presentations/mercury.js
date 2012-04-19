@@ -125,6 +125,7 @@ window.Mercury = {
         insertTable:           ['Table', 'Insert Table', { modal: '/mercury/modals/table.html', regions: ['editable', 'markupable'] }],
         insertCharacter:       ['Character', 'Special Characters', { modal: '/mercury/modals/character.html', regions: ['editable', 'markupable'] }     ],
         sep3: ' ',
+        newFrame:              ['New', 'Create a new frame'],
         templatePanel:         ['Template', 'Change the Template', { panel: '/presentations/templates' }],
         renamePanel:           ['Rename', 'Rename the Frame'],
         deleteFrame:           ['Delete', 'Delete Frame'],
@@ -133,6 +134,7 @@ window.Mercury = {
         sep3: ' ',
         markupEditor:          ["Markup Editor", "Switch to the Markup editor"],
         sep4: ' ',
+        exitEditor:            ["Exit", "Leave the Editor"]
         },
 
       editable: {
@@ -462,10 +464,16 @@ window.Mercury = {
           $('#mercury_iframe').contents().find("body h1 #title a").text(title);
           $('#mercury_iframe').contents().find(".frame_title").val(title)
         });
-      }
       },
-
-
+      newFrame: function(){
+        var presentation_id = $('#mercury_iframe').contents().find("#main").attr("presentation_id");
+        var frame_id = $('#mercury_iframe').contents().find("#main").attr("frame_id");
+        Mercury.modal("/presentations/"+presentation_id+"/frame/"+frame_id+"/new_frame", {title: "New Frame"});
+      },
+      exitEditor: function(){
+        window.location.href = "/";
+      }
+    },
     // ## Global Behaviors
     //
     // Global behaviors are much like behaviors, but are more "global".  Things like save, exit, etc. can be included
@@ -621,6 +629,20 @@ window.Mercury = {
       $('#mercury_iframe').contents().find(".frame_template").val("top2_bottom1");
       $('.mercury-panel-close').click();
       Mercury.trigger('action', {action: 'save'});
+    });
+    $('#create_frame_button').live('click', function(e){
+      var presentation_id = $('#mercury_iframe').contents().find("#main").attr("presentation_id");
+      var title = $('.mercury-modal-content #title').val();
+      if (title == ""){
+        alert("Title cannot be empty!");
+        return
+      }
+      var template = $('.mercury-modal-content #template').val();
+      var parent_id = $('.mercury-modal-content #parent_id').val();
+      var data = {"frame": {"title": title, "template": template, "parent_id": parent_id}};
+      $.post("/presentations/"+presentation_id+"/new_frame", data, function(retdata){
+        window.location.href = retdata;
+      });
     });
     Mercury.Toolbar.Button.contexts.header1 = function(node, region){
       if (node.closest('h1', region).length > 0){

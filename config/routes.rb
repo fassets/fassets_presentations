@@ -29,6 +29,8 @@ FassetsPresentations::Engine.routes.draw do
   post '/:presentation_id/frame/:id/rename' => 'Frames#rename_frame'
   post '/:presentation_id/frame/:id/change_template' => 'Frames#change_template'
   get '/:presentation_id/frame/:id/reload_slots' => 'Frames#reload_slots'
+  get '/:presentation_id/frame/:id/new_frame' => 'Frames#new_frame'
+  post '/:presentation_id/new_frame' => 'Frames#create_frame_wysiwyg', :as => 'create_wysiwyg_presentation_frame'
   
   delete '/:presentation_id/frame/:id' => 'Frames#destroy', :as => 'delete_presentation_frame'
   post '/:presentation_id/frames/sort' => 'Frames#sort', :as => 'sort_presentation_frames'

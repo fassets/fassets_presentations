@@ -21,6 +21,9 @@ html { -webkit-text-size-adjust: none; }
   border: 0;
   visibility: hidden;
 }
+.mercury-separator {
+  background-color: #9C9C9C;
+}
 .mercury-primary-toolbar .mercury-showFrame-button em {
   background-image: url("/assets/mercury/toolbar/primary/preview.png")
 }
@@ -41,6 +44,16 @@ html { -webkit-text-size-adjust: none; }
 }
 .mercury-primary-toolbar .mercury-markupEditor-button em {
   background-image: url(/assets/fassets_presentations/markup.png);
+}
+.mercury-primary-toolbar .mercury-newFrame-button em {
+  background-image: url(/assets/fassets_presentations/new_frame.png);
+}
+.mercury-primary-toolbar .mercury-exitEditor-button {
+  position: absolute;
+  right: 10px;
+}
+.mercury-primary-toolbar .mercury-exitEditor-button em {
+  background-image: url(/assets/fassets_presentations/exit.png);
 }
 /* Header buttons H1, H2, H3 */
 .mercury-editable-toolbar .mercury-header1-button {

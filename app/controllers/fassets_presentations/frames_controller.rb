@@ -4,7 +4,7 @@ module FassetsPresentations
     include FramesHelper
     before_filter :authenticate_user!, :except => [:show]
     before_filter :find_presentation, :except => [:markup_preview, :to_markdown, :to_html, :citation, :editor, :templates, :rename]
-    before_filter :find_frame, :except => [:new, :create, :sort, :markup_preview, :to_markdown, :to_html, :citation, :frames, :editor, :templates, :rename]
+    before_filter :find_frame, :except => [:new, :create, :create_frame_wysiwyg, :sort, :markup_preview, :to_markdown, :to_html, :citation, :frames, :editor, :templates, :rename]
     def create
       if params[:id]
         frame = Frame.find(params[:id]).clone();
@@ -24,6 +24,17 @@ module FassetsPresentations
           format.html {redirect_to edit_presentation_path(@presentation)}
         end
       end
+    end
+    def new_frame
+      render :template => "fassets_presentations/frames/new", :layout => false
+    end
+    def create_frame_wysiwyg
+      position = Frame.where(:presentation_id => @presentation.id).maximum(:position)+1
+      frame =  Frame.create(params[:frame].merge({:presentation_id => @presentation.id, :position => position}))
+      if frame.save
+        update_positions();
+        render :inline => "/editor"+edit_wysiwyg_presentation_frame_path(@presentation, frame)
+      end 
     end
     def edit
       if @frame.parent == nil

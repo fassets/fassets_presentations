@@ -1,0 +1,11 @@
+.new_frame_modal
+  %p
+    %label{:for => 'title'} Title:
+    =text_field_tag "title"
+  %p
+    %label{:for => 'template'} Template:
+    =select_tag "template", options_for_select(TemplateManager.inner_templates(@presentation.template))
+  %p
+    %label{:for => 'parent'} Parent:
+    =select_tag "parent_id", options_from_collection_for_select(@presentation ? FassetsPresentations::Frame.where(:presentation_id => @presentation.id).order("position") : FassetsPresentations::Frame.where(:presentation_id => @presentation.id).order("position"), 'id', 'title', {:selected => @frame ? @frame.parent_id : 1 , :disabled => @frame.id})
+  =button_tag "Create", :id => "create_frame_button"
