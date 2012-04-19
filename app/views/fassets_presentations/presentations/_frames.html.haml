@@ -1,3 +1,5 @@
+.presentation_title
+  =presentation.title
 %div{:id => "presentations.#{presentation.id}.frames"}
   %ol{:id => "frames", :path => "presentations.#{presentation.id}.frames.sort"}
     -unless presentation.root_frame == nil

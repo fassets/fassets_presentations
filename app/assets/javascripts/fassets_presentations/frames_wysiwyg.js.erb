@@ -46,7 +46,7 @@ $(function(){
               data: "frame="+JSON.stringify($(".sortable_frames").nestedSortable('toArray')),
               dataType: 'json',
               complete: function(request){
-                                          $('.frame').effect('highlight',{},2000);
+                                          //$('.frame').effect('highlight',{color: "#828282"},2000);
                                          },
               url: "/"+$('#frames').attr('path').replace(/\./g,"/")
              })
@@ -277,7 +277,7 @@ $(function(){
     console.log("resize_slots()");
     height = $(window).height()-140;
     $('#main').css("height", height+"px"); 
-    $('#main').css("width", $(window).width()*0.78+"px");
+    $('#main').css("width", $(window).width()*0.84+"px");
     var offset_top = 0;
     width = $('#main').width();
     $('.slot_content, .slot_asset').each(function(idx, el){
@@ -375,6 +375,7 @@ $(function(){
       titleQuery: "h2.title",
       startCollapsed: true
     });
+    $('#sidebar').css("height", height+5);
     //$(".slot_content").css("font-size", size + 'px');
   }
   resize_slots();
