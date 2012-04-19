@@ -1,3 +1,9 @@
+-unless wysiwyg == true
+  .collapsible
+    %h2.title New Frame
+    =form_for [presentation, FassetsPresentations::Frame.new], :url => fassets_presentations.presentation_frames_path(presentation) do |f|
+      =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:presentation => presentation, :disable_self => false}
+      =submit_tag "Create"
 .presentation_title
   =presentation.title
 %div{:id => "presentations.#{presentation.id}.frames"}
