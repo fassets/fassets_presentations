@@ -36,6 +36,12 @@ html { -webkit-text-size-adjust: none; }
 .mercury-primary-toolbar .mercury-deleteFrame-button em {
   background-image: url(/assets/fassets_presentations/Symbol-Delete.png);
 }
+.mercury-primary-toolbar .mercury-startPresentation-button em {
+  background-image: url(/assets/fassets_presentations/start_presentation.png);
+}
+.mercury-primary-toolbar .mercury-editPresentation-button {
+  margin-left: 1em;
+}
 .mercury-primary-toolbar .mercury-editPresentation-button em {
   background-image: url(/assets/fassets_presentations/Edit.png);
 }

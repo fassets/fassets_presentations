@@ -130,6 +130,7 @@ window.Mercury = {
         renamePanel:           ['Rename', 'Rename the Frame'],
         deleteFrame:           ['Delete', 'Delete Frame'],
         sep2: ' ',
+        startPresentation:     ["Start Presentation", "Begin the Presentation"],
         editPresentation:      ["Edit Presentation", "Edit Presentation Properties"],
         sep3: ' ',
         markupEditor:          ["Markup Editor", "Switch to the Markup editor"],
@@ -330,6 +331,10 @@ window.Mercury = {
       },
       editPresentation: function() {
         $('#mercury_iframe').contents().find("#edit_presentation_button").click();
+      },
+      startPresentation: function(){
+        var presentation_id = $('#mercury_iframe').contents().find("#main").attr("presentation_id");
+        window.location.href = "/presentations/"+presentation_id       
       },
       deleteFrame: function() {
         $('#mercury_iframe').contents().find("#delete_frame_button").click();
