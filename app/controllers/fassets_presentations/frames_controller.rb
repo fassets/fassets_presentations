@@ -74,6 +74,7 @@ module FassetsPresentations
         @frame.update_attributes(:title => params[:title])
         render :inline => "" 
       end
+      logger.debug(params[:frame][:content][:top])
       begin
         @frame.slots.each do |slot|
           logger.debug("Slot:"+slot.name)
@@ -88,6 +89,7 @@ module FassetsPresentations
         end
       rescue
       end
+      logger.debug(params[:frame][:content][:top])
       arrange_slots()
       if params[:frame][:template] != @frame.template
         template_change = true
@@ -268,91 +270,99 @@ module FassetsPresentations
         position += 1
       end
     end
+    def copy_slot(slot1, slot2)
+      params[:frame][:content][slot2] = params[:frame][:content][slot1]
+      normalize_size(slot2)
+      remove_slot(slot1)
+    end
+    def normalize_size(slot)
+      height = {"left" => "100", "right" => "100", "top" => "50", "bottom" => "50", "topleft" => "50", "topright" => "50"}
+      width = {"left" => "50", "right" => "50", "top" => "100", "bottom" => "100", "topleft" => "50", "topright" => "50"}
+      params[:frame][:content][slot][:width] = width[slot]
+      params[:frame][:content][slot][:height] = height[slot]      
+    end
+    def remove_slot(slot)
+      params[:frame][:content].delete(slot)
+    end
+    def filled_slots_count
+      return filled_slots.length
+    end
+    def filled_slots
+      slots = []
+      params[:frame][:content].keys.each do |slot|
+        if params[:frame][:content][slot][:mode] == "markup" && params[:frame][:content][slot][:markup].strip.empty? == false
+          logger.debug(slot+" markup:"+ params[:frame][:content][slot][:markup]+" end")
+          slots << slot
+        elsif params[:frame][:content][slot][:mode] == "asset" && params[:frame][:content][slot][:asset_id].strip.empty? == false
+          slots << slot
+        end       
+      end
+      return slots
+    end
     def arrange_slots
       old_template = @frame.template
       new_template = params[:frame][:template]
+      count = filled_slots_count
+      slots = filled_slots
+      empty_slots = params[:frame][:content].keys - filled_slots
+      logger.debug("Count:"+count.to_s+" Filled Slots:"+slots.to_s)
       logger.debug("Converting from "+old_template+" to "+new_template)
       if old_template == "2rows"
         if new_template == "2column"
-          params[:frame][:content][:left] = params[:frame][:content][:top]
-          params[:frame][:content][:left][:width] = params[:frame][:content][:top][:height]
-          params[:frame][:content][:left][:height] = params[:frame][:content][:top][:width]
-          params[:frame][:content][:right] = params[:frame][:content][:bottom]
-          params[:frame][:content][:right][:width] = params[:frame][:content][:bottom][:height]
-          params[:frame][:content][:right][:height] = params[:frame][:content][:bottom][:width]
-          params[:frame][:content].delete(:top)
-          params[:frame][:content].delete(:bottom)
+          copy_slot("top", "left")
+          copy_slot("bottom", "right")
         elsif new_template == "top2_bottom1"
-          params[:frame][:content][:topleft] = params[:frame][:content][:top]
-          params[:frame][:content][:bottom] = params[:frame][:content][:bottom]
-          params[:frame][:content].delete(:top)
-          params[:frame][:content].delete(:bottom)
+          copy_slot("top", "topleft")
         elsif new_template == "one_slot"
-          if params[:frame][:content][:top][:mode] == "markup" && params[:frame][:content][:top][:markup] != ""
-            params[:frame][:content][:center] = params[:frame][:content][:top]
-            params[:frame][:content].delete(:top)
-          elsif params[:frame][:content][:top][:mode] == "asset" && params[:frame][:content][:top][:asset_id] != ""
-            params[:frame][:content][:center] = params[:frame][:content][:top]
-            params[:frame][:content].delete(:top)
-          else
-            params[:frame][:content][:center] = params[:frame][:content][:bottom]
-            params[:frame][:content].delete(:bottom)                       
+          if count > 0
+            copy_slot(slots[0], "center")
           end
         else
           return
         end
       elsif old_template == "2column"
         if new_template == "2rows"
-          params[:frame][:content][:top] = params[:frame][:content][:left]
-          params[:frame][:content][:top][:width] = params[:frame][:content][:left][:height]
-          params[:frame][:content][:top][:height] = params[:frame][:content][:left][:width]
-          params[:frame][:content][:bottom] = params[:frame][:content][:right]
-          params[:frame][:content][:bottom][:width] = params[:frame][:content][:right][:height]
-          params[:frame][:content][:bottom][:height] = params[:frame][:content][:right][:width]
+          copy_slot("left","top")
+          copy_slot("right","bottom")
         elsif new_template == "top2_bottom1"
-          params[:frame][:content][:topleft] = params[:frame][:content][:left]
-          params[:frame][:content][:topright] = params[:frame][:content][:right]
+          copy_slot("left", "topleft")
+          copy_slot("right", "topright")
         elsif new_template == "one_slot"
-          if params[:frame][:content][:left][:mode] == "markup" && params[:frame][:content][:left][:markup] != ""
-            params[:frame][:content][:center] = params[:frame][:content][:left]
-            params[:frame][:content].delete(:left)
-          elsif params[:frame][:content][:left][:mode] == "asset" && params[:frame][:content][:left][:asset_id] != ""
-            params[:frame][:content][:center] = params[:frame][:content][:left]
-            params[:frame][:content].delete(:left)
-          else
-            params[:frame][:content][:center] = params[:frame][:content][:right]
-            params[:frame][:content].delete(:right)                       
+          if count > 0
+            copy_slot(slots[0], "center")
           end
         else
           return
         end
-        params[:frame][:content].delete(:left)
-        params[:frame][:content].delete(:right)
       elsif old_template == "top2_bottom1"
         if new_template == "2rows"
-          params[:frame][:content][:top] = params[:frame][:content][:topleft]
-          params[:frame][:content][:bottom] = params[:frame][:content][:bottom]
-          params[:frame][:content].delete(:topleft)
-          params[:frame][:content].delete(:bottom)
+          if count == 1
+            copy_slot(slots[0], "top")
+          elsif count >= 2
+            copy_slot(slots[0], "top")
+            copy_slot(slots[1], "bottom")
+          end
         elsif new_template == "2column"
-          params[:frame][:content][:left] = params[:frame][:content][:topleft]
-          params[:frame][:content][:right] = params[:frame][:content][:topright]
-          params[:frame][:content].delete(:topleft)
-          params[:frame][:content].delete(:topright)
+          if count == 1
+            copy_slot(slots[0], "left")
+          elsif filled_slots_count >= 2
+            copy_slot(slots[0], "left")
+            copy_slot(slots[1], "right")
+          end
         else
           return
         end
       elsif old_template == "one_slot"
         if new_template == "2rows"
-          params[:frame][:content][:top] = params[:frame][:content][:center]
-          params[:frame][:content].delete(:center)
+          copy_slot(slots[0], "top")
         elsif new_template == "2column"
-          params[:frame][:content][:left] = params[:frame][:content][:center]
-          params[:frame][:content].delete(:center)
+          copy_slot(slots[0], "left")
         elsif new_template == "top2_bottom1"
-          params[:frame][:content][:topleft] = params[:frame][:content][:center]
-          params[:frame][:content].delete(:center)          
+          copy_slot(slots[0], "topleft")          
         end
+      end
+      empty_slots.each do |slot|
+        remove_slot(slot)
       end
     end
   end
