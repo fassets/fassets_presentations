@@ -528,3 +528,6 @@ em {
   clear: left;
   float: right;
 }
+.delete {
+  display: none;
+}
