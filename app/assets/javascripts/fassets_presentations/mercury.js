@@ -461,6 +461,9 @@ window.Mercury = {
       },
       renamePanel: function(){
         var title = prompt("Please enter the new name for the frame:", $('#mercury_iframe').contents().find(".frame_title").val());
+        if (title == null){
+          return
+        }
         var presentation_id = $('#mercury_iframe').contents().find("#main").attr("presentation_id");
         var frame_id = $('#mercury_iframe').contents().find("#main").attr("frame_id");
         var data = {title: title};
@@ -738,6 +741,10 @@ window.Mercury = {
         }else{
           data["frame"]["content"][$(this).attr("id")] = $.extend(data["frame"]["content"][$(this).attr("id")],{"width": perc_w, "height": perc_h});      
         }
+      });
+      data['clipboard_slots'] = new Array();
+      $('#mercury_iframe').contents().find('#clipboard .asset').each(function(){
+        data['clipboard_slots'].push($(this).attr("frame_id")+"_"+$(this).attr("id"));
       });
       jQuery.ajax(url, {
         type: 'POST',

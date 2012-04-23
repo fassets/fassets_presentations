@@ -1,0 +1,6 @@
+%li.asset{:id => slot.name, :frame_id => frame.id, :mode => slot['mode'], :asset_id => slot['asset_id'], :title => "Frame: "+frame.title+"<br>Name: "+slot.name+"<br>Mode: "+slot['mode']+"<br><br>"}
+  .asset_content
+    .icon
+      =image_tag("fassets_presentations/clipboard.png", :width => "72", :height => "72")
+    .caption
+      %p{:class => "caption"}=truncate(slot.name,:length => 13,:omission => "...")

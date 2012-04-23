@@ -1,9 +1,6 @@
-%li.slot{:id => "slot_#{slot_wysiwyg.name}", :width => "#{slot_wysiwyg['width']}", :height => "#{slot_wysiwyg['height']}", :class => "wysiwyg"}
+%li.slot{:id => "slot_#{slot_wysiwyg.name}", :width => "#{slot_wysiwyg['width']}", :height => "#{slot_wysiwyg['height']}", :class => "wysiwyg", :style => slot_wysiwyg.in_template? ? "" : "display:none"}
   .name
     =slot_wysiwyg.name
-    -unless slot_wysiwyg.in_template?
-      (not in template)
-      %button.drop_slot Drop
     =select_tag "#{slot_wysiwyg.name}_select", options_for_select(["markup", "asset"], slot_wysiwyg["mode"]), :class => "slot_mode"
     -if slot_wysiwyg.name == "bottom"
       -if @frame.template == "2rows"
@@ -21,7 +18,7 @@
   .slot_asset{:style =>  slot_wysiwyg["mode"] == "asset" ? "" : "display:none"}
     .container
       -if slot_wysiwyg.asset
-        -@content = slot_wysiwyg.asset.content 
+        -@content = slot_wysiwyg.asset.content
         =render :partial => content_partial(slot_wysiwyg.asset.content,:preview)
       -else
         Drop Asset Here!

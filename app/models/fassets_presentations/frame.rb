@@ -32,6 +32,15 @@ module FassetsPresentations
     def path
       "/fassets_presentations/presentations/#{presentation.id}/frames/#{id}"
     end
+    def all_children
+      all = []
+      self.children.each do |frame|
+        all << frame
+        root_children = frame.all_children.flatten
+        all << root_children unless root_children.empty?
+      end
+      return all.flatten
+    end
   end
 end
 

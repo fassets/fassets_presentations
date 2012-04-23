@@ -12,6 +12,10 @@
 #main{:presentation_id => @presentation.id, :frame_id => @frame.id}
   =hidden_field_tag "frame_template", @frame.template, :class => "frame_template"
   =hidden_field_tag "frame_title", @frame.title, :class => "frame_title"
+  -@presentation.root_frame.all_children.each do |frame|
+    -frame.slots.each do |slot|
+      -unless slot.in_template?
+        =hidden_field_tag "clipboard_slot", "#{frame.id}_#{slot.name}", :class => "clipboard_slot"
   -unless is_root_frame
     =link_to "Edit Page", "/editor" + request.path, :id =>  "edit_link", :style => "display:none", :data => {:save_url => edit_wysiwyg_presentation_frame_path(@presentation, @frame)}
     %ul#slots_wysiwyg

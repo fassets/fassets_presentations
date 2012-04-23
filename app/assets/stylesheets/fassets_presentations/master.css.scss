@@ -207,3 +207,46 @@ ol.sortable_frames {
   float: left;
   margin-right: 0.5em;
 }
+#tray {
+  height: auto;
+  display: inline;
+}
+#tray {
+  padding-right: 0;
+}
+#tray {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+#clipboard {
+  width: auto;
+  display: inline;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: white;
+  height: 130px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-right: 2px solid #727272;
+  border-top: 1px solid #727272;
+}
+ol.clipboard {
+  height: 130px;
+  display: inline;
+}
+ol.clipboard li {
+  padding-bottom: 6px;
+  margin-right: 15px;
+  background-image: url(/assets/fassets_presentations/clipboard_slot_bg.png);
+}
+ol.clipboard li a {
+  color: white;
+}
+.qtip-title {
+  margin-bottom: 1em;
+}

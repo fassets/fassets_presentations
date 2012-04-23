@@ -89,10 +89,24 @@ module FassetsPresentations
         end
       rescue
       end
-      logger.debug(params[:frame][:content][:top])
       arrange_slots()
       if params[:frame][:template] != @frame.template
         template_change = true
+      end
+      if params[:clipboard_slots] != nil
+        clipboard_slots = params[:clipboard_slots]
+      else
+        clipboard_slots = []
+      end
+      presentation_frames = @presentation.root_frame.all_children;
+      presentation_frames.each do |frame|
+        frame.slots.each do |slot|
+          if slot.in_template? == false && clipboard_slots.include?(frame.id.to_s+"_"+slot.name) == false
+            frame.content.delete(slot.name)
+            logger.debug("Deleted Slot: "+slot.name)
+            frame.save
+          end
+        end
       end
       @frame.update_attributes(params[:frame])
       if template_change
@@ -252,7 +266,14 @@ module FassetsPresentations
     end
     def reload_slots
       render :template => "fassets_presentations/frames/edit_wysiwyg", :layout => false, :locals => {:is_root_frame => false}
-      #render :partial => "fassets_presentations/frames/slot_wysiwyg", :collection => @frame.slots
+    end
+    def tray_slot
+      slot = @frame.slot(params[:name])
+      render :partial => "fassets_presentations/frames/tray_slot", :locals => {:frame => @frame, :slot => slot}
+    end
+    def slot_markup_html
+      slot = @frame.slot(params[:name])
+      render :inline => to_fp_html(slot['markup'])
     end
   protected
     def find_presentation
@@ -273,7 +294,9 @@ module FassetsPresentations
     def copy_slot(slot1, slot2)
       params[:frame][:content][slot2] = params[:frame][:content][slot1]
       normalize_size(slot2)
-      remove_slot(slot1)
+      unless slot1 == slot2
+        remove_slot(slot1)
+      end
     end
     def normalize_size(slot)
       height = {"left" => "100", "right" => "100", "top" => "50", "bottom" => "50", "topleft" => "50", "topright" => "50"}
@@ -309,56 +332,53 @@ module FassetsPresentations
       logger.debug("Converting from "+old_template+" to "+new_template)
       if old_template == "2rows"
         if new_template == "2column"
-          copy_slot("top", "left")
-          copy_slot("bottom", "right")
+          copy_slot(slots[0], "left") if count > 0
+          copy_slot(slots[1], "right") if count > 1
         elsif new_template == "top2_bottom1"
-          copy_slot("top", "topleft")
+          copy_slot(slots[0], "topleft") if count > 0
+          copy_slot(slots[1], "topright") if count > 1
+          copy_slot(slots[2], "bottom") if count > 2
         elsif new_template == "one_slot"
-          if count > 0
-            copy_slot(slots[0], "center")
-          end
+          copy_slot(slots[0], "center") if count > 0
         else
           return
         end
       elsif old_template == "2column"
         if new_template == "2rows"
-          copy_slot("left","top")
-          copy_slot("right","bottom")
+          copy_slot(slots[0], "top") if count > 0
+          copy_slot(slots[1], "bottom") if count > 1
         elsif new_template == "top2_bottom1"
-          copy_slot("left", "topleft")
-          copy_slot("right", "topright")
+          copy_slot(slots[0], "topleft") if count > 0
+          copy_slot(slots[1], "topright") if count > 1
+          copy_slot(slots[2], "bottom") if count > 2
         elsif new_template == "one_slot"
-          if count > 0
-            copy_slot(slots[0], "center")
-          end
+          copy_slot(slots[0], "center") if count > 0
         else
           return
         end
       elsif old_template == "top2_bottom1"
         if new_template == "2rows"
-          if count == 1
-            copy_slot(slots[0], "top")
-          elsif count >= 2
-            copy_slot(slots[0], "top")
-            copy_slot(slots[1], "bottom")
-          end
+          copy_slot(slots[0], "top") if count > 0
+          copy_slot(slots[1], "bottom") if count > 1
         elsif new_template == "2column"
-          if count == 1
-            copy_slot(slots[0], "left")
-          elsif filled_slots_count >= 2
-            copy_slot(slots[0], "left")
-            copy_slot(slots[1], "right")
-          end
+          copy_slot(slots[0], "left") if count > 0
+          copy_slot(slots[1], "right") if count > 1
+        elsif new_template == "one_slot"
+          copy_slot(slots[0], "center") if count > 0
         else
           return
         end
       elsif old_template == "one_slot"
         if new_template == "2rows"
-          copy_slot(slots[0], "top")
+          copy_slot(slots[0], "top") if count > 0
+          copy_slot(slots[1], "bottom") if count > 1
         elsif new_template == "2column"
-          copy_slot(slots[0], "left")
+          copy_slot(slots[0], "left") if count > 0
+          copy_slot(slots[1], "right") if count > 1
         elsif new_template == "top2_bottom1"
-          copy_slot(slots[0], "topleft")          
+          copy_slot(slots[0], "topleft") if count > 0
+          copy_slot(slots[1], "topright") if count > 1
+          copy_slot(slots[2], "bottom") if count > 2         
         end
       end
       empty_slots.each do |slot|
