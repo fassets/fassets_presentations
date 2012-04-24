@@ -618,6 +618,11 @@ window.Mercury = {
   // place to add or change functionality.
   onload: function() {
     //Mercury.PageEditor.prototype.iframeSrc = function(url) { return '/testing'; }
+    $('.mercury-panel-pane .template_panel #title').live("click",function(e){
+      $('#mercury_iframe').contents().find(".frame_template").val("title");
+      $('.mercury-panel-close').click();
+      Mercury.trigger('action', {action: 'save'});
+    });
     $('.mercury-panel-pane .template_panel #one_slot').live("click",function(e){
       $('#mercury_iframe').contents().find(".frame_template").val("one_slot");
       $('.mercury-panel-close').click();
