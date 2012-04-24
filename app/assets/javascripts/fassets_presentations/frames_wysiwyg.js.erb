@@ -447,6 +447,14 @@ $(function(){
       }else if ($(el).parent().attr("id") == "slot_subtitle"){
         setSlotSize("subtitle", width, height*0.5);
         positionSlot("subtitle", offset_top+height*0.50, 0);        
+      }else if ($(el).parent().attr("id") == "slot_title"){
+        setSlotSize("title", width, height*0.33);
+        positionSlot("title", offset_top, 0);        
+      }else if ($(el).parent().attr("id") == "slot_misc"){
+        setSlotSize("misc", width, height*0.33);
+        positionSlot("misc", offset_top+height*0.66, 0);
+        setSlotSize("subtitle", width, height*0.33);
+        positionSlot("subtitle", offset_top+height*0.33, 0);       
       }
       resize_clipboard();
       //alert(perc_w+"x"+perc_h);
@@ -481,6 +489,26 @@ $(function(){
         center: true
       });
       $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_centertitle .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_subtitle .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_title .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_misc .slot_asset img").scaleImage({
         parent: ".slot_asset",
         scale: 'fit',
         center: true

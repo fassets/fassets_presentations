@@ -337,6 +337,19 @@ table {
 td {
   padding: 0.5em;
 }
+#title {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+}
+#subtitle {
+  font-size: large;
+  text-align: center;
+}
+#misc {
+  font-size: large;
+  text-align: center;
+}
 .qtip-content .slot_content {
   outline: none;
   padding: 10px;
