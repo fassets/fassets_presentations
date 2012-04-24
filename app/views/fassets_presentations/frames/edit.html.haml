@@ -27,10 +27,14 @@
 #sidebar
   =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation, :wysiwyg => false}
   
-#main
+#main{:presentation_id => @presentation.id.to_s}
   #editorhelp=render :partial => "fassets_presentations/shared/editorhelp"
   -unless is_root_frame
     =form_for  [@presentation,  @frame], :url => presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame"} do |f|
+      -@presentation.root_frame.all_children.each do |frame|
+        -frame.slots.each do |slot|
+          -unless slot.in_template?
+            =hidden_field_tag "[clipboard_slot][#{frame.id}_#{slot.name}]", "#{frame.id}_#{slot.name}", :class => "clipboard_slot"
       =submit_tag "Save", :id => "frame_save"
       #edit_warning{:style => "visibility: hidden"}There are unsaved changes on this frame
       #frame_form

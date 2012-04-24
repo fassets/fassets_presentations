@@ -95,15 +95,62 @@ $(document).ready(function(){
       } else {
         id = $(ui.draggable).attr("id").split('_')[1];
       }
-      $(this).find(".content input").attr("value",id);
-      $(this).find(".content textarea").hide();
-      $(this).find(".content .preview").hide();
-      $(this).find(".name select").val("asset");
-      $(this).find(".name .preview_markup").hide();
-      $(this).find(".content .slot_asset").load('/asset/'+id+'/preview', function(){
-        resize_slots();
-        $(".asset").draggable(drag_opts);
-      });
+      if ($(ui.draggable).attr("frame_id") != undefined){
+        if ($(ui.draggable).attr("mode") == "markup"){
+          var presentation_id = $('#main').attr("presentation_id");
+          var frame_id = $(ui.draggable).attr("frame_id");
+          var slot_name = $(ui.draggable).attr("id");
+          var slot = $(this);
+          $.get("/presentations/"+presentation_id+"/frame/"+frame_id+"/slot_markup?name="+slot_name, function(data){
+            slot.find(".name select").val("markup");
+            slot.find('.content .container textarea').val(data);
+            slot.find(".slot_asset").hide();
+            slot.find(".content .container textarea").show();
+            $(ui.draggable).remove();
+            $('.clipboard_slot[value='+frame_id+'_'+slot_name+']').remove();
+            resize_clipboard();
+            return;
+          });
+        }else{
+          id = $(ui.draggable).attr("asset_id");
+          $(this).find("input").attr("value",id);
+          $(this).find(".name select").val("asset");
+          var slot = $(this);
+          $(this).find(".slot_asset").load('/asset/'+id+'/preview', function(){
+            resize_slots();
+            $(".asset").draggable(drag_opts);
+            if ($(ui.draggable).attr("frame_id") != undefined){
+              var frame_id = $(ui.draggable).attr("frame_id");
+              var slot_name = $(ui.draggable).attr("id");
+              $('.clipboard_slot[value='+frame_id+'_'+slot_name+']').remove();
+            }
+            $(ui.draggable).remove();
+            slot.find(".slot_asset").show();
+            slot.find(".content .container textarea").hide();
+            resize_clipboard();
+            $('#edit_warning').css('visibility','visible');
+          });
+        }
+      }else{
+        $(this).find("input").attr("value",id);
+        $(this).find(".name select").val("asset");
+        var slot = $(this);
+        $(this).find(".slot_asset").load('/asset/'+id+'/preview', function(){
+          resize_slots();
+          $(".asset").draggable(drag_opts);
+          if ($(ui.draggable).attr("frame_id") != undefined){
+            var frame_id = $(ui.draggable).attr("frame_id");
+            var slot_name = $(ui.draggable).attr("id");
+            $('.clipboard_slot[value='+frame_id+'_'+slot_name+']').remove();
+          }
+          $(ui.draggable).remove();
+          slot.find(".slot_asset").show();
+          slot.find(".content .container textarea").hide();
+          slot.find(".name .preview_markup").hide();
+          resize_clipboard();
+          $('#edit_warning').css('visibility','visible');
+        });
+      }
       drop_link = '<%= image_tag("fassets_core/delete.png", :width => "15", :height => "15", :class => "drop_asset") %>'
       if (!$(this).find(".name .drop_asset").length){
         $(this).find(".name").append(drop_link);
@@ -115,7 +162,6 @@ $(document).ready(function(){
           $('#edit_warning').css('visibility','visible');
         });
       }
-      $(this).find(".content .slot_asset").show()
       $('#edit_warning').css('visibility','visible');
     },
   });
@@ -382,6 +428,48 @@ $(document).ready(function(){
     e.preventDefault();
     switchSlots("topleft","topright");
   });
+  $('.clipboard_slot').each(function(idx, el){
+    var width = $(window).width();
+    var presentation_id = $('#main').attr("presentation_id");
+    var frame_id = $(el).val().split("_")[0];
+    var name = $(el).val().split("_")[1];
+    if ($('#clipboard').length == 0){
+      $('#tray').after('<div id="clipboard"><ol class="clipboard"></ol></div>');
+      $('#tray').css("width", width - $('.clipboard_slot').length*120-40);
+    }
+    $.get("/presentations/"+presentation_id+"/frame/"+frame_id+"/tray_slot?name="+name, function(data){
+      $('.clipboard').append(data);
+      $('.clipboard .asset').qtip({
+        content: {
+          text: false
+        },
+        title: {
+          text: "Slot:"
+        },
+        style: {
+          name: 'dark', tip: true
+        },
+        position: {
+          corner: {
+            target: 'topMiddle',
+            tooltip: 'bottomMiddle'
+          }
+        }
+      })
+      $('.clipboard .asset').draggable();
+      resize_clipboard();
+    });
+  });
+  var resize_clipboard = function(){
+    if ($('.clipboard_slot').length == 0){
+      $('#clipboard').remove();
+      $('#tray').css("width", $(window).width()-20);
+      $('#tray').css("left", 0);
+    }else{
+      $('#tray').css("width", $(window).width() - $('#clipboard').width()-40);
+      $('#tray').css("left", $('#clipboard').width()+30);
+    }
+  };
   var resize_slots = function(){
     console.log("resize_slots()");
     var height = $(window).height()-310;
@@ -479,6 +567,7 @@ $(document).ready(function(){
     });
     height = $(window).height()-310;
     $('#main').css("height", height+"px");
+    $('#sidebar').css("height", height+50);
     $(".collapsible").collapsiblePanel({
       collapsedImage: "<%= image_path 'fassets_core/collapsed.png' %>",
       expandedImage: "<%= image_path 'fassets_core/collapse.png' %>",

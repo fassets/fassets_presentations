@@ -207,6 +207,11 @@ ol.sortable_frames {
   float: left;
   margin-right: 0.5em;
 }
+#container {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  height: 100%;
+}
 #tray {
   height: auto;
   display: inline;
@@ -219,6 +224,9 @@ ol.sortable_frames {
   position: absolute;
   left: 0;
   bottom: 0;
+}
+#tray_placeholder{
+  display: none;
 }
 #clipboard {
   width: auto;

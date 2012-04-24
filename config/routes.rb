@@ -32,6 +32,7 @@ FassetsPresentations::Engine.routes.draw do
   get '/:presentation_id/frame/:id/new_frame' => 'Frames#new_frame'
   get '/:presentation_id/frame/:id/tray_slot' => 'Frames#tray_slot'
   get '/:presentation_id/frame/:id/slot_html' => 'Frames#slot_markup_html'
+  get '/:presentation_id/frame/:id/slot_markup' => 'Frames#slot_markup'
   post '/:presentation_id/new_frame' => 'Frames#create_frame_wysiwyg', :as => 'create_wysiwyg_presentation_frame'
   
   delete '/:presentation_id/frame/:id' => 'Frames#destroy', :as => 'delete_presentation_frame'

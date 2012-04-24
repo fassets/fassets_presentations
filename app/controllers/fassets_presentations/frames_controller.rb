@@ -133,6 +133,24 @@ module FassetsPresentations
           return
         end
       end
+      if params[:clipboard_slot] != nil
+        clipboard_slots = params[:clipboard_slot].keys
+      else
+        clipboard_slots = []
+      end
+      presentation_frames = @presentation.root_frame.all_children;
+      presentation_frames.each do |frame|
+        frame.slots.each do |slot|
+          if slot.in_template? == false && clipboard_slots.include?(frame.id.to_s+"_"+slot.name) == false
+            if params[:frame][:content].keys.include?(slot.name) && @frame.id == frame.id
+              params[:frame][:content].delete(slot.name)
+            end
+            frame.content.delete(slot.name)
+            logger.debug("Deleted Slot: "+slot.name)
+            frame.save
+          end
+        end
+      end
       if @frame.update_attributes(params[:frame])
         flash[:notice] = "frame succesfully updated!"
       else
@@ -270,6 +288,10 @@ module FassetsPresentations
     def tray_slot
       slot = @frame.slot(params[:name])
       render :partial => "fassets_presentations/frames/tray_slot", :locals => {:frame => @frame, :slot => slot}
+    end
+    def slot_markup
+      slot = @frame.slot(params[:name])
+      render :inline => slot['markup']    
     end
     def slot_markup_html
       slot = @frame.slot(params[:name])
