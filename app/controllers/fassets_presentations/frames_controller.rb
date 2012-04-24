@@ -390,6 +390,15 @@ module FassetsPresentations
           copy_slot(slots[2], "bottom") if count > 2
         elsif new_template == "one_slot"
           copy_slot(slots[0], "center") if count > 0
+        elsif new_template == "title"
+          if @presentation.template = "uzl_corporate"
+            copy_slot(slots[0], "title") if count > 0
+            copy_slot(slots[1], "subtitle") if count > 1
+            copy_slot(slots[2], "misc") if count > 2         
+          else
+            copy_slot(slots[0], "centertitle") if count > 0
+            copy_slot(slots[1], "subtitle") if count > 1          
+          end
         else
           return
         end
@@ -403,6 +412,15 @@ module FassetsPresentations
           copy_slot(slots[2], "bottom") if count > 2
         elsif new_template == "one_slot"
           copy_slot(slots[0], "center") if count > 0
+        elsif new_template == "title"
+          if @presentation.template = "uzl_corporate"
+            copy_slot(slots[0], "title") if count > 0
+            copy_slot(slots[1], "subtitle") if count > 1
+            copy_slot(slots[2], "misc") if count > 2         
+          else
+            copy_slot(slots[0], "centertitle") if count > 0
+            copy_slot(slots[1], "subtitle") if count > 1          
+          end
         else
           return
         end
@@ -415,6 +433,15 @@ module FassetsPresentations
           copy_slot(slots[1], "right") if count > 1
         elsif new_template == "one_slot"
           copy_slot(slots[0], "center") if count > 0
+        elsif new_template == "title"
+          if @presentation.template = "uzl_corporate"
+            copy_slot(slots[0], "title") if count > 0
+            copy_slot(slots[1], "subtitle") if count > 1
+            copy_slot(slots[2], "misc") if count > 2         
+          else
+            copy_slot(slots[0], "centertitle") if count > 0
+            copy_slot(slots[1], "subtitle") if count > 1          
+          end
         else
           return
         end
@@ -428,7 +455,32 @@ module FassetsPresentations
         elsif new_template == "top2_bottom1"
           copy_slot(slots[0], "topleft") if count > 0
           copy_slot(slots[1], "topright") if count > 1
-          copy_slot(slots[2], "bottom") if count > 2         
+          copy_slot(slots[2], "bottom") if count > 2
+        elsif new_template == "title"
+          if @presentation.template = "uzl_corporate"
+            copy_slot(slots[0], "title") if count > 0
+            copy_slot(slots[1], "subtitle") if count > 1
+            copy_slot(slots[2], "misc") if count > 2         
+          else
+            copy_slot(slots[0], "centertitle") if count > 0
+            copy_slot(slots[1], "subtitle") if count > 1          
+          end         
+        end
+      elsif old_template == "top2_bottom1"
+        if new_template == "2rows"
+          copy_slot(slots[0], "top") if count > 0
+          copy_slot(slots[1], "bottom") if count > 1
+        elsif new_template == "2column"
+          copy_slot(slots[0], "left") if count > 0
+          copy_slot(slots[1], "right") if count > 1
+        elsif new_template == "top2_bottom1"
+          copy_slot(slots[0], "topleft") if count > 0
+          copy_slot(slots[1], "topright") if count > 1
+          copy_slot(slots[2], "bottom") if count > 2
+        elsif new_template == "one_slot"
+          copy_slot(slots[0], "center") if count > 0
+        else
+          return
         end
       end
       empty_slots.each do |slot|
