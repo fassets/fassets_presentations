@@ -428,46 +428,74 @@ $(document).ready(function(){
     e.preventDefault();
     switchSlots("topleft","topright");
   });
-  $('.clipboard_slot').each(function(idx, el){
+  var load_clipboard = function(){
     var width = $(window).width();
     var presentation_id = $('#main').attr("presentation_id");
-    var frame_id = $(el).val().split("_")[0];
-    var name = $(el).val().split("_")[1];
     if ($('#clipboard').length == 0){
       $('#tray').after('<div id="clipboard"><ol class="clipboard"></ol></div>');
-      $('#tray').css("width", width - $('.clipboard_slot').length*120-40);
+      $('#tray').css("width", width - $('.clipboard_slot').length*120-55);
     }
-    $.get("/presentations/"+presentation_id+"/frame/"+frame_id+"/tray_slot?name="+name, function(data){
-      $('.clipboard').append(data);
-      $('.clipboard .asset').qtip({
-        content: {
-          text: false
-        },
-        title: {
-          text: "Slot:"
-        },
-        style: {
-          name: 'dark', tip: true
-        },
-        position: {
-          corner: {
-            target: 'topMiddle',
-            tooltip: 'bottomMiddle'
+    $('#clipboard').load("/presentations/"+presentation_id+"/clipboard", function(){
+      console.log("Applying qtip and draggable");
+      console.log($('#clipboard .asset').length);
+      $('#clipboard .asset').each(function(idx, el){
+        var name = $(el).attr("id");
+        var frame_id = $(el).attr("frame_id");
+        $(el).qtip({
+          content: {
+            url: '/presentations/'+presentation_id+'/frame/'+frame_id+'/slot_preview?name='+name,
+            text: false
+          },
+          title: {
+            text: "Slot:"
+          },
+          style: {
+            name: 'light',
+            tip: true,
+            width: {
+              min: 400
+            },
+            border: {
+               width: 7,
+               radius: 5,
+               color: '#727272'
+            }
+          },
+          position: {
+            corner: {
+              target: 'topMiddle',
+              tooltip: 'bottomMiddle'
+            },
+            adjust: {
+              screen: true
+            }
           }
-        }
-      })
-      $('.clipboard .asset').draggable();
+        })
+        $(el).draggable({
+          revert: true,
+          start: function(event, ui){
+            $(ui.helper).qtip("hide");
+            $(ui.helper).qtip("disable");
+          },
+          stop: function(event, ui){
+            if ($(ui.helper).qtip()){
+              $(ui.helper).qtip("enable");
+            }
+          }
+        });
+      });
       resize_clipboard();
-    });
-  });
+    });    
+  };
+  load_clipboard();
   var resize_clipboard = function(){
     if ($('.clipboard_slot').length == 0){
       $('#clipboard').remove();
       $('#tray').css("width", $(window).width()-20);
       $('#tray').css("left", 0);
     }else{
-      $('#tray').css("width", $(window).width() - $('#clipboard').width()-40);
-      $('#tray').css("left", $('#clipboard').width()+30);
+      $('#tray').css("width", $(window).width() - $('#clipboard').width());
+      $('#tray').css("left", $('#clipboard').width()+15);
     }
   };
   var resize_slots = function(){
@@ -475,6 +503,8 @@ $(document).ready(function(){
     var height = $(window).height()-310;
     $('#main').css("height", height+"px");
     $('#main').css("width", $(window).width()*0.78+"px");
+    $('#main').css("top", 100);
+    $('#main').css("left", 10);
     width = $('#main').width();
     var offset_top = 50;
     $('.content').each(function(idx, el){

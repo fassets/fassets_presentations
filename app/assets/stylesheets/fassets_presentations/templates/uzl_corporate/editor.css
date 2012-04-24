@@ -337,3 +337,10 @@ table {
 td {
   padding: 0.5em;
 }
+.qtip-content .slot_content {
+  outline: none;
+  padding: 10px;
+}
+.qtip-content .slot_content .delete{
+  display: none;
+}

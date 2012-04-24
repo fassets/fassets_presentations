@@ -1,6 +1,9 @@
-%li.asset{:id => slot.name, :frame_id => frame.id, :mode => slot['mode'], :asset_id => slot['asset_id'], :title => "Frame: "+frame.title+"<br>Name: "+slot.name+"<br>Mode: "+slot['mode']+"<br><br>"}
+%li.asset{:id => slot.name, :frame_id => frame.id, :mode => slot['mode'], :asset_id => slot['asset_id']}
   .asset_content
     .icon
-      =image_tag("fassets_presentations/clipboard.png", :width => "72", :height => "72")
+      -if slot[:mode] == "asset" && slot['asset_id']
+        =render :partial => content_partial(slot.asset.content, :icon), :locals => {:content => slot.asset.content}
+      -else
+        =image_tag("fassets_presentations/clipboard.png", :width => "72", :height => "72")
     .caption
-      %p{:class => "caption"}=truncate(slot.name,:length => 13,:omission => "...")
+      %p{:class => "caption"}=truncate(frame.title,:length => 13,:omission => "...")

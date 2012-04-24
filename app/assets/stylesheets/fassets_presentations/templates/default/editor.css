@@ -40,6 +40,8 @@ padding-right: 0;
   background: white url(/assets/fassets_presentations/lastnode.png) no-repeat;
 }
 #main {
+  position: absolute;
+  top: 0;
   width: 80%;
 }
 .wysiwyg {
@@ -302,8 +304,8 @@ padding-right: 0;
 #slots_wysiwyg {
   margin-right: 0;
   padding-left: 0;
-  width: 100%;
-  height: 100%;
+  //width: 100%;
+  //height: 100%;
 }
 .slot_content {
   overflow: hidden;
@@ -356,4 +358,11 @@ td {
 #subtitle {
   font-size: large;
   text-align: center;
+}
+.qtip-content .slot_content {
+  outline: none;
+  padding: 10px;
+}
+.qtip-content .slot_content .delete{
+  display: none;
 }

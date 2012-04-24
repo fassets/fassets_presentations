@@ -4,7 +4,7 @@ module FassetsPresentations
     include FramesHelper
     before_filter :authenticate_user!, :except => [:show]
     before_filter :find_presentation, :except => [:markup_preview, :to_markdown, :to_html, :citation, :editor, :templates, :rename]
-    before_filter :find_frame, :except => [:new, :create, :create_frame_wysiwyg, :sort, :markup_preview, :to_markdown, :to_html, :citation, :frames, :editor, :templates, :rename]
+    before_filter :find_frame, :except => [:new, :create, :create_frame_wysiwyg, :sort, :markup_preview, :to_markdown, :to_html, :citation, :frames, :editor, :templates, :rename, :editor_clipboard]
     def create
       if params[:id]
         frame = Frame.find(params[:id]).clone();
@@ -285,6 +285,18 @@ module FassetsPresentations
     def reload_slots
       render :template => "fassets_presentations/frames/edit_wysiwyg", :layout => false, :locals => {:is_root_frame => false}
     end
+    def editor_clipboard
+      clipboard_slots = []
+      presentation_frames = @presentation.root_frame.all_children;
+      presentation_frames.each do |frame|
+        frame.slots.each do |slot|
+          if slot.in_template? == false
+            clipboard_slots << [frame, slot]
+          end
+        end
+      end
+      render :partial => "fassets_presentations/frames/clipboard", :locals => {:clipboard_slots => clipboard_slots}
+    end
     def tray_slot
       slot = @frame.slot(params[:name])
       render :partial => "fassets_presentations/frames/tray_slot", :locals => {:frame => @frame, :slot => slot}
@@ -296,6 +308,22 @@ module FassetsPresentations
     def slot_markup_html
       slot = @frame.slot(params[:name])
       render :inline => to_fp_html(slot['markup'])
+    end
+    def slot_preview
+      slot = @frame.slot(params[:name])
+      if slot['mode'] == "asset" && slot['asset_id']
+        @content = slot.asset.content
+        render :partial => content_partial(slot.asset.content, :preview), :locals => {:content => slot.asset.content}
+      else
+        begin
+          html = '<div class="slot_content">'+to_fp_html(slot["markup"])+'</div>'
+          logger.debug("SlotHTML"+html)
+        rescue
+          render :inline => "Error generating preview - please check the markup"
+          return
+        end
+        render :inline => html      
+      end
     end
   protected
     def find_presentation
