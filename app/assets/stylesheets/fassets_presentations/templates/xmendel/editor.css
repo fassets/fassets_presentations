@@ -3,42 +3,6 @@ padding-left: 0;
 padding-top: 0;
 padding-right: 0;
 }
-#sidebar {
-  width: 15%;
-  margin-left: 1em;
-  overflow: scroll;
-  overflow-x: hidden;
-}
-#sidebar .presentation_title {
-  padding-left: 5px;
-  padding-bottom: 5px;
-  font-weight: bold;
-  font-size: 16px;
-  color: #383838;
-}
-#sidebar #frames {
-  padding-left: 5px;
-}
-#sidebar #frames div{
-  padding: 0;
-}
-#sidebar #frames a{
-  color: black;
-  font-size: 14px;
-}
-#sidebar #frames ol {
-  background: url(/assets/fassets_presentations/vline.png) repeat-y;
-  margin-left: 10px;
-}
-#sidebar #frames ol li {
-  margin: 0;
-  padding: 2px 12px;
-  line-height: 20px;
-  background: url(/assets/fassets_presentations/node.png) no-repeat;
-}
-#sidebar #frames ol li:last-child {
-  background: white url(/assets/fassets_presentations/lastnode.png) no-repeat;
-}
 #main {
   width: 80%;
 }
