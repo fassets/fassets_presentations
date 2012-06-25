@@ -267,7 +267,6 @@ $(document).ready(function(){
     handles: 's',
     resize: function (event,ui){
       var height = $(window).height()-250;
-      $('#main').css("height", height+"px");
       var width = $('#main').width();
       var offset_top = 50;
       setSlotSize("top", ui.size.width, ui.size.height);
@@ -290,7 +289,6 @@ $(document).ready(function(){
     handles: 's, e',
     resize: function (event,ui){
       var height = $(window).height()-250;
-      $('#main').css("height", height+"px");
       var width = $('#main').width();
       var offset_top = 50;
       console.log(ui.size.height);
@@ -328,7 +326,6 @@ $(document).ready(function(){
     handles: 's, w',
     resize: function (event,ui){
       var height = $(window).height()-240;
-      $('#main').css("height", height+"px");
       var width = $('#main').width();
       var offset_top = 50;
       setSlotSize("topleft", width-ui.size.width, ui.size.height);
@@ -476,10 +473,6 @@ $(document).ready(function(){
   var resize_slots = function(){
     console.log("resize_slots()");
     var height = $(window).height()-310;
-    $('#main').css("height", height+"px");
-    $('#main').css("width", $(window).width()*0.78+"px");
-    $('#main').css("top", 100);
-    $('#main').css("left", 10);
     width = $('#main').width();
     var offset_top = 50;
     $('.content').each(function(idx, el){
@@ -571,7 +564,6 @@ $(document).ready(function(){
       });
     });
     height = $(window).height()-310;
-    $('#main').css("height", height+"px");
     $('#sidebar').css("height", height+50);
     $(".collapsible").collapsiblePanel({
       collapsedImage: "<%= image_path 'fassets_core/collapsed.png' %>",

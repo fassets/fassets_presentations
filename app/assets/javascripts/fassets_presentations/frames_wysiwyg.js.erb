@@ -367,8 +367,6 @@ $(function(){
   var resize_slots = function(){
     console.log("resize_slots()");
     height = $(window).height()-140;
-    $('#main').css("height", height+"px");
-    $('#main').css("width", $(window).width()*0.84+"px");
     var offset_top = 0;
     width = $('#main').width();
     $('.slot_content, .slot_asset').each(function(idx, el){

@@ -22,12 +22,11 @@
         =button_to "Edit Presentation", "", :method => :get ,:class => "edit_button", :asset_id => @presentation.asset.id, :content_id => @presentation.asset.content_id
         =render :partial => "assets/put_on_tray"
         =button_to "Delete Frame", delete_presentation_path(@content), :method => :delete, :onclick => "return confirm('Are you sure?')"
-    
-      
+
 #sidebar
   =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation, :wysiwyg => false}
-  
-#main{:presentation_id => @presentation.id.to_s}
+
+#main.edit{:presentation_id => @presentation.id.to_s}
   #editorhelp=render :partial => "fassets_presentations/shared/editorhelp"
   -unless is_root_frame
     =form_for  [@presentation,  @frame], :url => presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame"} do |f|
