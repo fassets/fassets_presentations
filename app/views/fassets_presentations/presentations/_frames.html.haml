@@ -7,7 +7,7 @@
 .presentation_title
   =presentation.title
 %div{:id => "presentations.#{presentation.id}.frames"}
-  %ol{:id => "frames", :path => "presentations.#{presentation.id}.frames.sort"}
+  %ol#frames{"data-path" => "presentations.#{presentation.id}.frames.sort"}
     -unless presentation.root_frame == nil
       -if wysiwyg == true
         =tree_ol(presentation.root_frame.children(),frame.id) {|item| link_to h(item.title), "/editor"+edit_wysiwyg_presentation_frame_path(presentation, item), :id => item.id }
