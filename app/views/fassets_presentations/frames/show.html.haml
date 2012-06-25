@@ -1,0 +1,4 @@
+=hidden_field_tag "presentation_id", @presentation.id
+=hidden_field_tag "frame_id", @frame.id
+%div.frame{:id => @frame.position, :alt => @frame.title, :level => @frame.ancestors.length.to_s}
+  =render :template => "fassets_presentations/templates/"+@presentation.template+"/outer", :locals => {:frame => @frame, :presentation => @presentation, :content => render_inner_template(@frame)}

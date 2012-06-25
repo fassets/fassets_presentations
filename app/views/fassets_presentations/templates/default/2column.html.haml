@@ -1,4 +1,6 @@
-#left.slot{:style => "position: relative; float: left; width: 48%; height: 100%"}
+-left_width = frame.slot("left") ? frame.slot("left")["width"] : ""
+-right_width = frame.slot("right") ? frame.slot("right")["width"] : ""
+#left.slot{:style => 'position: relative; float: left; width:'+left_width.to_s+'%; height: 100%'}
   =render_slot(frame.slot("left"), "center").html_safe
-#right.slot{:style => "position: relative; float: right; width: 48%; height: 100%;"}
+#right.slot{:style => 'position: relative; float: right; width:'+right_width.to_s+'%; height: 100%;'}
   =render_slot(frame.slot("right"), "center").html_safe

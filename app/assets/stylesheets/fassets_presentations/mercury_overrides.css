@@ -1,0 +1,145 @@
+/*!
+ * Mercury Editor is a Coffeescript and jQuery based WYSIWYG editor.  Documentation and other useful information can be
+ * found at https://github.com/jejacks0n/mercury
+ *
+ * This file is intended to provide a standard way to override the CSS that comes default with Mercury Editor, and
+ * includes an example button style, should you ever need to add new ones yourself.  Read the toolbar configuration in
+ * mercury.js for more on how to add your own buttons to the toolbar.
+ */
+
+/* Disable text sizing in webkit (ipad/iphone etc -- should apply to mercury only) */
+html { -webkit-text-size-adjust: none; }
+
+/* Button example */
+.mercury-primary-toolbar .mercury-inspector-button em,
+.mercury-expander-button[data-button="inspector"] em {
+  background-image: url(/assets/mercury/toolbar/primary/inspectorpanel.png);
+}
+
+.mercury-statusbar {
+  height: 0;
+  border: 0;
+  visibility: hidden;
+}
+.mercury-separator {
+  background-color: #9C9C9C;
+}
+.mercury-primary-toolbar .mercury-showFrame-button em {
+  background-image: url("/assets/mercury/toolbar/primary/preview.png")
+}
+.mercury-primary-toolbar .mercury-templatePanel-button em {
+  background-image: url(/assets/fassets_presentations/template_button.png);
+}
+.mercury-primary-toolbar .mercury-renamePanel-button em {
+  background-image: url(/assets/fassets_presentations/rename.png);
+}
+.mercury-primary-toolbar .mercury-deleteFrame-button em {
+  background-image: url(/assets/fassets_presentations/Symbol-Delete.png);
+}
+.mercury-primary-toolbar .mercury-startPresentation-button em {
+  background-image: url(/assets/fassets_presentations/start_presentation.png);
+}
+.mercury-primary-toolbar .mercury-editPresentation-button {
+  margin-left: 1em;
+}
+.mercury-primary-toolbar .mercury-editPresentation-button em {
+  background-image: url(/assets/fassets_presentations/Edit.png);
+}
+.mercury-primary-toolbar .mercury-markupEditor-button {
+  float: right;
+}
+.mercury-primary-toolbar .mercury-markupEditor-button em {
+  background-image: url(/assets/fassets_presentations/markup.png);
+}
+.mercury-primary-toolbar .mercury-newFrame-button em {
+  background-image: url(/assets/fassets_presentations/new_frame.png);
+}
+.mercury-primary-toolbar .mercury-exitEditor-button {
+  position: absolute;
+  right: 10px;
+}
+.mercury-primary-toolbar .mercury-exitEditor-button em {
+  background-image: url(/assets/fassets_presentations/exit.png);
+}
+/* Header buttons H1, H2, H3 */
+.mercury-editable-toolbar .mercury-header1-button {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -636px 0;
+}
+.mercury-editable-toolbar .mercury-header1-button.active {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -636px -18px;
+}
+.mercury-editable-toolbar .mercury-header2-button {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -660px 0;
+}
+.mercury-editable-toolbar .mercury-header2-button.active {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -660px -18px;
+}
+.mercury-editable-toolbar .mercury-header3-button {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -684px 0;
+}
+.mercury-editable-toolbar .mercury-header3-button.active {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -684px -18px;
+}
+/* Markup buttons definition, example, box, quote, foreign */
+.mercury-editable-toolbar .mercury-definition-button {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -708px 0;
+}
+.mercury-editable-toolbar .mercury-definition-button.active {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -708px -18px;
+}
+.mercury-editable-toolbar .mercury-example-button {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -731px 0;
+}
+.mercury-editable-toolbar .mercury-example-button.active {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -731px -18px;
+}
+.mercury-editable-toolbar .mercury-box-button {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -753px 0;
+}
+.mercury-editable-toolbar .mercury-box-button.active {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -755px -18px;
+}
+.mercury-editable-toolbar .mercury-cite-button {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -775px 0;
+}
+.mercury-editable-toolbar .mercury-cite-button.active {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -776px -18px;
+}
+.mercury-editable-toolbar .mercury-foreign-button {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -798px 0;
+}
+.mercury-editable-toolbar .mercury-foreign-button.active {
+  background-image: url(/assets/fassets_presentations/buttons_custom.png);
+  background-position: -798px -18px;
+}
+.mercury-panel-pane .template_panel{
+  padding-left: 0px;
+}
+.mercury-panel-pane .template_panel ol {
+  list-style: none;
+  padding-right: 0;
+  padding: 0px;
+}
+.mercury-panel-pane .template_panel li {
+  display: block;
+  margin-bottom: 0.5em;
+  padding-left: 1.5em;
+}
+.mercury-panel-pane .template_panel .name{
+  text-align: center;
+}

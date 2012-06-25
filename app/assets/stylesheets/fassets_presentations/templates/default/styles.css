@@ -6,6 +6,7 @@ body {
   font-family: Verdana,Arial,Helvetica,sans-serif;
 }
 img {
+  margin-top: 0;
   border: 0;
 }
 em {
@@ -32,7 +33,7 @@ pre {
   background-color: #171717;
   border-bottom: 4px solid #a8a8a8;
   position:relative;
-  height: 10%;
+  height: 40px;
   width: 100%;
   color: white;
 }
@@ -52,18 +53,21 @@ pre {
 .content {
   font-size: 1.2em;
   position:relative;
-  height: 80%;
+  height: 90%;
   width: 92%;
   margin:auto;
 }
 .content h1 {
-  font-size: 1.5em;
+  font-size: 2em;
+  margin-bottom: 0.8em;
 }
 .content h2 {
-  font-size: 1.3em;
+  font-size: 1.8em;
+  margin-bottom: 0.8em;
 }
 .content h3 {
-  font-size: 1.1em;
+  font-size: 1.6em;
+  margin-bottom: 0.8em;
 }
 .content em {
   font-weight: bold;
@@ -74,8 +78,6 @@ pre {
 }
 .content blockquote {
   margin: 1em 2em;
-  color: #666;
-  border-left: 2px solid #999;
   padding-left: 1em
 }
 .content code {
@@ -105,7 +107,7 @@ pre {
 .slot pre{
   margin: .8em 0;
 }
-.slot.cent {
+.slot.center {
   text-align: center;
 }
 .slot {
@@ -272,4 +274,160 @@ pre {
 }
 #ShortcutTable td{
   padding: 5px;
+}
+.example {
+  margin-top: 1em;
+  margin-left: 0.5em;
+}
+.example .type {
+  font-size: 1.1em;
+  color: white;
+  border: 2px solid #1BB51B;
+  background-color: #1BB51B;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 5em;
+  float: left;
+  padding: .3em;
+}
+.example .title{
+  font-size: 1.05em;
+  color: black;
+  border: 2px solid #1BB51B;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;;
+}
+.example .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  min-height: 1.5em;
+  clear: left
+}
+.definition {
+  margin-top: 1em;
+  margin-left: 0.5em;
+}
+.definition .type {
+  font-size: 1.1em;
+  color: white;
+  border: 2px solid #1B84E0;
+  background-color: #1B84E0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 5em;
+  float: left;
+  padding: .3em;
+}
+.definition .title{
+  font-size: 1.06em;
+  color: black;
+  border: 2px solid #1B84E0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
+}
+.definition .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  min-height: 1.5em;
+  clear: left;
+}
+.box {
+  margin-left: 2em;
+}
+.box .title{
+  color: black;
+  font-size: 1.05em;
+  border: 2px solid #C9C9C9;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
+}
+.box .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  min-height: 1.5em;
+  clear: left;
+}
+.foreign {
+  display: inline-block;
+}
+.foreign .title{
+  color: orange;
+  display: inline-block;
+  min-height: 1em;
+  min-width: 2em;
+}
+.foreign .translation{
+  font-style: bold;
+  display: inline-block;
+  min-height: 1em;
+}
+.cite {
+  margin-left: 2em;
+  margin-top: 1.5em;
+  min-height: 2em;
+  height: auto;
+  width: auto;
+  position: relative;
+  display: inline-block;
+}
+.cite .quote{
+  color: black;
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: .3em;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
+  display: inline-block;
+}
+.cite .citation{
+  display: inline-block;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 2em;
+  min-height: 1.5em;
+  clear: left;
+  position: absolute;
+  right: 0px;
+}
+.delete {
+  display: none;
 }

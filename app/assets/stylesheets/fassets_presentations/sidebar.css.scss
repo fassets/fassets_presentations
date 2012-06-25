@@ -1,0 +1,60 @@
+#sidebar {
+  width: 15%;
+  margin-left: 1em;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  .presentation_title {
+    padding-left: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #383838;
+  }
+
+  #frames {
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 5px;
+
+    div {
+      padding: 0;
+    }
+
+    a {
+      color: black;
+      font-size: 14px;
+    }
+
+    ol {
+      background: url(/assets/fassets_presentations/vline.png) repeat-y;
+      margin-left: 10px;
+
+      li {
+        margin: 0;
+        padding: 2px 12px;
+        line-height: 20px;
+        background: url(/assets/fassets_presentations/node.png) no-repeat;
+      }
+      li:last-child {
+        background: white url(/assets/fassets_presentations/lastnode.png) no-repeat;
+      }
+    }
+  }
+
+  ol.sortable_frames, ol.sortable_frames ol {
+    margin: 0 0 0 25px;
+    padding: 0;
+    list-style-type: none;
+  }
+  .sortable_frames li{
+    margin: 7px 0 0 0;
+    padding: 0;
+  }
+  .sortable_frames li div  {
+    padding: 3px;
+    margin: 0;
+    cursor: move;
+  }
+}
+

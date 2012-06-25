@@ -1,0 +1,615 @@
+//= require fassets_presentations/jquery.ui.nestedSortable
+//= require jquery.collapsiblePanel-0.2.0
+//= require fassets_presentations/jquery.myimgscale-0.2
+$(function(){
+  $("button.drop_slot").click(function(){
+    $(this).parent().parent().remove();
+  });
+  var drag_opts = {
+    handle: ".handle",
+    //helper: "clone",
+    cursorAt: {top: 48,left: 48},
+    connectToSortable: "#tray ol",
+    appendTo: "body",
+    helper: function(){
+      var asset = $(this).clone();
+      asset.css("width",96);
+      asset.css("height",96);
+      return $(asset);
+    },
+    start:function(e, ui) {
+      $('#tray ol').addClass("active");
+    },
+    stop:function(e, ui) {
+      $(this).parent().parent().parent().parent().find(".content .slot_asset").html("Drop Asset here!");
+      $(this).parent().parent().parent().parent().find(".name a").remove();
+      $(this).parent().parent().parent().parent().find(".name .drop_asset").remove();
+      $('#tray ol').removeClass("active");
+    }
+  }
+  $('.slot').droppable({
+    accept:'.asset',
+    activeClass:'active',
+    hoverClass:'hover',
+    drop:function(ev,ui){
+      var id;
+      var asset = $(ui.draggable).clone();
+      if ($(ui.draggable).attr("rel") != "undefined") {
+        id = $(ui.draggable).attr("rel");
+        asset.find("input").remove();
+        asset.attr("id", "asset_" + id);
+      } else {
+        id = $(ui.draggable).attr("id").split('_')[1];
+      }
+      if ($(ui.draggable).attr("frame_id") != undefined){
+        if ($(ui.draggable).attr("mode") == "markup"){
+          var presentation_id = $('#main').attr("presentation_id");
+          var frame_id = $(ui.draggable).attr("frame_id");
+          var slot_name = $(ui.draggable).attr("id");
+          var slot = $(this);
+          $.get("/presentations/"+presentation_id+"/frame/"+frame_id+"/slot_html?name="+slot_name, function(data){
+            slot.find(".name select").val("markup");
+            slot.find('.slot_content .container').html(data);
+            slot.find(".slot_asset").hide();
+            slot.find(".slot_content").show();
+            $(ui.draggable).remove();
+            $('.clipboard_slot[value='+frame_id+'_'+slot_name+']').remove();
+            resize_clipboard();
+            return;
+          });
+        }else{
+          id = $(ui.draggable).attr("asset_id");
+          $(this).find("input").attr("value",id);
+          $(this).find(".name select").val("asset");
+          var slot = $(this);
+          $(this).find(".slot_asset").load('/asset/'+id+'/preview', function(){
+            resize_slots();
+            $(".asset").draggable(drag_opts);
+            if ($(ui.draggable).attr("frame_id") != undefined){
+              var frame_id = $(ui.draggable).attr("frame_id");
+              var slot_name = $(ui.draggable).attr("id");
+              $('.clipboard_slot[value='+frame_id+'_'+slot_name+']').remove();
+            }
+            $(ui.draggable).remove();
+            slot.find(".slot_asset").show();
+            slot.find(".slot_content").hide();
+            resize_clipboard();
+            $('#edit_warning').css('visibility','visible');
+          });
+        }
+      }else{
+        $(this).find("input").attr("value",id);
+        $(this).find(".name select").val("asset");
+        var slot = $(this);
+        $(this).find(".slot_asset").load('/asset/'+id+'/preview', function(){
+          resize_slots();
+          $(".asset").draggable(drag_opts);
+          if ($(ui.draggable).attr("frame_id") != undefined){
+            var frame_id = $(ui.draggable).attr("frame_id");
+            var slot_name = $(ui.draggable).attr("id");
+            $('.clipboard_slot[value='+frame_id+'_'+slot_name+']').remove();
+          }
+          $(ui.draggable).remove();
+          slot.find(".slot_asset").show();
+          slot.find(".slot_content").hide();
+          resize_clipboard();
+          $('#edit_warning').css('visibility','visible');
+        });
+      }
+    },
+  });
+  var resize_clipboard = function(){
+    if ($('.clipboard_slot').length == 0){
+      $('#clipboard').remove();
+      $('#tray').css("width", $(window).width());
+      $('#tray').css("left", 0);
+    }else{
+      $('#tray').css("width", $(window).width() - $('#clipboard').width()-25);
+      $('#tray').css("left", $('#clipboard').width()+15);
+    }
+  };
+  var setSlotSize = function(name, width, height){
+    $('#slot_'+name).css("width",width+"px");
+    $('#slot_'+name).css("height",height+"px");
+    $('#'+name).css("width",width-10+"px");
+    $('#'+name).css("height",height-30+"px");
+    $('#slot_'+name+' .slot_asset').css("width",width-10+"px");
+    $('#slot_'+name+' .slot_asset').css("height",height-30+"px");
+  };
+  var positionSlot = function(name, top, left){
+    $('#slot_'+name).css('position', 'absolute');
+    $('#slot_'+name).css('top', top+'px');
+    $('#slot_'+name).css('left', left+'px');
+    $('#'+name).css('left', 0+'px');
+    $('#'+name).css('top', 0+'px');
+    $('#slot_'+name+' .slot_asset').css('left', 0+'px');
+    $('#slot_'+name+' .slot_asset').css('top', 0+'px');
+  };
+  $('#left, #slot_left .slot_asset').resizable({
+    handles: 'e',
+    resize: function (event,ui){
+      var height = $('#main').height();
+      var width = $('#main').width();
+      setSlotSize("left", ui.size.width, height);
+      setSlotSize("right", width-ui.size.width-45, height);
+      positionSlot("left", 0, 0);
+      positionSlot("right", 0, ui.size.width+45);
+      $("#slot_left .switch_left_right").css("position","absolute");
+      $("#slot_left .switch_left_right").css("left",ui.size.width+10+"px");
+      $("#slot_left .switch_left_right").css("top",height/2+"px");
+      $("#slot_left .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_right .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#top, #slot_top .slot_asset').resizable({
+    handles: 's',
+    resize: function (event,ui){
+      var height = $('#main').height();
+      var width = $('#main').width();
+      setSlotSize("top", width, ui.size.height);
+      setSlotSize("bottom", width, height-ui.size.height-5);
+      positionSlot("top", 0, 0);
+      positionSlot("bottom", ui.size.height+5, 0);
+      $("#slot_top .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#topleft, #slot_topleft .slot_asset').resizable({
+    handles: 's, e',
+    resize: function (event,ui){
+      var height = $('#main').height();
+      var width = $('#main').width();
+      setSlotSize("topleft", ui.size.width, ui.size.height+30);
+      setSlotSize("topright", width-ui.size.width-45, ui.size.height+30);
+      setSlotSize("bottom", width, height-ui.size.height-45);
+      positionSlot("topleft", 0, 0);
+      positionSlot("topright", 0, ui.size.width+45);
+      positionSlot("bottom", ui.size.height+35, 0);
+      $(".switch_topleft_topright").css("position","absolute");
+      $(".switch_topleft_topright").css("left",ui.size.width+10+"px");
+      $(".switch_topleft_topright").css("top",ui.size.height/2+"px");
+      $(".switch_bottom_topleft").css("position","absolute");
+      $(".switch_bottom_topleft").css("left",ui.size.width/2+"px");
+      $(".switch_bottom_topright").css("position","absolute");
+      $(".switch_bottom_topright").css("left",ui.size.width+($('#slot_topright').width()/2)+"px");
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('#topright, #slot_topright .slot_asset').resizable({
+    handles: 's,w',
+    resize: function (event,ui){
+      var height = $('#main').height();
+      var width = $('#main').width();
+      setSlotSize("topleft", width-ui.size.width-45, ui.size.height+30);
+      setSlotSize("topright", ui.size.width, ui.size.height+30);
+      setSlotSize("bottom", width, height-ui.size.height-45);
+      positionSlot("topleft", 0, 0);
+      positionSlot("topright", 0, width-ui.size.width);
+      positionSlot("bottom", ui.size.height+35, 0);
+      $(".switch_bottom_topleft").css("position","absolute");
+      $(".switch_bottom_topleft").css("left",(width-ui.size.width)/2+"px");
+      $(".switch_bottom_topright").css("position","absolute");
+      $(".switch_bottom_topright").css("left",$('#slot_topleft').width()+(ui.size.width/2)+"px");
+      $(".switch_topleft_topright").css("position","absolute");
+      $(".switch_topleft_topright").css("left",width-ui.size.width-35+"px");
+      $(".switch_topleft_topright").css("top",ui.size.height/2+"px");
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    }
+  });
+  $('.slot .name select').change(function(){
+    var text = $(this).parent().parent().find(".slot_content");
+    var asset = $(this).parent().parent().find(".slot_asset");
+    if ($(this).val() == "markup") {
+      asset.hide();
+      text.show();
+      resize_slots();
+    } else {
+      resize_slots();
+      asset.show();
+      text.hide();
+    }
+    resize_slots();
+  });
+  $(".drop_asset").click(function(){
+    $(this).parent().parent().find(".content input").val("");
+    $(this).parent().parent().find(".content .slot_asset").html("Drop Asset here!");
+    $(this).parent().parent().find(".name a").remove();
+    $(this).parent().parent().find(".name .drop_asset").remove();
+    $('#edit_warning').css('visibility','visible');
+  });
+  var switchSlots = function(slot1, slot2){
+    console.log("Switching "+slot1+" and "+slot2);
+    var slot1_mode = $("#slot_"+slot1+" .slot_mode").val();
+    var slot1_asset = $("#slot_"+slot1+" .slot_asset .container").html();
+    var slot1_asset_id = $("#slot_"+slot1+" #"+slot1+"_asset_id").val();
+    var slot1_text = $("#slot_"+slot1+" #"+slot1+" .container").html();
+    var slot2_mode = $("#slot_"+slot2+" .slot_mode").val();
+    var slot2_asset = $("#slot_"+slot2+" .slot_asset .container").html();
+    var slot2_asset_id = $("#slot_"+slot2+" #"+slot2+"_asset_id").val();
+    var slot2_text = $("#slot_"+slot2+" #"+slot2+" .container").html();
+    $("#slot_"+slot1+" .slot_mode").val(slot2_mode);
+    $("#slot_"+slot1+" .slot_asset .container").html(slot2_asset);
+    $("#slot_"+slot1+" #"+slot1+"_asset_id").val(slot2_asset_id);
+    $("#slot_"+slot1+" #"+slot1+" .container").html(slot2_text);
+    $("#slot_"+slot1+" .slot_mode").trigger("change");
+    $("#slot_"+slot2+" .slot_mode").val(slot1_mode);
+    $("#slot_"+slot2+" .slot_asset .container").html(slot1_asset);
+    $("#slot_"+slot2+" #"+slot2+"_asset_id").val(slot1_asset_id);
+    $("#slot_"+slot2+" #"+slot2+" .container").html(slot1_text);
+    $("#slot_"+slot2+" .slot_mode").trigger("change");
+    resize_slots();
+    Mercury.trigger('reinitialize');
+  };
+  $('.switch_bottom_top').click(function(e){
+    e.preventDefault();
+    switchSlots("bottom","top");
+  });
+  $('.switch_bottom_topleft').click(function(e){
+    e.preventDefault();
+    switchSlots("bottom","topleft");
+  });
+  $('.switch_bottom_topright').click(function(e){
+    e.preventDefault();
+    switchSlots("bottom","topright");
+  });
+  $('.switch_left_right').click(function(e){
+    e.preventDefault();
+    switchSlots("left","right");
+  });
+  $('.switch_topleft_topright').click(function(e){
+    e.preventDefault();
+    switchSlots("topleft","topright");
+  });
+  var load_clipboard = function(){
+    var width = $(window).width();
+    var presentation_id = $('#main').attr("presentation_id");
+    if ($('#clipboard').length == 0){
+      $('#tray').after('<div id="clipboard"><ol class="clipboard"></ol></div>');
+      $('#tray').css("width", width - $('.clipboard_slot').length*120-55);
+    }
+    $('#clipboard').load("/presentations/"+presentation_id+"/clipboard", function(){
+      console.log("Applying qtip and draggable");
+      console.log($('#clipboard .asset').length);
+      $('#clipboard .asset').each(function(idx, el){
+        var name = $(el).attr("id");
+        var frame_id = $(el).attr("frame_id");
+        $(el).qtip({
+          content: {
+            url: '/presentations/'+presentation_id+'/frame/'+frame_id+'/slot_preview?name='+name,
+            text: false
+          },
+          title: {
+            text: "Slot:"
+          },
+          style: {
+            name: 'light',
+            tip: true,
+            width: {
+              min: 400
+            },
+            border: {
+               width: 7,
+               radius: 5,
+               color: '#727272'
+            }
+          },
+          position: {
+            corner: {
+              target: 'topMiddle',
+              tooltip: 'bottomMiddle'
+            },
+            adjust: {
+              screen: true
+            }
+          }
+        })
+        $(el).draggable({
+          revert: true,
+          start: function(event, ui){
+            $(ui.helper).qtip("hide");
+            $(ui.helper).qtip("disable");
+          },
+          stop: function(event, ui){
+            if ($(ui.helper).qtip()){
+              $(ui.helper).qtip("enable");
+            }
+          }
+        });
+      });
+      resize_clipboard();
+    });
+  };
+  load_clipboard();
+  var resize_slots = function(){
+    console.log("resize_slots()");
+    height = $(window).height()-140;
+    $('#main').css("height", height+"px");
+    $('#main').css("width", $(window).width()*0.84+"px");
+    var offset_top = 0;
+    width = $('#main').width();
+    $('.slot_content, .slot_asset').each(function(idx, el){
+      console.log($(el).parent().attr("width"));
+      if ($(el).parent().attr("width") != ""){
+        var perc_w = parseInt($(el).parent().attr("width"))/100;
+        var perc_h = parseInt($(el).parent().attr("height"))/100;
+      } else {
+        var perc_w = 0.5;
+        var perc_h = 0.5;
+      }
+      if ($(el).parent().attr("id") == "slot_top"){
+        setSlotSize("top", width, height*perc_h);
+        positionSlot("top", offset_top, 0);
+      }else if ($(el).parent().attr("id") == "slot_bottom"){
+        if ($('#slot_topleft').length > 0){
+          var top_height = $('#slot_topleft').height();
+        } else if ($('#slot_top').length > 0){
+          var top_height = $('#slot_top').height();
+        }
+        setSlotSize("bottom", width, height-top_height-5);
+        positionSlot("bottom", offset_top+top_height+5, 0);
+      }else if ($(el).parent().attr("id") == "slot_left"){
+        setSlotSize("left", width*perc_w, height);
+        positionSlot("left", offset_top, 0);
+        $("#slot_left .switch_left_right").css("position","absolute");
+        $("#slot_left .switch_left_right").css("left",width*perc_w+10+"px");
+        $("#slot_left .switch_left_right").css("top", height/2+"px");
+      }else if ($(el).parent().attr("id") == "slot_right"){
+        setSlotSize("right", width-$('#slot_left').width()-45, height)
+        positionSlot("right", offset_top, $('#slot_left').width()+45);
+      }else if ($(el).parent().attr("id") == "slot_center"){
+        setSlotSize("center", width, height);
+        positionSlot("center", offset_top, 0);
+      }else if ($(el).parent().attr("id") == "slot_topleft"){
+        setSlotSize("topleft", width*perc_w, height*perc_h);
+        positionSlot("topleft", offset_top, 0);
+        $(".switch_bottom_topleft").css("position","absolute");
+        $(".switch_bottom_topleft").css("left",(width*perc_w)/2+"px");
+        $(".switch_topleft_topright").css("position","absolute");
+        $(".switch_topleft_topright").css("left",width*perc_w+10+"px");
+        $(".switch_topleft_topright").css("top",(height*perc_h)/2-15+"px");
+      }else if ($(el).parent().attr("id") == "slot_topright"){
+        setSlotSize("topright", width-$('#slot_topleft').width()-45, height*perc_h);
+        positionSlot("topright", offset_top, $('#slot_topleft').width()+45);
+        $(".switch_bottom_topright").css("position","absolute");
+        $(".switch_bottom_topright").css("left",width*perc_w+($('#slot_topleft').width()/2)+"px");
+      }else if ($(el).parent().attr("id") == "slot_centertitle"){
+        setSlotSize("centertitle", width, height*0.5);
+        positionSlot("centertitle", offset_top, 0);
+      }else if ($(el).parent().attr("id") == "slot_subtitle"){
+        setSlotSize("subtitle", width, height*0.5);
+        positionSlot("subtitle", offset_top+height*0.50, 0);
+      }else if ($(el).parent().attr("id") == "slot_title"){
+        setSlotSize("title", width, height*0.33);
+        positionSlot("title", offset_top, 0);
+      }else if ($(el).parent().attr("id") == "slot_misc"){
+        setSlotSize("misc", width, height*0.33);
+        positionSlot("misc", offset_top+height*0.66, 0);
+        setSlotSize("subtitle", width, height*0.33);
+        positionSlot("subtitle", offset_top+height*0.33, 0);
+      }
+      resize_clipboard();
+      //alert(perc_w+"x"+perc_h);
+      $("#slot_center .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_top .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_bottom .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_left .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_right .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topleft .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_topright .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_centertitle .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_subtitle .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_title .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+      $("#slot_misc .slot_asset img").scaleImage({
+        parent: ".slot_asset",
+        scale: 'fit',
+        center: true
+      });
+    });
+    $(".collapsible").collapsiblePanel({
+      collapsedImage: "<%= image_path 'fassets_core/collapsed.png' %>",
+      expandedImage: "<%= image_path 'fassets_core/collapse.png' %>",
+      titleQuery: "h2.title",
+      startCollapsed: true
+    });
+    $('#sidebar').css("height", height+5);
+    //$(".slot_content").css("font-size", size + 'px');
+  }
+  resize_slots();
+  $('#rename_frame_button').click(function(e){
+    e.preventDefault();
+    var title = prompt("Please enter the new name for the frame:", $(this).attr("frame_title"));
+    var presentation_id = $(this).attr("presentation_id");
+    var frame_id = $(this).attr("frame_id");
+    var data = {title: title};
+    $.post("/presentations/"+presentation_id+"/frame/"+frame_id+"/rename", data, function(retdata){
+      $(".sortable_frames #frame_"+frame_id+" #"+frame_id).text(title);
+      $("body h1 #title a").text(title);
+      $('#rename_frame_button').attr("frame_title", title);
+    });
+  });
+  $('.slot_content .delete').live('click', function(e){
+    if (confirm("Do you want to remove this ?")){
+      $(e.target).parent().remove();
+    }
+  });
+  $(window).keydown(function(event){
+    switch(event.keyCode) {
+    case 70: // Ctrl + Shift + F
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'bold'});
+        break;
+      }
+    case 75: // Ctrl + Shift + K
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'italic'});
+        break;
+      }
+    case 85: // Ctrl + Shift + U
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'underline'});
+        break;
+      }
+    case 65: // Ctrl + Shift + A
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'insertUnorderedList'});
+        break;
+      }
+    case 78: // Ctrl + Shift + N
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'insertOrderedList'});
+        break;
+      }
+    case 49: // Ctrl + Shift + 1
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'header1'});
+        break;
+      }
+    case 50: // Ctrl + Shift + 2
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'header2'});
+        break;
+      }
+    case 51: // Ctrl + Shift + 3
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'header3'});
+        break;
+      }
+    case 68: // Ctrl + Shift + D
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'definition'});
+        break;
+      }
+    case 65: // Ctrl + Shift + B
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'example'});
+        break;
+      }
+    case 90: // Ctrl + Shift + Z
+      if (event.ctrlKey && event.shiftKey){
+        event.preventDefault();
+        Mercury.trigger('action', {action: 'cite'});
+        break;
+      }
+    case 27: // Esc
+      if ($("#editorhelp").attr("style") == "visibility: visible;") {
+        $("#editorhelp").css('visibility','hidden');
+      }
+      break;
+    case 72: // h
+      activeObj = document.activeElement;
+      if (activeObj.type == "textarea") break;
+      if (activeObj.type == "text") break;
+      if ($("#editorhelp").attr("style") == "visibility: visible;") {
+        $("#editorhelp").css('visibility','hidden');
+      } else {
+        $("#editorhelp").css('visibility','visible');
+      }
+      break;
+    case 82: // r
+      resize_slots();
+      break;
+    case 83: // s
+      if (event.ctrlKey){
+        event.preventDefault();
+        document.forms["edit_frame"].submit();
+      }
+      break;
+    }
+    console.log("WYSIWYG:"+event.keyCode);
+  });
+});
+

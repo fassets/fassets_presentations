@@ -2,6 +2,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require fancybox
 //= require fassets_presentations/jquery.ui.nestedSortable
 //= require jquery.collapsiblePanel-0.2.0
 //= require fassets_presentations/jquery.myimgscale-0.2 
@@ -293,8 +294,8 @@ function initPresentation(){
         Presentation.showframe(index);
         break;
       case 69: // e
-        edit_link = document.getElementById(Presentation.getframeIndex()).getElementsByTagName("a")[0];
-        location.href = edit_link.href;
+        edit_link = $("div[id="+Presentation.getframeIndex()+"] a").attr("href");
+        window.location.href = edit_link;
         break;
       case 66: // b
       case 83: // s

@@ -16,6 +16,9 @@ a.icon.presentation {
 .slot {
   float: left;
 }
+#slot_left {
+  clear: both;
+}
 #slots {
   position: relative;
   height: 80%;
@@ -57,6 +60,9 @@ a.icon.presentation {
 	border: 1px solid #0060ff;
 	background-color: #dce9ff;
 }
+.slot .name {
+  margin-bottom: 3px;
+}
 #editorhelp{
   position: absolute;
   top: 1%;
@@ -97,6 +103,18 @@ a.icon.presentation {
   padding: 5px;
   font-weight: bold;
 }
+#frame_save_wysiwyg{
+  position: relative;
+/*  right: -60px;*/
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  margin-right: 20px;
+/*  right: 20px;*/
+  float: right;
+  padding: 5px;
+  font-weight: bold;
+}
 #drop_asset {
   cursor: 'pointer';
 }
@@ -110,26 +128,6 @@ ol .slide {
   background-color: #cfcfcf;
 /*  padding: 4em;*/
   height: 20px;
-}
-#frames {
-  width: 80%;
-}
-ol.sortable_frames, ol.sortable_frames ol {
-  margin: 0 0 0 25px;
-	padding: 0;
-	list-style-type: none;
-}
-ol.sortable_frames {
-  margin: 0 0;
-}
-.sortable_frames li{
-  margin: 7px 0 0 0;
-  padding: 0;
-}
-.sortable_frames li div  {
-	padding: 3px;
-	margin: 0;
-	cursor: move;
 }
 .preview {
   background-color: white;
@@ -172,4 +170,69 @@ ol.sortable_frames {
   font-style: italic;
   font-weight: normal;
 }
-
+#frame_form p {
+  float: left;
+  margin-right: 2em;
+}
+#editor_buttons {
+  position: relative;
+  top: 5px;
+  clear: both;
+  height: 2em;
+  margin-bottom: 1em;
+  width: 50%;
+}
+#editor_buttons input {
+  float: left;
+  margin-right: 0.5em;
+}
+#container {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  height: 100%;
+}
+#tray {
+  height: auto;
+  display: inline;
+}
+#tray {
+  padding-right: 0;
+}
+#tray {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+#tray_placeholder{
+  display: none;
+}
+#clipboard {
+  width: auto;
+  display: inline;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: white;
+  height: 130px;
+  padding-left: 15px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-right: 2px solid #727272;
+  border-top: 1px solid #727272;
+}
+ol.clipboard {
+  height: 130px;
+  display: inline;
+}
+ol.clipboard li {
+  padding-bottom: 6px;
+  margin-right: 15px;
+  background-image: url(/assets/fassets_presentations/clipboard_slot_bg.png);
+}
+ol.clipboard li a {
+  color: white;
+}
+.qtip-title {
+  margin-bottom: 1em;
+}

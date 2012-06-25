@@ -72,8 +72,6 @@ em {
 }
 .content blockquote {
   margin: 1em 2em;
-  color: #666;
-  border-left: 2px solid #999;
   padding-left: 1em
 }
 .content code {
@@ -383,4 +381,153 @@ em {
 }
 #ShortcutTable td{
   padding: 5px;
+}
+.example {
+  margin-left: 2em;
+}
+.example .type {
+  font-size: 1.1em;
+  color: white;
+  border: 2px solid #1BB51B;
+  background-color: #1BB51B;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 5em;
+  float: left;
+  padding: .3em;
+}
+.example .title{
+  font-size: 1.1em;
+  color: black;
+  border: 2px solid #1BB51B;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;;
+}
+.example .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  max-width: 80%;
+  min-height: 1.5em;
+  clear: left
+}
+.definition {
+  margin-left: 2em;
+}
+.definition .type {
+  font-size: 1.1em;
+  color: white;
+  border: 2px solid #1B84E0;
+  background-color: #1B84E0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 5em;
+  float: left;
+  padding: .3em;
+}
+.definition .title{
+  font-size: 1.1em;
+  color: black;
+  border: 2px solid #1B84E0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
+}
+.definition .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  max-width: 80%;
+  min-height: 1.5em;
+  clear: left;
+}
+.box {
+  margin-left: 2em;
+}
+.box .title{
+  color: black;
+  border: 2px solid #C9C9C9;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
+}
+.box .content{
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 50%;
+  max-width: 80%;
+  min-height: 1.5em;
+  clear: left;
+}
+.foreign {
+  display: inline-block;
+}
+.foreign .title{
+  color: orange;
+  display: inline-block;
+  min-height: 1em;
+  min-width: 2em;
+}
+.foreign .translation{
+  font-style: bold;
+  display: inline-block;
+  min-height: 1em;
+}
+.cite {
+  margin-left: 2em;
+}
+.cite .quote{
+  color: black;
+  font-style: italic;
+  border: 2px solid #C9C9C9;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: .3em;
+  float: left;
+  clear: right;
+  min-height: 1.2em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
+}
+.cite .citation{
+  display: inline-block;
+  border: 2px solid #C9C9C9;
+  margin-top: 1em;
+  margin-right: 3em;
+  padding: 0.5em;
+  min-width: 2em;
+  min-height: 1.5em;
+  clear: left;
+  float: right;
+}
+.delete {
+  display: none;
 }

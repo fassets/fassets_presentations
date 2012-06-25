@@ -1,4 +1,5 @@
-=#javascript_include_tag "fassets_presentations/frames"
+=javascript_include_tag 'fassets_presentations/frames'
+=stylesheet_link_tag 'fassets_presentations/templates/'+@presentation.template+"/editor.css"
 =content_for :h1 do
   -unless is_root_frame
     #type
@@ -10,6 +11,7 @@
         =button_to "Edit Presentation", "", :method => :get ,:class => "edit_button", :asset_id => @presentation.asset.id, :content_id => @presentation.asset.content_id
         =render :partial => "assets/put_on_tray"
         =button_to "Delete Frame", presentation_frame_path(@presentation, @frame), :method => :delete, :onclick => "return confirm('Are you sure?')"
+        =button_to "WYSIWYG-Editor", "/editor"+edit_wysiwyg_presentation_frame_path(@presentation, @frame), :method => :get
   -else
     #type
       =@content.media_type.capitalize
@@ -23,15 +25,19 @@
     
       
 #sidebar
-  =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation}
+  =render :partial => "fassets_presentations/presentations/frames", :locals => {:presentation =>  @presentation, :wysiwyg => false}
   
-#main
+#main{:presentation_id => @presentation.id.to_s}
   #editorhelp=render :partial => "fassets_presentations/shared/editorhelp"
   -unless is_root_frame
     =form_for  [@presentation,  @frame], :url => presentation_frame_path(@presentation,@frame),:html => {:id => "edit_frame"} do |f|
+      -@presentation.root_frame.all_children.each do |frame|
+        -frame.slots.each do |slot|
+          -unless slot.in_template?
+            =hidden_field_tag "[clipboard_slot][#{frame.id}_#{slot.name}]", "#{frame.id}_#{slot.name}", :class => "clipboard_slot"
       =submit_tag "Save", :id => "frame_save"
       #edit_warning{:style => "visibility: hidden"}There are unsaved changes on this frame
-      =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:disable_self => true}
-      %h2 Slots
+      #frame_form
+        =render :partial => "fassets_presentations/frames/form", :object => f, :locals => {:disable_self => true}
       %ul#slots
         =render :partial => "fassets_presentations/frames/slot", :collection => @frame.slots
