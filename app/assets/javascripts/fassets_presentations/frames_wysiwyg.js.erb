@@ -222,7 +222,7 @@ $(function(){
       $(".switch_bottom_topright").css("left",$('#slot_topleft').width()+(ui.size.width/2)+"px");
       $(".switch_topleft_topright").css("position","absolute");
       $(".switch_topleft_topright").css("left",width-ui.size.width-35+"px");
-      $(".switch_topleft_topright").css("top",ui.size.height/2+"px"); 
+      $(".switch_topleft_topright").css("top",ui.size.height/2+"px");
       $("#slot_topright .slot_asset img").scaleImage({
         parent: ".slot_asset",
         scale: 'fit',
@@ -274,15 +274,15 @@ $(function(){
     $("#slot_"+slot1+" .slot_mode").val(slot2_mode);
     $("#slot_"+slot1+" .slot_asset .container").html(slot2_asset);
     $("#slot_"+slot1+" #"+slot1+"_asset_id").val(slot2_asset_id);
-    $("#slot_"+slot1+" #"+slot1+" .container").html(slot2_text);   
+    $("#slot_"+slot1+" #"+slot1+" .container").html(slot2_text);
     $("#slot_"+slot1+" .slot_mode").trigger("change");
     $("#slot_"+slot2+" .slot_mode").val(slot1_mode);
     $("#slot_"+slot2+" .slot_asset .container").html(slot1_asset);
     $("#slot_"+slot2+" #"+slot2+"_asset_id").val(slot1_asset_id);
-    $("#slot_"+slot2+" #"+slot2+" .container").html(slot1_text);   
+    $("#slot_"+slot2+" #"+slot2+" .container").html(slot1_text);
     $("#slot_"+slot2+" .slot_mode").trigger("change");
     resize_slots();
-    Mercury.trigger('reinitialize');       
+    Mercury.trigger('reinitialize');
   };
   $('.switch_bottom_top').click(function(e){
     e.preventDefault();
@@ -361,13 +361,13 @@ $(function(){
         });
       });
       resize_clipboard();
-    });    
+    });
   };
   load_clipboard();
   var resize_slots = function(){
     console.log("resize_slots()");
     height = $(window).height()-140;
-    $('#main').css("height", height+"px"); 
+    $('#main').css("height", height+"px");
     $('#main').css("width", $(window).width()*0.84+"px");
     var offset_top = 0;
     width = $('#main').width();
@@ -385,9 +385,9 @@ $(function(){
         positionSlot("top", offset_top, 0);
       }else if ($(el).parent().attr("id") == "slot_bottom"){
         if ($('#slot_topleft').length > 0){
-          var top_height = $('#slot_topleft').height();       
+          var top_height = $('#slot_topleft').height();
         } else if ($('#slot_top').length > 0){
-          var top_height = $('#slot_top').height();  
+          var top_height = $('#slot_top').height();
         }
         setSlotSize("bottom", width, height-top_height-5);
         positionSlot("bottom", offset_top+top_height+5, 0);
@@ -399,10 +399,10 @@ $(function(){
         $("#slot_left .switch_left_right").css("top", height/2+"px");
       }else if ($(el).parent().attr("id") == "slot_right"){
         setSlotSize("right", width-$('#slot_left').width()-45, height)
-        positionSlot("right", offset_top, $('#slot_left').width()+45);      
+        positionSlot("right", offset_top, $('#slot_left').width()+45);
       }else if ($(el).parent().attr("id") == "slot_center"){
         setSlotSize("center", width, height);
-        positionSlot("center", offset_top, 0);        
+        positionSlot("center", offset_top, 0);
       }else if ($(el).parent().attr("id") == "slot_topleft"){
         setSlotSize("topleft", width*perc_w, height*perc_h);
         positionSlot("topleft", offset_top, 0);
@@ -410,26 +410,26 @@ $(function(){
         $(".switch_bottom_topleft").css("left",(width*perc_w)/2+"px");
         $(".switch_topleft_topright").css("position","absolute");
         $(".switch_topleft_topright").css("left",width*perc_w+10+"px");
-        $(".switch_topleft_topright").css("top",(height*perc_h)/2-15+"px");             
+        $(".switch_topleft_topright").css("top",(height*perc_h)/2-15+"px");
       }else if ($(el).parent().attr("id") == "slot_topright"){
         setSlotSize("topright", width-$('#slot_topleft').width()-45, height*perc_h);
         positionSlot("topright", offset_top, $('#slot_topleft').width()+45);
         $(".switch_bottom_topright").css("position","absolute");
-        $(".switch_bottom_topright").css("left",width*perc_w+($('#slot_topleft').width()/2)+"px");                
+        $(".switch_bottom_topright").css("left",width*perc_w+($('#slot_topleft').width()/2)+"px");
       }else if ($(el).parent().attr("id") == "slot_centertitle"){
         setSlotSize("centertitle", width, height*0.5);
-        positionSlot("centertitle", offset_top, 0);        
+        positionSlot("centertitle", offset_top, 0);
       }else if ($(el).parent().attr("id") == "slot_subtitle"){
         setSlotSize("subtitle", width, height*0.5);
-        positionSlot("subtitle", offset_top+height*0.50, 0);        
+        positionSlot("subtitle", offset_top+height*0.50, 0);
       }else if ($(el).parent().attr("id") == "slot_title"){
         setSlotSize("title", width, height*0.33);
-        positionSlot("title", offset_top, 0);        
+        positionSlot("title", offset_top, 0);
       }else if ($(el).parent().attr("id") == "slot_misc"){
         setSlotSize("misc", width, height*0.33);
         positionSlot("misc", offset_top+height*0.66, 0);
         setSlotSize("subtitle", width, height*0.33);
-        positionSlot("subtitle", offset_top+height*0.33, 0);       
+        positionSlot("subtitle", offset_top+height*0.33, 0);
       }
       resize_clipboard();
       //alert(perc_w+"x"+perc_h);
@@ -509,7 +509,7 @@ $(function(){
       $(".sortable_frames #frame_"+frame_id+" #"+frame_id).text(title);
       $("body h1 #title a").text(title);
       $('#rename_frame_button').attr("frame_title", title);
-    });    
+    });
   });
   $('.slot_content .delete').live('click', function(e){
     if (confirm("Do you want to remove this ?")){
@@ -571,7 +571,7 @@ $(function(){
         event.preventDefault();
         Mercury.trigger('action', {action: 'definition'});
         break;
-      }  
+      }
     case 65: // Ctrl + Shift + B
       if (event.ctrlKey && event.shiftKey){
         event.preventDefault();
@@ -583,7 +583,7 @@ $(function(){
         event.preventDefault();
         Mercury.trigger('action', {action: 'cite'});
         break;
-      }      
+      }
     case 27: // Esc
       if ($("#editorhelp").attr("style") == "visibility: visible;") {
         $("#editorhelp").css('visibility','hidden');
