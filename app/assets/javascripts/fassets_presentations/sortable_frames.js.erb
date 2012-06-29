@@ -20,7 +20,7 @@ $(document).ready(function() {
         complete: function(request){
           $('.frame').effect('highlight',{},2000);
         },
-        url: "/"+$('#frames').data('path').replace(/\./g,"/")
+        url: $('#frames').data('path')
       })
     }
   });
