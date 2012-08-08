@@ -9,9 +9,10 @@ Gem::Specification.new do |s|
   s.version     = FassetsPresentations::VERSION
   s.authors     = ["Christopher Sharp", "Julian Bäume"]
   s.email       = ["cdsharp@gmail.com", "julian@svg4all.de"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of FassetsPresentations."
-  s.description = "TODO: Description of FassetsPresentations."
+  s.homepage    = "https://github.com/fassets/fassets_presentations"
+  s.summary     = "A plugin for fassets that supports presentation assets."
+  s.description = "Using this plugin, it’s possible to create and present presentations, while using the power of
+                  fassets_core to organise, classify and filter presentations represented as digital assets."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 
