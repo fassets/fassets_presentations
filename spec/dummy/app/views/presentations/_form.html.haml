@@ -1,7 +1,0 @@
-%p
-  %label{:for => 'title'} Title:
-  =form.text_field :title
-  #title_warning
-%p
-  %label{:for => 'template'} Template:
-  =select(:presentation, :template, TemplateManager.outer_templates, { :selected => @content.template ? @content.template : "default"})

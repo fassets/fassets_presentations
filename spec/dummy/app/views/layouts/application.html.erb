@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dummy</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="flash">
+    <% if flash[:notice] %>
+      <div id="message"><%= flash[:notice] %></div>
+    <% end %>
+    <% if flash[:error] %>
+      <div id="error_message"><%= flash[:error] %></div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div id="error_message"><%= flash[:alert] %></div>
+    <% end %>
+  </div>
+
+  <%= render :partial => "shared/session" %>
+
+  <%= yield :catalogs_selector %>
+  <%= yield :layout %>
+  <%= yield :tray if user_signed_in? %>
+</body>
+</html>

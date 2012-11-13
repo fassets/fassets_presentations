@@ -1,3 +1,5 @@
+require "fassets_core"
+
 module FassetsPresentations
   class Engine < Rails::Engine
     isolate_namespace FassetsPresentations

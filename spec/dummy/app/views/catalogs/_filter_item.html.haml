@@ -1,3 +1,0 @@
-%li.item
-  %strong{:class => filter_item.facet.color}="#{filter_item.facet.caption}: #{filter_item.caption}"
-  =link_to "drop", catalog_path(@catalog, :filter => @filter.to_query_exclude(filter_item.id))

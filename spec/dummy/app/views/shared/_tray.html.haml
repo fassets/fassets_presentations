@@ -1,8 +1,0 @@
--if user_signed_in?
-
-  #tray
-    %ul
-      %li=select_tag([["test", 1]])
-      %li
-    %ol
-      =render :partial => "shared/tray_position", :collection => current_user.tray_positions

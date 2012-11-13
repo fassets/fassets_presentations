@@ -81,7 +81,7 @@
 						$('<div class="collapsiblePanelTitle"><img class="collapseExpandToggle" src="' + 
 						options.expandedImage + 
 						'" alt="" height="16" width="16"/></div>');
-					titleDiv.append($(options.titleQuery).addClass("collapseTitleContents"));
+					titleDiv.append($(this).find(options.titleQuery).addClass("collapseTitleContents"));
 					// Hover cursor
 					titleDiv.hover(
 						function() { $(this).addClass('collapsiblePanelTitleHover'); },

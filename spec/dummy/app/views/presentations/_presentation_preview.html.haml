@@ -1,3 +1,0 @@
-.asset{:id => "asset_"+@content.asset.id.to_s}
-  =image_tag("presentation.png", :width => "96", :height => "96")
-  #path{:style => "float: bottom"}=link_to @content.asset.name, "/"+ @content.class.to_s.underscore.pluralize + "/" + @content.id.to_s

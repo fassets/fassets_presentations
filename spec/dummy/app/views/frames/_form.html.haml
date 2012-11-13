@@ -1,9 +1,0 @@
-%p
-  %label{:for => 'title'} Title:
-  =form.text_field :title
-%p
-  %label{:for => 'template'} Template:
-  =select(:frame, :template, TemplateManager.inner_templates(@presentation ? @presentation.template : presentation.template ))
-%p
-  %label{:for => 'parent'} Parent:
-  =select(:frame, :parent_id, options_from_collection_for_select(@presentation ? Frame.where(:presentation_id => @presentation.id).order("position") : Frame.where(:presentation_id => presentation.id).order("position"), 'id', 'title', {:selected => @frame ? @frame.parent_id : 1 , :disabled => disable_self ? @frame.id : ""}))

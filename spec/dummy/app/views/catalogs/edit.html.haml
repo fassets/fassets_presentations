@@ -1,8 +1,0 @@
-
-=content_for :h1 do
-  #type Catalog
-  #name
-    =link_to @catalog.title, catalog_path(@catalog)
-=form_for @catalog do |f|
-  =render :partial => "form", :object => f
-  =submit_tag "Save"

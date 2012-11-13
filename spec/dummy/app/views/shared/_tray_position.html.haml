@@ -1,8 +1,0 @@
-%li.asset
-  .icon
-    =render :partial => content_partial(asset.content, :icon), :locals => {:content => asset.content}
-  .type
-    =asset.content.media_type.upcase
-    -if user_signed_in?
-      =link_to "edit", edit_asset_content_path(asset.content)
-  =link_to asset.name, asset_content_path(asset.content)
